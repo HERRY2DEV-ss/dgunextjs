@@ -1,0 +1,37 @@
+{
+  "name": "mba_gt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "node scripts/serve-export.cjs",
+    "lint": "eslint",
+    "test:audit": "node scripts/regression.cjs && node scripts/audit-regression.cjs && node scripts/content-api-regression.cjs && node scripts/api-contracts.cjs && node scripts/api-only-render-regression.cjs",
+    "test:recovery": "node scripts/api-recovery-regression.cjs",
+    "test:academic": "node scripts/academic-api-regression.cjs",
+    "test:live-api": "node scripts/verify-dgu-apis.cjs",
+    "prebuild": "node scripts/clean-export.cjs",
+    "postbuild": "node scripts/finalize-export.cjs",
+    "test:admissions": "node scripts/admissions-api-regression.cjs",
+    "test:placements": "node scripts/placement-scope-regression.cjs"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

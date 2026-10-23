@@ -1,0 +1,12 @@
+# BEGIN DGU ACADEMIC CLEAN URLS
+# Scoped to the exported /nextjs/homev1 folder; existing exported routes win.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^programs/([a-z0-9]+(?:-[a-z0-9]+)*)(?:/([1-9][0-9]*))?/?$ program-detail/index.html [L,NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^schools/([a-z0-9]+(?:-[a-z0-9]+)*)/?$ school-detail/index.html [L,NC]
+</IfModule>
+# END DGU ACADEMIC CLEAN URLS

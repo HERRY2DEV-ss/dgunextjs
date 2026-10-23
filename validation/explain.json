@@ -1,0 +1,540 @@
+{
+  "SELECT sno, schoolName, friendly_url, programsOffered FROM masterSchool WHERE status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name FROM masterLevel WHERE status = 1 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterLevel\tALL\tNULL\tNULL\tNULL\tNULL\t7\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterSchool WHERE status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterLevel WHERE status = 1 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterLevel\tALL\tNULL\tNULL\tNULL\tNULL\t7\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterPrograms WHERE friendly_url = :url AND status = 1 AND delete_status = 0 AND sno = :id ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":url": "bba",
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tconst\tPRIMARY\tPRIMARY\t4\tconst\t1\t\n"
+  },
+  "SELECT * FROM masterProgramTab WHERE programID = :id AND status = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterProgramTab\tALL\tNULL\tNULL\tNULL\tNULL\t474\tUsing where; Using filesort\n"
+  },
+  "SELECT name, description FROM masterFaq WHERE faqType = :type AND typeID = :id AND status = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":type": "course",
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterFaq\tALL\tNULL\tNULL\tNULL\tNULL\t341\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, currentEmployer, designation, batch, description, alumniImage FROM masterPlacements WHERE status = 1 AND placementType = :kind AND linkID = :id ORDER BY sno": {
+    "boundParameters": {
+      ":kind": "course",
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterPlacements\tindex\tNULL\tPRIMARY\t4\tNULL\t301\tUsing where\n"
+  },
+  "SELECT sno, name, banner, mobileBanner, otherurl FROM sliders WHERE status = 'active' AND sliderType = :kind AND typeID = :id ORDER BY sorder, sno": {
+    "boundParameters": {
+      ":kind": "course",
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tsliders\tALL\tNULL\tNULL\tNULL\tNULL\t120\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterPrograms WHERE parentProgram = :id AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM programHighlight WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramHighlight\tindex\tNULL\tPRIMARY\t4\tNULL\t3\tUsing where\n"
+  },
+  "SELECT * FROM programOutcome WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramOutcome\tindex\tNULL\tPRIMARY\t4\tNULL\t388\tUsing where\n"
+  },
+  "SELECT * FROM programPlacement WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramPlacement\tindex\tNULL\tPRIMARY\t4\tNULL\t388\tUsing where\n"
+  },
+  "SELECT * FROM programRecruiters WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramRecruiters\tindex\tNULL\tPRIMARY\t4\tNULL\t117\tUsing where\n"
+  },
+  "SELECT friendly_url, schoolName, programsOffered, faculty FROM masterSchool WHERE status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterPrograms WHERE parentProgram = :parent AND sno <> :id AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":parent": 2,
+      ":id": 3
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterAccordion WHERE status = 1 AND sno IN (:id0,:id1,:id2,:id3) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 4,
+      ":id1": 58,
+      ":id2": 1,
+      ":id3": 2
+    },
+    "plan": "1\tSIMPLE\tmasterAccordion\trange\tPRIMARY\tPRIMARY\t4\tNULL\t4\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterAccordion WHERE status = 1 AND sno IN (:id0,:id1,:id2) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 3,
+      ":id1": 4,
+      ":id2": 2
+    },
+    "plan": "1\tSIMPLE\tmasterAccordion\trange\tPRIMARY\tPRIMARY\t4\tNULL\t3\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterPrograms WHERE status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT * FROM masterSchool WHERE friendly_url = :url AND status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {
+      ":url": "school-of-business"
+    },
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT placementHeading, placementDetails, placedCounter, ctcCounter, offerCounter, shortHeading, shortDesc, placementUrl FROM schoolPlacement WHERE schoolID = :id AND status = 1 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 1
+    },
+    "plan": "1\tSIMPLE\tschoolPlacement\tindex\tNULL\tPRIMARY\t4\tNULL\t11\tUsing where\n"
+  },
+  "SELECT website_name, phone, mobile, email_id, address, address2, footer_note, facebook, twitter, instagram, youtube, linkedin, whatsapp FROM settings WHERE websitetype = 'english' ORDER BY sno LIMIT 1": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tsettings\tindex\tNULL\tPRIMARY\t4\tNULL\t1\tUsing where\n"
+  },
+  "SELECT sno, name, otherurl, target, section FROM bottom_menu WHERE status = 'active' AND websitetype = 'english' ORDER BY section, position, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tbottom_menu\tALL\tNULL\tNULL\tNULL\tNULL\t44\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, middleLeftHeading, middleSubBlockHeading, block1Heading, block1Details, block1url, block2Heading, block2Details, block2url, block3Heading, block3Details, block3url, block4Heading, block4Details, block4url, block5Heading, block5Details, block5url, block6Heading, block6Details, block6url FROM welcome WHERE sno = :id LIMIT 1": {
+    "boundParameters": {
+      "id": 1
+    },
+    "plan": "1\tSIMPLE\twelcome\tsystem\tPRIMARY\tNULL\tNULL\tNULL\t1\t\n"
+  },
+  "SELECT sno, heading, page_heading, page_subheading, friendly_url, detail, details_second, details_third, additionalDetails, additionalDetails2, banner, image, banner_heading, banner_teaser_text, registrationLink, prospectus, meta_title, meta_desc FROM link_page WHERE friendly_url IN (:slug0,:slug1,:slug2,:slug3,:slug4,:slug5,:slug6,:slug7,:slug8,:slug9) AND status IN ('active', '1') ORDER BY sno": {
+    "boundParameters": {
+      ":slug0": "admission-process",
+      ":slug1": "programs-fee-structures",
+      ":slug2": "education-loan",
+      ":slug3": "scholarships",
+      ":slug4": "hostel-types",
+      ":slug5": "refund-policy",
+      ":slug6": "international-student-admission",
+      ":slug7": "program-commencement-2026",
+      ":slug8": "program-commencement-date",
+      ":slug9": "placement-reports"
+    },
+    "plan": "1\tSIMPLE\tlink_page\tALL\tNULL\tNULL\tNULL\tNULL\t98\tUsing where; Using filesort\n"
+  },
+  "SELECT name, description, details FROM heading WHERE LOWER(name) IN ('admission', 'admissions') AND status IN ('active', '1') ORDER BY sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\theading\tALL\tNULL\tNULL\tNULL\tNULL\t35\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, currentEmployer, alumniImage FROM masterPlacements WHERE status = 1 AND alumniImage <> '' AND name <> '' AND currentEmployer <> '' ORDER BY sno DESC LIMIT 24": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPlacements\tindex\tNULL\tPRIMARY\t4\tNULL\t24\tUsing where\n"
+  },
+  "SELECT sno, name, featureImage FROM masterRecruiters WHERE status = 1 AND name <> '' AND featureImage <> '' ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterRecruiters\tALL\tNULL\tNULL\tNULL\tNULL\t37\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, schoolName, friendly_url, programsOffered, status, delete_status, sorder FROM masterSchool WHERE status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, status, sorder FROM masterLevel WHERE status = 1 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterLevel\tALL\tNULL\tNULL\tNULL\tNULL\t7\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, schoolName, friendly_url, programsOffered, status, delete_status, sorder FROM masterSchool WHERE status = 1 AND delete_status = 0 AND friendly_url = :url ORDER BY sorder, sno": {
+    "boundParameters": {
+      ":url": "school-of-business"
+    },
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12,:id13,:id14,:id15,:id16,:id17,:id18,:id19,:id20,:id21,:id22,:id23,:id24,:id25,:id26,:id27,:id28) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 30,
+      ":id1": 7,
+      ":id2": 8,
+      ":id3": 9,
+      ":id4": 6,
+      ":id5": 2,
+      ":id6": 20,
+      ":id7": 17,
+      ":id8": 21,
+      ":id9": 18,
+      ":id10": 4,
+      ":id11": 19,
+      ":id12": 5,
+      ":id13": 22,
+      ":id14": 12,
+      ":id15": 3,
+      ":id16": 10,
+      ":id17": 33,
+      ":id18": 27,
+      ":id19": 29,
+      ":id20": 26,
+      ":id21": 28,
+      ":id22": 25,
+      ":id23": 31,
+      ":id24": 11,
+      ":id25": 32,
+      ":id26": 23,
+      ":id27": 24,
+      ":id28": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 14,
+      ":id1": 89,
+      ":id2": 13,
+      ":id3": 34,
+      ":id4": 35,
+      ":id5": 36,
+      ":id6": 88,
+      ":id7": 15,
+      ":id8": 41,
+      ":id9": 42,
+      ":id10": 45,
+      ":id11": 46,
+      ":id12": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t13\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 59,
+      ":id1": 60,
+      ":id2": 61,
+      ":id3": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t4\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 40,
+      ":id1": 43,
+      ":id2": 96
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t3\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 51,
+      ":id1": 49,
+      ":id2": 52,
+      ":id3": 31,
+      ":id4": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t5\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 44,
+      ":id1": 47,
+      ":id2": 48,
+      ":id3": 50,
+      ":id4": 29,
+      ":id5": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t6\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, status, delete_status, searchArea, sortingOrder FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12,:id13,:id14,:id15,:id16,:id17,:id18,:id19,:id20,:id21,:id22,:id23,:id24) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 86,
+      ":id1": 72,
+      ":id2": 79,
+      ":id3": 76,
+      ":id4": 69,
+      ":id5": 80,
+      ":id6": 68,
+      ":id7": 67,
+      ":id8": 82,
+      ":id9": 66,
+      ":id10": 64,
+      ":id11": 81,
+      ":id12": 74,
+      ":id13": 73,
+      ":id14": 85,
+      ":id15": 70,
+      ":id16": 83,
+      ":id17": 77,
+      ":id18": 65,
+      ":id19": 75,
+      ":id20": 71,
+      ":id21": 62,
+      ":id22": 63,
+      ":id23": 84,
+      ":id24": 78
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea, duration, shortDescription, programDetails, areaHeading, areaDetails, areaHeading3, areaDetails3, introText, eligibility, accordion, feeStructure, scholarship, eligibilityCriteria1, eligibilityCriteria2, eligibilityIntroduction, eligibilityTerms, registrationLink, prospectusurl, researchFacility, overview, banner, meta_title, meta_desc FROM masterPrograms WHERE friendly_url = :url AND status = 1 AND delete_status = 0 AND sno = :id ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":url": "bba",
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tconst\tPRIMARY\tPRIMARY\t4\tconst\t1\t\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder FROM masterPrograms WHERE parentProgram = :id AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programID, heading, description, showPrograms, status, sortingOrder FROM masterProgramTab WHERE programID = :id AND status = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tmasterProgramTab\tALL\tNULL\tNULL\tNULL\tNULL\t474\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programID, status, delete_status, heading, details, iconImage FROM programHighlight WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramHighlight\tindex\tNULL\tPRIMARY\t4\tNULL\t3\tUsing where\n"
+  },
+  "SELECT sno, programID, status, delete_status, heading, details, iconImage FROM programOutcome WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramOutcome\tindex\tNULL\tPRIMARY\t4\tNULL\t388\tUsing where\n"
+  },
+  "SELECT sno, programID, status, delete_status, counterName, symbol, details, iconImage FROM programPlacement WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramPlacement\tindex\tNULL\tPRIMARY\t4\tNULL\t388\tUsing where\n"
+  },
+  "SELECT sno, programID, status, delete_status, imageFile FROM programRecruiters WHERE programID = :id AND status = 1 AND delete_status = 0 ORDER BY sno": {
+    "boundParameters": {
+      ":id": 2
+    },
+    "plan": "1\tSIMPLE\tprogramRecruiters\tindex\tNULL\tPRIMARY\t4\tNULL\t117\tUsing where\n"
+  },
+  "SELECT sno, friendly_url, schoolName, programsOffered, faculty, status, delete_status, sorder FROM masterSchool WHERE status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder FROM masterPrograms WHERE parentProgram = :parent AND sno <> :id AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":parent": 2,
+      ":id": 3
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, description, status, sortingOrder FROM masterAccordion WHERE status = 1 AND sno IN (:id0,:id1,:id2,:id3) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 4,
+      ":id1": 58,
+      ":id2": 1,
+      ":id3": 2
+    },
+    "plan": "1\tSIMPLE\tmasterAccordion\trange\tPRIMARY\tPRIMARY\t4\tNULL\t4\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, description, status, sortingOrder FROM masterAccordion WHERE status = 1 AND sno IN (:id0,:id1,:id2) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 3,
+      ":id1": 4,
+      ":id2": 2
+    },
+    "plan": "1\tSIMPLE\tmasterAccordion\trange\tPRIMARY\tPRIMARY\t4\tNULL\t3\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, friendly_url FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND sno = :id ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 33
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tconst\tPRIMARY\tPRIMARY\t4\tconst\t1\t\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea, duration, shortDescription, programDetails, areaHeading, areaDetails, areaHeading3, areaDetails3, introText, eligibility, accordion, feeStructure, scholarship, eligibilityCriteria1, eligibilityCriteria2, eligibilityIntroduction, eligibilityTerms, registrationLink, prospectusurl, researchFacility, overview, banner, meta_title, meta_desc FROM masterPrograms WHERE sno = :id AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id": 33
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tconst\tPRIMARY\tPRIMARY\t4\tconst\t1\t\n"
+  },
+  "SELECT sno, schoolName, friendly_url, programsOffered, faculty, banner, details, shortDescription, areaHeading2, areaDetails2, areaHeading3, areaDetails3, moreHeading, moresubHeading, readmore, academicPage, highestCTC, avgSalary, meta_title, meta_desc, status, delete_status, sorder FROM masterSchool WHERE friendly_url = :url AND status = 1 AND delete_status = 0 ORDER BY sorder, sno": {
+    "boundParameters": {
+      ":url": "school-of-business"
+    },
+    "plan": "1\tSIMPLE\tmasterSchool\tALL\tNULL\tNULL\tNULL\tNULL\t9\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12,:id13,:id14,:id15,:id16,:id17,:id18,:id19,:id20,:id21,:id22,:id23,:id24,:id25,:id26,:id27,:id28) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 30,
+      ":id1": 7,
+      ":id2": 8,
+      ":id3": 9,
+      ":id4": 6,
+      ":id5": 2,
+      ":id6": 20,
+      ":id7": 17,
+      ":id8": 21,
+      ":id9": 18,
+      ":id10": 4,
+      ":id11": 19,
+      ":id12": 5,
+      ":id13": 22,
+      ":id14": 12,
+      ":id15": 3,
+      ":id16": 10,
+      ":id17": 33,
+      ":id18": 27,
+      ":id19": 29,
+      ":id20": 26,
+      ":id21": 28,
+      ":id22": 25,
+      ":id23": 31,
+      ":id24": 11,
+      ":id25": 32,
+      ":id26": 23,
+      ":id27": 24,
+      ":id28": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 14,
+      ":id1": 89,
+      ":id2": 13,
+      ":id3": 34,
+      ":id4": 35,
+      ":id5": 36,
+      ":id6": 88,
+      ":id7": 15,
+      ":id8": 41,
+      ":id9": 42,
+      ":id10": 45,
+      ":id11": 46,
+      ":id12": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t13\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 59,
+      ":id1": 60,
+      ":id2": 61,
+      ":id3": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t4\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 40,
+      ":id1": 43,
+      ":id2": 96
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t3\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 51,
+      ":id1": 49,
+      ":id2": 52,
+      ":id3": 31,
+      ":id4": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t5\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 44,
+      ":id1": 47,
+      ":id2": 48,
+      ":id3": 50,
+      ":id4": 29,
+      ":id5": 87
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\trange\tPRIMARY\tPRIMARY\t4\tNULL\t6\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea FROM masterPrograms WHERE status = 1 AND delete_status = 0 AND searchArea = 1 AND sno IN (:id0,:id1,:id2,:id3,:id4,:id5,:id6,:id7,:id8,:id9,:id10,:id11,:id12,:id13,:id14,:id15,:id16,:id17,:id18,:id19,:id20,:id21,:id22,:id23,:id24) ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":id0": 86,
+      ":id1": 72,
+      ":id2": 79,
+      ":id3": 76,
+      ":id4": 69,
+      ":id5": 80,
+      ":id6": 68,
+      ":id7": 67,
+      ":id8": 82,
+      ":id9": 66,
+      ":id10": 64,
+      ":id11": 81,
+      ":id12": 74,
+      ":id13": 73,
+      ":id14": 85,
+      ":id15": 70,
+      ":id16": 83,
+      ":id17": 77,
+      ":id18": 65,
+      ":id19": 75,
+      ":id20": 71,
+      ":id21": 62,
+      ":id22": 63,
+      ":id23": 84,
+      ":id24": 78
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tPRIMARY\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, name, currentEmployer, alumniImage FROM masterPlacements WHERE status = 1 ORDER BY sno DESC": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterPlacements\tindex\tNULL\tPRIMARY\t4\tNULL\t301\tUsing where\n"
+  },
+  "SELECT sno, name, featureImage FROM masterRecruiters WHERE status = 1 ORDER BY sortingOrder, sno": {
+    "boundParameters": {},
+    "plan": "1\tSIMPLE\tmasterRecruiters\tALL\tNULL\tNULL\tNULL\tNULL\t37\tUsing where; Using filesort\n"
+  },
+  "SELECT sno, programName, shortName, friendly_url, level, isHome, parentProgram, status, delete_status, sortingOrder, searchArea, duration, shortDescription, programDetails, areaHeading, areaDetails, areaHeading3, areaDetails3, introText, eligibility, accordion, feeStructure, scholarship, eligibilityCriteria1, eligibilityCriteria2, eligibilityIntroduction, eligibilityTerms, registrationLink, prospectusurl, researchFacility, overview, banner, meta_title, meta_desc FROM masterPrograms WHERE friendly_url = :url AND status = 1 AND delete_status = 0 ORDER BY sortingOrder, sno": {
+    "boundParameters": {
+      ":url": "bcom"
+    },
+    "plan": "1\tSIMPLE\tmasterPrograms\tALL\tNULL\tNULL\tNULL\tNULL\t97\tUsing where; Using filesort\n"
+  }
+}

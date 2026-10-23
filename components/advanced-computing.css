@@ -1,0 +1,15 @@
+/* Scoped to the Advanced Computing intro; no shared section rules. */
+[data-api-slug="school-of-technology"][data-academic-kind="school"] .advanced-computing-partners img {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  margin: 24px 0 0;
+}
+[data-api-slug="school-of-technology"][data-academic-kind="school"] .advanced-computing-quick-stats summary {
+  cursor: pointer;
+  width: fit-content;
+}
+[data-api-slug="school-of-technology"][data-academic-kind="school"] .advanced-computing-quick-stats h2 {
+  margin-top: 20px;
+}

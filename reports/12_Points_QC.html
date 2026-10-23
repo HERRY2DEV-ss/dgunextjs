@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DGU — 12 Program &amp; School Changes</title>
+<style>body{font:15px/1.45 Arial,sans-serif;color:#26232b;max-width:960px;margin:32px auto;padding:0 20px}h1{font-size:25px;margin:0 0 6px}h2{font-size:19px;margin:24px 0 10px}p{margin:8px 0}table{border-collapse:collapse;width:100%;margin:14px 0}th,td{border:1px solid #ddd;padding:9px 10px;text-align:left;vertical-align:top}th{background:#f5f2f6}.ok{color:#237047}.pending{color:#b91c1c;font-weight:600}.note{background:#fff5f5;border-left:4px solid #b91c1c;padding:12px 16px}code{font-size:13px;overflow-wrap:anywhere}li{margin:6px 0}@media print{body{font-size:11px;margin:0;max-width:none}h1{font-size:20px}h2{font-size:15px}td,th{padding:5px}tr{break-inside:avoid}}</style>
+<h1>DGU — Program &amp; School Pages</h1><p><b>Latest correction and audit: <a href="Finance_Global_QC.html">Finance_Global_QC.html</a>.</b></p>
+<p>13 October 2026 · Common template update · Existing theme and API filters retained.</p>
+<table><thead><tr><th>#</th><th>Change</th><th>Result / short note</th></tr></thead><tbody>
+<tr><td>1</td><td>Desktop + mobile banners</td><td class="ok">Actual API variants are used. Missing CMS values are listed below.</td></tr>
+<tr><td>2</td><td>Salient Features / Why Choose</td><td class="ok">Shared compact previews, desktop hover and mobile popup. Full detail remains available; extra API features are retained in accordions.</td></tr>
+<tr><td>3</td><td>Program Structure width</td><td class="ok">Tables fill the expanded panel. One accordion opens per group; mobile tables scroll inside their container.</td></tr>
+<tr><td>4</td><td>Career Opportunities</td><td class="ok">Mapped into existing information tabs on all applicable pages.</td></tr>
+<tr><td>5</td><td>Wave spacing / text length</td><td class="ok">Uniform bounded previews and point spacing. Full detail opens without expanding the wave.</td></tr>
+<tr><td>6</td><td>Scholarship</td><td class="ok">API content is in Scholarship tabs with accordions; full text and tables retained.</td></tr>
+<tr><td>7</td><td>Slider speed</td><td class="ok">Banners 3.4s, placement pairs 3.6s, galleries 3.9s; profile strip 30s per continuous cycle. Pause/touch/reduced-motion behaviour retained.</td></tr>
+<tr><td>8</td><td>Placement filters</td><td class="ok">Program: exact course linkID. School: direct school records + its active published offered programs. Unrelated/global records excluded.</td></tr>
+<tr><td>9</td><td>Global MBA 2026–28 banner</td><td class="pending">Latest correction: complete content is fetched from published CMS page 91 by the API. ID 97 banners remain empty; no other program’s banner/thumbnail is substituted.</td></tr>
+<tr><td>10</td><td>Advanced Computing labs</td><td class="ok">AI &amp; ML, Mac, Robotics and Drone tabs use their published DB sections and image galleries. No unrelated labs added.</td></tr>
+<tr><td>11</td><td>Curriculum &amp; Industry Integration</td><td class="ok">One section: original intro + six logos + Co-Designed, Co-Delivered, Co-Certified and Benefits accordions.</td></tr>
+<tr><td>12</td><td>Placement student images</td><td class="ok">Scoped API images in the shared two-student loop. Students also render when a legacy guide omitted its placement heading.</td></tr>
+</tbody></table>
+<div class="note"><p class="pending">CMS / deployment attention</p>
+<p><b>Global MBA (2026–28), ID 97:</b> desktop/mobile banner fields are empty. Complete content is available in published CMS page 91 and is now returned by the API; see Finance_Global_QC.html. Add this record’s own banners if required. ID 33 remains a separate program record.</p>
+<p><b>B.Tech CSE Lateral Entry, ID 102:</b> mobile banner is empty in the supplied snapshot.</p>
+<p><b>Live delivery:</b> current live API responses and remote image bytes could not be verified here. Recheck Network responses/media after uploading PHP and frontend.</p></div>
+<h2>Two audit rounds</h2>
+<p><b>Round 1 — database/API:</b> local PHP 8.3 + MariaDB 10.11, supplied snapshot, SELECT-only PDO user. Checked 8 schools and 88 programs. Existing response values, types, nesting and order match the previous files; <code>linkedPages</code> is additive. Placement IDs/counts match actual relationships. Database checksums are unchanged. PHP syntax and malformed-input checks pass.</p>
+<p><b>Round 2 — frontend:</b> all 96 models checked for full content, placement IDs/images, tab mapping and structure/scholarship tables. 43 responsive browser cases cover all 8 schools and 9 representative programs, including MBA, HR, Global MBA and Computing. Widths: 1440/1024/768/390/320px as applicable. Checked popup/hover, widths, single-open accordions, student pairs, sliding tabs, faculty, logos, overflow and page errors. Normal-motion autoplay/wrap checks pass on desktop and mobile.</p>
+<p>Production build/type check passes: 618 exported routes. Regression suites pass. All 441 public assets are unchanged. Browser remote-image tests use controlled dimensions; no QA fixtures are runtime fallbacks.</p>
+<h2>Files changed</h2>
+<table><thead><tr><th>Files</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>server-api/api/dgu-academic-common.php</code></td><td>Fetch full HTML of published pages explicitly linked by the current record; existing contracts retained.</td></tr>
+<tr><td><code>academic-page-api.ts</code>, <code>academic-section-key.ts</code>, <code>academic-layout.ts</code></td><td>Common mapping, careers/structure/scholarship tabs, features, industry grouping, gallery visibility and banner variants.</td></tr>
+<tr><td><code>AcademicApiPage.tsx</code>, <code>academic-laboratories.ts</code></td><td>Shared hover/popup, accordions, actual lab tabs and faster sliders.</td></tr>
+<tr><td><code>academic-api.css</code>, <code>DifferentiatorSection.tsx</code>, <code>ApiRichText.tsx</code></td><td>Full-width tables, wave spacing and verified CMS logo-class mapping.</td></tr>
+<tr><td><code>academic-html.ts</code></td><td>Preserve repeated values within one body, including identical fees under different scholarship categories.</td></tr>
+<tr><td><code>AcademicAccordionGroup.tsx</code>, <code>SchoolPlacementsSection.tsx</code></td><td>Profile / placement speed; data and existing interaction retained.</td></tr>
+<tr><td><code>scripts/academic-api-regression.cjs</code>, README files</td><td>Regression coverage and deployment notes.</td></tr>
+</tbody></table>
+<h2>Apply in this order</h2>
+<ol><li>Extract ZIP into existing <code>mba_gt</code> root; replace matching files. Keep <code>public/</code> and <code>.env.local</code>.</li>
+<li>Upload <code>get-school-info.php</code>, <code>get-program-info.php</code> and <code>dgu-academic-common.php</code> from <code>server-api/api/</code> to <code>public_html/api/</code>. Keep <code>includes/classes.php</code> and PDO credentials. The updated helper is needed for lab-tab bodies.</li>
+<li>Run <code>npm ci</code> if needed, then <code>npm run build</code>. Upload fresh <code>out/</code> to <code>/nextjs/homev1/</code> with generated <code>.htaccess</code>; preserve unrelated site rules.</li>
+<li>Verify actual JSON/images on MBA, HR, Computing and Global MBA. Apply the two CMS updates above. No DB/schema/credential changes are made by this package.</li></ol>
+<p>Approved static exceptions: exact homepage placement right-side copy/counters, recognition logos and manual feature icons. Other academic content and students remain API-driven.</p>
+</html>

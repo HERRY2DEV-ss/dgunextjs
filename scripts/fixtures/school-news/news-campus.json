@@ -1,0 +1,206 @@
+{
+  "error": "0",
+  "message": "25 Records Found",
+  "data": [
+    {
+      "id": 588,
+      "newsDate": "06 Oct, 2026",
+      "newsTitle": "Doon Business School Achieves 100 Success in SAP SuccessFactors Global Certification",
+      "shortDesc": "25 MBA students secure SAP Global Certification in SuccessFactors in their first attempt\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_1435701_felici1.webp",
+      "url": "doon-business-school-achieves-100"
+    },
+    {
+      "id": 593,
+      "newsDate": "03 Oct, 2026",
+      "newsTitle": "MBA Freshers 2026 Welcoming Tomorrows Business Leaders at DBS Global University",
+      "shortDesc": "DBS Global University (DGU), Dehradun, marked the beginning of an exciting new chapter in management education with MBA ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_2914692_pg-freshers-3.webp",
+      "url": "pg-freshers-2026"
+    },
+    {
+      "id": 592,
+      "newsDate": "01 Oct, 2026",
+      "newsTitle": "UG Freshers 2026 A Grand Welcome to New Beginnings at DBS Global University",
+      "shortDesc": "DBS Global University (DGU), Dehradun, welcomed its newest undergraduate students with enthusiasm, celebration, and the ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_2265323_DSC_9297.webp",
+      "url": "ug-freshers-2026"
+    },
+    {
+      "id": 595,
+      "newsDate": "01 Oct, 2026",
+      "newsTitle": "Guest Lecture on Viksit Bharat Exploring Indias Vision for a Developed Nation at DBS Global University",
+      "shortDesc": "DBS Global University (DGU), Dehradun, organized an insightful guest lecture on &quot;Viksit Bharat&quot;, offering stud...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6527153_vikshit-bharat-1.webp",
+      "url": "vikshit-bharat-lecture"
+    },
+    {
+      "id": 583,
+      "newsDate": "28 Sep, 2026",
+      "newsTitle": "Duet Royale Dance Club Captivates DBS Global University Campus",
+      "shortDesc": "DBS Global University witnessed an evening filled with rhythm, energy, and artistic expression as the Universitys Dance ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_9394416_dance_sm.webp",
+      "url": "duet-royale-dance-club-captivates"
+    },
+    {
+      "id": 579,
+      "newsDate": "26 Sep, 2026",
+      "newsTitle": "DBS Global University Campus to Corporate Guest Lecture Focuses on Employability and Workplace Readiness",
+      "shortDesc": "DBS Global University organised a Campus to Corporate Guest Lecture aimed at helping students understand the transition ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_9062633_gstlecsm.webp",
+      "url": "campus-to-corporate-guest-lecture-career-readiness-dgu"
+    },
+    {
+      "id": 571,
+      "newsDate": "25 Sep, 2026",
+      "newsTitle": "World Pharmacists Day 2026 Celebrated at DBS School of Pharmacy and Research with Sun Pharma Industry Expert",
+      "shortDesc": "World Pharmacists Day 2026 pharmacy college Dehradun pharmacy students Sun Pharma guest lecture\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_3069139_wpd_sm.jpg",
+      "url": "world-pharmacists-day-2026-dbs-school-pharmacy-sun-pharma"
+    },
+    {
+      "id": 572,
+      "newsDate": "25 Sep, 2026",
+      "newsTitle": "DBS Global University Organises Intra Moot Court Competition 2026 to Strengthen Practical Legal Skills",
+      "shortDesc": "DBS Global University organised the Intra Moot Court Competition 2026 from 23 to 25 September 2026\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6000291_mootcourtcom_sm.webp",
+      "url": "moot-court-competition-2026"
+    },
+    {
+      "id": 578,
+      "newsDate": "25 Sep, 2026",
+      "newsTitle": "The Reality Check at DBS Global University Prepares Students for Real-World Career Expectations",
+      "shortDesc": "DBS Global University organised The Reality Check an interactive guest session featuring Mr. Paras Arora on 25 September...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_5937031_realitychecksm.webp",
+      "url": "reality-check-paras-arora-career-readiness-session-dgu"
+    },
+    {
+      "id": 575,
+      "newsDate": "24 Sep, 2026",
+      "newsTitle": "Indian Oil Director Mr. Arvind Kumar Interacts with DBS Global University Students on Energy Sector and Career Readiness",
+      "shortDesc": "DBS Global University hosted an industry interaction with Mr. Arvind Kumar Director Refineries and Pipelines Indian Oil ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6758207_indoilsm.webp",
+      "url": "indian-oil-director-arvind-kumar-student-interaction-dgu"
+    },
+    {
+      "id": 576,
+      "newsDate": "24 Sep, 2026",
+      "newsTitle": "DBS Global University Hosts Personal Branding Session to Prepare Students for Career Opportunities",
+      "shortDesc": "DBS Global University organised an interactive session titled Building a Personal Brand That Opens Doors...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_3957070_pbod_sm.webp",
+      "url": "personal-branding-session-students-career-opportunities-dgu"
+    },
+    {
+      "id": 577,
+      "newsDate": "24 Sep, 2026",
+      "newsTitle": "Tulane Universitys Dr. Rajat Khanna Leads Porters Five Forces Masterclass at DBS Global University",
+      "shortDesc": "DBS Global University hosted an international masterclass on Porter Five Forces Framework by Dr. Rajat Khanna, Director ...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6762832_masterclasssm.webp",
+      "url": "rajat-khanna-tulane-university-porters-five-forces-masterclass"
+    },
+    {
+      "id": 574,
+      "newsDate": "23 Sep, 2026",
+      "newsTitle": "Blood Donation Drive",
+      "shortDesc": "DBS Global University Blood Donation Drive in Dehradun Sees 250+ Donors Participate for a Social Cause...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_2969092_bloodonsm.webp",
+      "url": "blood-donation-drive-dbs-global-university-dehradun-2026"
+    },
+    {
+      "id": 573,
+      "newsDate": "22 Sep, 2026",
+      "newsTitle": "Influencer Incubator  Marketing Club",
+      "shortDesc": "DBS Global University Dehradun hosted Influencer Incubator an engaging student-led initiative\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_8769016_incmrk_sm.webp",
+      "url": "influencer-incubator-influencer-marketing-student-event-dgu"
+    },
+    {
+      "id": 570,
+      "newsDate": "21 Sep, 2026",
+      "newsTitle": "DBS Global University Hosts From Campus to Global Careers Session on AI, Skills and Career Readiness",
+      "shortDesc": "DBS Global University DGU Dehradun organised an industry interaction titled From Campus to Global Careers Building Skill...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_1939991_aiskillsm.webp",
+      "url": "from-campus-to-global-careers-ai-skills-career-readiness"
+    },
+    {
+      "id": 567,
+      "newsDate": "16 Sep, 2026",
+      "newsTitle": "DBS Global University Hosts Club Fair 2026 to Strengthen Student Leadership, Skills and Experiential Learning",
+      "shortDesc": "DBS Global University organised Club Fair 2026 at its campus bringing together more than 22 student clubs and creating a...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6787160_clubfiarsm.webp",
+      "url": "dbs-global-university-club-fair-2026-student-leadership-skills"
+    },
+    {
+      "id": 568,
+      "newsDate": "16 Sep, 2026",
+      "newsTitle": "DBS Global University Hosts College Ke Tashanbaaz in Collaboration with RED FM 93.5",
+      "shortDesc": "Dehradun September 16 2026 DBS Global University Dehradun hosted College Ke Tashanbaaz...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_4150748_tashanbaaz_sm.webp",
+      "url": "college-ke-tashanbaaz-red-fm-dbs-global-university"
+    },
+    {
+      "id": 565,
+      "newsDate": "10 Sep, 2026",
+      "newsTitle": "Zumba with Pratibha Brings Fitness and Positive Energy to DBS Global University Campus",
+      "shortDesc": "The Wellness Fit Dont Quit Club at DBS Global University organised Zumba with Pratibha on 10 September 2026...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_5114065_zumbasm.webp",
+      "url": "zumba-with-pratibha-student-wellness"
+    },
+    {
+      "id": 566,
+      "newsDate": "10 Sep, 2026",
+      "newsTitle": "Mock Drill Strengthens Emergency Preparedness at DBS Global University",
+      "shortDesc": "DBS Global University conducted a mock drill on 10 September 2026 to strengthen emergency preparedness and reinforce the...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_7612804_mockdrillsm.webp",
+      "url": "campus-safety-mock-drill-2026"
+    },
+    {
+      "id": 563,
+      "newsDate": "08 Sep, 2026",
+      "newsTitle": "HCLTech and RCW Technologies Leaders Connect Classroom Learning with Boardroom Expectations at DGU",
+      "shortDesc": "DBS Global University hosted a Guest Lecture and Leadership Interaction for MBA final-year students\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_7125482_hclrcvsm.webp",
+      "url": "hcltech-rcw-classroom-to-boardroom-session"
+    },
+    {
+      "id": 564,
+      "newsDate": "08 Sep, 2026",
+      "newsTitle": "EY Leader Guides DGU MBA Students on Career Preparedness in the AI Era",
+      "shortDesc": "DBS Global University hosted Mr. Sushant Kumar, Assistant Director at EY, for a guest lecture and leadership interaction...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_1727900_mrsushantkr.webp",
+      "url": "ey-mba-preparedness-ai-era"
+    },
+    {
+      "id": 558,
+      "newsDate": "05 Sep, 2026",
+      "newsTitle": "SAP Success Factors Workshop and Certification Bootcamp at DGU",
+      "shortDesc": "DBS Global University Commences Hands-on SAP SuccessFactors Workshop and Global Certification Bootcamp\r\n...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_1378739_sapworkshopsm.webp",
+      "url": "sap-successfactors-workshop-global-certification-bootcamp"
+    },
+    {
+      "id": 562,
+      "newsDate": "05 Sep, 2026",
+      "newsTitle": "DBS Global University Marks Teachers Day by Celebrating Educators and Their Lasting Influence",
+      "shortDesc": "DBS Global University observed Teachers’ Day on 5 September 2026 with a campus celebration...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_6079227_teachdaysm.webp",
+      "url": "teachers-day-celebration-2026"
+    },
+    {
+      "id": 560,
+      "newsDate": "03 Sep, 2026",
+      "newsTitle": "Doon School of Law Undertakes Academic Inspection and Institutional Readiness Review",
+      "shortDesc": "Doon School of Law at DBS Global University underwent an institutional inspection on 3 September 2026...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_9126793_iirrsm.webp",
+      "url": "doon-school-of-law-inspection-2026"
+    },
+    {
+      "id": 561,
+      "newsDate": "03 Sep, 2026",
+      "newsTitle": "DBS Global University Celebrates Janmashtami with Devotion and Cultural Participation",
+      "shortDesc": "DBS Global University celebrated Janmashtami on 3 September 2026 with devotional enthusiasm and active participation fro...",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_4144023_Janmashtamism.webp",
+      "url": "janmashtami-celebration-2026"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "apiError": "0",
+  "actualApiMenuCount": 9,
+  "currentParserMenuCount": 0,
+  "newResponseFields": [
+    "id",
+    "menuName",
+    "url",
+    "target",
+    "subMenu"
+  ]
+}

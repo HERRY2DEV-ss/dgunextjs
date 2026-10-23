@@ -1,0 +1,321 @@
+{
+  "error": "0",
+  "message": "1 Records Found",
+  "data": [
+    {
+      "id": 1,
+      "schoolName": "Doon Business School",
+      "meta_title": "Doon Business School | Top MBA, BBA, IPM & B.Com College in Dehradun",
+      "meta_desc": "Doon Business School, Dehraduns leading institute for MBA, BBA, IPM & B.Com programs. Industry-focused education, expert faculty,",
+      "meta_keywords": "Doon Business School, DBS Dehradun, MBA college Dehradun, BBA college Dehradun, B.Com college Dehradun, top MBA college Uttarakhand",
+      "details": "<div class=\"text-justify\">\r\n<div class=\"float-md-start me-md-4 mb-3\" style=\"max-width: 700px; width: 100%;\">\r\n<div class=\"ratio ratio-16x9\"><iframe allow=\"autoplay\" class=\"embed-responsive-item\" referrerpolicy=\"strict-origin-when-cross-origin\" src=\"https://www.youtube.com/embed/jXsdeBwEzeo?si=PQTb1GjP6IVv0mR3\"></iframe></div>\r\n</div>\r\n\r\n<p><strong>DBS</strong> has a legacy of 18 years of excellence in management education.</p>\r\n\r\n<p>As a premier business school, DBS pioneers in the integration of technology and AI across all of its programs and curriculum, at par with international educational benchmarks. DBS ensures its students are agile, future-ready leaders equipped to excel in the global business landscape</p>\r\n\r\n<p>Since the inception of Doon Business School, it has maintained a 100% placement record, with <strong>over 350 companies</strong> visiting every year. Students recover their investment through strong starting packages. Recruiters include leading consulting firms (Deloitte, Grant Thornton, EY), major IT companies (Infosys, Mahindra tech, HCLTech), national and international banks (ANZ, DBS, Axis Bank), top FMCG brands (Unilever, ITC Limited, Mother Dairy), and key players across cement (ACC Cement, Adani Cement, UltraTech) Cement and construction companies (Asian Paints, Somany, Johnson Tiles) and many more.</p>\r\n\r\n<p>What truly sets Doon Business School apart is its commitment to embedding globally benchmarked certification into every facet of the student&rsquo;s journey.</p>\r\n\r\n<p>This innovation stays connected to real industry needs through robust collaborations with giants such as SAP, SAS, and HCLTech. These partnerships help our graduates become industry-ready professionals, strengthened by a suite of value-added certifications that include SAP Global, SAS Global, Agile and Scrum, AI &amp; ML, Power BI, NISM, ACCA, Alteryx, and many more.</p>\r\n\r\n<p>Our future-focused approach provides students with direct, <strong>hands-on exposure</strong> to <strong>agentic AI systems, crypto, and blockchain applications</strong> and <strong>Capital Markets,</strong> cultivating <strong>practical mastery</strong> in high-demand fields like digital assets, corporate finance, and trading.</p>\r\n\r\n<p>Integrating super-specialisation into the School&rsquo;s flagship programs, such as the MBA, adds a whole new dimension to learning. Other offerings, including BBA, B.Com, and the integrated BBA+MBA, are equally innovative and designed to prepare students for the future.</p>\r\n\r\n<p>Our extensive network of international academic pathways, with over <strong>50 university partnerships</strong> across <strong>20+ countries, </strong>offers unmatched opportunities for global exposure and professional growth.</p>\r\n\r\n<p>Immersion One week, two weeks, one month and two months available to our aspiring students. Besides immersion programs semester <strong>abroad program</strong>, and one year of study in partner institutions is also available. Partner institutions include IE Business School, EM Normandie Business School, Singapore Management School, Bocconi University, and many more.</p>\r\n\r\n<div class=\"clearfix\">&nbsp;</div>\r\n</div>\r\n",
+      "statistics": {
+        "satisfiedStudents": "15000+",
+        "qualifiedTeachers": "800+",
+        "honorAwardWin": "200+",
+        "trendingCourse": "400+"
+      },
+      "subHeading": " ABOUT DGU",
+      "heading": "What makes Doon Business School Unique?",
+      "readmore": "<ul class=\"ttm-list ttm-list-style-icon ttm-list-icon-color-skincolor mt-33 res-991-mt-0\">\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Industry-aligned curriculum : </b>The school&#39;s curriculum is designed to equip students with the skills and knowledge demanded by today&#39;s dynamic business environment. Regular industry updates and case studies ensure that students are well-prepared for the challenges and opportunities that lie ahead.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Entrepreneurial spirit :</b> The school nurtures entrepreneurial spirit among its students, encouraging them to develop innovative ideas and pursue their business aspirations. Dedicated entrepreneurship programs and mentorship opportunities provide the necessary support and guidance for aspiring entrepreneurs.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Experiential learning :</b> The School emphasises experiential learning, providing students with hands-on opportunities to apply their knowledge in real-world settings. Internships, industry projects, and simulations are integral components of the learning experience.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Global outlook :</b> The School fosters a global perspective, preparing students to navigate the complexities of the international business arena. Cross-cultural experiences and international collaborations are encouraged to broaden students&#39; horizons and enhance their adaptability.</div>\r\n\t</li>\r\n</ul>\r\n",
+      "areaHeading2": "",
+      "areaDetails2": "",
+      "areaHeading3": "",
+      "areaDetails3": "",
+      "specialization": [
+        {
+          "id": 7,
+          "programName": "B.Com with ICAI",
+          "url": "bcom-icai"
+        },
+        {
+          "id": 8,
+          "programName": "B.Com with UK-ACCA",
+          "url": "bcom-ukacca"
+        },
+        {
+          "id": 9,
+          "programName": "B.Com with US-CPA",
+          "url": "bcom-uscpa"
+        },
+        {
+          "id": 6,
+          "programName": "B.Com/B.Com (Honours / Honours with Research)",
+          "url": "bcom"
+        },
+        {
+          "id": 2,
+          "programName": "BBA Programs",
+          "url": "bba"
+        },
+        {
+          "id": 20,
+          "programName": "BBA with specialization in Banking and Financial Services",
+          "url": "bba-banking-financial-services"
+        },
+        {
+          "id": 17,
+          "programName": "BBA with Specialization in Business Analytics",
+          "url": "bba-business-analytics"
+        },
+        {
+          "id": 21,
+          "programName": "BBA with Specialization in Capital Markets",
+          "url": "bba-capital-markets"
+        },
+        {
+          "id": 18,
+          "programName": "BBA with Specialization in Digital Marketing",
+          "url": "bba-specialization-digital-marketing"
+        },
+        {
+          "id": 4,
+          "programName": "BBA with Specialization in E-Commerce and Supply Chain",
+          "url": "bba-ecommerce-supplychain"
+        },
+        {
+          "id": 19,
+          "programName": "BBA with Specialization in Entrepreneurship",
+          "url": "bba-entrepreneurship"
+        },
+        {
+          "id": 5,
+          "programName": "BBA with Specialization in Fintech",
+          "url": "bba-fintech"
+        },
+        {
+          "id": 22,
+          "programName": "BBA with Specialization in International Business",
+          "url": "bba-international-business"
+        },
+        {
+          "id": 3,
+          "programName": "BBA/BBA (Honours / Honours with Research)",
+          "url": "bba-general"
+        },
+        {
+          "id": 12,
+          "programName": "BBA+MBA (Integrated Program in Management)",
+          "url": "bba-mba-integrated"
+        },
+        {
+          "id": 30,
+          "programName": " MBA in Logistics & Supply Chain Management",
+          "url": "mba-logistics-supply-chain"
+        },
+        {
+          "id": 10,
+          "programName": "MBA",
+          "url": "mba"
+        },
+        {
+          "id": 27,
+          "programName": "MBA in Finance",
+          "url": "mba-finance"
+        },
+        {
+          "id": 29,
+          "programName": "MBA in Healthcare Pharma Management",
+          "url": "mba-healthcare-pharma-management"
+        },
+        {
+          "id": 26,
+          "programName": "MBA in Human Resource",
+          "url": "mba-human-resource"
+        },
+        {
+          "id": 28,
+          "programName": "MBA in International Business",
+          "url": "mba-international-business"
+        },
+        {
+          "id": 25,
+          "programName": "MBA in Marketing",
+          "url": "mba-marketing"
+        },
+        {
+          "id": 31,
+          "programName": "MBA Media & Creative Communication",
+          "url": "mba-media-and-creative-communication"
+        },
+        {
+          "id": 11,
+          "programName": "MBA Winter Batch JAN - 2027",
+          "url": "mba-winter-batch"
+        },
+        {
+          "id": 32,
+          "programName": "MBA with Specialization in Agri Business",
+          "url": "mba-agri-business"
+        },
+        {
+          "id": 23,
+          "programName": "MBA with Specialization in Business Analytics",
+          "url": "mba-business-analytics"
+        },
+        {
+          "id": 24,
+          "programName": "MBA with Specialization in Digital Transformation",
+          "url": "mba-digital-marketing"
+        },
+        {
+          "id": 33,
+          "programName": "MBA Global",
+          "url": "dgu-global-mba"
+        }
+      ],
+      "faculty": [
+        {
+          "id": 33,
+          "facultyName": "Dr. Inakshi Kapur",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-inakshi-kapur"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Anita Choudhary",
+          "designation": "Associate Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-anita-choudhary"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Makrand Joshi",
+          "designation": "COE,Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-makrand-joshi"
+        },
+        {
+          "id": 33,
+          "facultyName": "Mr. Siddhartha D Sengupta",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "prof-siddhartha-sengupta"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr H.S.Grewal",
+          "designation": "Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-harpreet-singh-grewal"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Shivani Aggarwal",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "prof-shivani-aggarwal"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Ashwin R. John",
+          "designation": "Associate Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-ashwin-john"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Disha Ghildiyal",
+          "designation": "Teaching Associate",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-disha-ghildiyal"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Anita Kaul",
+          "designation": "Associate Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-anita-kaul"
+        },
+        {
+          "id": 33,
+          "facultyName": "Ms. Sujata Sharma",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "prof-sujata-sharma"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Noor Mohammad Khan",
+          "designation": "Sr. Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-noor-mohammad-khan"
+        },
+        {
+          "id": 33,
+          "facultyName": "Mr. Vishal Sinha",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "mr-vishal-sinha"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Uday Acharya",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-uday-acharya"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Ishvinder Singh Ahluwalia",
+          "designation": "Sr. Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-ishvinder-singh"
+        },
+        {
+          "id": 33,
+          "facultyName": "Ms. Neha Sood",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "ms-neha-sood"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Pushpa Kataria",
+          "designation": "Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "prof-pushpa-kataria"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Ranjana Sharma",
+          "designation": "Associate Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-ranjana-sharma"
+        },
+        {
+          "id": 33,
+          "facultyName": "Ms. Neha Rastogi",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "prof-neha-s-rastogi"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Rekha Verma",
+          "designation": "Associate Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-rekha-verma"
+        },
+        {
+          "id": 33,
+          "facultyName": "Dr. Sonal Chaudhary",
+          "designation": "Assistant Professor",
+          "imageURL": "dgu-global-mba",
+          "url": "dr-sonal-chaudhary"
+        }
+      ],
+      "placements": {
+        "placementHeading": "Placements",
+        "details": "<p>The university boasts of a robust and efficient career services department. Its partnership with industries ensures that the students have adequate exposure and quickly get absorbed into professional roles on completion of their studies. DGU focuses on developing a world-class pool of young and talented professionals who are equipped to hit the ground running in their respective fields.</p>\r\n",
+        "studentsPlaced": "15000+",
+        "averageCTC": "11 LPA",
+        "placementOffers": "200 +",
+        "shortHeading": "ENJOY EVERYDAY WHILE ENSURING GREAT CAREER",
+        "shortDesc": "",
+        "placementURL": "placement-reports"
+      }
+    }
+  ]
+}

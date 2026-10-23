@@ -1,0 +1,199 @@
+{
+  "error": "0",
+  "message": "1 Records Found",
+  "data": [
+    {
+      "id": 3,
+      "schoolName": "Doon School of Advanced Computing",
+      "meta_title": "Doon School of Advanced Computing | DGU",
+      "meta_desc": "Discover cutting-edge IT and Engineering programs at the Doon School of Advanced Computing, a premier faculty of DGU",
+      "meta_keywords": "Doon School of Technology, advanced computing college, tech university Dehradun, IT programs",
+      "details": "<style type=\"text/css\">.custom-btn{\r\nfont-size: 13px;\r\nfont-weight: 600;\r\nbackground-color: #68176b;\r\ncolor: #fff;\r\nborder: 1px solid #26022d;\r\npadding: 10px 15px;\r\nborder-radius: 6px;\r\ntext-decoration: none;\r\ndisplay: inline-block;\r\ntransition: all .3s ease 0s;\r\ntext-align: center;\r\n}\r\n\r\n.custom-btn:hover{\r\nbackground-color: #852b99;\r\ncolor: #ffffff;\r\nborder-color: #68176b;\r\n}\r\n\r\n@media (max-width: 1440px) and (min-width: 1150px) {\r\n.custom-btn {\r\nmin-height: auto;\r\n}\r\n}\r\n</style>\r\n<p>Within the dynamic Doon School of Advanced Computing, a progressive education that fully embraces the New Education Policy (NEP) is delivered, ensuring that the students are not only participants but leaders in the evolving world of emerging technologies.</p>\r\n\r\n<p>The undergraduate programs, <a href=\"https://dgu.ac.in/btech\">B.Tech. in Computer Science &amp; Engineering</a> and the <a href=\"https://dgu.ac.in/bca\">Bachelor of Computer Applications (BCA)</a>, are the product of a unique:&nbsp;</p>\r\n\r\n<ul>\r\n\t<li>Industry-immersive approach.&nbsp;</li>\r\n\t<li>Cutting-edge curriculum co-design, co-delivered and co-certified by HCLTech to empower students to become Industry ready from day one in the era of AI&amp;ML.</li>\r\n\t<li>&quot;T-Skills&rdquo; ensures a specialized understanding of core technological verticals, balanced with a broad competence across various application domains such as AI/ML, Robotics, IOT, Drone Technology, iOS Development, Finance&rsquo; Modern Media, Data Science, Cyber Security, Full Stack Development, Cloud Computing, Smart Agriculture.</li>\r\n\t<li>Subjects aligned to professional and industry form the very first semester itself.</li>\r\n\t<li>Full Stack development method used for hands-on within first two years.</li>\r\n\t<li>Experiential Learning through\r\n\t<ul>\r\n\t\t<li>Internships every year</li>\r\n\t\t<li>4 Industry aligned projects</li>\r\n\t\t<li>Access to Super Computer</li>\r\n\t\t<li>Apple Labs</li>\r\n\t\t<li>Drone Manufacturing, testing, troubleshooting and simulation lab</li>\r\n\t\t<li>Quantum Computing, Robotics and Automation, Internet of Things Labs&nbsp;</li>\r\n\t\t<li>Hackathons as leaders</li>\r\n\t</ul>\r\n\t</li>\r\n\t<li>Programs benchmarked for next 10 Years for Industry relevance</li>\r\n</ul>\r\n\r\n<p>For postgraduate programs the school offers, M. Tech in CSE, MCA, Integrated B.Tech CSE + M.Tech and Integrated B.Tech CSE + MBA&nbsp; and Ph.D. programs challenge scholars to engage with the creation and implementation of advanced technologies, fostering innovation and original research.</p>\r\n\r\n<h3>Program Options at a Glance &ndash; School of Advanced Computing (SOAC)</h3>\r\n\r\n<p>Students can choose the pathway that matches their ambition, technical depth, and career trajectory.</p>\r\n\r\n<div class=\"table-responsive\">\r\n<table class=\"table table-striped table-bordered\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th class=\"text-center\" scope=\"col\">Pathway</th>\r\n\t\t\t<th class=\"text-center\" scope=\"col\">Academic Focus</th>\r\n\t\t\t<th class=\"text-center\" scope=\"col\">Structure</th>\r\n\t\t\t<th class=\"text-center\" scope=\"col\">Ideal For</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>B.Tech CSE with Dual Specialization (AI &amp; ML / Data Science / Cyber Security) with Industry Association (HCLTech) (180 Credits)</td>\r\n\t\t\t<td>Industry-integrated curriculum with real-world exposure to the changed scenario globally in the era of AI&amp;ML&nbsp;</td>\r\n\t\t\t<td>Core CSE + Industry-designed courses + Dual Specializations +&nbsp; Live Projects + Internships</td>\r\n\t\t\t<td>Students seeking strong industry readiness and early corporate exposure for entrepreneurship or becoming industry ready from day zero</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>B.Tech CSE AI&amp;ML with Minor (T-Skill Track) (Robotics, IOT, Drone Technology, iOS Development, Finance&rsquo; Modern Media, Data Science, Cyber Security, Full Stack Development, Cloud Computing, Smart Agriculture) (169 Credits)</td>\r\n\t\t\t<td>Core CSE with AI&amp;ML and additional skill-based minor</td>\r\n\t\t\t<td>Core CSE + Minor Track (skill-focused) + Labs + Projects</td>\r\n\t\t\t<td>Students wanting flexibility to explore emerging tech alongside core engineering</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>B.Tech CSE with Minor (T-Skill Track) (AI/ML, Robotics, IOT, Drone Technology, iOS Development, Finance&rsquo; Modern Media, Data Science, Cyber Security, Full Stack Development, Cloud Computing, Smart Agriculture) (160 Credits)</td>\r\n\t\t\t<td>Core CSE with an additional skill-based minor</td>\r\n\t\t\t<td>Core CSE + Minor Track (skill-focused) + Labs + Projects</td>\r\n\t\t\t<td>Students wanting flexibility to explore emerging tech alongside core engineering</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>BCA with Dual Specialization (AI / Data Analytics / UI/UX / Mobile App Development / iOS Development) (133 Credits / Hons. 160 Credits)</td>\r\n\t\t\t<td>&nbsp;A future-focused BCA program that combines strong computing foundations with any two industry-relevant specializations, co-powered by HCLTech, preparing students for the rapidly evolving digital economy.</td>\r\n\t\t\t<td>BCA with Dual Specialization + HCLTech Certifications + Live Industry Projects from HCLTech + Internships + AI-Enabled Learning + Innovation &amp; Technology Labs.</td>\r\n\t\t\t<td>Students aspiring to build successful careers in Software Development, Artificial Intelligence, Data Analytics, Mobile Technologies, UI/UX Design, Digital Product Development, and next-generation technology roles.</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>MCA (70 Credits)</td>\r\n\t\t\t<td>Advanced concepts in software engineering, AI, and system design</td>\r\n\t\t\t<td>Core MCA + Advanced Electives + Research/Industry Projects</td>\r\n\t\t\t<td>Graduates aiming for high-end technical roles or entrepreneurship or research pathways</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>M.Tech. (CSE) (72 Credits)</td>\r\n\t\t\t<td>Deep specialization in cutting-edge domains</td>\r\n\t\t\t<td>Advanced Coursework + Research + Thesis/Industry Project</td>\r\n\t\t\t<td>Students and Professionals targeting R&amp;D, innovation, and specialized technical careers or entrepreneurship or higher education&nbsp;</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>B.Tech. CSE + MBA (Integrated, 5.5 Years duration) (240 Credits)&nbsp;</td>\r\n\t\t\t<td>Blend of technology and management for leadership roles</td>\r\n\t\t\t<td>CSE Core + Management Core (initial years) + Integrated Projects</td>\r\n\t\t\t<td>Students targeting tech leadership, entrepreneurship, or management roles within less time and complete exposure</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>B.Tech CSE + M.Tech ( 5 Years) (205 Credits)</td>\r\n\t\t\t<td>Deep specialization in cutting-edge domains</td>\r\n\t\t\t<td>Advanced Coursework + Research + Thesis/Industry Project</td>\r\n\t\t\t<td>Students targeting R&amp;D, innovation, or specialized technical careers or entrepreneurship&nbsp;</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n</div>\r\n<!-- =========================================================================================================================== -->\r\n\r\n<p>&nbsp;</p>\r\n\r\n<div class=\"alert alert-light\" role=\"alert\">\r\n<div class=\"section-title text-center my-4\">\r\n<div class=\"ffeatured-title2_ text-center\">\r\n<h2>Laboratory &amp; Infrastructure</h2>\r\n</div>\r\n\r\n<h5>State-of-the-Art Learning Environment</h5>\r\n</div>\r\n\r\n<div class=\"row g-3\">\r\n<div class=\"col-12 col-sm-6 col-lg-3\"><a class=\"custom-btn w-100 py-3\" href=\"https://dgu.ac.in/modern-computer-labs#aiml-lab\">AI &amp; Machine Learning Lab</a></div>\r\n\r\n<div class=\"col-12 col-sm-6 col-lg-3\"><a class=\"custom-btn w-100 py-3\" href=\"https://dgu.ac.in/modern-computer-labs#mac-lab\">Mac Lab</a></div>\r\n\r\n<div class=\"col-12 col-sm-6 col-lg-3\"><a class=\"custom-btn w-100 py-3\" href=\"https://dgu.ac.in/modern-computer-labs#robotics-lab\">Robotics &amp; Automation Lab</a></div>\r\n\r\n<div class=\"col-12 col-sm-6 col-lg-3\"><a class=\"custom-btn w-100 py-3\" href=\"https://dgu.ac.in/modern-computer-labs#drone-lab\">Drone Lab</a></div>\r\n</div>\r\n\r\n<p>&nbsp;</p>\r\n</div>\r\n",
+      "statistics": {
+        "satisfiedStudents": "15000+",
+        "qualifiedTeachers": "800+",
+        "honorAwardWin": "200+",
+        "trendingCourse": "400+"
+      },
+      "subHeading": "What Makes Us Different",
+      "heading": "Why Choose School Of Advanced Computing",
+      "readmore": "<ul class=\"ttm-list ttm-list-style-icon ttm-list-icon-color-skincolor mt-33 res-991-mt-0\">\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Industry-Aligned Curriculum: </b>Designed, delivered and certified with leading tech companies.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Advanced Labs &amp; Centre for Excellence in:</b> AI, Robotics, IoT, Drone, Super Computer access.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Global Exposure:</b> International pathways &amp; collaborations.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Career-Ready Learning;</b> Live projects, internships &amp; certifications.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Interdisciplinary and Multi-Disciplinary Exposure:</b> &quot;T-Skills&quot;, Dual Specialization in emerging technologies AI/ML, Robotics, IOT, Drone Technology, iOS Development, Finance&rsquo; Modern Media, Data Science, Cyber Security, Full Stack Development, Cloud Computing, Smart Agriculture.</div>\r\n\t</li>\r\n\t<li><i class=\"ti ti-pencil\"></i>\r\n\t<div class=\"ttm-list-li-content\"><b>Innovation Culture:</b> Leaders in Hackathons, startups &amp; research.</div>\r\n\t</li>\r\n</ul>\r\n<!-- ========================================================================================================================= --><!-- ===== SECTION 1 — Drone Lab ===== -->",
+      "areaHeading2": "Curriculum and Industry Integration",
+      "areaDetails2": "<p>The <a href=\"https://dgu.ac.in/btech-cse-with-minor\">B.Tech. CSE</a> and <a href=\"https://dgu.ac.in/bca\">BCA programs</a> at DBS Global University are crafted in collaboration with industry leaders, ensuring that they are co-designed, co-delivered, and co-certified. This unique approach bridges the gap between academia and industry, providing students with real-world skills and knowledge. The curriculum is structured to include:</p>\r\n\r\n<p>An industry partner plays a crucial role in co-designed, co-delivered, and co-certified undergraduate (UG) programs by bridging the gap between academia and industry. Their involvement ensures that students gain industry-relevant skills, making them more employable. Here&rsquo;s how they contribute at each stage:</p>\r\n\r\n<div class=\"row p-3 mb-40\">\r\n<div class=\"col-lg-6 px-md-5 pt-40 ttm-bgcolor-grey\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Co-Designed Curriculum</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<p>Industry partners collaborate with academia to design the curriculum by:</p>\r\n\r\n<div class=\"points4\">\r\n<ul>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> Identifying emerging trends and skills needed in the industry.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> Incorporating real-world case studies, projects, and tools used in the field.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> Ensuring alignment with industry certifications and job roles.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> Providing internship and placement opportunities as part of the course structure.</li>\r\n</ul>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-6 px-md-4 pt-40 ttm-bgcolor-darkgrey\" style=\"position: relative; overflow: hidden;\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Co-Delivered Courses</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<p class=\"text-white\">Industry experts contribute to program delivery through:</p>\r\n\r\n<div class=\"points3\">\r\n<ul>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Guest lectures, masterclasses, and hands-on workshops.</li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Conducting hackathons, live projects, and simulations.</li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Mentoring students on capstone projects and research assignments.</li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Hosting industrial visits and internships for practical exposure.</li>\r\n</ul>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-6 px-md-4 pt-40 ttm-bgcolor-darkgrey\" style=\"position: relative; overflow: hidden;\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Co-Certified Credentials</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<p class=\"text-white\">Industry certification enhances the credibility of the program through:</p>\r\n\r\n<div class=\"points3\">\r\n<ul>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Issuing joint certifications with the university.</li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Aligning the curriculum with recognized industry certifications <strong>(e.g., AWS, Microsoft, Cisco).</strong></li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Evaluating projects and skills to ensure industry standards.</li>\r\n\t<li class=\"text-white\"><i class=\"fa fa-check-circle mr-10\"></i> Offering fast-track recruitment or internship opportunities to certified graduates.</li>\r\n</ul>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-6 px-md-5 pt-40 ttm-bgcolor-grey\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Benefits of Industry Collaboration</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<div class=\"points4\">\r\n<ul>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> <strong>Enhanced employability:</strong> Graduates gain job-ready skills.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> <strong>Industry-aligned learning:</strong> Students work on real-world problems.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> <strong>Faculty development:</strong> Educators stay updated with industry trends.</li>\r\n\t<li><i class=\"fa fa-check-circle mr-10\"></i> <strong>Stronger industry-academia ties:</strong> Leads to more research and innovation opportunities.</li>\r\n</ul>\r\n</div>\r\n</div>\r\n</div>\r\n\r\n<h5><strong>Industry-Integrated Learning: Bridging Academia and Industry</strong></h5>\r\n\r\n<hr />\r\n<p>We ensure our students are industry-ready with:</p>\r\n\r\n<div class=\"row mb-20\">\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Live Projects &amp; Hackathons: Solve real-world challenges.</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Internships with Top Tech Companies Gain hands-on experience.</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Expert-Led Workshops &amp; Seminars Learn from the best in the industry.</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Recognized Industry Certifications AWS, Microsoft, Cisco, and more</h5>\r\n</div>\r\n</div>\r\n</div>\r\n\r\n<h5>State-of-the-Art Facilities &amp; Learning Environment</h5>\r\n\r\n<hr />\r\n<div class=\"row mb-20\">\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Next-Gen Computing Labs with cutting-edge technology</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Collaborative Learning Spaces to foster teamwork and innovation</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>Dedicated Research &amp; Development Centres for ground-breaking discoveries</h5>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-3\">\r\n<div class=\"ttm-bgcolor-grey rounded text-center p-4 cust-bx-style justify-content-center\">\r\n<h5>IoT, AI, and Robotics Labs to build the future</h5>\r\n</div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"section-title\">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Join DBS Global University and Shape Your Future!</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<p>At <strong>DBS Global University</strong>, we believe in nurturing innovators, problem-solvers, and tech leaders of tomorrow. With an emphasis on experiential learning, industry partnerships, and future-ready education, we prepare students to excel in the digital age.</p>\r\n\r\n<div class=\"container\">\r\n<div class=\"ttm-col-bgcolor-yes ttm-bg ttm-bgcolor-skincolor z-index-2 spacing-7\">\r\n<div class=\"ttm-col-wrapper-bg-layer ttm-bg-layer\">&nbsp;</div>\r\n\r\n<div class=\"style1 text-center\">\r\n<div class=\"section-title mb-5\">\r\n<div class=\"title-header \">\r\n<h4 class=\"title\">Be part of a dynamic academic community and unlock limitless possibilities in technology!</h4>\r\n</div>\r\n\r\n<h5>Explore. Innovate. Lead</h5>\r\n\r\n<div style=\"text-align:center; margin: 15px 0;\"><a href=\"https://dgu.ac.in/uploads/documents/Brochure_school-of-advanced-coumputing.html\" rel=\"noopener noreferrer\" style=\"\r\n       display: inline-block;\r\n       background-color: #d4af37;\r\n       color: #ffffff;\r\n       padding: 10px 18px;\r\n       font-size: 14px;\r\n       font-weight: 600;\r\n       text-decoration: none;\r\n       border-radius: 5px;\r\n       width: auto;\r\n       max-width: 90%;\r\n     \" target=\"_blank\">View Brochure &rarr; </a></div>\r\n</div>\r\n</div>\r\n</div>\r\n<!------\r\n<div class=\"row p-3\">\r\n<div class=\"col-lg-6 px-md-5 p-3 ttm-bgcolor-grey\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Industry Collaboration</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<div class=\"row align-items-center industry-collab-powerd-by text-center pt-20 pb-20\">\r\n<div class=\"col-xs-12 col-md-6 mb-10\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/industry_collaboration_1.png\" /></div>\r\n\r\n<div class=\"col-xs-12 col-md-6 mb-10\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/industry_collaboration_2.png\" /></div>\r\n\r\n<div class=\"col-xs-12 col-md-12\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/HCL_Blue_Logo-01.png\" /></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-lg-6 px-md-4 p-3 ttm-bgcolor-darkgrey\" style=\"position: relative; overflow: hidden;\">\r\n<div class=\"section-title \">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Powered by</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<div class=\"row align-items-center industry-collab-powerd-by pt-20 pb-20\">\r\n<div class=\"col-xs-12 col-md-4\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/Powered_by_1.png\" /></div>\r\n\r\n<div class=\"col-xs-12 col-md-4\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/Apple-Enabled-College-Logo_0.1.png\" /></div>\r\n\r\n<div class=\"col-xs-12 col-md-4\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/Powered_by_3.png\" /></div>\r\n</div>\r\n</div>\r\n</div>-->\r\n\r\n<div class=\"industry-collab-main ttm-bgcolor-grey p-5 justify-content-center\">\r\n<div class=\"industry-collab\">\r\n<div class=\"section-title title-style-center_text\">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Industry Collaboration</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<div class=\"industry-collab-img-box-main\">\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/industry_collaboration_1.webp\" /></div>\r\n\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/industry_collaboration_2.webp\" /></div>\r\n\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/hcl_blue_logo-01.webp\" /></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"industry-collab\">\r\n<div class=\"section-title title-style-center_text\">\r\n<div class=\"title-header\">\r\n<h4 class=\"title\">Powered by</h4>\r\n</div>\r\n\r\n<div class=\"heading-seperator\"><span></span></div>\r\n</div>\r\n\r\n<div class=\"industry-collab-img-box-main\">\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/Powered_by_1.webp\" /></div>\r\n\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/apple-enabled-college-logo_0-1.webp\" /></div>\r\n\r\n<div class=\"industry-collab-img-box\"><img alt=\"Image of Industry Collaboration\" class=\"img-fluid\" src=\"/UserFiles/images/dgu/Powered_by_3.webp\" /></div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n\r\n<p>&nbsp;</p>\r\n",
+      "areaHeading3": "Student Education Immersion Program",
+      "areaDetails3": "<p><strong>Summer Abroad | Semester Abroad | One Year Abroad</strong></p>\r\n\r\n<p>Students can take on new academic challenges and enhance their learning experiences by taking advantage of the fascinating global opportunities that DBS Global University offers. Studying abroad provides students with the exceptional opportunity to immerse themselves in a foreign culture and form lifelong relationships with people from all over the world. While studying abroad, students gain new perspectives and face intellectual challenges that help them grow both academically and personally.</p>\r\n\r\n<p>At DBS Global University, students will have the chance to join the Education Immersion Program. They can choose from a variety of study abroad options, including One Week, Two Week, One Month, Two Months, Six Months, and One Year programs at over 20+ partner universities and institutions worldwide.</p>\r\n\r\n<p>For more details, please contact the Office of the Director of International Affairs at <a href=\"mailto:director.int@dgu.ac.in\">director.int@dgu.ac.in</a></p>\r\n",
+      "specialization": [
+        {
+          "id": 88,
+          "programName": "B.Tech CSE",
+          "url": "btech"
+        },
+        {
+          "id": 14,
+          "programName": "B.Tech CSE in AI & ML with Minor",
+          "url": "btech-cse-with-spe-in-ai-and-ml-with-minor"
+        },
+        {
+          "id": 89,
+          "programName": "B.Tech CSE in Quantum Computing with Minor",
+          "url": "btech-cse-in-quantum-computing-with-minor"
+        },
+        {
+          "id": 13,
+          "programName": "B.Tech CSE with Minor",
+          "url": "btech-cse-with-minor"
+        },
+        {
+          "id": 34,
+          "programName": "B.Tech in Computer Science and Engineering (CSE) with  Dual Specialization in AI&ML - HCLTech",
+          "url": "btech-cse-with-spe-in-ai-and-ml-hcl"
+        },
+        {
+          "id": 35,
+          "programName": "B.Tech in Computer Science and Engineering (CSE) with Dual Specialization in Cyber Security - HCLTech",
+          "url": "btech-cse-with-spe-in-cyber-security-hcl"
+        },
+        {
+          "id": 36,
+          "programName": "B.Tech in Computer Science and Engineering (CSE) with Dual Specialization in Data Science - HCLTech",
+          "url": "btech-cse-with-spe-in-data-science-hcl"
+        },
+        {
+          "id": 15,
+          "programName": "BCA with Dual Specialization",
+          "url": "bca-with-specialization"
+        },
+        {
+          "id": 41,
+          "programName": "Integrated  B.Tech CSE + MBA",
+          "url": "integrated-btech-mba"
+        },
+        {
+          "id": 42,
+          "programName": "Integrated B.Tech CSE + M. Tech",
+          "url": "integrated-btech-mtech"
+        },
+        {
+          "id": 45,
+          "programName": "M.Tech CSE / M.Tech CSE by Research",
+          "url": "mtech"
+        },
+        {
+          "id": 46,
+          "programName": "MCA",
+          "url": "mca"
+        }
+      ],
+      "faculty": [
+        {
+          "id": 46,
+          "facultyName": "Mr. Raghvendra Mishra",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "raghvendra-mishra"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Rajat Garg",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "rajat-garg"
+        },
+        {
+          "id": 46,
+          "facultyName": "Ms. Merry KP",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "dr-merry-kp"
+        },
+        {
+          "id": 46,
+          "facultyName": "Ms. Manisha Verma",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "prof-manisha-verma"
+        },
+        {
+          "id": 46,
+          "facultyName": "Mr. Tarunjit Yumnam",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "mr-tarunjit-yumnam"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Vidit Vats",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "dr-vidit-vats"
+        },
+        {
+          "id": 46,
+          "facultyName": "Ms. Aanchal Garg",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "dr-aanchal-garg"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Deepak Bharadwaj",
+          "designation": "Associate Professor",
+          "imageURL": "mca",
+          "url": "dr-deepak-bhardwaj"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Chandrasekhar Bhoj",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "dr-chandrasekhar-bhoj"
+        },
+        {
+          "id": 46,
+          "facultyName": "Ms. Manya Arora",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "manya-arora"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Manish Prateek",
+          "designation": "Pro - Vice Chancellor,Professor",
+          "imageURL": "mca",
+          "url": "prof-dr-manish-prateek"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Sumegh Shrikant Thorewal",
+          "designation": "Associate Professor",
+          "imageURL": "mca",
+          "url": "dr-sumegh-shrikant-tharewal"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Vishant Kumar",
+          "designation": "Assistant Professor",
+          "imageURL": "mca",
+          "url": "prof-vishant-kumar"
+        },
+        {
+          "id": 46,
+          "facultyName": "Dr. Piyush Dua",
+          "designation": "Professor",
+          "imageURL": "mca",
+          "url": "dr-piyush-dua"
+        }
+      ],
+      "placements": {
+        "placementHeading": "Placements",
+        "details": "<p>The university boasts of a robust and efficient career services department. Its partnership with industries ensures that the students have adequate exposure and quickly get absorbed into professional roles on completion of their studies. DGU focuses on developing a world-class pool of young and talented professionals who are equipped to hit the ground running in their respective fields.</p>\r\n",
+        "studentsPlaced": "15000+",
+        "averageCTC": "11 LPA",
+        "placementOffers": "200 +",
+        "shortHeading": "ENJOY EVERYDAY WHILE ENSURING GREAT CAREER",
+        "shortDesc": "",
+        "placementURL": "placement-reports"
+      }
+    }
+  ]
+}

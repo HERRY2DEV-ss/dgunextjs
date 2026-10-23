@@ -1,0 +1,1207 @@
+{
+  "recruiters": [
+    {
+      "name": "BCG",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-00.webp"
+    },
+    {
+      "name": "Deloitte",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-01.webp"
+    },
+    {
+      "name": "EY",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-02.webp"
+    },
+    {
+      "name": "KPMG",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-03.webp"
+    },
+    {
+      "name": "Infosys",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-04.webp"
+    },
+    {
+      "name": "Tech Mahindra",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-05.webp"
+    },
+    {
+      "name": "HCL Tech",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-06.webp"
+    },
+    {
+      "name": "Wipro",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-07.webp"
+    },
+    {
+      "name": "ANZ Bank",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-08.webp"
+    },
+    {
+      "name": "DBS Bank",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-09.webp"
+    },
+    {
+      "name": "Axis Bank",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-10.webp"
+    },
+    {
+      "name": "ICICI Bank",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-11.webp"
+    },
+    {
+      "name": "Nine",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-12.webp"
+    },
+    {
+      "name": "Indicaa Group",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-13.webp"
+    },
+    {
+      "name": "Raffles Education",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-14.webp"
+    },
+    {
+      "name": "Al-Shirawi",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-15.webp"
+    },
+    {
+      "name": "Unilever",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-16.webp"
+    },
+    {
+      "name": "ITC Limited",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-17.webp"
+    },
+    {
+      "name": "Mother Dairy",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-18.webp"
+    },
+    {
+      "name": "Dabur",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-19.webp"
+    },
+    {
+      "name": "ACC Cement",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-20.webp"
+    },
+    {
+      "name": "Adani Cement",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-21.webp"
+    },
+    {
+      "name": "UltraTech Cement",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-22.webp"
+    },
+    {
+      "name": "JK Cement",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-23.webp"
+    },
+    {
+      "name": "Hafele India",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-24.webp"
+    },
+    {
+      "name": "Grant Thornton",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-25.webp"
+    },
+    {
+      "name": "Crescendo",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-26.webp"
+    },
+    {
+      "name": "TCS",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-27.webp"
+    },
+    {
+      "name": "Amazon",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-28.webp"
+    },
+    {
+      "name": "Kotak Mahindra Bank",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-29.webp"
+    },
+    {
+      "name": "Asian Paints",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-30.webp"
+    },
+    {
+      "name": "S&P Global",
+      "image": "/nextjs/homev1/placement-assets/pdf/logo-31.webp"
+    },
+    {
+      "name": "British Petroleum",
+      "image": "/nextjs/homev1/placement-assets/services_411_recruiter-10.webp"
+    },
+    {
+      "name": "Greenlam Industries Limited",
+      "image": "/nextjs/homev1/placement-assets/services_912_recruiter-1.webp"
+    },
+    {
+      "name": "Johnson",
+      "image": "/nextjs/homev1/placement-assets/services_478_johnson.webp"
+    },
+    {
+      "name": "Kansai Nerolac",
+      "image": "/nextjs/homev1/placement-assets/services_783_recruiter-9.webp"
+    },
+    {
+      "name": "Somany Tiles",
+      "image": "/nextjs/homev1/placement-assets/services_934_somant.webp"
+    },
+    {
+      "name": "Saint-Gobain",
+      "image": "/nextjs/homev1/placement-assets/company-5-3.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "label": "TOP National & International Banks",
+      "students": [
+        {
+          "name": "Jyoti Nainwal",
+          "company": "ANZ Bank",
+          "image": "/nextjs/homev1/placement-assets/student-0-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-0-0.jpg"
+        },
+        {
+          "name": "Juhi Kumari",
+          "company": "DBS Bank",
+          "image": "/nextjs/homev1/placement-assets/student-0-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-0-1.jpg"
+        },
+        {
+          "name": "Kanupriya Rajput",
+          "company": "Axis Bank",
+          "image": "/nextjs/homev1/placement-assets/student-0-2.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-0-2.jpg"
+        },
+        {
+          "name": "Pragti Kala",
+          "company": "ICICI Bank",
+          "image": "/nextjs/homev1/placement-assets/student-0-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-0-3.jpg"
+        }
+      ]
+    },
+    {
+      "label": "TOP Consulting COMPANIES",
+      "students": [
+        {
+          "name": "Harshali Goyal",
+          "company": "BCG",
+          "image": "/nextjs/homev1/placement-assets/pdf/student-0.webp",
+          "artwork": true
+        },
+        {
+          "name": "Ankita Lochab",
+          "company": "Deloitte",
+          "image": "/nextjs/homev1/placement-assets/pdf/student-1.webp",
+          "artwork": true
+        },
+        {
+          "name": "Nivedita Phogat",
+          "company": "EY",
+          "image": "/nextjs/homev1/placement-assets/pdf/student-2.webp",
+          "artwork": true
+        },
+        {
+          "name": "Kuldeep Sharma",
+          "company": "KPMG",
+          "image": "/nextjs/homev1/placement-assets/pdf/student-3.webp",
+          "artwork": true
+        },
+        {
+          "name": "Anmol Srivastava",
+          "company": "KPMG",
+          "image": "/nextjs/homev1/placement-assets/student-1-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-1-3.jpg"
+        },
+        {
+          "name": "Ayush Yadav",
+          "company": "Deloitte",
+          "image": "/nextjs/homev1/placement-assets/student-1-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-1-0.jpg"
+        },
+        {
+          "name": "Yash Tak",
+          "company": "Grant Thornton",
+          "image": "/nextjs/homev1/placement-assets/student-1-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-1-1.jpg"
+        }
+      ]
+    },
+    {
+      "label": "TOP IT COMPANIES",
+      "students": [
+        {
+          "name": "Nivedita Ranta",
+          "company": "Infosys",
+          "image": "/nextjs/homev1/placement-assets/student-2-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-2-0.jpg"
+        },
+        {
+          "name": "Prajakta Koul",
+          "company": "Tech Mahindra",
+          "image": "/nextjs/homev1/placement-assets/student-2-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-2-1.jpg"
+        },
+        {
+          "name": "Manas Yadav",
+          "company": "HCLTech",
+          "image": "/nextjs/homev1/placement-assets/student-2-2.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-2-2.jpg"
+        },
+        {
+          "name": "Rakesh Kr. Ranjan",
+          "company": "Wipro",
+          "image": "/nextjs/homev1/placement-assets/student-2-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-2-3.jpg"
+        }
+      ]
+    },
+    {
+      "label": "TOP FMCG COMPANIES",
+      "students": [
+        {
+          "name": "Sanskriti Sinha",
+          "company": "Unilever",
+          "image": "/nextjs/homev1/placement-assets/student-3-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-3-0.jpg"
+        },
+        {
+          "name": "Saswati Pattjoshi",
+          "company": "ITC Limited",
+          "image": "/nextjs/homev1/placement-assets/student-3-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-3-1.jpg"
+        },
+        {
+          "name": "Rohit Santosh Vasekar",
+          "company": "Mother Dairy",
+          "image": "/nextjs/homev1/placement-assets/student-3-2.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-3-2.jpg"
+        },
+        {
+          "name": "Debanshu C.",
+          "company": "Dabur",
+          "image": "/nextjs/homev1/placement-assets/student-3-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-3-3.jpg"
+        }
+      ]
+    },
+    {
+      "label": "TOP Cement COMPANIES",
+      "students": [
+        {
+          "name": "Anubhav Khokar",
+          "company": "ACC Cement",
+          "image": "/nextjs/homev1/placement-assets/student-4-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-4-0.jpg"
+        },
+        {
+          "name": "Alankrit Baranwal",
+          "company": "Adani Cement",
+          "image": "/nextjs/homev1/placement-assets/student-4-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-4-1.jpg"
+        },
+        {
+          "name": "Kiran Kumari",
+          "company": "UltraTech Cement",
+          "image": "/nextjs/homev1/placement-assets/student-4-2.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-4-2.jpg"
+        },
+        {
+          "name": "Jyoti Soni",
+          "company": "JK Cement",
+          "image": "/nextjs/homev1/placement-assets/student-4-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-4-3.jpg"
+        }
+      ]
+    },
+    {
+      "label": "TOP Home Construction COMPANIES",
+      "students": [
+        {
+          "name": "Rhythm Bhatia",
+          "company": "Asian Paints",
+          "image": "/nextjs/homev1/placement-assets/student-5-0.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-5-0.jpg"
+        },
+        {
+          "name": "Amitesh Chaturvedi",
+          "company": "Somany Tiles",
+          "image": "/nextjs/homev1/placement-assets/student-5-1.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-5-1.jpg"
+        },
+        {
+          "name": "Lata Dashauni",
+          "company": "Johnson",
+          "image": "/nextjs/homev1/placement-assets/student-5-2.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-5-2.jpg"
+        },
+        {
+          "name": "Aanchal Sachdeva",
+          "company": "Saint-Gobain",
+          "image": "/nextjs/homev1/placement-assets/student-5-3.jpg",
+          "logo": "/nextjs/homev1/placement-assets/company-5-3.jpg"
+        }
+      ]
+    }
+  ],
+  "international": [
+    {
+      "name": "Sunam Suri",
+      "company": "Nine (Australia)",
+      "image": "/nextjs/homev1/placement-assets/pdf/student-4.webp",
+      "artwork": true
+    },
+    {
+      "name": "Amol Parashar",
+      "company": "Indicaa Group Limited (Dubai)",
+      "image": "/nextjs/homev1/placement-assets/pdf/student-5.webp",
+      "artwork": true
+    },
+    {
+      "name": "Ashima Kalra",
+      "company": "Raffles Education (Italy)",
+      "image": "/nextjs/homev1/placement-assets/pdf/student-6.webp",
+      "artwork": true
+    },
+    {
+      "name": "Chitransh Meena",
+      "company": "Al-Shirawi (Dubai)",
+      "image": "/nextjs/homev1/placement-assets/pdf/student-7.webp",
+      "artwork": true
+    },
+    {
+      "company": "Aswan International Engineering (Dubai)",
+      "name": "Aditya Mishra",
+      "image": "/nextjs/homev1/placement-assets/Aditya-Mishra.webp",
+      "artwork": true
+    },
+    {
+      "company": "Modern Plastic Industry (Dubai)",
+      "name": "Abhishek Halder",
+      "image": "/nextjs/homev1/placement-assets/Abhishek-Halder.webp",
+      "artwork": true
+    },
+    {
+      "company": "Aswan International Engineering (Dubai)",
+      "name": "Udit Narayan Jha",
+      "image": "/nextjs/homev1/placement-assets/udit-kumar-jha.webp",
+      "artwork": true
+    }
+  ],
+  "sectors": {
+    "2024": [
+      {
+        "label": "eCommerce",
+        "value": 6.6
+      },
+      {
+        "label": "Logistics",
+        "value": 6.7
+      },
+      {
+        "label": "Manufacturing",
+        "value": 12
+      },
+      {
+        "label": "Consulting",
+        "value": 2.5
+      },
+      {
+        "label": "NBFC & Housing",
+        "value": 5.4
+      },
+      {
+        "label": "Banking & Finance",
+        "value": 12.1
+      },
+      {
+        "label": "Recruitment",
+        "value": 5.8
+      },
+      {
+        "label": "Retail",
+        "value": 8.3
+      },
+      {
+        "label": "Real Estate",
+        "value": 2.2
+      },
+      {
+        "label": "IT",
+        "value": 7
+      },
+      {
+        "label": "Health",
+        "value": 1.3
+      },
+      {
+        "label": "EduTech",
+        "value": 14.2
+      },
+      {
+        "label": "Research",
+        "value": 2.1
+      },
+      {
+        "label": "FMCG",
+        "value": 5.3
+      },
+      {
+        "label": "Insurance",
+        "value": 1.1
+      },
+      {
+        "label": "Financial Services",
+        "value": 5.3
+      },
+      {
+        "label": "Market Research",
+        "value": 2.4
+      }
+    ],
+    "2025": [
+      {
+        "label": "Information Technology",
+        "value": 14
+      },
+      {
+        "label": "Manufacturing",
+        "value": 13.8
+      },
+      {
+        "label": "Banking & Financial",
+        "value": 9.9
+      },
+      {
+        "label": "Consulting",
+        "value": 9.5
+      },
+      {
+        "label": "Retail",
+        "value": 9.5
+      },
+      {
+        "label": "NBFC/Housing Finance",
+        "value": 7.6
+      },
+      {
+        "label": "FMCG",
+        "value": 4.9
+      },
+      {
+        "label": "Recruitment Services",
+        "value": 4.5
+      },
+      {
+        "label": "EdTech",
+        "value": 3.9
+      },
+      {
+        "label": "Insurance",
+        "value": 3.7
+      },
+      {
+        "label": "Logistics & Supply",
+        "value": 2.8
+      },
+      {
+        "label": "Real Estate",
+        "value": 2.4
+      },
+      {
+        "label": "Investment Mgmt",
+        "value": 1.9
+      },
+      {
+        "label": "Hospitality",
+        "value": 1.9
+      },
+      {
+        "label": "Education",
+        "value": 1.8
+      },
+      {
+        "label": "Landscaping",
+        "value": 1.7
+      },
+      {
+        "label": "Digital Media",
+        "value": 1.4
+      },
+      {
+        "label": "E-commerce",
+        "value": 1.2
+      },
+      {
+        "label": "Other",
+        "value": 0.3
+      }
+    ],
+    "2026": [
+      {
+        "label": "EdTech",
+        "value": 17.2
+      },
+      {
+        "label": "Information Technology",
+        "value": 12.7
+      },
+      {
+        "label": "Manufacturing",
+        "value": 12.2
+      },
+      {
+        "label": "Real Estate",
+        "value": 10.5
+      },
+      {
+        "label": "Banking & Financial",
+        "value": 9.4
+      },
+      {
+        "label": "E-commerce",
+        "value": 5.1
+      },
+      {
+        "label": "Consulting",
+        "value": 5
+      },
+      {
+        "label": "Agriculture & Food Processing",
+        "value": 3.9
+      },
+      {
+        "label": "Retail",
+        "value": 3.3
+      },
+      {
+        "label": "FMCG",
+        "value": 3.2
+      },
+      {
+        "label": "Other Sectors",
+        "value": 3.8
+      },
+      {
+        "label": "Research & Market Intelligence",
+        "value": 2.3
+      },
+      {
+        "label": "Hospitality & Travel",
+        "value": 2.1
+      },
+      {
+        "label": "Healthcare & Pharma",
+        "value": 2
+      },
+      {
+        "label": "Logistics",
+        "value": 2
+      },
+      {
+        "label": "NBFC/Insurance",
+        "value": 1.6
+      },
+      {
+        "label": "General Services",
+        "value": 1.5
+      },
+      {
+        "label": "MNC / Diversified",
+        "value": 1.1
+      },
+      {
+        "label": "Marketing & Advertising",
+        "value": 1.1
+      }
+    ]
+  },
+  "source": "https://dgu.ac.in/placement-reports",
+  "directory": [
+    {
+      "label": "FMCG",
+      "rows": [
+        [
+          "ITC",
+          "Mother Dairy",
+          "Varun Beverages"
+        ],
+        [
+          "Britannia Industries",
+          "Dharampal Premchand Ltd",
+          "HUL"
+        ],
+        [
+          "Varun Beverages (PepsiCo)",
+          "Patanjali",
+          "ITC"
+        ],
+        [
+          "DS Group (Dharampal Satyapal)",
+          "Varun Beverages",
+          "Coffee Day"
+        ],
+        [
+          "RCM Consumer Products",
+          "APIS India",
+          "Sresta Natural"
+        ],
+        [
+          "SIDS Farm",
+          "Merlin Brands",
+          "Haldiram"
+        ],
+        [
+          "Provilac",
+          "Lakme Lever Pvt Ltd (A Unilever Co.)",
+          "NuTaste Group"
+        ]
+      ]
+    },
+    {
+      "label": "Retail",
+      "rows": [
+        [
+          "Reliance Retail",
+          "Landmark Group",
+          "Tata Trends"
+        ],
+        [
+          "Zara (Inditex)",
+          "Zara",
+          "Landmark Group"
+        ],
+        [
+          "Decathlon",
+          "Arvind Lifestyle",
+          "Zara"
+        ],
+        [
+          "PVH Arvind Fashion",
+          "Decathlon",
+          "Arvind Lifestyle"
+        ],
+        [
+          "Novel Jewels (Aditya Birla Group)",
+          "Tata Trends",
+          "Decathlon"
+        ],
+        [
+          "Bluestone",
+          "BlueStone",
+          "Swiggy"
+        ],
+        [
+          "Coyu",
+          "Reliance Retail",
+          "BlueStone Jewellery & Lifestyle"
+        ]
+      ]
+    },
+    {
+      "label": "IT",
+      "rows": [
+        [
+          "HCLTech",
+          "HCL Tech",
+          "HCL Tech"
+        ],
+        [
+          "Tech Mahindra",
+          "Tech Mahindra",
+          "WIPRO"
+        ],
+        [
+          "WNS",
+          "IMTS Solution",
+          "CVENT"
+        ],
+        [
+          "FactSet Systems",
+          "S & P Global",
+          "Tech Mahindra"
+        ],
+        [
+          "CtrlS Datacenters",
+          "Conglomerate IT",
+          "Targus"
+        ],
+        [
+          "Cyfuture India",
+          "Netcore Cloud",
+          "Swipe (Nextspeed Tech.)"
+        ],
+        [
+          "Deloitte",
+          "Sutherland Global",
+          "Cloud Analogy CRM Specialist"
+        ]
+      ]
+    },
+    {
+      "label": "EdTech",
+      "rows": [
+        [
+          "Intellipaat",
+          "Upgrad",
+          "Raffles Education"
+        ],
+        [
+          "Jaro Education",
+          "Planet Spark",
+          "Leadsquared"
+        ],
+        [
+          "PlanetSpark",
+          "Codeyoung",
+          "Learning Route"
+        ],
+        [
+          "InfinityLearn",
+          "Learning Route",
+          "Posterity"
+        ],
+        [
+          "Coding Ninjas",
+          "SprintM Technologies",
+          "Planet Spark"
+        ],
+        [
+          "Suraasa",
+          "CollegeDekho",
+          "Pregrad"
+        ],
+        [
+          "Masters' Union",
+          "SkillsConnect",
+          "Scaler"
+        ]
+      ]
+    },
+    {
+      "label": "Banking & Financial",
+      "rows": [
+        [
+          "Axis Bank",
+          "ANZ Bank",
+          "HDFC Bank"
+        ],
+        [
+          "SBI Funds Management (SBI Mutual Fund)",
+          "ICICI Bank",
+          "Axis Bank"
+        ],
+        [
+          "Mirae Asset Sharekhan",
+          "Ryan India Tax Services",
+          "Ujjivan Small Finance Bank"
+        ],
+        [
+          "NJ India Invest",
+          "Axis Bank",
+          "Bandhan Bank"
+        ],
+        [
+          "Ameriprise Financial Services",
+          "IDBI Bank",
+          "Axis Bank"
+        ],
+        [
+          "PhonePe",
+          "ESAF Small Finance Bank",
+          "ESAF Small Finance Bank"
+        ],
+        [
+          "Bajaj Finance Ltd.",
+          "Fynocrat",
+          "IDBI Bank Ltd"
+        ]
+      ]
+    },
+    {
+      "label": "Logistics",
+      "rows": [
+        [
+          "Allcargo Gati",
+          "Flipkart",
+          "Seashell Logistics"
+        ],
+        [
+          "Transport Corporation of India (TCI)",
+          "Sugam Logistics",
+          "Om Logistics"
+        ],
+        [
+          "AAJ Supply Chain Management",
+          "Delivery",
+          "TCI"
+        ],
+        [
+          "Shipmozo",
+          "Compass Group",
+          "Compass Group"
+        ],
+        [
+          "Xhipment",
+          "RSPL",
+          "DHL Supply Chain"
+        ],
+        [
+          "SHL International Technologies",
+          "Sarveshwar Overseas Ltd",
+          "AAJ Enterprises Pvt. Ltd"
+        ],
+        [
+          "Bruhat Logistics",
+          "AS Logistics",
+          "TGL Logistics"
+        ]
+      ]
+    },
+    {
+      "label": "Consulting",
+      "rows": [
+        [
+          "Deloitte",
+          "Deloitte",
+          "Deloitte"
+        ],
+        [
+          "Boston Consulting Group (BCG)",
+          "Boston Consulting Group (BCG)",
+          "BP Global"
+        ],
+        [
+          "Indus Valley Partners",
+          "Ernst & Young",
+          "Gartner"
+        ],
+        [
+          "Phronesis Partners",
+          "WNS",
+          "KPMG"
+        ],
+        [
+          "Quess Corp",
+          "KPMG",
+          "Boston Consulting"
+        ],
+        [
+          "Cielo Talent",
+          "Grant Thornton Bharat LLP",
+          "Advantage Club"
+        ],
+        [
+          "Crescendo Global",
+          "Crescendo Global",
+          "Crescendo Global"
+        ]
+      ]
+    },
+    {
+      "label": "NBFC / Housing Finance",
+      "rows": [
+        [
+          "Bajaj Finance",
+          "Piramal Finance",
+          "Bajaj Housing Finance"
+        ],
+        [
+          "Shriram Housing Finance",
+          "Home First Finance",
+          "HDB Financial Services"
+        ],
+        [
+          "Home First Finance (HFFC)",
+          "NJ Invest",
+          "Home First Finance"
+        ],
+        [
+          "Vastu Housing Finance",
+          "Axis Securities",
+          "Piramal Finance"
+        ],
+        [
+          "Godrej Finance",
+          "HDB Financial",
+          "Ameriprise Financial"
+        ],
+        [
+          "Axis Bank",
+          "JM Financial Services",
+          "HDFC Asset Management Co."
+        ],
+        [
+          "HDFC Life",
+          "Anandrati",
+          "Share India"
+        ]
+      ]
+    },
+    {
+      "label": "Insurance",
+      "rows": [
+        [
+          "HDFC Life",
+          "ICICI Prudential",
+          "ICICI Lombard"
+        ],
+        [
+          "ICICI Lombard",
+          "Bajaj Allianz Life Insurance",
+          "TATA AIG"
+        ],
+        [
+          "ICICI Prudential Life",
+          "Aviva Life Insurance",
+          "HDFC Life"
+        ],
+        [
+          "TATA AIG",
+          "Kotak Life",
+          "ICICI Prudential"
+        ],
+        [
+          "Bajaj Allianz Life",
+          "HDFC Life",
+          "SBI General Insurance"
+        ],
+        [
+          "Kotak Life Insurance",
+          "BizBima Insurance Brokers Pvt. Ltd.",
+          "Kotak Life"
+        ],
+        [
+          "Niva Bupa",
+          "",
+          ""
+        ],
+        [
+          "Policybazaar",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "label": "E-commerce",
+      "rows": [
+        [
+          "Swiggy",
+          "Paytm",
+          "Zomato"
+        ],
+        [
+          "Indiamart",
+          "Practo",
+          "Swiggy"
+        ],
+        [
+          "Info Edge (Naukri.com)",
+          "Zomato",
+          "Flipkart"
+        ],
+        [
+          "99acres",
+          "BlueStone Jewelry",
+          "Justdial"
+        ],
+        [
+          "MakeMyTrip",
+          "Cars24",
+          "Indiamart"
+        ],
+        [
+          "BlueStone",
+          "99 Acres",
+          "Stanza Living"
+        ]
+      ]
+    },
+    {
+      "label": "Manufacturing",
+      "rows": [
+        [
+          "Asian Paints",
+          "Jindal Steel",
+          "Asian Paints"
+        ],
+        [
+          "UltraTech Cement",
+          "Somany",
+          "Godrej & Boyce"
+        ],
+        [
+          "Berger Paints",
+          "Prism Johnson",
+          "Jaguar"
+        ],
+        [
+          "Exide Industries",
+          "Hafele",
+          "JK Cement"
+        ],
+        [
+          "JK Cement",
+          "Saint Gobain",
+          "Greenlam Indus."
+        ],
+        [
+          "Shree Cement",
+          "Adani Cement",
+          "Aditya Birla (Ultratech)"
+        ],
+        [
+          "Saint-Gobain",
+          "Aditya Birla (Ultratech)",
+          "Indigo Paints Limited"
+        ],
+        [
+          "Yokohama",
+          "Greenlam Industries Ltd",
+          "UltraTech Cement Limited"
+        ],
+        [
+          "Birla Opus Paints",
+          "Asian Paints",
+          "JSW Paints"
+        ],
+        [
+          "Hero Cycles",
+          "Kansai Nerolac Paints Ltd",
+          "IndiaGlycols"
+        ]
+      ]
+    }
+  ],
+  "quote": "At DBS Global University, we recognize that success is personal. While some students aspire to build impactful careers, others seek admission to leading universities worldwide or dream of creating ventures of their own. To support these diverse ambitions, every student undergoes a Career Aspiration Survey during the penultimate year.",
+  "quoteMore": "Based on their goals, students are guided into one of three dedicated mentorship pathways—Career Placements, Higher Education, or Entrepreneurship. Each pathway is supported by specialized teams, industry mentors, and carefully curated interventions that provide personalized guidance and continuous handholding. Whether the destination is a leading organization, a globally reputed university, or a successful startup, our ecosystem is designed to transform aspirations into outcomes.",
+  "founders": [
+    "/nextjs/homev1/placement-assets/B1.webp",
+    "/nextjs/homev1/placement-assets/B2.webp",
+    "/nextjs/homev1/placement-assets/B3.webp",
+    "/nextjs/homev1/placement-assets/B4.webp",
+    "/nextjs/homev1/placement-assets/B5.webp",
+    "/nextjs/homev1/placement-assets/B6.webp",
+    "/nextjs/homev1/placement-assets/B7.webp",
+    "/nextjs/homev1/placement-assets/B8.webp",
+    "/nextjs/homev1/placement-assets/B9.webp",
+    "/nextjs/homev1/placement-assets/B10.webp",
+    "/nextjs/homev1/placement-assets/B11.webp",
+    "/nextjs/homev1/placement-assets/B12.webp",
+    "/nextjs/homev1/placement-assets/B13.webp",
+    "/nextjs/homev1/placement-assets/B14.webp",
+    "/nextjs/homev1/placement-assets/B15.webp",
+    "/nextjs/homev1/placement-assets/B16.webp",
+    "/nextjs/homev1/placement-assets/B17.webp"
+  ],
+  "startupSectors": [
+    "FinTech",
+    "AgriTech",
+    "D2C Brands",
+    "SaaS",
+    "EdTech",
+    "HealthTech",
+    "Media & Creator",
+    "Sustainability",
+    "Logistics",
+    "Retail",
+    "AI & Automation",
+    "Social Impact"
+  ],
+  "team": [
+    {
+      "name": "Ms. Gunjan Sharma",
+      "image": "/nextjs/homev1/placement-assets/pdf/team-gunjan.png",
+      "role": "Manager - Corporate Affairs",
+      "region": 0,
+      "email": "gunjan@dgu.ac.in"
+    },
+    {
+      "name": "Mr. Manoj Pandey",
+      "image": "/nextjs/homev1/placement-assets/pdf/team-manoj.png",
+      "role": "Manager - Corporate Affairs",
+      "region": 0,
+      "email": "manoj.pandey@dgu.ac.in"
+    },
+    {
+      "name": "Ms. Sweety Singh",
+      "image": "/nextjs/homev1/placement-assets/team-0.jpg",
+      "role": "Director - Placements",
+      "region": 0,
+      "email": ""
+    },
+    {
+      "name": "Dr. Anjali Mittal",
+      "image": "/nextjs/homev1/placement-assets/team-3.jpg",
+      "role": "Associate Director - \nCorporates & Placement Relations",
+      "region": 0,
+      "email": ""
+    },
+    {
+      "name": "Dr. Megha Yadav",
+      "image": "/nextjs/homev1/placement-assets/team-4.jpg",
+      "role": "Associate Director \nCorporate Relations and Placements",
+      "region": 1,
+      "email": ""
+    },
+    {
+      "name": "Mr. Aditya Dasgupta",
+      "image": "/nextjs/homev1/placement-assets/team-5.jpg",
+      "role": "Manager - Corporate Affairs",
+      "region": 1,
+      "email": ""
+    },
+    {
+      "name": "Ms. Sheetal Zalkikar",
+      "image": "/nextjs/homev1/placement-assets/team-6.jpg",
+      "role": "AGM - Corporate Affairs",
+      "region": 2,
+      "email": ""
+    },
+    {
+      "name": "Ms. Marina Sruthi",
+      "image": "/nextjs/homev1/placement-assets/team-7.jpg",
+      "role": "Manager - Corporate Affairs",
+      "region": 2,
+      "email": ""
+    },
+    {
+      "name": "Ms. Manju Nair",
+      "image": "/nextjs/homev1/placement-assets/team-8.jpg",
+      "role": "Associate Director - CDC",
+      "region": 3,
+      "email": ""
+    }
+  ],
+  "design": {
+    "hero": "/nextjs/homev1/placement-assets/pdf/hero.webp",
+    "poster": "/nextjs/homev1/placement-assets/pdf/video-poster.jpeg",
+    "stats": [
+      {
+        "value": 400,
+        "suffix": "+",
+        "label": "Recruiters"
+      },
+      {
+        "value": 40,
+        "suffix": "+ LPA",
+        "label": "Highest CTC"
+      },
+      {
+        "value": 1500,
+        "suffix": "+",
+        "label": "Students Placed"
+      },
+      {
+        "value": 92,
+        "suffix": "%",
+        "label": "Placement Rate"
+      }
+    ],
+    "statement": "Top placements across diverse sectors and over 90% placements across all courses of university since 2008 is our biggest strength and assurance"
+  }
+}

@@ -1,0 +1,246 @@
+@font-face {
+  font-family: 'Clubs Clash Semibold';
+  src: url('/nextjs/homev1/fonts/ClashGrotesk-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* PDF measurements scale together; common navigation and footer retain their styles. */
+.clubs-page {
+  --club-unit: min(.21701389vw, 3.333333px);
+  --local-ink: #737373;
+  color: #737373;
+}
+.clubs-page .clubs-main {
+  padding-top: 96px;
+  --dgu-page-title-size: calc(14.602 * var(--club-unit));
+  --dgu-section-title-size: calc(17.929 * var(--club-unit));
+  --dgu-body-size: calc(9 * var(--club-unit));
+  --dgu-body-line: 1.052;
+  --dgu-title-line: 1.14;
+}
+/* Scope the reference scale around the existing authoritative type rules. */
+.clubs-page .clubs-main :is(.clubs-title-band h1, .clubs-directory h2, .clubs-card-label, .clubs-intro-copy, .clubs-intro-copy p, .clubs-intro-copy button) { letter-spacing: 0 !important; }
+.clubs-title-band {
+  padding: calc(10 * var(--club-unit)) 20px calc(11 * var(--club-unit));
+  background: #68176b;
+  color: #fff;
+  text-align: center;
+}
+.clubs-title-band h1 {
+  margin: 0;
+  font-family: 'Clubs Clash Semibold', 'Clash Grotesk', sans-serif !important;
+  font-size: calc(14.602 * var(--club-unit));
+  font-weight: 600 !important;
+  line-height: 1.14;
+  letter-spacing: 0;
+}
+.clubs-banner-band { background: linear-gradient(#68176b 0 28%, #fff 28% 100%); }
+.clubs-banner {
+  display: block;
+  width: calc(410.655 * var(--club-unit));
+  max-width: calc(100% - 32px);
+  height: auto;
+  aspect-ratio: 410.655 / 130.721;
+  object-fit: cover;
+  margin: 0 auto;
+}
+.clubs-introduction {
+  width: calc(327 * var(--club-unit));
+  max-width: calc(100% - 40px);
+  margin: 0 auto;
+  padding: calc(7.6 * var(--club-unit)) 0 calc(13.4 * var(--club-unit));
+}
+.clubs-intro-copy {
+  font-size: calc(9 * var(--club-unit));
+  font-weight: 400;
+  line-height: 1.052;
+  text-align: center;
+  display: flow-root;
+}
+.clubs-intro-copy p,
+.clubs-intro-copy > div p {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0;
+}
+.clubs-intro-copy > div:not([hidden]) { margin-top: .7em; }
+.clubs-intro-copy .expandable-toggle {
+  display: block;
+  min-height: 24px;
+  margin: calc(5.3 * var(--club-unit)) 0 0 auto;
+  padding: 0 calc(3.4 * var(--club-unit));
+  border: 0;
+  border-radius: calc(2.9 * var(--club-unit));
+  background: #c4c4c6;
+  color: #fff;
+  font-size: calc(6.582 * var(--club-unit));
+  font-weight: 400;
+  line-height: 1.25;
+}
+.clubs-intro-copy .expandable-toggle:hover { background: #949496; }
+.clubs-sports { width: 100%; }
+.clubs-sports .local-gallery-count { display: none; }
+.clubs-sports .local-gallery-grid { display: block; }
+.clubs-sports .local-gallery-photo {
+  width: 100%;
+  border-radius: 0;
+  aspect-ratio: 480 / 126;
+  background: #244b17;
+}
+.clubs-sports .local-gallery-photo > img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+.clubs-sports .local-gallery-photo:hover > img { transform: none; }
+.clubs-sports .local-gallery-photo > span {
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(37 * var(--club-unit));
+  height: calc(37 * var(--club-unit));
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: calc(1.5 * var(--club-unit)) solid #fff;
+  border-radius: 50%;
+  background: #15330924;
+  color: #fff;
+  font-size: 0;
+}
+.clubs-sports .local-gallery-photo > span > span {
+  font-family: Arial, sans-serif;
+  font-size: calc(24 * var(--club-unit));
+  line-height: 1;
+}
+.clubs-sports .local-gallery-photo:hover > span { background: #15330960; }
+.clubs-sports--video .program-video-highlights { margin: 0; padding: 0; background: transparent; }
+.clubs-sports--video .program-video-media { width: 100%; height: auto; min-height: 0; aspect-ratio: 480 / 126; border-radius: 0; }
+.clubs-sports--video .program-video-media video { width: 100%; height: 100%; object-fit: cover; }
+.clubs-sports--video .program-video-shade { display: none; }
+.clubs-sports--video .program-video-play {
+  width: calc(37 * var(--club-unit));
+  height: calc(37 * var(--club-unit));
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: calc(1.5 * var(--club-unit)) solid #fff;
+}
+.clubs-directory { padding: calc(11.35 * var(--club-unit)) 0 calc(31 * var(--club-unit)); }
+.clubs-directory h2 {
+  margin: 0;
+  text-align: center;
+  font-size: calc(17.929 * var(--club-unit));
+  font-weight: 300 !important;
+  line-height: .913 !important;
+  letter-spacing: 0;
+  color: #737373;
+}
+.clubs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: calc(53.05 * var(--club-unit));
+  column-gap: calc(38.755 * var(--club-unit));
+  width: calc(388.369 * var(--club-unit));
+  max-width: calc(100% - 32px);
+  margin: calc(17 * var(--club-unit)) auto 0;
+  padding: 0;
+  list-style: none;
+}
+.clubs-card { min-width: 0; }
+.clubs-card-content {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(46.273 * var(--club-unit));
+  color: #737373;
+  isolation: isolate;
+}
+.clubs-card-frame {
+  position: absolute;
+  top: calc(-20.933 * var(--club-unit));
+  left: 0;
+  width: 100%;
+  height: calc(68.759 * var(--club-unit));
+  pointer-events: none;
+}
+.clubs-card-logo {
+  position: absolute;
+  top: calc(5.179 * var(--club-unit));
+  left: calc(10.731 * var(--club-unit));
+  width: calc(36.3 * var(--club-unit));
+  height: calc(36.3 * var(--club-unit));
+  border-radius: 50%;
+}
+.clubs-card-logo img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.clubs-status { margin: 32px auto; padding: 16px; text-align: center; font-size: 18px; line-height: 1.4; }
+.clubs-status button { margin-top: 12px; padding: 10px 18px; border: 0; background: #68176b; color: #fff; font: inherit; cursor: pointer; }
+.clubs-card-label {
+  position: absolute;
+  inset: 0 0 0 calc(45.511 * var(--club-unit));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 calc(4 * var(--club-unit));
+  font-family: 'Clubs Clash Semibold', 'Clash Grotesk', sans-serif;
+  font-size: calc(9.262 * var(--club-unit));
+  font-weight: 600;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0;
+}
+.clubs-card--right .clubs-card-frame { transform: scaleX(-1); }
+.clubs-card--right .clubs-card-logo { left: auto; right: calc(10.731 * var(--club-unit)); }
+.clubs-card--right .clubs-card-label { inset: 0 calc(45.511 * var(--club-unit)) 0 0; }
+.clubs-card a:hover .clubs-card-label { color: #68176b; }
+.clubs-card a:hover .clubs-card-frame > path:first-child { stroke: #a477a6; }
+.clubs-card a:focus-visible { outline: 2px solid #68176b; outline-offset: 5px; border-radius: 999px; }
+.clubs-page #clubs-content { scroll-margin-top: 96px; }
+
+@media (max-width: 760px) {
+  .clubs-page .clubs-main {
+    --dgu-page-title-size: clamp(20px, 3.169vw, 28px);
+    --dgu-section-title-size: 32px;
+    --dgu-body-size: max(16px, calc(9 * var(--club-unit)));
+    --dgu-body-line: 1.45;
+  }
+  .clubs-title-band h1 { font-size: clamp(20px, 3.169vw, 28px); }
+  .clubs-intro-copy { font-size: max(16px, calc(9 * var(--club-unit))); line-height: 1.45; }
+  .clubs-introduction { width: 76%; padding: 18px 0 24px; }
+  .clubs-intro-copy .expandable-toggle { min-height: 32px; padding: 4px 10px; font-size: 12px; margin-top: 12px; }
+  .clubs-directory { padding-top: 26px; }
+  .clubs-directory h2 { font-size: 32px; line-height: .96; }
+  .clubs-grid { margin-top: 32px; }
+  .clubs-card-label { font-size: max(14px, calc(9.262 * var(--club-unit))); }
+}
+
+@media (max-width: 700px) {
+  .clubs-page .clubs-main { padding-top: 82px; }
+  .clubs-page #clubs-content { scroll-margin-top: 82px; }
+}
+
+@media (max-width: 600px) {
+  .clubs-title-band { padding: 20px 16px 18px; }
+  .clubs-title-band h1 { max-width: 400px; margin: 0 auto; line-height: 1.14; }
+  .clubs-banner { width: calc(100% - 32px); }
+  .clubs-introduction { width: calc(100% - 56px); }
+  .clubs-sports .local-gallery-photo { min-height: 130px; }
+  .clubs-grid {
+    --club-unit: min(.480528vw, 2.3px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: calc(53.05 * var(--club-unit));
+    gap: 0;
+    width: calc(174.807 * var(--club-unit));
+    max-width: calc(100% - 48px);
+    margin-top: calc(30 * var(--club-unit));
+  }
+  .clubs-card-label { font-size: max(16px, calc(9.262 * var(--club-unit))); }
+  .clubs-directory { padding-bottom: 48px; }
+  .clubs-page #clubs-content { scroll-margin-top: 82px; }
+}

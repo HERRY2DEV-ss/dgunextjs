@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86 66" width="512" height="393" fill="none">
+  <g stroke="#A000A0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Roof -->
+    <path d="M15 31.5 L41.5 11 L70.5 31.5"/>
+    <path d="M18.5 33.5 L41.5 16.2 L67 33.5"/>
+
+    <!-- Fork -->
+    <path d="M36 26.5 V39"/>
+    <path d="M33.2 26.5 V32.2"/>
+    <path d="M38.8 26.5 V32.2"/>
+    <path d="M36 32.2 H36"/>
+
+    <!-- Knife -->
+    <path d="M46 26.5 V39"/>
+    <path d="M46 26.5 C49 28.6 49 33.5 46 34.5"/>
+
+    <!-- Key -->
+    <circle cx="30.5" cy="49.7" r="5.7"/>
+    <circle cx="30.5" cy="49.7" r="1.9"/>
+    <path d="M36.2 49.7 H61.5"/>
+    <path d="M53.5 49.7 V55"/>
+    <path d="M58 49.7 V53.2"/>
+    <path d="M61.5 47.5 V52"/>
+  </g>
+</svg>

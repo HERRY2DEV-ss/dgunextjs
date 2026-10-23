@@ -1,0 +1,16 @@
+{
+  "error": "0",
+  "message": "1 Records Found",
+  "data": [
+    {
+      "id": 579,
+      "newsDate": "26 Sep, 2026",
+      "category": "Campus & Event Updates",
+      "newsTitle": "DBS Global University Campus to Corporate Guest Lecture Focuses on Employability and Workplace Readiness",
+      "details": "DBS Global University organised a Campus to Corporate Guest Lecture aimed at helping students understand the transition from academic life",
+      "otherDetails": "<p>DBS Global University organised a Campus to Corporate Guest Lecture aimed at helping students understand the transition from academic life to professional workplace environments. The session focused on the skills and professional behaviours that increasingly influence employability, including communication, adaptability, problem-solving, professional etiquette, confidence and the ability to apply academic knowledge in practical situations. Students were encouraged to understand that successful entry into the corporate world depends not only on academic performance but also on how effectively they communicate, collaborate, learn and respond to real workplace situations. The interaction helped participants gain greater clarity about corporate expectations and the need to begin preparing for professional life during their university years.</p>\r\n\r\n<div class=\"row mt-30 mb-30\">\r\n<div class=\"col-lg-4 col-md-4 col-12\"><img alt=\"news image\" class=\"img-fluid\" decoding=\"async\" height=\"560\" loading=\"lazy\" src=\"uploads/images/news/gstlec1.webp\" style=\"border-radius:12px; border: 1px solid #9E9E9E;\" width=\"840\" /></div>\r\n<div class=\"col-lg-4 col-md-4 col-12\"><img alt=\"news image\" class=\"img-fluid\" decoding=\"async\" height=\"560\" loading=\"lazy\" src=\"uploads/images/news/gstlec2.webp\" style=\"border-radius:12px; border: 1px solid #9E9E9E;\" width=\"840\" /></div>\r\n<div class=\"col-lg-4 col-md-4 col-12\"><img alt=\"news image\" class=\"img-fluid\" decoding=\"async\" height=\"560\" loading=\"lazy\" src=\"uploads/images/news/gstlec3.webp\" style=\"border-radius:12px; border: 1px solid #9E9E9E;\" width=\"840\" /></div>\r\n</div>\r\n\r\n<p>DBS Global University places strong emphasis on career readiness through industry interaction, practical learning, professional skill development and exposure to contemporary workplace requirements. The Campus to Corporate initiative contributes to this approach by helping students connect their academic journey with the competencies expected by organisations and preparing them to approach internships, placements and early career opportunities with greater confidence and awareness.</p>",
+      "imageURL": "https://dgu.ac.in//uploads/images/news/news_9062633_gstlecsm.webp",
+      "url": "campus-to-corporate-guest-lecture-career-readiness-dgu"
+    }
+  ]
+}

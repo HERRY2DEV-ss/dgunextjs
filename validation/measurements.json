@@ -1,0 +1,894 @@
+{
+  "get-programs.php": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 74,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 674
+  },
+  "common-catalogue-0": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 74,
+    "beforeColumnsTimesRows": 3676,
+    "afterColumnsTimesRows": 733
+  },
+  "common-catalogue-1": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 74,
+    "beforeColumnsTimesRows": 3676,
+    "afterColumnsTimesRows": 733
+  },
+  "catalogue-school-1": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 13,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 85
+  },
+  "catalogue-school-3": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 14,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 95
+  },
+  "catalogue-school-8": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 11,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 65
+  },
+  "catalogue-school-2": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 11,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 65
+  },
+  "catalogue-school-5": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 11,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 65
+  },
+  "catalogue-school-4": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 12,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 75
+  },
+  "catalogue-school-6": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 12,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 75
+  },
+  "catalogue-school-7": {
+    "beforeQueries": 3,
+    "afterQueries": 3,
+    "beforeRows": 74,
+    "afterRows": 33,
+    "beforeColumnsTimesRows": 400,
+    "afterColumnsTimesRows": 285
+  },
+  "program-2": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 766,
+    "afterColumnsTimesRows": 331
+  },
+  "program-3": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 37,
+    "afterRows": 37,
+    "beforeColumnsTimesRows": 712,
+    "afterColumnsTimesRows": 317
+  },
+  "program-4": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 730,
+    "afterColumnsTimesRows": 333
+  },
+  "program-5": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 46,
+    "afterRows": 46,
+    "beforeColumnsTimesRows": 732,
+    "afterColumnsTimesRows": 335
+  },
+  "program-6": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 39,
+    "afterRows": 39,
+    "beforeColumnsTimesRows": 498,
+    "afterColumnsTimesRows": 281
+  },
+  "program-7": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 35,
+    "afterRows": 35,
+    "beforeColumnsTimesRows": 435,
+    "afterColumnsTimesRows": 258
+  },
+  "program-8": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 38,
+    "afterRows": 38,
+    "beforeColumnsTimesRows": 441,
+    "afterColumnsTimesRows": 264
+  },
+  "program-9": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 36,
+    "afterRows": 36,
+    "beforeColumnsTimesRows": 430,
+    "afterColumnsTimesRows": 255
+  },
+  "program-10": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 50,
+    "afterRows": 50,
+    "beforeColumnsTimesRows": 930,
+    "afterColumnsTimesRows": 379
+  },
+  "program-11": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 37,
+    "afterRows": 37,
+    "beforeColumnsTimesRows": 366,
+    "afterColumnsTimesRows": 253
+  },
+  "program-12": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 34,
+    "afterRows": 34,
+    "beforeColumnsTimesRows": 371,
+    "afterColumnsTimesRows": 273
+  },
+  "program-13": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 40,
+    "afterRows": 40,
+    "beforeColumnsTimesRows": 658,
+    "afterColumnsTimesRows": 305
+  },
+  "program-14": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 41,
+    "afterRows": 41,
+    "beforeColumnsTimesRows": 660,
+    "afterColumnsTimesRows": 307
+  },
+  "program-15": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 42,
+    "afterRows": 42,
+    "beforeColumnsTimesRows": 365,
+    "afterColumnsTimesRows": 276
+  },
+  "program-17": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 43,
+    "afterRows": 43,
+    "beforeColumnsTimesRows": 721,
+    "afterColumnsTimesRows": 324
+  },
+  "program-18": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 43,
+    "afterRows": 43,
+    "beforeColumnsTimesRows": 733,
+    "afterColumnsTimesRows": 327
+  },
+  "program-19": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 42,
+    "afterRows": 42,
+    "beforeColumnsTimesRows": 719,
+    "afterColumnsTimesRows": 322
+  },
+  "program-20": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 44,
+    "afterRows": 44,
+    "beforeColumnsTimesRows": 728,
+    "afterColumnsTimesRows": 331
+  },
+  "program-21": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 42,
+    "afterRows": 42,
+    "beforeColumnsTimesRows": 714,
+    "afterColumnsTimesRows": 317
+  },
+  "program-22": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 37,
+    "afterRows": 37,
+    "beforeColumnsTimesRows": 345,
+    "afterColumnsTimesRows": 256
+  },
+  "program-23": {
+    "beforeQueries": 13,
+    "afterQueries": 13,
+    "beforeRows": 49,
+    "afterRows": 49,
+    "beforeColumnsTimesRows": 872,
+    "afterColumnsTimesRows": 366
+  },
+  "program-24": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 47,
+    "afterRows": 47,
+    "beforeColumnsTimesRows": 850,
+    "afterColumnsTimesRows": 356
+  },
+  "program-25": {
+    "beforeQueries": 13,
+    "afterQueries": 13,
+    "beforeRows": 65,
+    "afterRows": 65,
+    "beforeColumnsTimesRows": 984,
+    "afterColumnsTimesRows": 478
+  },
+  "program-26": {
+    "beforeQueries": 13,
+    "afterQueries": 13,
+    "beforeRows": 50,
+    "afterRows": 50,
+    "beforeColumnsTimesRows": 879,
+    "afterColumnsTimesRows": 373
+  },
+  "program-27": {
+    "beforeQueries": 13,
+    "afterQueries": 13,
+    "beforeRows": 57,
+    "afterRows": 57,
+    "beforeColumnsTimesRows": 928,
+    "afterColumnsTimesRows": 422
+  },
+  "program-28": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 829,
+    "afterColumnsTimesRows": 344
+  },
+  "program-29": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 829,
+    "afterColumnsTimesRows": 344
+  },
+  "program-30": {
+    "beforeQueries": 13,
+    "afterQueries": 13,
+    "beforeRows": 51,
+    "afterRows": 51,
+    "beforeColumnsTimesRows": 891,
+    "afterColumnsTimesRows": 378
+  },
+  "program-31": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 829,
+    "afterColumnsTimesRows": 344
+  },
+  "program-33": {
+    "beforeQueries": 13,
+    "afterQueries": 14,
+    "beforeRows": 129,
+    "afterRows": 43,
+    "beforeColumnsTimesRows": 5101,
+    "afterColumnsTimesRows": 290
+  },
+  "program-34": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 43,
+    "afterRows": 43,
+    "beforeColumnsTimesRows": 664,
+    "afterColumnsTimesRows": 311
+  },
+  "program-35": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 44,
+    "afterRows": 44,
+    "beforeColumnsTimesRows": 678,
+    "afterColumnsTimesRows": 316
+  },
+  "program-36": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 45,
+    "afterRows": 45,
+    "beforeColumnsTimesRows": 692,
+    "afterColumnsTimesRows": 321
+  },
+  "program-40": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-41": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 33,
+    "afterRows": 33,
+    "beforeColumnsTimesRows": 312,
+    "afterColumnsTimesRows": 223
+  },
+  "program-42": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 25,
+    "afterRows": 25,
+    "beforeColumnsTimesRows": 308,
+    "afterColumnsTimesRows": 210
+  },
+  "program-43": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-44": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 35,
+    "afterRows": 35,
+    "beforeColumnsTimesRows": 341,
+    "afterColumnsTimesRows": 252
+  },
+  "program-45": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 32,
+    "afterRows": 32,
+    "beforeColumnsTimesRows": 303,
+    "afterColumnsTimesRows": 216
+  },
+  "program-46": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 36,
+    "afterRows": 36,
+    "beforeColumnsTimesRows": 338,
+    "afterColumnsTimesRows": 249
+  },
+  "program-47": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 33,
+    "afterRows": 33,
+    "beforeColumnsTimesRows": 323,
+    "afterColumnsTimesRows": 238
+  },
+  "program-48": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 34,
+    "afterRows": 34,
+    "beforeColumnsTimesRows": 332,
+    "afterColumnsTimesRows": 245
+  },
+  "program-49": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 322,
+    "afterColumnsTimesRows": 233
+  },
+  "program-50": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 34,
+    "afterRows": 34,
+    "beforeColumnsTimesRows": 332,
+    "afterColumnsTimesRows": 245
+  },
+  "program-51": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 322,
+    "afterColumnsTimesRows": 233
+  },
+  "program-52": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 25,
+    "afterRows": 25,
+    "beforeColumnsTimesRows": 297,
+    "afterColumnsTimesRows": 212
+  },
+  "program-53": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 322,
+    "afterColumnsTimesRows": 233
+  },
+  "program-54": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 322,
+    "afterColumnsTimesRows": 233
+  },
+  "program-55": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 27,
+    "afterRows": 27,
+    "beforeColumnsTimesRows": 313,
+    "afterColumnsTimesRows": 226
+  },
+  "program-56": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 29,
+    "afterRows": 29,
+    "beforeColumnsTimesRows": 329,
+    "afterColumnsTimesRows": 240
+  },
+  "program-58": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-59": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-60": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-61": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-62": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 22,
+    "afterRows": 22,
+    "beforeColumnsTimesRows": 272,
+    "afterColumnsTimesRows": 189
+  },
+  "program-63": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-64": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-65": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-66": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-67": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-68": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-69": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 23,
+    "afterRows": 23,
+    "beforeColumnsTimesRows": 285,
+    "afterColumnsTimesRows": 198
+  },
+  "program-70": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-71": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-72": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 23,
+    "afterRows": 23,
+    "beforeColumnsTimesRows": 285,
+    "afterColumnsTimesRows": 198
+  },
+  "program-73": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-74": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-75": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 23,
+    "afterRows": 23,
+    "beforeColumnsTimesRows": 285,
+    "afterColumnsTimesRows": 198
+  },
+  "program-76": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 22,
+    "afterRows": 22,
+    "beforeColumnsTimesRows": 276,
+    "afterColumnsTimesRows": 191
+  },
+  "program-77": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-78": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-79": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-80": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 24,
+    "afterRows": 24,
+    "beforeColumnsTimesRows": 294,
+    "afterColumnsTimesRows": 205
+  },
+  "program-81": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-82": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-83": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-84": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-85": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 23,
+    "afterRows": 23,
+    "beforeColumnsTimesRows": 285,
+    "afterColumnsTimesRows": 198
+  },
+  "program-86": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 21,
+    "afterRows": 21,
+    "beforeColumnsTimesRows": 267,
+    "afterColumnsTimesRows": 184
+  },
+  "program-88": {
+    "beforeQueries": 12,
+    "afterQueries": 11,
+    "beforeRows": 39,
+    "afterRows": 32,
+    "beforeColumnsTimesRows": 1051,
+    "afterColumnsTimesRows": 282
+  },
+  "program-89": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 36,
+    "afterRows": 36,
+    "beforeColumnsTimesRows": 702,
+    "afterColumnsTimesRows": 295
+  },
+  "program-91": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 22,
+    "afterRows": 22,
+    "beforeColumnsTimesRows": 276,
+    "afterColumnsTimesRows": 191
+  },
+  "program-92": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 29,
+    "afterRows": 29,
+    "beforeColumnsTimesRows": 302,
+    "afterColumnsTimesRows": 208
+  },
+  "program-94": {
+    "beforeQueries": 12,
+    "afterQueries": 13,
+    "beforeRows": 105,
+    "afterRows": 19,
+    "beforeColumnsTimesRows": 4938,
+    "afterColumnsTimesRows": 165
+  },
+  "program-96": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 314,
+    "afterColumnsTimesRows": 225
+  },
+  "program-97": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 27,
+    "afterRows": 27,
+    "beforeColumnsTimesRows": 726,
+    "afterColumnsTimesRows": 253
+  },
+  "program-98": {
+    "beforeQueries": 11,
+    "afterQueries": 11,
+    "beforeRows": 28,
+    "afterRows": 28,
+    "beforeColumnsTimesRows": 314,
+    "afterColumnsTimesRows": 225
+  },
+  "program-102": {
+    "beforeQueries": 12,
+    "afterQueries": 12,
+    "beforeRows": 30,
+    "afterRows": 30,
+    "beforeColumnsTimesRows": 618,
+    "afterColumnsTimesRows": 265
+  },
+  "school-1": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 92,
+    "afterRows": 30,
+    "beforeColumnsTimesRows": 3789,
+    "afterColumnsTimesRows": 170
+  },
+  "school-3": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 96,
+    "afterRows": 35,
+    "beforeColumnsTimesRows": 3803,
+    "afterColumnsTimesRows": 195
+  },
+  "school-8": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 80,
+    "afterRows": 16,
+    "beforeColumnsTimesRows": 3753,
+    "afterColumnsTimesRows": 112
+  },
+  "school-2": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 79,
+    "afterRows": 15,
+    "beforeColumnsTimesRows": 3748,
+    "afterColumnsTimesRows": 107
+  },
+  "school-5": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 84,
+    "afterRows": 20,
+    "beforeColumnsTimesRows": 3775,
+    "afterColumnsTimesRows": 134
+  },
+  "school-4": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 86,
+    "afterRows": 23,
+    "beforeColumnsTimesRows": 3768,
+    "afterColumnsTimesRows": 138
+  },
+  "school-6": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 80,
+    "afterRows": 17,
+    "beforeColumnsTimesRows": 3753,
+    "afterColumnsTimesRows": 123
+  },
+  "school-7": {
+    "beforeQueries": 8,
+    "afterQueries": 7,
+    "beforeRows": 82,
+    "afterRows": 40,
+    "beforeColumnsTimesRows": 3763,
+    "afterColumnsTimesRows": 364
+  },
+  "get-footer.php": {
+    "beforeQueries": 2,
+    "afterQueries": 2,
+    "beforeRows": 43,
+    "afterRows": 43,
+    "beforeColumnsTimesRows": 223,
+    "afterColumnsTimesRows": 223
+  },
+  "get-differentiators.php": {
+    "beforeQueries": 1,
+    "afterQueries": 1,
+    "beforeRows": 1,
+    "afterRows": 1,
+    "beforeColumnsTimesRows": 21,
+    "afterColumnsTimesRows": 21
+  },
+  "get-admissions.php": {
+    "beforeQueries": 4,
+    "afterQueries": 4,
+    "beforeRows": 60,
+    "afterRows": 334,
+    "beforeColumnsTimesRows": 354,
+    "afterColumnsTimesRows": 1450
+  },
+  "fixture-two-showPrograms-tabs": {
+    "beforeQueries": 14,
+    "afterQueries": 12
+  },
+  "fixture-legacy-with-ID": {
+    "beforeQueries": 12,
+    "afterQueries": 13,
+    "beforeFallbackRows": 88,
+    "beforeFallbackColumns": 54,
+    "afterCandidateRows": 1,
+    "afterCandidateColumns": 2
+  }
+}

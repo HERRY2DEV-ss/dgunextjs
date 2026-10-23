@@ -1,0 +1,7 @@
+/* Only image fitting belongs here. Keep card geometry and typography intact.
+   The anchor/image classes also cover linked placement thumbnails, which no
+   longer match the legacy .update-card > img selector. */
+a.media > img.image {
+  object-fit: contain;
+  object-position: center;
+}

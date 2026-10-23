@@ -1,0 +1,1 @@
+Optional: put real hero and placement video files here, then set their URLs in components/media.config.ts. Life at DGU is now a live scroll-driven component, reconstructed from the supplied screen recording.

@@ -1,0 +1,624 @@
+.admissions-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.admissions-opening {
+  padding: clamp(23px, 2.3vw, 31px) 0 26px;
+  background: linear-gradient(to bottom, #68176b 0, #68176b clamp(185px, 16.2vw, 200px), #fff clamp(185px, 16.2vw, 200px));
+  text-align: center;
+}
+
+.admissions-opening h1 {
+  margin: 0 0 clamp(25px, 2.6vw, 34px);
+  color: #fff;
+  font-size: clamp(28px, 3.25vw, 40px);
+  font-weight:500;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.admissions-banner {
+  width: min(89.3%, 1440px);
+  margin: 0 auto;
+}
+
+.admissions-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.admissions-intro {
+  max-width: 680px;
+  margin: clamp(18px, 2vw, 26px) auto 0;
+  padding: 0 16px;
+  color: #383438;
+  font-size: clamp(18px, 1.85vw, 24px);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.admissions-process {
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  letter-spacing: 0;
+  padding-top: 40px;
+  padding-bottom: clamp(40px, 5vw, 72px);
+  color: #383638;
+}
+
+.admissions-section-links {
+  position: sticky;
+  top: var(--dgu-header-height, 96px);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: safe center;
+  max-width:100%;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  gap: clamp(14px, 1.8vw, 30px);
+  min-height: 54px;
+  padding: 9px 24px;
+  background: #e7e7e7;
+}
+
+.admissions-section-links a {
+  color: inherit;
+  font-size: clamp(14px, 1.75vw, 23px);
+  font-weight: 300;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.admissions-section-links a.is-current {
+  font-weight:500;
+}
+
+.admissions-section-links a:hover,.admissions-section-links a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.admissions-process-inner {
+  width: min(95%, 1440px);
+  margin: 0 auto;
+}
+
+.admissions-process-inner h2 {
+  margin: 0 0 13px;
+  font-size: clamp(23px, 2.1vw, 29px);
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.admissions-process-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 38.3%) minmax(0, 61.7%);
+  align-items: stretch;
+}
+.admissions-mobile-accordion { display: none; }
+
+.admissions-school-list,.admissions-process-card {
+  min-width: 0;
+  border-radius: 29px;
+  background: linear-gradient(125deg, #f2f2f2, #fafafa 75%, #f1f1f1);
+}
+
+.admissions-school-list {
+  border-radius: 29px 29px 0 0;
+  background: linear-gradient(180deg, #f1f1f1 0%, #fafafa 100%);
+  padding: 19px clamp(25px, 4.4vw, 54px) 27px;
+}
+
+.admissions-school-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 50px;
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 2px solid #bcbdbf;
+  background: transparent;
+  color: #3c393c;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: 17px;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admissions-school-list button:last-child { border-bottom: 0; }
+.admissions-school-list button.is-active { font-weight:500; }
+.admissions-school-list button span:last-child {
+  color: #b8b9bb;
+  font-size: 26px;
+  font-weight:500;
+  line-height: .7;
+}
+.admissions-school-list button.is-active span:last-child { color: #363436; }
+.admissions-school-list button:hover span:last-child { transform: translateX(3px); }
+
+.admissions-process-card {
+  align-self: start;
+  min-height: 354px;
+  padding: 19px clamp(24px, 4vw, 50px) 27px;
+  border: 0;
+  background: linear-gradient(180deg, #fcfcfc 0%, #f1f1f2 100%);
+  box-shadow: none;
+}
+
+.admissions-level-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(23px, 4.3vw, 54px);
+  margin-bottom: 28px;
+}
+
+.admissions-level-tabs button {
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #b3b3b3;
+  background: transparent;
+  color: #4a484a;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: 23px;
+  letter-spacing: 0;
+  font-weight: 300;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.admissions-level-tabs button.is-active { border-bottom-color: #333; font-weight:500; }
+.admissions-level-tabs button { transition: color .25s ease, border-color .25s ease; }
+.admissions-level-tabs button:hover,.admissions-level-tabs button:focus-visible { color: #68176b; border-bottom-color: #68176b; }
+.admissions-level-short { display: none; }
+.admissions-tab-content { animation: admissions-tab-enter .38s cubic-bezier(.2, .7, .25, 1) both; }
+@keyframes admissions-tab-enter {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.admissions-process-card h3 {
+  max-width: 580px;
+  margin: 0 0 21px;
+  font-size: 21px;
+  letter-spacing: 0;
+  font-weight: 500;
+  line-height: 1.08;
+}
+.admissions-process-card p {
+  margin: 0 0 17px;
+  font-size: 20px;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.08;
+}
+.admissions-read-more {
+  display: block;
+  margin-left: auto;
+  padding: 2px 9px;
+  border: 0;
+  border-radius: 14px;
+  background: #737373;
+  color: #fff;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+.admissions-full-process {
+  display: inline-block;
+  margin-top: 15px;
+  color: #68176b;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 850px) {
+  .admissions-section-links { justify-content: flex-start; overflow-x: auto; }
+  .admissions-process-grid { grid-template-columns: minmax(0, 40%) minmax(0, 60%); }
+  .admissions-school-list { padding: 16px 22px; }
+  .admissions-process-card { padding: 18px 23px 26px; }
+}
+
+@media (max-width: 700px) {
+  .admissions-opening {
+    padding-top: 25px;
+    background: linear-gradient(to bottom, #68176b 0, #68176b 155px, #fff 155px);
+  }
+  .admissions-opening h1 { margin-bottom: 27px; }
+  .admissions-banner { width: 92%; }
+  .admissions-intro { max-width: 570px; line-height: 1.3; margin-top: 24px; }
+  .admissions-section-links { gap: 18px; min-height: 52px; padding: 10px 5%; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+  .admissions-section-links a { font-size: 15px; }
+  .admissions-process-inner { width: 92%; }
+  .admissions-process-inner h2 { margin-bottom: 18px; }
+  .admissions-process-grid { grid-template-columns: 1fr; gap: 16px; }
+  .admissions-school-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; border-radius: 22px; }
+  .admissions-school-list button { min-height: 53px; font-size: 14px; }
+  .admissions-process-card { min-height: 0; border-radius: 22px; }
+  .admissions-level-tabs { flex-wrap: nowrap; align-items: center; gap: clamp(16px, 7vw, 34px); margin-bottom: 23px; }
+  .admissions-level-tabs button { flex: 0 0 auto; font-size: clamp(15px, 4.4vw, 19px); white-space: nowrap; }
+  .admissions-level-full { display: none; }
+  .admissions-level-short { display: inline; }
+  .admissions-process-card h3 { font-size: clamp(17px, 4.8vw, 20px); line-height: 1.2; }
+  .admissions-process-card p { font-size: clamp(15px, 4vw, 18px); line-height: 1.35; }
+  .admissions-desktop-grid { display: none; }
+  .admissions-mobile-accordion {
+    display: block;
+    width: 100%;
+    padding: 6px clamp(15px, 5vw, 24px) 16px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f1f1f1, #fafafa);
+  }
+  .admissions-accordion-item { border-bottom: 1px solid #bcbdbf; }
+  .admissions-accordion-item:last-child { border-bottom: 0; }
+  .admissions-accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    min-height: 51px;
+    padding: 9px 0;
+    border: 0;
+    background: transparent;
+    color: #3c393c;
+    font-family: 'Clash Grotesk', Arial, sans-serif;
+    font-size: clamp(14px, 3.8vw, 17px);
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: left;
+    cursor: pointer;
+    transition: color .25s ease, padding-left .3s ease;
+  }
+  .admissions-accordion-trigger:hover,.admissions-accordion-trigger:focus-visible,.admissions-accordion-item.is-open .admissions-accordion-trigger { color: #68176b; }
+  .admissions-accordion-item.is-open .admissions-accordion-trigger { font-weight:500; }
+  .admissions-accordion-chevron {
+    flex: none;
+    color: #a3a4a7;
+    font-size: 26px;
+    font-weight:500;
+    line-height: .7;
+    transition: transform .42s cubic-bezier(.2, .8, .2, 1), color .25s ease;
+  }
+  .admissions-accordion-item.is-open .admissions-accordion-chevron {
+    transform: rotate(90deg);
+    color: #68176b;
+  }
+  .admissions-accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows .48s cubic-bezier(.22, .72, .2, 1), opacity .3s ease;
+  }
+  .admissions-accordion-item.is-open .admissions-accordion-panel { grid-template-rows: 1fr; opacity: 1; }
+  .admissions-accordion-panel-inner { min-height: 0; overflow: hidden; }
+  .admissions-accordion-panel .admissions-process-card {
+    padding: 17px 14px 22px;
+    border-radius: 15px;
+    background: #fff;
+  }
+  .admissions-accordion-panel .admissions-level-tabs { gap: clamp(17px, 6vw, 30px); }
+  .admissions-accordion-panel .admissions-level-tabs button { padding-bottom: 3px; }
+  .admissions-accordion-panel .admissions-tab-content { animation-duration: .42s; }
+}
+
+@media (max-width: 430px) {
+  .admissions-school-list { grid-template-columns: 1fr; }
+  .admissions-school-list button { min-height: 45px; }
+}
+
+/* Existing program video highlight, placed after the admissions process. */
+
+/* Fees reuse the Admission Process cards, gradient and tabs. */
+.admissions-fees {
+  padding: 42px 0 24px;
+  color: #383638;
+  scroll-margin-top: 110px;
+}
+.admissions-fees h2 {
+  margin: 0 0 13px;
+  font-size: clamp(23px, 2.1vw, 29px);
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+}
+.admissions-fees-grid {
+  width: min(90%, 1440px);
+  margin: 0 auto;
+}
+.admissions-fee-item > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 28px;
+  padding: 3px 0;
+  border: 0;
+  border-bottom: 2px solid #c0c1c3;
+  background: transparent;
+  color: #454245;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+.admissions-fee-item:last-child > button { border-bottom: 0; }
+.admissions-fee-item > button span:last-child {
+  flex: none;
+  color: #b5b6b9;
+  font-size: 24px;
+  font-weight:500;
+  line-height: .75;
+}
+.admissions-fee-item > button:hover,.admissions-fee-item > button:focus-visible { color: #68176b; }
+.admissions-fee-detail { padding: 17px 0 24px; animation: admissions-tab-enter .38s cubic-bezier(.2, .7, .25, 1) both; }
+.admissions-fee-detail strong { display: block; margin-bottom: 12px; font-size: 16px; font-weight:500; }
+.admissions-fee-amounts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.admissions-fee-amounts > div { display: grid; gap: 2px; padding: 8px 10px; border-radius: 9px; background: #fff; font-size: 13px; }
+.admissions-fee-amounts span { color: #666; overflow-wrap: anywhere; }
+.admissions-fee-amounts b { font-size: 16px; font-weight:500; }
+.admissions-fee-detail p { margin: 12px 0 0; font-size: 13px; line-height: 1.4; }
+.admissions-fee-detail a { display: inline-block; margin-top: 12px; color: #68176b; font-size: 14px; font-weight: 500; text-underline-offset: 3px; }
+@media (max-width: 700px) {
+  .admissions-fees { padding: 35px 0 60px; scroll-margin-top: 92px; }
+  .admissions-fees-grid { width: 92%; }
+  .admissions-fee-item > button { min-height: 42px; }
+  .admissions-fee-amounts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admissions-fees-accordion { width: 92%; margin: 0 auto; }
+}
+
+/* Admissions support topics shown below the programme fee structures. */
+.admissions-resources {
+  padding: 13px 0 clamp(54px, 6vw, 86px);
+  color: #3c393c;
+  background: #fff;
+}
+.admissions-resources-inner { width: min(84%, 1190px); margin: 0 auto; }
+.admissions-resource-tabs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(13px, 2vw, 27px);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.admissions-resource-tabs button,.admissions-resource-links a,.admissions-page .admissions-international h2 {
+  color: #3c393c;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: clamp(15px, 1.55vw, 20px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.admissions-resource-tabs button {
+  flex: none;
+  padding: 0 0 3px;
+  border: 0;
+  border-bottom: 2px solid #c5c5c5;
+  background: transparent;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.admissions-resource-tabs button.is-active { border-bottom-color: #3c393c; font-weight:500; }
+.admissions-resource-tabs button:hover,.admissions-resource-tabs button:focus-visible { color: #68176b; border-bottom-color: #68176b; }
+.admissions-resource-panel { min-height: 166px; padding-top: 24px; }
+.admissions-resource-panel { animation: admissions-tab-enter .38s cubic-bezier(.2, .7, .25, 1) both; }
+.admissions-resource-panel p,.admissions-international p {
+  margin: 0 0 20px;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: clamp(15px, 1.35vw, 18px);
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: 0;
+}
+.admissions-resource-more {
+  display: block;
+  margin: 0 0 0 auto;
+  padding: 2px 10px;
+  border: 0;
+  border-radius: 13px;
+  background: #737373;
+  color: #fff;
+  font-family: 'Clash Grotesk', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+.admissions-resource-more:hover,.admissions-resource-more:focus-visible { background: #68176b; }
+.admissions-resource-source {
+  display: inline-block;
+  margin: 0 0 14px;
+  color: #68176b;
+  font-size: 15px;
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+.admissions-resource-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(42px, 8vw, 110px);
+  padding: 48px 0 52px;
+}
+.admissions-resource-links a,.admissions-page .admissions-international h2 {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #c5c5c5;
+  text-decoration: none;
+  font-weight:500;
+}
+.admissions-resource-links a:hover,.admissions-resource-links a:focus-visible { color: #68176b; border-bottom-color: #68176b; }
+.admissions-page .admissions-international h2 { margin-bottom: 24px; }
+.admissions-international .admissions-resource-more { margin-top: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .admissions-page .admissions-accordion-panel,.admissions-page .admissions-accordion-chevron,.admissions-page .admissions-level-tabs button { transition-duration: .01ms; }
+  .admissions-page .admissions-tab-content,.admissions-page .admissions-fee-detail,.admissions-page .admissions-resource-panel { animation-duration: .01ms; }
+}
+@media (max-width: 700px) {
+  .admissions-resources-inner { width: 92%; }
+  .admissions-resource-tabs { justify-content: flex-start; gap: 24px; padding-bottom: 8px; }
+  .admissions-resource-panel { min-height: 0; padding-top: 20px; }
+  .admissions-resource-panel p,.admissions-international p { line-height: 1.35; }
+  .admissions-resource-links { gap: 22px; padding: 43px 0; }
+  .admissions-page .admissions-international h2 { margin-bottom: 18px; }
+}
+
+/* The same placements and recruiter components used on school/program pages. */
+.admissions-page .school-placements-section {
+  width: min(89.3%, 1440px);
+  margin: 0 auto;
+  padding: clamp(25px, 3vw, 52px) 0 clamp(28px, 3vw, 50px);
+}
+.admissions-page .school-placements-section .placement-overview {
+  min-height: 0;
+  padding: 0;
+}
+.admissions-page .school-placements-section .outcome-panel-content {
+  min-height: 0;
+  grid-template-columns: minmax(0, .945fr) minmax(0, 1.055fr);
+  align-items: start;
+  gap: clamp(25px, 2.8vw, 50px);
+}
+.admissions-page .school-placements-section .placement-media-slider .batch-page {
+  display: grid;
+  grid-template-columns: repeat(var(--batch-size), minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 24px);
+}
+.admissions-page .school-placements-section .placement-media-slider .student-card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 355 / 498;
+  overflow: hidden;
+  border-radius: 0;
+}
+.admissions-page .school-placements-section .placement-media-slider .student-card > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.admissions-page .school-placements-section .student-profile-trigger { border: 0; padding: 0; cursor: pointer; }
+.admissions-page .school-placements-section .student-card.is-open .student-hover,.admissions-page .school-placements-section .student-card:focus-within .student-hover { transform: translateY(0); }
+.admissions-page .school-placements-section .placement-copy { padding-top: 7px; }
+.admissions-page .school-placements-section .placement-copy h2 {
+  font-size: clamp(34px, 3.6vw, 58px);
+  font-weight:500;
+}
+.admissions-page .school-placements-section .placement-tagline {
+  font-size: clamp(23px, 2.6vw, 39px);
+  font-weight: 300;
+  line-height: 1.06;
+}
+.admissions-page .school-placements-section .placement-description {
+  max-width: 720px;
+  font-size: clamp(13px, 1.04vw, 17px);
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: 0 !important;
+}
+.admissions-page > main > .recruiters {
+  width: min(89.3%, 1440px);
+  margin: 0 auto;
+  padding: 0 0 clamp(48px, 5vw, 78px);
+}
+.admissions-page > main > .recruiters h2 {
+  margin: 0 0 15px;
+  font-size: clamp(24px, 2.1vw, 34px);
+  font-weight:500;
+  text-align: center;
+}
+@media (max-width: 1050px) {
+  .admissions-page .school-placements-section .outcome-panel-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .admissions-page .school-placements-section .placement-media-slider,.admissions-page .school-placements-section .placement-copy {
+    width: min(100%, 760px);
+    margin-inline: auto;
+  }
+}
+@media (max-width: 700px) {
+  .admissions-page .school-placements-section { width: 100%; padding: 32px 12px 36px; }
+  .admissions-page .school-placements-section .placement-media-slider .batch-page { gap: 10px; }
+  .admissions-page .school-placements-section .placement-media-slider .student-card { border-radius: 9px; }
+  .admissions-page .school-placements-section .placement-copy { padding: 0 8px; }
+  .admissions-page .school-placements-section .placement-copy h2 { font-size: 30px; }
+  .admissions-page .school-placements-section .placement-tagline { font-size: 20px; }
+  .admissions-page .school-placements-section .placement-description { font-size: 13px; line-height: 1.45; }
+  .admissions-page > main > .recruiters { width: 100%; padding: 0 12px 42px; }
+}
+
+.admissions-page [id] { scroll-margin-top: calc(var(--dgu-header-height, 96px) + 90px); }
+.admissions-page :is(button, a):focus-visible { outline: 2px solid #68176b; outline-offset: 4px; }
+.admissions-video-highlights button:focus-visible { outline-color: #fff; }
+.admissions-fees-panel .admissions-level-tabs { margin-bottom: 12px; }
+.admissions-fee-detail[hidden] { display: none; }
+.admissions-page.dgu-motion-paused :is(.admissions-tab-content, .admissions-fee-detail, .admissions-resource-panel) { animation: none; }
+@media (min-width: 701px) {
+  .admissions-fees-grid .admissions-school-list { min-height: 390px; }
+  .admissions-fees-grid .admissions-school-list button { min-height: 45px; }
+  .admissions-fees-panel { min-height: 318px; }
+}
+
+/* API content uses this theme; CMS layout classes and inline CSS are discarded. */
+.admissions-api-status { min-height: 40vh; padding: 70px 20px; text-align: center; }
+.admissions-opening.admissions-opening--no-banner { background: #68176b; }
+.admissions-opening--no-banner .admissions-intro { color: #fff; }
+.admissions-opening--no-banner h1 { margin-bottom: 0; }
+.admissions-section-links a { text-transform: uppercase; }
+.admissions-page .admissions-rich-copy { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.admissions-rich-copy .dgu-api-copy { min-width: 0; max-width: 100%; overflow-x: auto; }
+.admissions-page .admissions-rich-copy :is(h2,h3,h4,h5,h6) { margin: 20px 0 12px; font-size: clamp(17px, 1.65vw, 23px); line-height: 1.25; font-weight: 500; }
+.admissions-page .admissions-rich-copy :is(p,li) { line-height: 1.4; }
+.admissions-page .admissions-rich-copy :is(ul,ol) { padding-left: 22px; margin: 12px 0 18px; }
+.admissions-rich-copy li { margin-bottom: 8px; }
+.admissions-rich-copy img { max-width: 100%; height: auto; }
+.admissions-rich-copy table { width: max-content; min-width: 100%; max-width: none; border-collapse: collapse; margin: 16px 0; font-size: 14px; line-height: 1.4; }
+.admissions-page .admissions-rich-copy :is(td,th) { padding: 9px 11px; min-width: 90px; max-width: 270px; border: 1px solid #d2d2d2; vertical-align: top; white-space: normal; }
+.admissions-rich-copy th { background: #ededed; font-weight: 500; }
+.admissions-page .admissions-rich-copy td :is(p,strong) { margin: 0; font-size: inherit; line-height: inherit; }
+.admissions-rich-copy .expandable-toggle { display: block; margin: 12px 0 0 auto; padding: 3px 10px; border: 0; border-radius: 14px; background: #737373; color: #fff; font-family: inherit; font-size: 16px; line-height: 1.2; cursor: pointer; }
+.admissions-page .admissions-rich-copy .expandable-toggle::before,.admissions-page .admissions-rich-copy .expandable-toggle::after { content: none; display: none; }
+.admissions-rich-copy .expandable-toggle:hover,.admissions-rich-copy .expandable-toggle:focus-visible { background: #68176b; }
+.admissions-page .admissions-rich-copy a { color: #68176b; text-underline-offset: 3px; }
+.admissions-page .admissions-rich-copy a.expandable-toggle { display: table; width: max-content; max-width: 100%; color: #fff; text-decoration: none; }
+.admissions-page .admissions-level-tabs { max-width: 100%; overflow-x: auto; padding: 4px 0 6px; }
+.admissions-page .admissions-fee-item > button span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.admissions-compiled-fees { width: min(95%, 1440px); margin: 24px auto 0; padding: 12px 25px; border-radius: 22px; background: #f4f4f4; }
+.admissions-fee-notes,.admissions-process-extra { margin-top: 22px; }
+.admissions-policy { min-width: 0; width: 100%; text-align: left; }
+.admissions-policy > summary { width: fit-content; margin: 0 auto; padding-bottom: 3px; border-bottom: 2px solid #c5c5c5; font-size: clamp(15px, 1.55vw, 20px); font-weight: 500; text-transform: uppercase; cursor: pointer; }
+.admissions-policy[open] > .dgu-api-copy { margin-top: 24px; }
+.admissions-commencement { margin: 0 0 42px; scroll-margin-top: calc(var(--dgu-header-height, 96px) + 90px); }
+.admissions-commencement > summary { margin-left: 0; }
+@media (max-width: 700px) {
+  .admissions-compiled-fees { width: 92%; padding: 10px 20px; }
+  .admissions-rich-copy table { font-size: 13px; }
+  .admissions-page .admissions-rich-copy :is(td,th) { padding: 8px; }
+}
+
+/* Navigation is supplied by LocalPageShell, matching every other internal page. */
+.admissions-page .admissions-content { padding-top:96px; }
+@media(max-width:1000px) { .admissions-page .admissions-content { padding-top:108px; } }
+@media(max-width:700px) { .admissions-page .admissions-content { padding-top:82px; } }

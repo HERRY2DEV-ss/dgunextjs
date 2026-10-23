@@ -1,0 +1,54 @@
+--- a/components/navigation-api.ts
++++ b/components/navigation-api.ts
+@@ -7,7 +7,7 @@
+   children: MenuItem[];
+ };
+ 
+-type RawItem = { id?: number; name?: string; url?: string; target?: string; childMenu?: RawItem[] };
++type RawItem = { id?: number; name?: string; menuName?: string; url?: string; target?: string; childMenu?: RawItem[]; subMenu?: RawItem[]; subsubMenu?: RawItem[] };
+ 
+ const upstream = liveDguApiUrl('menus', process.env.NEXT_PUBLIC_DGU_MENU_API_URL?.trim());
+ export const MENU_API_URL = clientDguApiUrl('menus', upstream);
+@@ -74,30 +74,32 @@
+       candidate?.url === item.url && (candidate?.childMenu?.length ?? 0) === (item.childMenu?.length ?? 0);
+   });
+ 
+-// The supplied API response repeats all earlier siblings in each successive childMenu.
+-// Strip that cumulative prefix at both levels; normal non-cumulative responses pass through.
++// Legacy feeds can repeat earlier siblings in successive childMenu arrays.
++// The updated subMenu/subsubMenu arrays are independent and retain every item.
+ export function parseMenus(response: unknown): MenuItem[] {
+   if (!response || typeof response !== 'object') return [];
+   const payload = response as { error?: string | number; data?: RawItem[] };
+   if (String(payload.error) !== '0' || !Array.isArray(payload.data)) return [];
+   let previousGroupChildren: RawItem[] = [];
+-  return payload.data.filter(item => item && typeof item.name === 'string').map(group => {
+-    const rawChildren = Array.isArray(group.childMenu) ? group.childMenu : [];
+-    const start = samePrefix(rawChildren, previousGroupChildren) ? previousGroupChildren.length : 0;
++  return payload.data.filter(item => item && typeof (item.menuName ?? item.name) === 'string').map(group => {
++    const updatedGroup = Array.isArray(group.subMenu);
++    const rawChildren = updatedGroup ? group.subMenu! : Array.isArray(group.childMenu) ? group.childMenu : [];
++    const start = !updatedGroup && samePrefix(rawChildren, previousGroupChildren) ? previousGroupChildren.length : 0;
+     const children = rawChildren.slice(start).map((child, offset) => {
+       const index = start + offset;
+       const earlier = index ? rawChildren[index - 1]?.childMenu ?? [] : [];
+-      const rawLeaves = Array.isArray(child.childMenu) ? child.childMenu : [];
+-      const leafStart = samePrefix(rawLeaves, earlier) ? earlier.length : 0;
++      const updatedChild = Array.isArray(child.subsubMenu);
++      const rawLeaves = updatedChild ? child.subsubMenu! : Array.isArray(child.childMenu) ? child.childMenu : [];
++      const leafStart = !updatedGroup && !updatedChild && samePrefix(rawLeaves, earlier) ? earlier.length : 0;
+       return {
+-        label: child.name ?? '', url: child.url ?? '', target: child.target ?? '',
++        label: child.menuName ?? child.name ?? '', url: child.url ?? '', target: child.target ?? '',
+         children: rawLeaves.slice(leafStart).map(leaf => ({
+-          label: leaf.name ?? '', url: leaf.url ?? '', target: leaf.target ?? '', children: [],
++          label: leaf.menuName ?? leaf.name ?? '', url: leaf.url ?? '', target: leaf.target ?? '', children: [],
+         })),
+       };
+     });
+     previousGroupChildren = rawChildren;
+-    return { label: group.name ?? '', url: group.url ?? '', target: group.target ?? '', children };
++    return { label: group.menuName ?? group.name ?? '', url: group.url ?? '', target: group.target ?? '', children };
+   });
+ }
+ 

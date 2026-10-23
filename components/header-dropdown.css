@@ -1,0 +1,20 @@
+/* Header dropdowns only. Typography follows the existing navigation. */
+.dgu-header-dropdown{display:flex;align-items:center;position:relative;align-self:stretch;gap:6px}
+.dgu-header-dropdown>a{color:#fff;font:inherit;text-decoration:none;white-space:nowrap;padding-block:12px}
+.dgu-header-dropdown-toggle{display:grid;place-items:center;width:18px;height:30px;padding:0;border:0;background:transparent;color:#fff;cursor:pointer;font:inherit}
+.dgu-header-dropdown-toggle svg{display:block;transition:transform .18s ease}
+.dgu-header-dropdown-toggle[aria-expanded=true] svg{transform:rotate(180deg)}
+.dgu-header-panel{position:fixed;z-index:11000;box-sizing:border-box;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ffffff65 transparent;padding:6px 0;background:rgba(37,12,42,.42);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;border:1px solid #ffffff24;border-radius:2px;animation:dgu-dropdown-enter .15s ease-out;font-family:inherit;text-align:left}
+.dgu-header-panel ul{list-style:none;padding:0;margin:0}
+.dgu-header-panel li{display:flex;align-items:stretch;gap:0;transition:background-color .15s ease}
+.dgu-header-panel li:hover,.dgu-header-panel li.is-active,.dgu-header-panel li:focus-within{background:#ffffff12}
+.dgu-header-panel li>a,.dgu-header-branch-label,.dgu-header-label{flex:1;min-width:0;display:flex;align-items:center;min-height:44px;box-sizing:border-box;padding:10px 17px;color:#fff;font-family:inherit;font-size:14px;font-weight:400;letter-spacing:0;line-height:1.5;text-decoration:none;text-align:left;white-space:normal;overflow-wrap:break-word}
+.dgu-header-panel li>a:has(+.dgu-header-branch-toggle),.dgu-header-branch-label{padding-right:4px}
+.dgu-header-panel button{border:0;background:transparent;cursor:pointer}
+.dgu-header-branch-toggle{display:grid;place-items:center;flex:0 0 36px;color:#fff;padding:0 12px 0 4px}
+.dgu-header-branch-toggle svg{display:block;flex-shrink:0}
+.dgu-header-branch-toggle[data-direction=left] svg{transform:rotate(180deg)}
+.dgu-header-panel a:focus-visible,.dgu-header-panel button:focus-visible,.dgu-header-dropdown a:focus-visible,.dgu-header-dropdown button:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+@keyframes dgu-dropdown-enter{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1000px){.desktop-nav .dgu-header-dropdown,.dgu-header-panel{display:none}}
+@media(prefers-reduced-motion:reduce){.dgu-header-panel{animation:none}.dgu-header-dropdown-toggle svg,.dgu-header-panel li{transition:none}}

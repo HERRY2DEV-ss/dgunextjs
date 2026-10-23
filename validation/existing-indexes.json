@@ -1,0 +1,23 @@
+{
+  "masterSchool": "masterSchool\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterPrograms": "masterPrograms\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterLevel": "masterLevel\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterProgramTab": "masterProgramTab\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterAccordion": "masterAccordion\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterFaq": "masterFaq\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "programHighlight": "programHighlight\t0\tPRIMARY\t1\tsno\tA\t3\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "programOutcome": "programOutcome\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "programPlacement": "programPlacement\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "programRecruiters": "programRecruiters\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "schoolPlacement": "schoolPlacement\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterPlacements": "masterPlacements\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "sliders": "sliders\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "bottom_menu": "bottom_menu\t0\tsno\t1\tsno\tA\t44\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "settings": "settings\t0\tPRIMARY\t1\tsno\tA\t1\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "welcome": "welcome\t0\tPRIMARY\t1\tsno\tA\t1\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "link_page": "link_page\t0\tsno\t1\tsno\tA\t98\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "heading": "heading\t0\tPRIMARY\t1\tsno\tA\t35\tNULL\tNULL\t\tBTREE\t\t\tNO\nheading\t0\tsno\t1\tsno\tA\t35\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "masterRecruiters": "masterRecruiters\t0\tPRIMARY\t1\tsno\tA\t2\tNULL\tNULL\t\tBTREE\t\t\tNO\n",
+  "sub_heading": "sub_heading\t0\tPRIMARY\t1\tsno\tA\t76\tNULL\tNULL\t\tBTREE\t\t\tNO\nsub_heading\t0\tsno\t1\tsno\tA\t76\tNULL\tNULL\t\tBTREE\t\t\tNO\nsub_heading\t1\theading\t1\theading\tA\tNULL\tNULL\tNULL\tYES\tBTREE\t\t\tNO\n",
+  "sub_sub_heading": "sub_sub_heading\t0\tsno\t1\tsno\tA\t266\tNULL\tNULL\t\tBTREE\t\t\tNO\n"
+}

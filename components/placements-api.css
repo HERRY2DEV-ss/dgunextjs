@@ -1,0 +1,22 @@
+.placements-api-feedback { min-width:0; color:var(--muted); }
+.placements-api-feedback p { margin:0 0 12px; }
+.placement-student-card { position:relative; aspect-ratio:355/498; }
+.school-placements-section .placement-media-slider .batch-page { display:grid; grid-template-columns:repeat(var(--batch-size),minmax(0,1fr)); gap:clamp(12px,1.4vw,24px); }
+.school-placements-section .placement-student-card { min-width:0; overflow:hidden; border-radius:14px; box-shadow:0 9px 22px #1d0d2b16; }
+.school-placements-section .placement-student-card>img { display:block; width:100%; height:100%; object-fit:cover; }
+.school-placements-section .placement-tagline>span { display:block; }
+.placement-media-pair .placement-student-card::before,.placement-media-pair .placement-student-card::after { display:none; }
+.placement-student-card .student-profile-trigger { position:absolute; inset:0; z-index:2; border:0; padding:0; background:transparent; cursor:pointer; }
+.placement-student-card .student-profile-trigger:focus-visible { outline:2px solid #ffbf00; outline-offset:-4px; }
+.placement-student-card .student-hover { transform:translateY(101%); pointer-events:none; }
+.placement-student-card.is-open .student-hover,.placement-student-card:focus-within .student-hover { transform:translateY(0); pointer-events:auto; }
+.placement-student-card .student-hover-copy { justify-content:safe center; overflow:auto; padding:48px 7% 24px; overflow-wrap:anywhere; }
+.placement-student-card .student-hover-copy .dgu-api-copy { color:inherit; font-size:inherit; line-height:inherit; }
+.placement-student-card .student-placement-close { position:absolute; top:10px; right:10px; z-index:4; width:32px; height:32px; border:1px solid currentColor; border-radius:50%; background:transparent; color:inherit; font:inherit; line-height:1; cursor:pointer; }
+.placement-student-card .student-photo-unavailable { width:100%; height:100%; background:var(--light); }
+@media(hover:hover) and (pointer:fine) {
+  .placement-student-card:hover .student-hover { transform:translateY(0); pointer-events:auto; }
+  .placement-student-card .student-placement-close { display:none; }
+  .placement-student-card.is-open .student-placement-close { display:block; }
+}
+@media(prefers-reduced-motion:reduce) { .placement-student-card .student-hover { transition:none; } }

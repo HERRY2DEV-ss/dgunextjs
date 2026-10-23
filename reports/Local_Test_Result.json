@@ -1,0 +1,316 @@
+{
+  "result": "PASS",
+  "date": "2026-10-12",
+  "source": "Supplied DGU database export; real native PHP responses and previously recorded real faculty feed. Test fixtures stay outside the deliverable.",
+  "native": {
+    "result": "PASS",
+    "schools": 8,
+    "listedProgramsInSuppliedDump": 53,
+    "checks": [
+      "Supplied DB: eight real schools, 53 listed programmes; all schools populated; original API programme IDs/names/order match exactly",
+      "Programme catalogue: POST {} and IS_HOME:1 both return the complete list; details and footer use the existing server PDO connection",
+      "School-specific list, level arrays, flat programme order, CORS/Apikey/OPTIONS/401/400/404/405 and JSON responses pass",
+      "All 88 published programme and 8 school detail APIs return their exact record; every tab/accordion is an array, with no overwritten final-only tab",
+      "All 96 detail responses have exact CMS faculty IDs and direct-school-before-parent mapping; programme sliders contain only active course-specific slides in CMS order",
+      "SELECT-only database user; all sixteen table checksums unchanged"
+    ],
+    "livePOST": "Unverified: this environment receives HTTP 403 / error code 1010"
+  },
+  "browser": {
+    "result": "PASS",
+    "checks": [
+      "All 96 real DB responses parsed; plain/bold guide headings become tabs, singleton PHP tabs are accepted and duplicate same-heading content is removed",
+      "MBA options/global pathway share the required tabs; Global Immersion text collapses and expands through Read more without losing API HTML",
+      "School programme cards use the canonical list API: five actual DBS programmes, no legacy Global MBA/uncategorized specialization cards",
+      "Shared footer keeps each complete menu in one column; MBA/DBS/Law/PhD tabs and tables pass at 1440/768/390/320 px without horizontal overflow",
+      "Catalogue errors stay confined to programme cards; school introduction and other API content remain available",
+      "Feature extraction audited across all real academic responses: each original word remains in its corresponding point or surrounding copy",
+      "BA LLB, B.Com, MBA and Law show only their mapped school faculty even when the test API deliberately returns all 85 real members; empty Future Skills mapping makes no faculty request",
+      "Faculty request failure shows a local retry and never falls back to the full directory; retry restores the correct scoped members",
+      "B.Com renders its four active API slides despite a separate main banner; controls and autoplay advance exactly one slide",
+      "Law feature Read more is attached to each clipped card and opens only that point; full-section duplicate removed; open/close and responsive widths 1440/1024/768/390/320 pass"
+    ],
+    "layouts": [
+      {
+        "width": 1440,
+        "route": "programs/mba/?slug=mba&id=10",
+        "result": "PASS"
+      },
+      {
+        "width": 1440,
+        "route": "schools/business/?slug=school-of-business",
+        "result": "PASS"
+      },
+      {
+        "width": 1440,
+        "route": "program-detail/?slug=ba-llb&id=59",
+        "result": "PASS"
+      },
+      {
+        "width": 1440,
+        "route": "program-detail/?slug=phd-program&id=96",
+        "result": "PASS"
+      },
+      {
+        "width": 768,
+        "route": "programs/mba/?slug=mba&id=10",
+        "result": "PASS"
+      },
+      {
+        "width": 768,
+        "route": "schools/business/?slug=school-of-business",
+        "result": "PASS"
+      },
+      {
+        "width": 768,
+        "route": "program-detail/?slug=ba-llb&id=59",
+        "result": "PASS"
+      },
+      {
+        "width": 768,
+        "route": "program-detail/?slug=phd-program&id=96",
+        "result": "PASS"
+      },
+      {
+        "width": 390,
+        "route": "programs/mba/?slug=mba&id=10",
+        "result": "PASS"
+      },
+      {
+        "width": 390,
+        "route": "schools/business/?slug=school-of-business",
+        "result": "PASS"
+      },
+      {
+        "width": 390,
+        "route": "program-detail/?slug=ba-llb&id=59",
+        "result": "PASS"
+      },
+      {
+        "width": 390,
+        "route": "program-detail/?slug=phd-program&id=96",
+        "result": "PASS"
+      },
+      {
+        "width": 320,
+        "route": "programs/mba/?slug=mba&id=10",
+        "result": "PASS"
+      },
+      {
+        "width": 320,
+        "route": "schools/business/?slug=school-of-business",
+        "result": "PASS"
+      },
+      {
+        "width": 320,
+        "route": "program-detail/?slug=ba-llb&id=59",
+        "result": "PASS"
+      },
+      {
+        "width": 320,
+        "route": "program-detail/?slug=phd-program&id=96",
+        "result": "PASS"
+      }
+    ],
+    "livePOST": "Unverified here: HTTP 403 / error code 1010",
+    "remoteMedia": "Unverified: browser tests use test-only image responses; no QA fixture is deployed"
+  },
+  "responsiveReadMore": {
+    "result": "PASS",
+    "featureLayouts": [
+      {
+        "width": 1440,
+        "buttons": 6,
+        "result": "PASS"
+      },
+      {
+        "width": 1024,
+        "buttons": 6,
+        "result": "PASS"
+      },
+      {
+        "width": 768,
+        "buttons": 6,
+        "result": "PASS"
+      },
+      {
+        "width": 390,
+        "buttons": 6,
+        "result": "PASS"
+      },
+      {
+        "width": 320,
+        "buttons": 6,
+        "result": "PASS"
+      }
+    ]
+  },
+  "allSchoolFaculty": {
+    "result": "PASS",
+    "schools": [
+      {
+        "school": "school-of-business",
+        "members": 36,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-liberal-studies",
+        "members": 13,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-technology",
+        "members": 12,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-pharmacy",
+        "members": 10,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-modern-media",
+        "members": 4,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-agriculture-science",
+        "members": 8,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-future-skills",
+        "members": 0,
+        "result": "PASS"
+      },
+      {
+        "school": "school-of-law",
+        "members": 8,
+        "result": "PASS"
+      }
+    ]
+  },
+  "build": "PASS: 598 static routes",
+  "existingRegression": "PASS: five audit suites and academic API contracts",
+  "readMoreRegression": "PASS: empty/short text has no unnecessary control; long text, explicit page links and extra-detail toggles work",
+  "cmsReadMoreLinks": 0,
+  "publicUnchanged": 441,
+  "liveRequests": [
+    {
+      "endpoint": "get-program-info.php",
+      "request": {
+        "PROGRAM_URL": "bcom",
+        "PROGRAM_ID": 6
+      },
+      "status": 403,
+      "json": false,
+      "error": "error code: 1010"
+    },
+    {
+      "endpoint": "get-faculty.php",
+      "request": {
+        "SCHOOL_URL": "school-of-law"
+      },
+      "status": 403,
+      "json": false,
+      "error": "error code: 1010"
+    },
+    {
+      "endpoint": "get-faculty.php",
+      "request": {
+        "SCHOOL_URL": "school-of-business"
+      },
+      "status": 403,
+      "json": false,
+      "error": "error code: 1010"
+    }
+  ],
+  "cmsNotes": {
+    "missingSchoolMapping": [
+      {
+        "id": 98,
+        "url": "dbs-phd-program",
+        "name": "PhD Program"
+      },
+      {
+        "id": 91,
+        "url": "baeconomics",
+        "name": "BA Economics"
+      },
+      {
+        "id": 94,
+        "url": "bba-mba-integrated",
+        "name": "BBA + MBA (Integrated Program in Management)"
+      },
+      {
+        "id": 58,
+        "url": "general-nursing-and-midwifery",
+        "name": "GNM (General Nursing and Midwifery)"
+      },
+      {
+        "id": 92,
+        "url": "bcom",
+        "name": "Bachelor of Commerce"
+      }
+    ],
+    "emptyFacultyMapping": "school-of-future-skills",
+    "programFacultySource": "No per-programme faculty column in the supplied database; use the explicitly mapped school faculty.",
+    "programmeSliders": [
+      {
+        "id": 98,
+        "url": "dbs-phd-program",
+        "slides": 4
+      },
+      {
+        "id": 62,
+        "url": "sap",
+        "slides": 1
+      },
+      {
+        "id": 6,
+        "url": "bcom",
+        "slides": 4
+      },
+      {
+        "id": 96,
+        "url": "phd-program",
+        "slides": 4
+      }
+    ]
+  },
+  "packagingCorrection": "Included updated components/useFaculty.ts, previously omitted from the ZIP. It accepts the enabled flag used by SchoolFaculty. All changed files are included.",
+  "packagedProjectBuild": "PASS: rebuilt supplied project with all 87 ZIP files overlaid; TypeScript and 598 exported routes passed.",
+  "sliderQC": {
+    "result": "PASS",
+    "cases": [
+      {
+        "width": 1440,
+        "result": "PASS",
+        "autoplayOverBanner": "one slide",
+        "manual": "one slide",
+        "wrap": "last to first",
+        "swipe": "not applicable",
+        "active": {
+          "source": "https://dgu.ac.in/uploads/images/slides/img__slide_bcom_desktop.webp",
+          "mobile": true
+        }
+      },
+      {
+        "width": 390,
+        "result": "PASS",
+        "autoplayOverBanner": "one slide",
+        "manual": "one slide",
+        "wrap": "last to first",
+        "swipe": "PASS",
+        "active": {
+          "source": "https://dgu.ac.in/uploads/images/slides/mob__slide_icai_mob.webp",
+          "mobile": true
+        }
+      }
+    ],
+    "build": "PASS: 598 routes",
+    "liveObserved": "B.Com page renders one main banner and the older full-section feature detail; latest frontend changes are not reflected in that build",
+    "scope": "Programme/school banners: disable hover pause. Menu investigation deferred by user.",
+    "requiredDeployment": "Build and upload the new out/; deploy packaged get-program-info.php and dgu-academic-common.php so active course-specific slider rows are returned."
+  }
+}

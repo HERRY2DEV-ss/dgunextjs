@@ -1,0 +1,10 @@
+# BEGIN DGU NEWS CLEAN URLS
+# Place via the build-generated .htaccess in /nextjs/homev1/.
+# Existing exported article folders win; newly published slugs use the news shell.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^news/([a-z0-9_-]+)/?$ news/index.html [L,NC]
+</IfModule>
+# END DGU NEWS CLEAN URLS

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "apiMenus": 9,
+  "currentParserMenus": 0,
+  "proposedParserMenus": 9,
+  "checks": [
+    "In-memory TypeScript semantic check",
+    "Exact updated API labels, links, targets and all nested menus preserved",
+    "Legacy regular/cumulative feeds retain existing behavior",
+    "API errors stay errors; no static/dummy menus",
+    "Existing frontend source unchanged; patch not applied"
+  ]
+}

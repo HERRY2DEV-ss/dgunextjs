@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 86" width="512" height="469" fill="none">
+  <g stroke="#990099" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Small reel -->
+    <circle cx="31.5" cy="31.5" r="9.3"/>
+    <circle cx="29.3" cy="28.7" r="2.0"/>
+    <circle cx="34.6" cy="33.5" r="2.0"/>
+
+    <!-- Large reel -->
+    <circle cx="56.7" cy="27.3" r="14.8"/>
+    <circle cx="51.4" cy="21.9" r="2.2"/>
+    <circle cx="61.5" cy="20.9" r="2.2"/>
+    <circle cx="63.0" cy="30.2" r="2.2"/>
+    <circle cx="53.8" cy="33.4" r="2.2"/>
+
+    <!-- Camera body -->
+    <rect x="21.8" y="40.4" width="46.2" height="33.2" rx="3.1"/>
+
+    <!-- Main lens / inner ring -->
+    <circle cx="44.9" cy="56.9" r="10.2"/>
+    <circle cx="44.9" cy="56.9" r="5.2"/>
+
+    <!-- Small body detail -->
+    <circle cx="59.0" cy="47.5" r="1.8"/>
+
+    <!-- Camera cone -->
+    <path d="M68 49.2 L80.7 43.5 V70.1 L68 64.4 Z"/>
+    <path d="M72.4 47.1 V66.4"/>
+  </g>
+</svg>

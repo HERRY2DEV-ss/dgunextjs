@@ -1,0 +1,219 @@
+:root { --dgu-section-gap: clamp(28px, 3vw, 48px); --dgu-header-height: 96px; }
+.visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+.mega-menu-left { display:flex; flex-direction:column; }
+.mega-menu-bottom { display:flex; flex-wrap:wrap; gap:12px 24px; flex-shrink:0; padding-bottom:8px; }
+.mega-menu-bottom a { display:inline-flex; align-items:center; min-height:30px; font-size:10px; line-height:1.5; }
+.mega-menu-bottom a:focus-visible { outline:2px solid #fff; outline-offset:4px; }
+.school-contact-status { margin-top:12px; font-size:13px; line-height:1.5; }
+.post-recruiter-tabs .batch-controls > span { display:none; }
+.dgu-enter { animation: dgu-section-enter .52s cubic-bezier(.22,1,.36,1) both; }
+@keyframes dgu-section-enter { from { opacity: .25; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.dgu-motion-paused .dgu-enter, .local-motion-paused .dgu-enter, .news-motion-paused .dgu-enter { animation: none; }
+.news-excerpt { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.news-section-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
+.placement-page-link { display: inline-flex; gap: 12px; align-items: center; margin: 18px 0; }
+.text-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+body .post-recruiter-tabs { padding-block: var(--dgu-section-gap); }
+body .placements-section { padding-top: var(--dgu-section-gap); }
+body .about-section { padding-block: var(--dgu-section-gap); }
+body .different-section.difference-wave-section { padding-block: var(--dgu-section-gap); }
+body .global-learning-section { padding-top: var(--dgu-section-gap); }
+.school-page .school-intro { padding-block: var(--dgu-section-gap); }
+.school-page .school-programs-section, .school-page .school-faculty { padding-top: var(--dgu-section-gap); }
+.school-page .school-opening { padding-bottom: 16px; }
+.school-page .school-placements-section { padding-block: var(--dgu-section-gap); }
+.school-page .school-intro-main, .school-page .school-enquiry, .school-page .school-accreditation { opacity: 1; transform: none; transition: none; }
+.program-page { --program-section-gap: var(--dgu-section-gap); }
+.local-page .local-article section { margin-block: 0; }
+.local-page .local-article > section { margin-block: 24px; }
+.local-page .local-page-heading { padding-bottom: 24px; margin-bottom: 24px; }
+.local-page .local-page-main, .faculty-page .faculty-main { padding-top: calc(var(--dgu-header-height) + 32px); }
+.local-page .local-breadcrumb { margin-bottom: 22px; }
+.local-page .local-card-grid { gap: 24px; margin-block: 24px; }
+.local-page .local-content-card { padding: 20px; border: 1px solid #ded5df; border-radius: 12px; background: #fff; }
+.local-page .local-content-card > :first-child { margin-top: 0; }
+.local-page .local-content-card > :last-child { margin-bottom: 0; }
+.local-reading-layout { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: clamp(28px, 4vw, 56px); align-items: start; }
+.local-content-outline { position: sticky; top: calc(var(--dgu-header-height) + 24px); padding: 18px 0 18px 20px; border-left: 2px solid #dcc5df; }
+.local-content-outline h2 { margin: 0 0 16px; color: #68176b; font-size: 12px; font-weight:500; text-transform: uppercase; letter-spacing: .08em; }
+.local-content-outline a { display: block; padding: 7px 0; font-size: 13px; line-height: 1.45; color: #786c79; text-decoration: none; overflow-wrap: anywhere; }
+.local-content-outline a:hover, .local-content-outline a:focus-visible { color: #68176b; }
+.local-reading-layout .local-profile-summary { grid-template-columns: 180px minmax(0, 1fr); gap: 26px; }
+.local-reading-layout .local-profile-summary h2 { font-size: 25px; }
+.local-reading-layout .local-profile-summary > div:first-child img { height: 235px; }
+.local-page-heading::after { content: ''; display: block; width: 64px; height: 3px; margin-top: 22px; background: linear-gradient(90deg, #68176b, #dc91c6); }
+.local-page .local-content-card a, .local-page .local-news-card a { transition: color .2s ease; }
+body .campus-overview .campus-intro,
+body .campus-overview .campus-fest,
+body .campus-overview .campus-events,
+body .campus-overview .campus-clubs,
+body .campus-overview .campus-hostel,
+body .campus-overview .campus-tour { padding-block: var(--dgu-section-gap); }
+body .campus-overview .campus-celebrity { padding-top: var(--dgu-section-gap); }
+body .campus-overview .campus-reveal { opacity: 1; transform: none; transition: none; }
+.campus-motion-paused .dgu-enter { animation: none; }
+body .news-detail-main { padding-top: 28px; padding-bottom: 48px; }
+body .news-detail-main .news-breadcrumb { margin-bottom: 28px; }
+body .news-detail-main .news-hero { margin-bottom: 32px; }
+.news-article-body img { display:block; max-width:100%; height:auto; margin-block:24px; }
+.news-article-body figure { margin-inline:0; }
+.news-article-body table { display:block; max-width:100%; overflow-x:auto; border-collapse:collapse; margin-block:24px; font-size:.85em; }
+.news-article-body th, .news-article-body td { padding:10px 12px; border:1px solid #ded5df; white-space:normal; min-width:100px; }
+@media (max-width: 700px) {
+  .mega-menu-bottom { gap:8px 18px; padding-top:24px; }
+  .mega-menu-bottom a { min-height:40px; font-size:11px; }
+  .news-section-actions { justify-content: flex-start; }
+  .local-page .local-content-card { padding: 16px; }
+  .local-reading-layout { grid-template-columns: 1fr; gap: 24px; }
+  .local-content-outline { position: static; grid-row: 1; padding-block: 12px; }
+  .local-content-outline nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .local-content-outline h2 { width: 100%; margin-bottom: 2px; }
+  .local-content-outline a { padding-block: 3px; }
+  .local-reading-layout .local-profile-summary { grid-template-columns: 1fr; }
+}
+@media (max-width:600px) {
+  .program-card.is-open .program-accordion-content { max-height:none; overflow:visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dgu-enter { animation: none; }
+  .local-page .local-content-card a, .local-page .local-news-card a { transition: none; }
+}
+
+/* One text scale for home, schools, programmes and every content route.
+   Typography is intentionally authoritative over old page-local size rules. */
+:root {
+  --dgu-font-family: 'Clash Grotesk', Arial, sans-serif;
+  --dgu-page-title-size: clamp(34px, 3.8vw, 56px);
+  --dgu-section-title-size: clamp(28px, 2.65vw, 42px);
+  --dgu-subtitle-size: clamp(20px, 1.8vw, 28px);
+  --dgu-card-title-size: clamp(18px, 1.5vw, 22px);
+  --dgu-body-size: clamp(16px, calc(14px + .3vw), 18px);
+  --dgu-body-line: 1.6;
+  --dgu-title-line: 1.16;
+  --dgu-tab-size: clamp(18px, 2.35vw, 34px);
+  --dgu-label-size: 14px;
+  --dgu-meta-size: 13px;
+  --dgu-stat-size: clamp(30px, 3vw, 46px);
+}
+body { font-family: var(--dgu-font-family); font-size: var(--dgu-body-size); line-height: var(--dgu-body-line); }
+body strong, body b { font-weight: 500; }
+body button, body input, body select, body textarea { font-family: var(--dgu-font-family); }
+body main :is(h1,h2,h3,h4,h5,h6,p,li,blockquote,summary,th,td,dt,dd,figcaption) { font-family: var(--dgu-font-family) !important; }
+body main h1 { font-size: var(--dgu-page-title-size) !important; font-weight: 500 !important; line-height: var(--dgu-title-line) !important; letter-spacing: -.025em !important; }
+body main h2 { font-size: var(--dgu-section-title-size) !important; font-weight: 500 !important; line-height: var(--dgu-title-line) !important; letter-spacing: -.015em !important; }
+body main :is(h3,h4,h5,h6) { font-size: var(--dgu-subtitle-size) !important; font-weight: 500 !important; line-height: 1.25 !important; letter-spacing: 0 !important; }
+body main p, body main blockquote { font-size: var(--dgu-body-size) !important; font-weight: 400 !important; line-height: var(--dgu-body-line) !important; letter-spacing: 0 !important; }
+body main :is(.local-article,.news-article-body,.about-description,.expandable-text,.program-overview-copy,.school-intro-extra,.global-learning-extra-description) {
+  font-size: var(--dgu-body-size); line-height: var(--dgu-body-line); font-weight: 400;
+}
+body main :is(.local-article,.news-article-body) li { font-size: var(--dgu-body-size); line-height: var(--dgu-body-line); }
+body main :is(.about-description,.school-intro-description,.school-intro-extra,.school-vision,.program-overview-copy,.program-pathway-intro,.program-industry-copy,.program-faq-answer,.placement-intro,.local-article,.news-article-body,.global-learning-description,.global-learning-extra-description) p,
+body main :is(p.school-intro-description,p.placement-description,p.global-learning-description,p.global-learning-extra-description) {
+  text-align: justify; text-justify: inter-word; overflow-wrap: break-word;
+}
+body main :is(.program-card,.local-content-card,.local-news-card,.faculty-card,.school-faculty-card,.update-card,.simple-news-card,.student-hover,.placement-student-copy,.placement-team-copy,.admissions-process-card,.campus-event,.program-industry-card) :is(h2,h3,h4),
+body main :is(.school-contact-form,.campus-contact,.program-enquiry) h2,
+body main .news-reading-label h2,
+body main .local-profile-summary h2 {
+  font-size: var(--dgu-card-title-size) !important; line-height: 1.3 !important;
+}
+body main :is(.local-content-outline,.news-reading-label) h2 { font-size: var(--dgu-label-size) !important; }
+body main :is(.placement-tagline,.outcome-light-lines,.section-heading > p,.placement-directory-panel > p,.campus-section-title > p) {
+  font-size: var(--dgu-subtitle-size) !important; font-weight: 300 !important; line-height: 1.3 !important;
+}
+body main :is(.about-eyebrow,.local-eyebrow,.news-category,.news-date,.news-story-meta p,.placement-team-eyebrow,.local-news-date,.update-date,.school-faculty-label,.local-news-result-count,.local-gallery-count,.local-document-help,.campus-hero-copy > p:first-child) {
+  font-size: var(--dgu-meta-size) !important; line-height: 1.5 !important;
+}
+body main .local-news-date > span { font-weight: 500; }
+body main :is(.placement-tabs button,.outcomes-tab,.program-pathway-tabs > button,.admissions-level-tabs button,.admissions-resource-tabs button) {
+  font-size: var(--dgu-tab-size) !important; line-height: 1.25 !important; font-weight: 300 !important; letter-spacing: 0 !important;
+}
+body main :is(.placement-tabs button[aria-selected=true],.outcomes-tab.is-active,.program-pathway-tabs > button.is-active,.admissions-level-tabs button.is-active,.admissions-resource-tabs button.is-active) { font-weight: 500 !important; }
+body main :is(.program-name strong,.program-advantages-grid li,.program-industry-copy li) { font-size: var(--dgu-body-size); line-height: 1.45; letter-spacing: 0 !important; }
+body main :is(.program-name small,.text-link,.expandable-toggle,.program-read-more,.program-more,.placement-intro summary,.local-news-more) { font-size: var(--dgu-label-size); line-height: 1.5; letter-spacing: 0 !important; }
+body main :is(.local-article,.news-article-body,.program-pathway-table,.program-fees-table,.admissions-fee-table,.placement-directory-table) :is(th,td) { font-size: var(--dgu-label-size); line-height: 1.5; overflow-wrap: break-word; }
+body main :is(th,td) p { font-size: inherit !important; line-height: inherit !important; }
+body main .placement-directory-panel > h3, body main .placement-chart-heading > h3 { font-size: var(--dgu-page-title-size) !important; }
+body main :is(.placement-metrics strong,.placement-stats .stat strong) { font-size: var(--dgu-stat-size); font-weight: 500; line-height: 1.15; white-space:normal; overflow-wrap:break-word; }
+body main :is(.placement-metrics > div > span,.placement-stats .stat span) { font-size: var(--dgu-label-size); line-height: 1.4; }
+body main .placement-metrics strong > span { font-size:inherit; line-height:inherit; font-weight:inherit; }
+body main .placement-sector-row { font-family: var(--dgu-font-family); font-size: var(--dgu-label-size); line-height: 1.5; }
+body main .placement-sector-row strong { font-weight: 500; }
+body main .placement-team-card { min-height: clamp(190px, 17vw, 270px); }
+body main .placement-team-copy { width: 64%; max-width:64%; }
+body main .placement-team-copy a { font-size: var(--dgu-meta-size); line-height: 1.5; overflow-wrap: anywhere; }
+body main .program-card h2 { min-height: 0; margin-bottom: 18px; }
+body main .program-accordion-button h2 { margin-bottom: 0; }
+body main .program-card .program-accordion-button { min-height: 60px; }
+body main .campus-dehradun h2 { font-size: clamp(56px, 9vw, 148px) !important; font-weight: 500 !important; }
+body main .tour-title { font-size: var(--dgu-page-title-size); font-weight: 500; line-height: 1.12; }
+body main .tour-title-secondary { font-size: var(--dgu-subtitle-size); font-weight: 300; line-height: 1.25; }
+body main .difference-wave-point h3 { font-size:var(--dgu-card-title-size) !important; }
+body main :is(.quick-contact,.school-contact-form,.campus-contact,.program-enquiry) :is(input,select,textarea) { font-size:var(--dgu-label-size); line-height:1.4; }
+body main .campus-contact-consent { font-size:var(--dgu-meta-size); line-height:1.5; }
+
+/* Image fallback shared by the home, school, program and placement news. */
+.news-image-placeholder { display:flex; width:100%; height:100%; min-height:160px; justify-content:space-between; align-items:center; padding:24px; color:#68176b; background:#f2eaf3; font-size:36px; }
+
+/* Full-width film with readable statistics over its black shade. */
+.program-video-highlights { position:relative; isolation:isolate; width:100%; height:auto !important; margin:0 0 var(--dgu-section-gap); overflow:hidden; background:#19171b; color:#fff; }
+.admissions-video-highlights, .program-video-highlights.placement-video { margin-bottom:0; }
+.program-video-media { position:relative; width:100%; aspect-ratio:16/9; max-height:760px; background:#19171b; }
+.program-video-media > video { display:block; width:100%; height:100%; object-fit:cover; }
+.program-video-shade { position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg,#0005 0%,#0005 45%,#000c 100%); }
+.program-video-play { position:absolute; z-index:3; top:45%; left:50%; display:grid; place-items:center; width:64px; height:64px; padding:0; border:1px solid #ffffffc0; border-radius:50%; transform:translate(-50%,-50%); background:#ffffff24; color:white; backdrop-filter:blur(5px); }
+.program-video-play > span { padding-left:3px; font-size:24px; line-height:1; }
+.program-video-play:hover { background:#ffffff45; }
+.program-video-play:focus-visible { outline:2px solid white; outline-offset:5px; }
+.program-video-heading { position:absolute; z-index:2; top:clamp(24px,3vw,52px); left:5%; right:5%; max-width:780px; color:#fff; pointer-events:none; }
+.program-video-heading > span { display:block; margin-bottom:10px; font-size:var(--dgu-label-size); font-weight:500; }
+.program-video-heading h2 { margin:0; color:inherit; }
+.program-video-heading p { margin-top:12px; max-width:620px; }
+body main .program-video-highlights .program-video-stats {
+  position:absolute; z-index:2; left:5%; right:5%; bottom:clamp(24px,3vw,52px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:auto; margin:0; padding:0; gap:20px 0; background:transparent; color:white; pointer-events:none;
+}
+.program-video-highlights.is-playing .program-video-stats { bottom:64px; }
+.program-video-stats > div { display:flex; flex-direction:column-reverse; justify-content:center; min-width:0; gap:8px; padding:0 18px; text-align:center; border-right:1px solid #ffffff50; }
+.program-video-stats > div:last-child { border-right:0; }
+.program-video-stats dt { font-size:var(--dgu-label-size); font-weight:400; line-height:1.4; }
+.program-video-stats dd { margin:0; font-size:var(--dgu-stat-size); font-weight:500; line-height:1.15; white-space:normal; overflow-wrap:break-word; }
+.admissions-video-error { position:absolute; z-index:3; inset:15% 5% auto; margin:0; padding:16px; background:#241025dd; color:white; text-align:center; }
+.admissions-video-error a { color:inherit; text-underline-offset:3px; }
+
+/* Home statistic cards share the subtle bottom treatment of placements. */
+body main .placement-stats .stat { isolation:isolate; border:1px solid #eee; border-radius:0; background:#fff; color:#080808; padding-bottom:26px; }
+body main .placement-stats .stat::before { content:none; display:none; }
+body main .placement-stats .stat::after { content:''; display:block; position:absolute; z-index:0; inset:auto 0 0; height:22%; background:#f5f5f5; clip-path:polygon(0 0,100% 68%,100% 100%,0 100%); pointer-events:none; }
+body main .placement-stats .stat:nth-child(even)::after { clip-path:polygon(0 60%,100% 0,100% 100%,0 100%); }
+body main .placement-stats .stat > :is(strong,span) { position:relative; z-index:1; }
+body main .placement-student-slider .batch-page, body main .placement-team-slider .batch-page { align-items:stretch; }
+
+@media(max-width:700px) {
+  :root { --dgu-page-title-size:34px; --dgu-section-title-size:28px; --dgu-subtitle-size:21px; --dgu-card-title-size:19px; --dgu-body-size:16px; --dgu-tab-size:18px; --dgu-stat-size:32px; }
+  body main .placement-directory-tabs { width:90%; gap:14px 20px; }
+  body main .placement-directory-tabs button { font-size:16px !important; white-space:normal; text-align:left; }
+  body main .placement-tabs--international button { font-size:17px !important; }
+  body main .placement-team-card { min-height:215px; }
+  body main .difference-wave-section .difference-wave-layout { height:auto; min-height:0; grid-template-rows:none; grid-auto-rows:minmax(210px,auto); row-gap:28px; padding-block:32px; }
+  body main .difference-wave-point { width:80%; padding-top:32px; }
+  body main .difference-wave-section--school .difference-wave-point { top:auto; height:auto; }
+  body main .placement-student-slider .batch-page { grid-template-columns:1fr; }
+  body main .program-video-highlights .program-video-stats { left:4%; right:4%; grid-template-columns:repeat(2,minmax(0,1fr)); bottom:24px; gap:18px 0; }
+  body main .program-video-highlights.is-playing .program-video-stats { bottom:64px; }
+  .program-video-stats > div { padding:0 12px; }
+  .program-video-stats > div:nth-child(2) { border-right:0; }
+  .program-video-play { top:32%; }
+  .program-video-heading { top:20px; }
+  body main .program-video-heading h2 { font-size:23px !important; max-width:80%; }
+  body main .program-video-heading p { display:none; }
+  body main .program-video-media { aspect-ratio:4/3; }
+}
+
+/* Responsive placement of Reviews and the optional API programme sections. */
+@media(max-width:700px){
+ .dgu-review-card{padding:20px;gap:16px}
+ .dgu-review-card figcaption strong{font-size:15px}
+ .dgu-review-card figcaption>div>span{font-size:12px}
+ .dgu-program-facts{gap:14px}
+ .dgu-api-copy th,.dgu-api-copy td{padding:10px 12px}
+}
