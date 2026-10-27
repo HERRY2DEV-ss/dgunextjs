@@ -3740,3 +3740,18 @@ body main .difference-wave-section--preview .difference-wave-point p { font-size
 /* Program selection tabs in admissions share the same readable title scale. */
 body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;white-space:normal;overflow-wrap:break-word;font-size:clamp(14px,1.35vw,20px)!important; }
 @media(max-width:700px) { body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:clamp(132px,44vw,180px);font-size:14px!important; } }
+
+/* Homepage Programs cards: preserve the desktop sizes but reduce type on mobile. */
+@media (max-width: 600px) {
+  .schools-section .program-card:not(.program-card--specialization) h2 {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .schools-section .program-card:not(.program-card--specialization) .program-school-heading-link {
+    font-size: 18px;
+  }
+  .schools-section .program-card:not(.program-card--specialization) .program-name strong {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+}
