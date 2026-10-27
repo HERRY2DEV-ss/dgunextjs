@@ -173,6 +173,21 @@ function TabRichCopy({section}:{section:AcademicSection}) {
 }
 
 function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean;singleAccordion?:boolean}) {
+  const courseHighlightSections = useMemo(() => {
+    if (academicSectionKey(section.title) !== 'course highlights') return [];
+    const wanted = new Set(['streamlined cpa qualification', 'progression and coursework']);
+    const parsed = splitAcademicContent(section.html, wanted);
+    const matched = parsed.sections.filter(part => wanted.has(academicSectionKey(part.title)));
+    return matched.length ? matched : [];
+  }, [section.title, section.html]);
+  if (academicSectionKey(section.title) === 'course highlights') {
+    const intro = splitAcademicContent(section.html, new Set(['streamlined cpa qualification', 'progression and coursework'])).intro;
+    return <div className="academic-tab-content academic-tab-accordions" data-tab-kind="course highlights">
+      {(apiPlain(intro) || /<(img|table)\\b/i.test(intro)) && <TabRichCopy section={{title:section.title,html:intro}} />}
+      <AcademicAccordions sections={courseHighlightSections} id={id} />
+      {!courseHighlightSections.length && <TabRichCopy section={section} />}
+    </div>;
+  }
   const rules=nested?.find(rule=>academicSectionKey(rule.parent)===academicSectionKey(section.title));
   if(!rules){
     const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship','course highlights'].includes(kind),singleAccordion || kind==='course highlights');
