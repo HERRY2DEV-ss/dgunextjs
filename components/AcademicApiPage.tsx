@@ -175,7 +175,7 @@ function TabRichCopy({section}:{section:AcademicSection}) {
 function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean;singleAccordion?:boolean}) {
   const rules=nested?.find(rule=>academicSectionKey(rule.parent)===academicSectionKey(section.title));
   if(!rules){
-    const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship'].includes(kind),singleAccordion);
+    const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship','course highlights'].includes(kind),singleAccordion);
     const combined=singleAccordion ? academicSingleAccordionSection(parts) : null;
     return <div className={`academic-tab-content${hr?' academic-hr-tab-content':''}${parts.sections.length?' academic-tab-accordions':''}`} data-tab-kind={academicSectionKey(section.title)}>
       {parts.sections.length ? singleAccordion && combined
