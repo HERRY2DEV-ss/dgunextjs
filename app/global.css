@@ -3782,3 +3782,29 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
     text-align: center;
   }
 }
+
+/* Compact OUR PROGRAMS rows on mobile across all pages using ProgramCard. */
+@media (max-width: 600px) {
+  .school-programs-section .program-card h2 {
+    min-height: 0;
+  }
+  .school-programs-section .program-card .program-school-heading-link {
+    min-height: 44px;
+    padding: 10px 6px 10px 16px;
+  }
+  .school-programs-section .program-card .program-school-accordion-toggle {
+    flex-basis: 42px;
+    min-height: 44px;
+  }
+  .school-programs-section .program-card .program-accordion-button {
+    padding: 12px 16px;
+  }
+  .school-programs-section .program-card .program-accordion-content,
+  .school-programs-section .program-card.is-open .program-accordion-content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .school-programs-section .program-card .program-item {
+    min-height: 42px;
+  }
+}
