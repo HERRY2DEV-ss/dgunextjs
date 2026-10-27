@@ -337,3 +337,12 @@ body .academic-api-page main .post-recruiter-tabs>.secondary-tabs>.outcomes-tab:
 body .academic-api-page main .post-recruiter-tabs>.secondary-tabs>.outcomes-tab>span { padding:0; }
 body .academic-api-page main .post-recruiter-tabs>.secondary-tabs>.outcomes-tab>span::before,
 body .academic-api-page main .post-recruiter-tabs>.secondary-tabs>.outcomes-tab>span::after { display:none; }
+
+/* Fee Structure tab only: keep CMS text compact without affecting other program tabs. */
+body .academic-api-page main .academic-tab-content[data-tab-kind="structure"] .dgu-api-copy :is(p, li, blockquote, dt, dd) {
+  font-weight: 400;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  line-height: inherit !important;
+  letter-spacing: 0 !important;
+}
