@@ -183,7 +183,7 @@ function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:Aca
   if (academicSectionKey(section.title) === 'course highlights') {
     const intro = splitAcademicContent(section.html, new Set(['streamlined cpa qualification', 'progression and coursework'])).intro;
     return <div className="academic-tab-content academic-tab-accordions" data-tab-kind="course highlights">
-      {(apiPlain(intro) || /<(img|table)\\b/i.test(intro)) && <TabRichCopy section={{title:section.title,html:intro}} />}
+      {(apiPlain(intro) || /<(img|table)\b/i.test(intro)) && <TabRichCopy section={{title:section.title,html:intro}} />}
       <AcademicAccordions sections={courseHighlightSections} id={id} />
       {!courseHighlightSections.length && <TabRichCopy section={section} />}
     </div>;
