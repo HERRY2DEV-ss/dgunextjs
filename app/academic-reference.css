@@ -264,6 +264,7 @@
   .academic-reference .school-programs-grid,
   .academic-reference .program-specialization-grid { grid-template-columns: 1fr; gap: 22px; }
   .academic-reference .program-card-inner { min-height: 0; padding: 24px; }
+  .academic-reference .program-card-inner { min-height: 0; padding: 0; }
   .academic-reference .program-card--specialization .program-card-inner { min-height: 0; }
   .academic-reference .program-pathway-tabs { flex-wrap: nowrap; align-items: stretch; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
   .academic-reference .program-pathway-tabs > button { flex-shrink: 0; max-width:clamp(132px,44vw,180px); font-size:14px !important; }
