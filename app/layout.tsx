@@ -8,13 +8,8 @@ export const metadata: Metadata = {
   description:
     'Explore the schools, placements, campus life and opportunities at DBS Global University, Dehradun.',
   icons: {
-    icon: [
-      {
-        url: 'https://dgu.ac.in/UserFiles/images/dgu/favicon.ico',
-        type: 'image/x-icon',
-      },
-    ],
-    shortcut: 'https://dgu.ac.in/UserFiles/images/dgu/favicon.ico',
+    icon: '/assets/dgu_logo_svg.svg',
+    shortcut: '/assets/dgu_logo_svg.svg',
   },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
