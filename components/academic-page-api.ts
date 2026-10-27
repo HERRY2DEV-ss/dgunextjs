@@ -217,23 +217,33 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     }
     list.splice(0, list.length, ...merged.values());
   }
-  // B.Com CPA: render the two CPA-specific content records inside a dedicated
-  // Course Highlights tab immediately after Scholarship, rather than as a
-  // separate page-level accordion block.
+  // B.Com CPA: pull the CPA-specific headings from whichever API bucket
+  // the CMS parser assigned, then expose them as a dedicated tab after Scholarship.
   if (kind === 'program' && ['bcom-cpa', 'bcom-uscpa'].includes(slug)) {
-    const highlightTitles = new Set(['streamlined cpa qualification', 'progression coursework']);
-    const highlightSections = info.accordions.filter(section => {
+    const isCourseHighlight = (section: AcademicSection) => {
       const key = academicSectionKey(section.title);
-      return highlightTitles.has(key) || key.includes('progression') && key.includes('coursework');
-    });
+      return key === 'streamlined cpa qualification' ||
+        (key.includes('progression') && key.includes('coursework'));
+    };
+    const highlightSections: AcademicSection[] = [];
+    for (const list of [info.tabs, info.sections, info.accordions]) {
+      for (let index = list.length - 1; index >= 0; index--) {
+        if (isCourseHighlight(list[index])) highlightSections.unshift(...list.splice(index, 1));
+      }
+    }
+    const existing = info.tabs.find(section => academicSectionKey(section.title) === 'course highlights');
+    if (existing) {
+      const parts = splitAcademicContent(existing.html, new Set(['streamlined cpa qualification', 'progression and coursework']));
+      highlightSections.unshift(...parts.sections.filter(isCourseHighlight));
+      existing.html = parts.intro;
+    }
     if (highlightSections.length) {
-      info.accordions = info.accordions.filter(section => !highlightSections.includes(section));
-      const highlightHtml = highlightSections.map(section =>
-        `<h3>${escapeHtml(section.title)}</h3>${section.html}`
-      ).join('');
+      const highlightsTab: AcademicSection = {
+        title: 'Course Highlights',
+        html: highlightSections.map(section => `<h3>${escapeHtml(section.title)}</h3>${section.html}`).join(''),
+      };
       const existingIndex = info.tabs.findIndex(section => academicSectionKey(section.title) === 'course highlights');
-      const highlightsTab = { title: 'Course Highlights', html: highlightHtml };
-      if (existingIndex >= 0) info.tabs[existingIndex] = { ...info.tabs[existingIndex], html: mergeAcademicBody(info.tabs[existingIndex].html, highlightHtml) };
+      if (existingIndex >= 0) info.tabs[existingIndex] = { ...info.tabs[existingIndex], html: mergeAcademicBody(info.tabs[existingIndex].html, highlightsTab.html) };
       else {
         const scholarshipIndex = info.tabs.findIndex(section => academicSectionKey(section.title) === 'scholarship');
         info.tabs.splice(scholarshipIndex >= 0 ? scholarshipIndex + 1 : info.tabs.length, 0, highlightsTab);
