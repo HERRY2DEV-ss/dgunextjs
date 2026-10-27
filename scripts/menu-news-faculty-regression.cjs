@@ -68,8 +68,18 @@ async function check(mode) {
     const items = await news.requestNews(tab);
     const rows = newsResponse.data.filter(row => String(row.categoryID) === categoryIds[tab]);
     assert.deepEqual(clone(items.map(item => item.id)), rows.map(row => String(row.id)));
+    assert(items.length >= 3, `${tab} test API response provides at least three valid news items.`);
+    assert.deepEqual(clone(items.slice(0, 3).map(item => item.id)), rows.slice(0, 3).map(row => String(row.id)),
+      `${tab} preserves the first three API items and their order.`);
     expectCall('news', { CATEGORY_ID: categoryIds[tab] });
   }
+  const newsSection = fs.readFileSync(path.resolve('components/NewsUpdatesSection.tsx'), 'utf8');
+  assert.deepEqual(Array.from(newsSection.matchAll(/<StepSlider\b[^>]*className="(?:compact-news-slider campus-news-slider|updates-track|compact-news-slider admission-news-slider)"[^>]*size=\{(\d+)\}[^>]*>/g), match => Number(match[1])), [3, 3, 3],
+    'Campus, Placement, and Admission sliders each show three API items per page.');
+  assert.match(newsSection, /campus-news-slider[^>]*size=\{3\}[^>]*horizontalOnMobile/,
+    'Campus news remains horizontally navigable on mobile.');
+  assert.match(newsSection, /admission-news-slider[^>]*vertical horizontalOnMobile/,
+    'Admission news retains its desktop orientation and mobile horizontal navigation.');
   const countBefore = e.calls.length;
   await Promise.all([news.requestNews('campus', { SCHOOL_URL: 'school-of-technology' }), news.requestNews('campus', { SCHOOL_URL: ' SCHOOL-OF-TECHNOLOGY ' })]);
   assert.equal(e.calls.length, countBefore + 1, 'Equivalent school scopes share only their own in-flight request.');
