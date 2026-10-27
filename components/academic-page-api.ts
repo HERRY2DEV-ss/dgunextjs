@@ -217,6 +217,29 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     }
     list.splice(0, list.length, ...merged.values());
   }
+  // B.Com CPA: render the two CPA-specific content records inside a dedicated
+  // Course Highlights tab immediately after Scholarship, rather than as a
+  // separate page-level accordion block.
+  if (kind === 'program' && ['bcom-cpa', 'bcom-uscpa'].includes(slug)) {
+    const highlightTitles = new Set(['streamlined cpa qualification', 'progression coursework']);
+    const highlightSections = info.accordions.filter(section => {
+      const key = academicSectionKey(section.title);
+      return highlightTitles.has(key) || key.includes('progression') && key.includes('coursework');
+    });
+    if (highlightSections.length) {
+      info.accordions = info.accordions.filter(section => !highlightSections.includes(section));
+      const highlightHtml = highlightSections.map(section =>
+        `<h3>${escapeHtml(section.title)}</h3>${section.html}`
+      ).join('');
+      const existingIndex = info.tabs.findIndex(section => academicSectionKey(section.title) === 'course highlights');
+      const highlightsTab = { title: 'Course Highlights', html: highlightHtml };
+      if (existingIndex >= 0) info.tabs[existingIndex] = { ...info.tabs[existingIndex], html: mergeAcademicBody(info.tabs[existingIndex].html, highlightHtml) };
+      else {
+        const scholarshipIndex = info.tabs.findIndex(section => academicSectionKey(section.title) === 'scholarship');
+        info.tabs.splice(scholarshipIndex >= 0 ? scholarshipIndex + 1 : info.tabs.length, 0, highlightsTab);
+      }
+    }
+  }
   for (const [field, title] of [['highlights', 'Program Highlights'], ['outcomes', 'Program Outcomes'], ['placements', 'Placements']] as const) {
     const rows = academicRecords(take(field), ['title', 'heading', 'placementHeading', 'counterName', 'placedCounter']);
     const content = rows.flatMap(item => {
