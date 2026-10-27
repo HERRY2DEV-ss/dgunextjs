@@ -19,7 +19,6 @@ import RecruitersSection from '../components/RecruitersSection';
 import PlacementVideoCard from '../components/PlacementVideoCard';
 import PlacementRelatedVideos from '../components/PlacementRelatedVideos';
 import NewsUpdatesSection from '../components/NewsUpdatesSection';
-import ReviewsSection from '../components/ReviewsSection';
 import { requestHomepageData, type HomepageData } from '../components/homepage-api';
 import usePlacements from '../components/usePlacements';
 import PlacementStudentCard from '../components/PlacementStudentCard';
@@ -164,7 +163,6 @@ export default function Home() {
 
       <LifeScroll onImage={(title,image)=>show(title,image)} />
       <DehradunReveal />
-      <ReviewsSection paused={motionStopped} />
     </main>
 
     <SiteFooter />
