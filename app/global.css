@@ -3781,15 +3781,4 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
     overflow-wrap: anywhere;
     text-align: center;
   }
-  .placements-section .batch-controls button {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    min-height: 30px;
-    padding: 0;
-    font-size: 16px;
-  }
-  .placements-section .batch-controls {
-    gap: 7px;
-  }
 }
