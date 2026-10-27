@@ -3808,3 +3808,17 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
     min-height: 42px;
   }
 }
+
+/* Make individual program-name rows compact only inside school-page OUR PROGRAMS. */
+@media (max-width: 600px) {
+  .school-programs-section .program-card .program-list .program-item {
+    min-height: 40px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    gap: 8px;
+  }
+  .school-programs-section .program-card .program-list .program-name strong {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+}
