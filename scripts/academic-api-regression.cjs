@@ -1,10 +1,24 @@
 // Contract checks only; live PHP availability is checked separately.
 const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm');
 const assert = require('node:assert/strict'), ts = require('typescript');
+const { parse: parseTestHtml, HTMLElement: TestHtmlElement } = require('next/dist/compiled/node-html-parser');
 const modules = new Map(), calls = [];
 let failNext = false;
 const env = { NODE_ENV:'production', NEXT_PUBLIC_DGU_MENU_API_KEY:'academic-test-key' };
-function load(filename) {
+Object.defineProperties(TestHtmlElement.prototype, {
+  children: { configurable:true, get() { return this.childNodes.filter(node => node instanceof TestHtmlElement); } },
+  parentElement: { configurable:true, get() { return this.parentNode instanceof TestHtmlElement ? this.parentNode : null; } },
+  cloneNode: { configurable:true, value(deep = true) {
+    const copy = this.clone();
+    if (!deep) copy.childNodes.slice().forEach(node => copy.removeChild(node));
+    return copy;
+  } },
+  append: { configurable:true, value(...nodes) { nodes.forEach(node => this.appendChild(node)); } },
+});
+class TestDOMParser {
+  parseFromString(source) { return { body:parseTestHtml(source) }; }
+}
+function load(filename, globals = {}) {
   const file = path.resolve(filename.endsWith('.ts') ? filename : filename+'.ts');
   if (modules.has(file)) return modules.get(file);
   const module = {exports:{}};modules.set(file,module.exports);
@@ -19,11 +33,12 @@ function load(filename) {
         [school?'schoolName':'programName']:'API name',introText:'API introduction',meta_title:'API metadata title',
         meta_desc:'API metadata description',meta_keywords:'API keyword one, API keyword two',meta_canonical:body.PROGRAM_URL||''}]}),{status:200});
     },
+    ...globals,
   });
   return module.exports;
 }
 (async()=>{
-  const programs=load('components/programs-api'),academic=load('components/academic-page-api'),features=load('components/academic-features'),tabContent=load('components/academic-tab-content'),seo=load('components/academic-seo-metadata');
+  const programs=load('components/programs-api'),academic=load('components/academic-page-api'),features=load('components/academic-features'),tabContent=load('components/academic-tab-content',{DOMParser:TestDOMParser}),seo=load('components/academic-seo-metadata');
   const btechSeo=seo.parseProgrammeSeoMetadata({error:'0',data:[{meta_title:'API B.Tech title',meta_desc:'API B.Tech description',meta_keywords:'B.Tech, engineering',meta_canonical:'btech'}]},'btech');
   assert.deepEqual(JSON.parse(JSON.stringify(btechSeo)),{title:'API B.Tech title',description:'API B.Tech description',keywords:'B.Tech, engineering',canonical:''},
     'Only exact API metadata fields are used; slug-only canonical values do not become fabricated URLs');
@@ -53,6 +68,60 @@ function load(filename) {
   assert.match(fs.readFileSync(path.resolve('components/academic-tab-content.ts'),'utf8'),/includeAllHeadingLevels/,'The Agribusiness Structure path can split headings with different levels');
   const tabContentSource=fs.readFileSync(path.resolve('components/academic-tab-content.ts'),'utf8');
   const academicPageSource=fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
+  assert.match(tabContentSource,/export function academicSemesterContent/,'B.Com CPA course structure has a dedicated table-aware parser');
+  assert.match(tabContentSource,/querySelectorAll\('tr'\)/,'Semester boundaries are read from API table rows');
+  assert.match(tabContentSource,/semesterTitle\(cell\.textContent \|\| ''\)/,'Semester labels are detected from table cell content, not assumed heading tags');
+  assert.match(tabContentSource,/group\.rows\.push/,'Each table column group retains only its own semester rows');
+  assert.match(tabContentSource,/table\.remove\(\)/,'The original paired-semester table is not rendered beside parsed accordion content');
+  assert.match(academicPageSource,/academicSemesterContent\(section\.html\)/,'B.Com CPA course structure uses the table-aware semester parser');
+  assert.match(academicPageSource,/if\(semesterParts\.handled\)/,'Recognized malformed semester tables do not fall back to raw source rendering');
+  assert.match(academicPageSource,/semesterAccordion=\{info\.kind==='program' && \['bcom-cpa','bcom-uscpa'\]\.includes\(info\.slug\)\}/,'Semester parsing remains scoped to the B.Com CPA route');
+  const bcomCpaApiCourseStructure=`
+    <div class="table-responsive mt-15 mb-15">
+      <table class="table table-bordered" width="100%">
+        <thead class="table-alignment">
+          <tr>
+            <th colspan="2"><strong>SEMESTER I</strong></th>
+            <th colspan="2"><strong>SEMESTER II</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Subject</strong></td><td><strong>Credits</strong></td><td><strong>Subject</strong></td><td><strong>Credits</strong></td></tr>
+          <tr><td>Fundamentals of Financial Accounting</td><td>3</td><td>Cost Accounting</td><td>3</td></tr>
+          <tr><td class="bg-col2"><strong>TOTAL</strong></td><td class="bg-col2"><strong>22</strong></td><td class="bg-col2"><strong>TOTAL</strong></td><td class="bg-col2"><strong>22</strong></td></tr>
+          <tr><td class="bg-col" colspan="2"><strong>SEMESTER III</strong></td><td class="bg-col" colspan="2"><strong>SEMESTER IV</strong></td></tr>
+          <tr><td><strong>Subject</strong></td><td><strong>Credits</strong></td><td><strong>Subject</strong></td><td><strong>Credits</strong></td></tr>
+          <tr><td>Financial Reporting</td><td>3</td><td>Management Accounting</td><td>3</td></tr>
+          <tr><td class="bg-col" colspan="2"><strong>SEMESTER V</strong></td><td class="bg-col" colspan="2"><strong>SEMESTER VI</strong></td></tr>
+          <tr><td><strong>Subject</strong></td><td><strong>Credits</strong></td><td><strong>Subject</strong></td><td><strong>Credits</strong></td></tr>
+          <tr><td>Equity Research</td><td>3</td><td>Security Analysis and Portfolio Management</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+  const semesterSplit=tabContent.academicSemesterContent(bcomCpaApiCourseStructure);
+  assert.equal(semesterSplit.handled,true,'The API table with semester labels is handled');
+  assert.deepEqual(Array.from(semesterSplit.sections,section=>section.title),['SEMESTER I','SEMESTER II','SEMESTER III','SEMESTER IV','SEMESTER V','SEMESTER VI'],'All API semesters retain their original order');
+  assert(semesterSplit.sections.every(section=>/<table\b/i.test(section.html)),'Each semester keeps a structured table');
+  assert(semesterSplit.sections[0].html.includes('Fundamentals of Financial Accounting')&&!semesterSplit.sections[0].html.includes('Cost Accounting'),'Semester I keeps only its own subjects');
+  assert(semesterSplit.sections[1].html.includes('Cost Accounting')&&!semesterSplit.sections[1].html.includes('Fundamentals of Financial Accounting'),'Semester II keeps only its own subjects');
+  assert(semesterSplit.sections[2].html.includes('Financial Reporting')&&!semesterSplit.sections[2].html.includes('Management Accounting'),'Semester III keeps only its own subjects');
+  assert(semesterSplit.sections[3].html.includes('Management Accounting')&&!semesterSplit.sections[3].html.includes('Financial Reporting'),'Semester IV keeps only its own subjects');
+  assert(semesterSplit.sections[4].html.includes('Equity Research')&&!semesterSplit.sections[4].html.includes('Security Analysis'),'Semester V keeps only its own subjects');
+  assert(semesterSplit.sections[5].html.includes('Security Analysis')&&!semesterSplit.sections[5].html.includes('Equity Research'),'Semester VI keeps only its own subjects');
+  assert(!semesterSplit.intro.includes('<table')&&!semesterSplit.intro.includes('Fundamentals of Financial Accounting'),'The source table is removed rather than duplicated');
+  const nestedSemester=tabContent.academicSemesterContent('<table><thead><tr><th><strong>SEMESTER I</strong></th></tr></thead><tbody><tr><td><a href="/course-link/"><span><strong>Nested API subject</strong></span></a></td></tr></tbody></table>');
+  assert(nestedSemester.sections[0].html.includes('<a href="/course-link/"><span><strong>Nested API subject</strong></span></a>'),'Nested formatting and API links are preserved');
+  assert.equal(tabContent.academicSemesterContent('').handled,false,'Empty API content creates no semester sections');
+  const misleadingSemester=tabContent.academicSemesterContent('<table><tr><th>Semester I Overview</th></tr><tr><td>API text</td></tr></table>');
+  assert.equal(misleadingSemester.handled,false,'Descriptive headings are not misidentified as semester labels');
+  const malformedSemester=tabContent.academicSemesterContent('<p>Independent API introduction</p><table><tr><th colspan="2"><strong>SEMESTER I</strong></th></tr><tr><td colspan="4">Ambiguous shared content</td></tr></table>');
+  assert.equal(malformedSemester.handled,true,'Malformed semester tables are recognized for safe suppression');
+  assert.equal(malformedSemester.sections.length,0,'Ambiguous table content is hidden rather than assigned to a fabricated semester');
+  assert(malformedSemester.intro.includes('Independent API introduction'),'Independent valid API content survives a malformed table');
+  assert(!malformedSemester.intro.includes('Ambiguous shared content'),'Malformed table text is not rendered as plain text');
+  const invalidSpan=tabContent.academicSemesterContent('<table><tr><th colspan="99999999">SEMESTER I</th></tr><tr><td>Unsafe span</td></tr></table>');
+  assert.equal(invalidSpan.sections.length,0,'Invalid table spans cannot create unsafe or fabricated semester content');
+  assert(!invalidSpan.intro.includes('Unsafe span'),'Malformed span content is not leaked as plain text');
   assert.match(tabContentSource,/export function academicColumnSections/,'International Business focus cards are derived from API columns');
   assert.match(tabContentSource,/export function academicCareerAccordionSections/,'Agribusiness career accordions are derived from API columns');
   assert.match(academicPageSource,/className="program-options-card academic-core-focus-card"/,'International Business focus uses the existing program option card design');
@@ -60,7 +129,7 @@ function load(filename) {
   assert.match(academicPageSource,/info\.slug==='mba-agri-business' && academicSectionKey\(section\.title\)==='careers'\s*\? <CareerAccordionContent/,'Agribusiness career content uses its page-specific accordion');
   assert.match(academicPageSource,/previewHeightOverride=\{info\.slug==='dgu-global-mba'/,'Global MBA keeps a page-specific intro preview length');
   assert.match(academicCss,/\.academic-api-page \.dgu-api-row > \* \{ grid-column:1\/-1/,'Non-column CMS row content spans the full row');
-  assert.match(fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8'),/academicTabContent\(section\.html,hr \|\| \['structure','scholarship'\]\.includes\(kind\),singleAccordion\)/,'Only the page-specific combined accordion enables mixed heading levels');
+  assert.match(fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8'),/academicTabContent\(section\.html,hr \|\| \['structure','scholarship','course highlights'\]\.includes\(kind\),singleAccordion \|\| kind==='course highlights'\)/,'The generic mixed-heading accordion path remains isolated from B.Com CPA table parsing');
   assert.match(fs.readFileSync(path.resolve('components/AcademicAccordionGroup.tsx'),'utf8'),/useState<number \| null>\(null\)/,'Academic accordions remain collapsed by default');
   assert.equal(features.academicFeaturePresentation(5),'wave','Five features retain the existing wave path');
   assert.equal(features.academicFeaturePresentation(6),'tab','Six features use one complete academic tab');
@@ -301,5 +370,5 @@ function load(filename) {
   assert.equal(calls.at(-1).options.method,'POST');
   assert.equal(calls.at(-1).options.headers.Apikey,'academic-test-key');
   assert.equal(calls.at(-1).url,'https://dgu.ac.in/api/get-program-info.php');
-  console.log('PASS: shared school/program API contracts, route-scoped SEO metadata, exact URL + record ID, API-only partial sections, duplicate handling, cache separation and recovery.');
+  console.log('PASS: API contracts, route-scoped SEO, academic semester table boundaries and fallback safety, API-only rendering, cache separation and recovery.');
 })().catch(error=>{console.error(error);process.exitCode=1});
