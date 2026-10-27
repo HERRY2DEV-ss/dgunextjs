@@ -5,8 +5,8 @@ import type { AcademicSection } from './academic-page-api';
 export function academicTabContent(source:string, includeHeadings=false, includeAllHeadingLevels=false): {intro:string;sections:AcademicSection[]} {
   if(typeof DOMParser==='undefined')return {intro:source,sections:[]};
   const doc=new DOMParser().parseFromString(source,'text/html');
-  const semesterPattern=/^(?:(?:the\\s+)?semester\\s*(?:[-:：.]\\s*)?(?:[1-8]|[ivxlcdm]+)|(?:first|second|third|fourth|fifth|sixth|seventh|eighth)\\s+semester)(?:\\s*[:：.-].*)?$/i;
-  const titleOf=(node:Element)=>apiPlain(node.textContent).replace(/\\s+/g,' ').trim();
+  const semesterPattern=/^(?:(?:the\s+)?semester\s*(?:[-:：.]\s*)?(?:[1-8]|[ivxlcdm]+)|(?:first|second|third|fourth|fifth|sixth|seventh|eighth)\s+semester)(?:\s*[:：.-].*)?$/i;
+  const titleOf=(node:Element)=>apiPlain(node.textContent).replace(/\s+/g,' ').trim();
   const semesterNodes=Array.from(doc.body.querySelectorAll('.semester-title,h1,h2,h3,h4,h5,h6,p,div,strong,b,span'))
     .filter(node=>!node.closest('table,li') && semesterPattern.test(titleOf(node)));
   // If a wrapper and its child both repeat the same title, use the innermost match.
