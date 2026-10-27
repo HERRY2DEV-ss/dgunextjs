@@ -172,7 +172,7 @@ function TabRichCopy({section}:{section:AcademicSection}) {
   }} />;
 }
 
-function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean;singleAccordion?:boolean}) {
+function TabBody({section,nested,id,hr=false,singleAccordion=false,semesterAccordion=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean;singleAccordion?:boolean;semesterAccordion?:boolean}) {
   const courseHighlightSections = useMemo(() => {
     if (academicSectionKey(section.title) !== 'course highlights') return [];
     const wanted = new Set(['streamlined cpa qualification', 'progression and coursework']);
@@ -188,9 +188,20 @@ function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:Aca
       {!courseHighlightSections.length && <TabRichCopy section={section} />}
     </div>;
   }
+  const kind=academicSectionKey(section.title);
+  if(semesterAccordion && kind==='structure'){
+    const semesterParts=academicTabContent(section.html,false,false);
+    const semesters=semesterParts.sections.filter(part=>/^semester\s*(?:[-:]\s*)?(?:\d+|[ivxlcdm]+)\b/i.test(apiPlain(part.title)));
+    if(semesters.length){
+      return <div className="academic-tab-content academic-tab-accordions" data-tab-kind="course structure">
+        {(apiPlain(semesterParts.intro) || /<(img|table)\b/i.test(semesterParts.intro)) && <TabRichCopy section={{title:section.title,html:semesterParts.intro}} />}
+        <AcademicAccordions sections={semesters} id={`${id}-semesters`} />
+      </div>;
+    }
+  }
   const rules=nested?.find(rule=>academicSectionKey(rule.parent)===academicSectionKey(section.title));
   if(!rules){
-    const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship','course highlights'].includes(kind),singleAccordion || kind==='course highlights');
+    const parts=academicTabContent(section.html,hr || ['structure','scholarship','course highlights'].includes(kind),singleAccordion || kind==='course highlights');
     const combined=singleAccordion ? academicSingleAccordionSection(parts) : null;
     return <div className={`academic-tab-content${hr?' academic-hr-tab-content':''}${parts.sections.length?' academic-tab-accordions':''}`} data-tab-kind={academicSectionKey(section.title)}>
       {parts.sections.length ? singleAccordion && combined
@@ -268,7 +279,7 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
         ? <AdvancedComputingCurriculumContent section={section} id={`${id}-${i}-curriculum`} />
       : isAdvancedComputingAcademicPage(info) && isAcademicFeatureSection(section,info) && academicFeaturePresentation(academicFeatures(section.html).points.length,7)==='tab'
         ? <FeatureTabContent section={section} id={`${id}-${i}`} />
-        : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} singleAccordion={info.slug==='mba-agri-business' && academicSectionKey(section.title)==='structure'} />}))}/>;
+        : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} singleAccordion={info.slug==='mba-agri-business' && academicSectionKey(section.title)==='structure'} semesterAccordion={info.slug==='bcom-cpa'} />}))}/>;
   if(block.kind==='accordion')return <AcademicAccordions sections={block.sections} id={id} title={info.slug==='mba' ? 'INDUSTRY COLLABORATION' : ''}/>;
   if(block.kind==='industry')return <AcademicAccordions sections={block.sections} lead={block.lead} id={id} title={block.title} />;
   if(block.kind==='laboratories')return <>{block.sections.map((section,sectionIndex)=>{
