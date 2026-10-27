@@ -1,17 +1,31 @@
 import { apiPlain } from './dgu-content-api';
 import type { AcademicSection } from './academic-page-api';
 
-/** Semester titles are CMS divs; preserve all text/tables when folding DOM ranges. */
+/** Split semester headings from API HTML while preserving each semester's own tables and copy. */
 export function academicTabContent(source:string, includeHeadings=false, includeAllHeadingLevels=false): {intro:string;sections:AcademicSection[]} {
   if(typeof DOMParser==='undefined')return {intro:source,sections:[]};
   const doc=new DOMParser().parseFromString(source,'text/html');
-  const semesters=Array.from(doc.querySelectorAll('.semester-title')).filter(node=>!node.closest('table,li'));
+  const semesterPattern=/^(?:(?:the\\s+)?semester\\s*(?:[-:：.]\\s*)?(?:[1-8]|[ivxlcdm]+)|(?:first|second|third|fourth|fifth|sixth|seventh|eighth)\\s+semester)(?:\\s*[:：.-].*)?$/i;
+  const titleOf=(node:Element)=>apiPlain(node.textContent).replace(/\\s+/g,' ').trim();
+  const semesterNodes=Array.from(doc.body.querySelectorAll('.semester-title,h1,h2,h3,h4,h5,h6,p,div,strong,b,span'))
+    .filter(node=>!node.closest('table,li') && semesterPattern.test(titleOf(node)));
+  // If a wrapper and its child both repeat the same title, use the innermost match.
+  const semesters=semesterNodes.filter(node=>!semesterNodes.some(other=>other!==node && node.contains(other)));
+  if(semesters.length>=2){
+    const fragment=(start:Element|null,end:Element|null)=>{
+      const range=doc.createRange();range.selectNodeContents(doc.body);
+      if(start)range.setStartAfter(start);if(end)range.setEndBefore(end);
+      const node=doc.createElement('div');node.append(range.cloneContents());return node.innerHTML;
+    };
+    return {intro:fragment(null,semesters[0]),sections:semesters.map((node,index)=>({title:titleOf(node),html:fragment(node,semesters[index+1]||null)}))};
+  }
   const headings=Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(node=>!node.closest('table,li'));
+  if(!includeHeadings || headings.length<2)return {intro:source,sections:[]};
   const level=Math.min(...headings.map(node=>Number(node.tagName.slice(1))));
-  const boundaries=Array.from(doc.querySelectorAll('.semester-title,h1,h2,h3,h4,h5,h6')).filter(node=>!node.closest('table,li') && (semesters.includes(node) || (includeHeadings || semesters.length>1) && (includeAllHeadingLevels || Number(node.tagName.slice(1))===level)));
+  const boundaries=headings.filter(node=>includeAllHeadingLevels || Number(node.tagName.slice(1))===level);
   if(boundaries.length<2)return {intro:source,sections:[]};
   const fragment=(start:Element|null,end:Element|null)=>{const range=doc.createRange();range.selectNodeContents(doc.body);if(start)range.setStartAfter(start);if(end)range.setEndBefore(end);const node=doc.createElement('div');node.append(range.cloneContents());return node.innerHTML;};
-  return {intro:fragment(null,boundaries[0]),sections:boundaries.map((node,index)=>({title:apiPlain(node.textContent),html:fragment(node,boundaries[index+1] || null)}))};
+  return {intro:fragment(null,boundaries[0]),sections:boundaries.map((node,index)=>({title:titleOf(node),html:fragment(node,boundaries[index+1]||null)}))};
 }
 
 /** Keep a page-specific multi-heading tab inside one existing accordion item. */
