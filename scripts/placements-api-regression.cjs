@@ -36,7 +36,7 @@ const response = (value = payload, status = 200) => ({ ok: status < 400, status,
     assert.equal(global.sections[0].description, '<p>Full API description.</p>');
     await api.requestPlacements('school-of-business');
     const scoped = api.calls[1];
-    assert.equal(scoped.url, mode === 'development' ? '/nextjs/homev1/api/dgu-placements/' : 'https://dgu.ac.in/api/get-placements.php');
+    assert.equal(scoped.url, mode === 'development' ? '/api/dgu-placements/' : 'https://dgu.ac.in/api/get-placements.php');
     assert.equal(scoped.method, 'POST'); assert.equal(scoped.headers.Apikey, 'audit-key');
     assert.equal(scoped.headers['Content-Type'], 'application/json'); assert.equal(scoped.cache, 'no-store');
     assert.deepEqual(JSON.parse(scoped.body), { SCHOOL_URL: 'school-of-business' });

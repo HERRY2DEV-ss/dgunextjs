@@ -38,7 +38,7 @@ body .campus-overview .campus-contact h2 { font-size:20px!important; color:#fff;
 body .campus-overview .campus-contact .school-contact-status { margin:0; font-size:13px!important; line-height:1.4!important; }
 .campus-overview .campus-contact .school-contact-status a { color:#ffe462; text-decoration:underline; }
 
-body .campus-overview main .campus-intro { position:relative; padding-block:clamp(40px,4.7vw,80px); background:linear-gradient(#68176bef,#68176bf0),url('/nextjs/homev1/assets/campus/students-jump.webp') center 43% / cover; color:#fff; }
+body .campus-overview main .campus-intro { position:relative; padding-block:clamp(40px,4.7vw,80px); background:linear-gradient(#68176bef,#68176bf0),var(--dgu-campus-students-image) center 43% / cover; color:#fff; }
 .campus-overview .campus-intro::after { content:''; position:absolute; bottom:-2.9vw; left:50%; border-left:3.4vw solid transparent; border-right:3.4vw solid transparent; border-top:3vw solid #68176b; transform:translateX(-50%); z-index:2; }
 .campus-overview .campus-intro-grid { display:grid; grid-template-columns:10% 35% minmax(0,1fr); gap:4%; align-items:center; width:min(85%,1480px); }
 .campus-overview .campus-intro-grid p { margin:0; }
@@ -110,7 +110,7 @@ body .campus-overview main .campus-fest { position:relative; padding:0 0 clamp(4
 .campus-overview .campus-fest::after { content:''; position:absolute; bottom:-24px; left:50%; width:48px; height:48px; transform:translateX(-50%) rotate(45deg); background:var(--campus-paper); z-index:2; }
 
 /* Each of the three event columns has its own shared slider. */
-body .campus-overview main .campus-events { position:relative; padding:clamp(56px,5.5vw,96px) 0 clamp(42px,4.5vw,80px); color:#fff; background:linear-gradient(#08080dcc,#08080de5),url('/nextjs/homev1/assets/campus/event-crowd.webp') center / cover; }
+body .campus-overview main .campus-events { position:relative; padding:clamp(56px,5.5vw,96px) 0 clamp(42px,4.5vw,80px); color:#fff; background:linear-gradient(#08080dcc,#08080de5),var(--dgu-campus-events-image) center / cover; }
 .campus-overview .campus-events-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7%; width:min(80%,1450px); }
 body .campus-overview .campus-event h2 { color:var(--campus-yellow); text-align:center; margin:0 0 clamp(18px,2vw,34px); font-size:clamp(24px,2.3vw,40px)!important; font-weight:500!important; line-height:1.1!important; }
 .campus-overview .campus-event-slider .batch-page { grid-template-columns:1fr; gap:0; }
@@ -152,7 +152,7 @@ body .campus-overview main .campus-hostel { position:relative; padding:clamp(38p
 .campus-overview .campus-hostel::after { content:''; position:absolute; bottom:-3vw; left:67%; border-left:3.5vw solid transparent; border-right:3.5vw solid transparent; border-top:3vw solid #f4efdb; z-index:2; }
 
 /* The tour section ends at the existing homepage cloud-and-campus finale. */
-.campus-overview .campus-destination { color:#fff; background:#206ba5 url('/nextjs/homev1/assets/campus/dehradun-bg.webp') center 18% / cover no-repeat; }
+.campus-overview .campus-destination { color:#fff; background:#206ba5 var(--dgu-campus-dehradun-image) center 18% / cover no-repeat; }
 body .campus-overview main .campus-tour { padding:clamp(42px,4.5vw,78px) 0 clamp(72px,7vw,120px); background:transparent; }
 .campus-overview .campus-tour-inner { display:grid; grid-template-columns:38% minmax(0,1fr); gap:6%; align-items:center; }
 .campus-overview .campus-tour .campus-section-title { color:var(--campus-yellow); gap:16px; margin-bottom:22px; }

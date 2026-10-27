@@ -11,7 +11,6 @@ import ApiRichText from './ApiRichText';
 import ExpandableText from './ExpandableText';
 import { apiPlain } from './dgu-content-api';
 import { requestAdmissions, type AdmissionData, type AdmissionSchool, type FeeSchool } from './admissions-api';
-import { admissionsPlacement } from './admissions-data';
 import { admissionDetail, admissionDetailHref } from './admissions-routes';
 
 function AdmissionPageContent() {
@@ -164,7 +163,7 @@ function AdmissionPageContent() {
               {data.processExtra && <ApiRichText html={data.processExtra} className="admissions-rich-copy admissions-process-extra" />}
             </div>
           </section>}
-          {data.media.src && <AdmissionsVideo paused={menuOpen} src={data.media.src} poster={data.media.poster} stats={admissionsPlacement.stats} />}
+          {data.media.src && <AdmissionsVideo paused={menuOpen} src={data.media.src} poster={data.media.poster} stats={[]} />}
           {(data.feeSchools.length > 0 || data.feesExtra) && <section className="admissions-fees" id="programs-fee-structures" aria-labelledby={data.feeTitle ? 'admissions-fees-title' : undefined}>
             {data.feeTitle && <h2 id="admissions-fees-title">{data.feeTitle}</h2>}
             {!!data.feeSchools.length && <>

@@ -4,7 +4,7 @@ Apply this small patch to your current Next.js project. The existing theme, sect
 
 1. Extract this ZIP into the existing project root, where `package.json` is located; merge the `app`, `components` and `scripts` folders.
 2. Run `node scripts/configure-original-apis.cjs`. This sets the restored live `https://dgu.ac.in/api` endpoints and your supplied Apikey; it backs up `.env.local` and preserves unrelated settings. No localhost database is configured.
-3. For local work, restart with `npm run dev`. For production, run `npm run build` and deploy the generated `out` contents to your existing `/nextjs/homev1` location on dgu.ac.in. Keep the existing export/academic URL rewrite setup.
+3. For local work, restart with `npm run dev`. For production, run `npm run build` and deploy the generated `out` contents to your existing `` location on dgu.ac.in. Keep the existing export/academic URL rewrite setup.
 
 If dependencies are missing (`next` is not recognized), run `npm ci` first. The exported production site uses the live APIs directly; local development uses the existing same-origin Next rewrites.
 

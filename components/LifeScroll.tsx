@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 import { useCallback, useEffect, useRef, type CSSProperties, type ImgHTMLAttributes } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -207,7 +209,7 @@ export default function LifeScroll({onImage}: {onImage:(title:string,image:strin
     </div>
     <div className="campus-particles" aria-hidden="true">{Array.from({length:25},(_,i)=><i key={i} style={{left:`${(i*37)%100}%`,animationDuration:`${8+(i*7)%12}s`,animationDelay:`${(i*3)%10}s`,width:`${1+i%3}px`,height:`${1+i%3}px`} as CSSProperties}/>)}</div>
     <section className="campus-hero pin-slide">
-      <TourImage className="campus-hero-bg" src="/nextjs/homev1/assets/banner.jpg" fallback="/nextjs/homev1/assets/life-night.webp" alt="" />
+      <TourImage className="campus-hero-bg" src={sitePath("/assets/life-night.webp")} fallback={sitePath("/assets/life-night.webp")} alt="" />
       <div className="campus-hero-fog" />
       <h2 className="campus-hero-text"><span className="campus-hero-line1">Campus Life</span><span className="campus-hero-line2">AT DGU</span></h2>
       <div className="campus-hero-sub"><p>A preferred destination for students from 20+ countries and across India.</p></div>

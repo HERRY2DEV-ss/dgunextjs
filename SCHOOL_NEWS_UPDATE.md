@@ -7,7 +7,7 @@
 1. Extract `DGU_School_News_Update.zip` into the existing `mba_gt` project root, where `package.json` is located. Replace the included files.
 2. Keep the existing API key in `.env.local`. The update uses the existing `Apikey` header.
 3. Restart the development server, or run `npm run build` for production.
-4. Upload the rebuilt `out` contents, including its `.htaccess`, to `public_html/nextjs/homev1/`.
+4. Upload the rebuilt `out` contents, including its `.htaccess`, to `public_html/`.
 
 This update requires frontend files only. The developer's live PHP APIs do not need to be overwritten. The full project ZIP contains the same changes if a complete source copy is preferred.
 

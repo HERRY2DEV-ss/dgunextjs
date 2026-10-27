@@ -64,7 +64,7 @@
 .program-overview-copy > p {
   margin: 0 0 clamp(12px, 1.3vw, 22px);
   color: #47464b;
-  font-size: clamp(16px, 1.15vw, 22px);
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.13;
   letter-spacing: 0;
@@ -241,7 +241,7 @@
 .program-pathway-intro p {
   margin: 0 0 clamp(14px, 1.4vw, 24px);
   color: #45444b;
-  font-size: clamp(14px, 1vw, 18px);
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -372,7 +372,7 @@
 .program-industry-copy p {
   margin: 10px 0 0;
   color: #4b4b51;
-  font-size: clamp(14px, 1vw, 18px);
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.4;
 }
@@ -444,7 +444,7 @@
   margin: 0;
   padding: 0 30px 20px 2px;
   color: #55515d;
-  font-size: clamp(15px, 1.08vw, 19px);
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.55;
 }
@@ -466,7 +466,7 @@
   .program-hero > img { object-position: center 54%; }
   .program-hero-caption { right: 6%; bottom: 14px; left: 6%; font-size: clamp(16px, 4vw, 21px); }
   .program-overview { display: flex; flex-direction: column; width: 92%; gap: 26px; padding-top: 22px; }
-  .program-overview-copy > p { font-size: clamp(16px, 4vw, 19px); line-height: 1.28; }
+  .program-overview-copy > p { font-size: 20px; line-height: 1.4; }
   .program-recognition-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 22px; }
   .program-recognition-logos img { height: 70px; }
   .program-enquiry { width: 100%; }
@@ -501,7 +501,7 @@
   .program-faqs { width: 92%; padding: 46px 0 70px; }
   .program-faqs > h2 { margin-bottom: 25px; font-size: clamp(28px, 7vw, 38px); }
   .program-faq h3 button { min-height: 65px; font-size: 16px; }
-  .program-faq-answer p { font-size: 15px; }
+  .program-faq-answer p { font-size: 20px; }
 }
 
 /* Final program spacing and gentle, one-time content entrance. */

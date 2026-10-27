@@ -35,7 +35,7 @@ async function contracts(mode) {
     { id: 8, schoolName: 'Law', programs: [{ ...a, id: '10' }, b, { id: 99, programName: 'No route yet', url: '' }] },
   ] });
   assert.deepEqual(clone(parsed.map(x => x.programs.map(p => p.id))), [['10'], ['59', '99']]);
-  assert.equal(parsed[0].href, '/nextjs/homev1/schools/business/');
+  assert.equal(parsed[0].href, '/schools/business/');
   assert.equal(parsed[1].programs[1].href, '', 'A missing URL must not become an invented route.');
   const levels = { error: 0, data: [{ id: 1, levelName: 'Undergraduate', programs: [b] }, { id: 2, levelName: 'Postgraduate', programs: [b, a] }] };
   const own = programmes.parsePrograms(levels, 'school-of-law');
@@ -53,7 +53,7 @@ async function contracts(mode) {
   e.use(url => /(?:get-news\.php|dgu-news\/)$/.test(url) ? response('<title>404 – Page Not Found | DBS Global University</title>') : response(homepage));
   const items = await Promise.all(['campus', 'placements', 'admissions'].map(tab => news.requestNews(tab)));
   assert.deepEqual(items.map(x => x.length), [1, 1, 0]);
-  assert.equal(items[0][0].href, '/nextjs/homev1/news/campus-article/', 'DGU stories open the local detail page using the actual supplied URL.');
+  assert.equal(items[0][0].href, '/news/campus-article/', 'DGU stories open the local detail page using the actual supplied URL.');
   const homepageCalls = e.calls.filter(call => /(?:next-homepage-data\.php|dgu-homepage\/)$/.test(call.url));
   assert.equal(homepageCalls.length, 1, 'All news categories share one homepage GET.');
   assert.equal(homepageCalls[0].options.method, undefined, 'Native fetch defaults to GET.');

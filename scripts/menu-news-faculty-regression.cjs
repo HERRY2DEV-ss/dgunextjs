@@ -42,7 +42,7 @@ async function check(mode) {
   const e = environment(mode), last = () => e.calls.at(-1);
   function expectCall(endpoint, body) {
     const call = last();
-    assert.equal(call.url, mode === 'development' ? '/nextjs/homev1/api/dgu-' + endpoint + '/' : 'https://dgu.ac.in/api/get-' + endpoint + '.php');
+    assert.equal(call.url, mode === 'development' ? '/api/dgu-' + endpoint + '/' : 'https://dgu.ac.in/api/get-' + endpoint + '.php');
     assert.equal(call.options.method, 'POST');
     assert.equal(call.options.headers.Apikey, 'contract-test-key');
     assert.equal(JSON.stringify(call.body), JSON.stringify(body));

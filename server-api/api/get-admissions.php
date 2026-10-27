@@ -50,7 +50,7 @@ function admissions_page($row) {
 }
 function admissions_theme_asset($filename) {
     // Existing real theme assets; return a URL only if that file is present on the server.
-    $path = rtrim(getenv('DGU_FRONTEND_BASE_PATH') ?: '/nextjs/homev1', '/') . '/assets/' . $filename;
+    $path = rtrim(getenv('DGU_FRONTEND_BASE_PATH') ?: '', '/') . '/assets/' . $filename;
     return is_file(dirname(__DIR__) . $path) ? admissions_url($path) : '';
 }
 try {

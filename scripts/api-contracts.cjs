@@ -42,7 +42,7 @@ async function run(mode) {
   const { load, calls } = environment(mode);
   const expectCall = (name, body) => {
     const call = calls.at(-1);
-    const expected = mode === 'development' ? '/nextjs/homev1/api/dgu-' + name + '/' : 'https://dgu.ac.in/api/get-' + name + '.php';
+    const expected = mode === 'development' ? '/api/dgu-' + name + '/' : 'https://dgu.ac.in/api/get-' + name + '.php';
     assert.equal(call.url, expected);
     assert.equal(call.options.method, 'POST');
     assert.equal(call.options.headers.Apikey, 'audit-test-key');

@@ -155,18 +155,26 @@ async function main() {
   await assert.rejects(transport.postContent('reviews', {}), /API_KEY/);
   testProcess.env.NEXT_PUBLIC_DGU_MENU_API_KEY = 'test-key';
   testProcess.env.NODE_ENV = 'development';
+  const siteBaseFile = path.resolve('components/site-base.ts');
+  const siteBaseModule = { exports: {} };
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync(siteBaseFile, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2017 } }).outputText, {
+    module: siteBaseModule, exports: siteBaseModule.exports, process: testProcess,
+  });
+  const developmentPaths = siteBaseModule.exports;
+  assert.equal(developmentPaths.SITE_BASE, '');
+  assert.equal(developmentPaths.sitePath('/assets/example.webp'), '/assets/example.webp');
   calls = [];
   mockFetch = async (url, options) => { calls.push({ url, options }); return { ok: true, json: async () => ({ error: 0, data: [] }) }; };
   await transport.postContent('reviews', {});
   await transport.postContent('program', { PROGRAM_URL: 'ba-llb' });
-  assert.equal(calls[0].url, '/nextjs/homev1/api/dgu-reviews/');
-  assert.equal(calls[1].url,'/nextjs/homev1/api/dgu-program-info/');
+  assert.equal(calls[0].url, '/api/dgu-reviews/');
+  assert.equal(calls[1].url,'/api/dgu-program-info/');
   assert.equal(calls.length,2,'Reviews and programme details both use their development proxies');
   const nextConfig = load('next.config.ts').default;
   const routes = await nextConfig.rewrites();
   assert.equal(routes.find(route => route.source === '/api/dgu-reviews/').destination, 'https://dgu.ac.in/api/get-reviews.php');
   assert.equal(routes.find(route => route.source === '/api/dgu-program-info/').destination,'https://dgu.ac.in/api/get-program-info.php');
-  assert.equal(nextConfig.basePath, '/nextjs/homev1');
+  assert.equal(nextConfig.basePath, '');
   assert.equal(nextConfig.output, undefined, 'the development proxy uses a Next server');
   testProcess.env.NODE_ENV = 'test';
   captureTimer = true;

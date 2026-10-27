@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import LocalPageShell, { usePageMenuOpen } from './LocalPageShell';
@@ -9,7 +11,7 @@ import ExpandableText from './ExpandableText';
 import DehradunReveal from './DehradunReveal';
 import '../app/programs/program.css';
 
-const A = '/nextjs/homev1/assets/campus/';
+const A = sitePath('/assets/campus/');
 type Photo = readonly [image: string, alt: string];
 const celebrity: readonly Photo[] = [
   ['celebrity-moment-1.webp', 'Students with a visiting artist'],

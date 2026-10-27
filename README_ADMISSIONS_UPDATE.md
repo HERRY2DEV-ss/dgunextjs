@@ -7,7 +7,7 @@ Read More now opens the existing detail page. Its complete content comes from th
 1. Extract this ZIP into your existing `mba_gt` project root and replace the included files.
 2. If the admissions API has not been installed yet, upload `server-api/api/get-admissions.php` to `public_html/api/get-admissions.php`. It uses the existing `public_html/includes/classes.php` PDO connection and your supplied key. If this endpoint is already installed, its PHP code has not changed in this Read More update.
 3. Run `npm ci` if dependencies are missing, then `npm run build`.
-4. Deploy the new `out` contents at the project's existing `/nextjs/homev1/` location. For development, restart `npm run dev`.
+4. Deploy the new `out` contents at the project's existing `/` location. For development, restart `npm run dev`.
 
 The build clears generated `out` files before exporting, preventing an old admission page from remaining. `public` assets are untouched.
 

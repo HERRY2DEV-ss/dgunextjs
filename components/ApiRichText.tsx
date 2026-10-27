@@ -1,6 +1,6 @@
 'use client';
 import { createElement, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { apiPlain } from './dgu-content-api';
+import { apiLayoutClasses, apiPlain } from './dgu-content-api';
 import { resolveSiteHref } from './site-routes';
 import { academicImageSource } from './academic-media';
 
@@ -38,8 +38,7 @@ export function richTextNodes(source: string, scrollTables = false, renderElemen
     const classes = new Set((element.getAttribute('class') || '').split(/\s+/));
     const safeTag = tag === 'h1' || classes.has('hero-h1') ? 'h2' : allowed.has(tag) || tag === 'span' ? tag : 'span';
     const props: Record<string, unknown> = { key };
-    const layoutClasses: Record<string, string> = { 'badge-row': 'dgu-api-badges', badge: 'dgu-api-badge', tags: 'dgu-api-badges', tag: 'dgu-api-badge', actions: 'dgu-api-actions', metrics: 'dgu-api-metrics', met: 'dgu-api-metric', 'met-n': 'dgu-api-metric-value', 'met-l': 'dgu-api-metric-label', 'industry-collab-main':'dgu-api-logo-groups', 'industry-collab':'dgu-api-logo-group', 'industry-collab-img-box-main':'dgu-api-logo-row', 'industry-collab-img-box':'dgu-api-logo' };
-    const mapped = [...classes].map(name => layoutClasses[name]).filter(Boolean);
+    const mapped = apiLayoutClasses(element.getAttribute('class') || '');
     if (mapped.length) props.className = mapped.join(' ');
     const target = element.getAttribute('data-target');
     if (target !== null && /^\d+(?:\.\d+)?$/.test(target) && Number(target) <= 100000000) return createElement(safeTag, props, target + apiPlain(element.getAttribute('data-suffix') || '').slice(0, 40));

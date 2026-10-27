@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from '../components/site-base';
+
 import SlidingTabList from '../components/SlidingTabList';
 
 import { useEffect, useRef, useState } from 'react';
@@ -27,16 +29,16 @@ import PlacementsFeedback from '../components/PlacementsFeedback';
 
 /* Replace these optional values with your actual video file URLs (MP4/WebM).
    A missing video opens the original poster in the accessible media viewer. */
-const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : `/nextjs/homev1/assets/${name}.webp`;
+const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
 type Viewer = { title: string; image?: string; text?: string; video?: string; related?: boolean };
 type OutcomeTab = 'placements' | 'startup' | 'higher';
 
 /* Add future placement videos here. Every item automatically shares the same
    vertical slider, dots, swipe and keyboard controls. */
 const placementVideos = [
-  { image:'success-video', title:'Placement Short 1', text:'Student placement success story from DBS Global University.', video:'/nextjs/homev1/assets/short1.mp4' },
-  { image:'success-video', title:'Placement Short 2', text:'Student placement success story from DBS Global University.', video:'/nextjs/homev1/assets/short2.mp4' },
-  { image:'success-video', title:'Placement Short 3', text:'Student placement success story from DBS Global University.', video:'/nextjs/homev1/assets/short3.mp4' },
+  { image:sitePath('/placement-assets/video-poster.webp'), title:'Placement Short 1', text:'Student placement success story from DBS Global University.', video:sitePath('/assets/short1.mp4') },
+  { image:sitePath('/placement-assets/video-poster.webp'), title:'Placement Short 2', text:'Student placement success story from DBS Global University.', video:sitePath('/assets/short2.mp4') },
+  { image:sitePath('/placement-assets/video-poster.webp'), title:'Placement Short 3', text:'Student placement success story from DBS Global University.', video:sitePath('/assets/short3.mp4') },
 ];
 
 export default function Home() {
@@ -48,7 +50,7 @@ export default function Home() {
   const [homepageAttempt, setHomepageAttempt] = useState(0);
   const [homepageStatus, setHomepageStatus] = useState<{ attempt: number; status: 'ready' | 'error' }>({ attempt: -1, status: 'ready' });
   const motionStopped = menuOpen || Boolean(viewer);
-  const placements=usePlacements();
+  const placements=usePlacements('', false);
   const placementStudents=placements.data?.students || [];
   const [openPlacement,setOpenPlacement]=useState<string | null>(null);
 
@@ -108,7 +110,7 @@ export default function Home() {
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
       <link rel="preload" as="image" href={asset('hero-campus')} fetchPriority="high" />
-      <HeroVideo src="/nextjs/homev1/assets/hero-campus-demo.mp4" poster={asset('hero-campus')} paused={motionStopped} />
+      <HeroVideo src={sitePath("/assets/hero-campus-demo.mp4")} poster={asset('hero-campus')} paused={motionStopped} />
       <Navigation onOpenChange={setMenuOpen} />
       {/* <button className="hero-play play-circle" aria-label={MEDIA.campusVideo ? 'Play campus video' : 'View campus image'} onClick={() => show('DBS Global University', 'hero-campus', undefined, MEDIA.campusVideo)}><span /></button> */}
     </header>
@@ -129,17 +131,23 @@ export default function Home() {
         </SlidingTabList>
         <div className="placement-overview" id="outcomes-panel" role="tabpanel" aria-labelledby={`${outcomeTab}-tab`}>
           {outcomeTab==='placements' ? <div className="outcome-panel-content outcome-placement" key="placements">
-            {!placementStudents.length && <PlacementsFeedback state={placements} />}
-            {placementStudents.length>0 && <BatchSlider className="placement-media-slider" label="Placement success videos and placed students" size={1} interval={5200} paused={motionStopped || openPlacement!==null} vertical controls dots>
-              {placementStudents.map((student, index) => {
-                const video = placementVideos[index % placementVideos.length];
-                return <div className="placement-media-pair" key={`${video.title}-${student.name}-${index}`}>
+            <div className="homepage-placement-media">
+              <div className="homepage-placement-column">
+              {placementVideos.length > 0 && <BatchSlider className="placement-media-slider" label="Placement success videos" size={1} interval={5200} paused={motionStopped} vertical controls dots>
+                {placementVideos.map(video => <div className="placement-media-pair" key={video.title}>
                   <PlacementVideoCard src={video.video} poster={asset(video.image)} title={video.title} paused={motionStopped}
                     onOpen={()=>show(video.title,video.image,video.text,video.video,true)} />
+                </div>)}
+              </BatchSlider>}
+              </div>
+              <div className="homepage-placement-column">
+              {placementStudents.length > 0 ? <BatchSlider className="placement-media-slider" label="Placed students" size={1} interval={5200} paused={motionStopped || openPlacement!==null} vertical controls dots>
+                {placementStudents.map((student, index) => <div className="placement-media-pair" key={`${student.id}|${index}`}>
                   <PlacementStudentCard student={student} open={openPlacement===`${student.id}|${index}`} onToggle={()=>setOpenPlacement(value=>value===`${student.id}|${index}` ? null : `${student.id}|${index}`)} onClose={()=>setOpenPlacement(null)} />
-                </div>;
-              })}
-            </BatchSlider>}
+                </div>)}
+              </BatchSlider> : <PlacementsFeedback state={placements} />}
+              </div>
+            </div>
             <HomepagePlacementCopy />
           </div> : outcomeTab==='startup' ? <div className="outcome-panel-content outcome-story" key="startup">
             {homepageFeedback(startupImages.length > 0)}

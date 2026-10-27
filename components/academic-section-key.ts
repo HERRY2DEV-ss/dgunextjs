@@ -30,6 +30,7 @@ export function academicSectionKey(value: string): string {
   if (/career (opportunit|prospect|path|scope)|employment opportunit/.test(title)) return 'careers';
   if (/other specialization/.test(title)) return 'other-programs';
   if (/^program specialization/.test(title)) return 'specializations';
+  if (/^industry aligned curriculum$/.test(title)) return 'industry-aligned-curriculum';
   if (/placements?|top recruiters/.test(title)) return 'placements';
   if (/laborator|infrastructure/.test(title)) return 'laboratories';
   if (/salient features|usps? of|usps? of the/.test(title)) return 'features';

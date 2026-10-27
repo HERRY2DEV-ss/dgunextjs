@@ -60,7 +60,7 @@ These are local checks with live-response fixtures, not a live deployment or dat
 
 1. Back up the current project. Extract this ZIP into its root and overwrite matching files. Do not delete or replace `public`.
 2. Keep the existing `.env.local` and API key. The existing `NEXT_PUBLIC_DGU_MENU_API_KEY` is reused; optional placement-specific key/URL overrides follow the project's existing convention. No new key is required.
-3. Restart `npm run dev`, or run `npm run build` and deploy the rebuilt export to `/nextjs/homev1` using the existing process. Do not upload this ZIP over the developer's PHP API folder.
+3. Restart `npm run dev`, or run `npm run build` and deploy the rebuilt export to `` using the existing process. Do not upload this ZIP over the developer's PHP API folder.
 4. Keep scoped students guarded until the developer correction is verified. Do not enable the guard merely to make the 8 unrelated records visible.
 
 Run `node scripts/placements-api-regression.cjs` for the added offline contract checks. The earlier internal-page report and inventory are included separately and describe the previous design stage.

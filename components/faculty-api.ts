@@ -1,3 +1,4 @@
+import { sitePath } from './site-base';
 import type { FacultyMember } from './faculty-data';
 import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
 
@@ -45,7 +46,7 @@ export function facultySlug(value: unknown): string {
 }
 export function facultyProfileHref(value: unknown): string {
   const slug = facultySlug(value);
-  return slug ? `/nextjs/homev1/faculties/profile/?url=${encodeURIComponent(slug)}` : '';
+  return slug ? sitePath(`/faculties/profile/?url=${encodeURIComponent(slug)}`) : '';
 }
 function imageUrl(value: string): string {
   if (!value) return '';

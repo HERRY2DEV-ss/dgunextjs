@@ -6,8 +6,8 @@ Based on the supplied “Students Clubs & Committees _website page(1).pdf” and
 
 1. Copy the `components` and `public` folders into your existing project root, merging folders and replacing these files only. Keep all existing public assets and common components.
 2. Run `npm run build` in that project. This is a source patch, not a deploy-ready `out` folder.
-3. Deploy the resulting static export using your existing `/nextjs/homev1` setup.
-4. Open `/nextjs/homev1/students-clubs-and-committees/`.
+3. Deploy the resulting static export using your existing `` setup.
+4. Open `/students-clubs-and-committees/`.
 
 There is no new route, API folder, dependency, package change, or full-project replacement. The existing content-route renderer selects the Clubs component for this slug.
 
@@ -35,7 +35,7 @@ The reference includes a video play symbol, but no corresponding sports video wa
 To enable a real clip, add this optional variable to your existing environment configuration before building:
 
 ```env
-NEXT_PUBLIC_CLUBS_VIDEO_URL=/nextjs/homev1/assets/clubs/sports.mp4
+NEXT_PUBLIC_CLUBS_VIDEO_URL=/assets/clubs/sports.mp4
 ```
 
 Place the actual clip at `public/assets/clubs/sports.mp4`, or use its real HTTPS URL. Rebuild after changing this value. With a configured URL, the common video component provides muted inline playback, a play-with-sound control and native video controls. The MBA video is not substituted as a football video. Actual sports-clip playback remains unverified until the corresponding asset is available.

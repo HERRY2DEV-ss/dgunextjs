@@ -1,11 +1,3 @@
-@font-face {
-  font-family: 'Clubs Clash Semibold';
-  src: url('/nextjs/homev1/fonts/ClashGrotesk-Semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* PDF measurements scale together; common navigation and footer retain their styles. */
 .clubs-page {
   --club-unit: min(.21701389vw, 3.333333px);

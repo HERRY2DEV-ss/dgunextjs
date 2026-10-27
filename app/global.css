@@ -1,9 +1,4 @@
 
-@font-face {font-family:'Clash Grotesk';src:url('/nextjs/homev1/fonts/ClashGrotesk-Light.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap;}
-@font-face {font-family:'Clash Grotesk';src:url('/nextjs/homev1/fonts/ClashGrotesk-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
-@font-face {font-family:'Clash Grotesk';src:url('/nextjs/homev1/fonts/ClashGrotesk-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;}
-
-
 /* DGU homepage — all global, component and responsive styles live here. */
 :root {
   --purple:#68176b;
@@ -267,7 +262,7 @@ section {
   position:absolute;
   inset:0;
   z-index:-1;
-  background:linear-gradient(#ffffffcc,#ffffffb5),url('/nextjs/homev1/assets/building.webp') center 50%/cover no-repeat;
+  background:linear-gradient(#ffffffcc,#ffffffb5),var(--dgu-building-image) center 50%/cover no-repeat;
 }
 
 .different-orbit {
@@ -2432,7 +2427,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
 .schools-section{position:relative;z-index:1;background:#fff;padding-bottom:clamp(18px,1.8vw,34px)}
 .different-section{background:#fff;padding-top:clamp(56px,4.2vw,84px)}
-.different-background{background:linear-gradient(180deg,#fff 0%,#ffffffd9 12%,#ffffffb5 46%,#ffffffcc 85%,#fff 100%),url('/nextjs/homev1/assets/building.webp') center 50%/cover no-repeat}
+.different-background{background:linear-gradient(180deg,#fff 0%,#ffffffd9 12%,#ffffffb5 46%,#ffffffcc 85%,#fff 100%),var(--dgu-building-image) center 50%/cover no-repeat}
 .different-item{animation:none;transition:scale .55s cubic-bezier(.22,1,.36,1),filter .55s ease}
 
 /* Only the requested background and decorative arrow change in navigation. */
@@ -2465,7 +2460,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 @media(max-width:700px){.placement-stats .stat{min-height:66px;padding:10px 3px;gap:5px}.placement-stats .stat strong{font-size:clamp(16px,4.5vw,25px)}.placement-stats .stat span{font-size:clamp(9px,2.2vw,12px)}}
 /* Requested revision: original differentiator, fuller stack, sky-only clouds. */
 .different-section{padding:4.2vw 0 5.8vw;background:#eee}
-.different-background{background:linear-gradient(#ffffffcc,#ffffffb5),url('/nextjs/homev1/assets/building.webp') center 50%/cover no-repeat}
+.different-background{background:linear-gradient(#ffffffcc,#ffffffb5),var(--dgu-building-image) center 50%/cover no-repeat}
 @media(min-width:1001px){.different-item .card-tail{flex:1}.different-center{z-index:5}}
 .era-aerial-viewport{height:140svh;min-height:480px;max-height:1193px}
 .era-aerial-outer{inset:0;height:100%;transform:none!important;will-change:auto}
@@ -2736,6 +2731,9 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .placement-overview{position:relative;display:block;width:100%;min-height:clamp(520px,35vw,650px);margin-inline:auto;overflow:hidden;padding:clamp(32px,3vw,52px) clamp(28px,3vw,52px);border:0;border-radius:0;background:white}
 .placement-overview::after{display:none}
 .outcome-panel-content{display:grid;grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);gap:clamp(26px,2.7vw,48px);align-items:center;min-height:clamp(440px,29vw,550px);animation:outcomeContentIn .62s cubic-bezier(.22,1,.36,1) both}
+.homepage-placement-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.4vw,24px);align-items:center;min-width:0}
+.homepage-placement-column{align-self:center;min-width:0}
+.homepage-placement-column .placement-media-pair{grid-template-columns:minmax(0,1fr)}
 @keyframes outcomeContentIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .placement-media-slider{align-self:center;width:100%;min-width:0;margin:0}
 .placement-media-slider .batch-window{position:relative;overflow:hidden}
@@ -3009,14 +3007,14 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  animation:none!important;
  clip-path:inset(0 0 100% 0);
  pointer-events:none;
- transition:clip-path .72s cubic-bezier(.76,0,.24,1);
+ transition:clip-path .48s cubic-bezier(.76,0,.24,1);
  will-change:clip-path;
 }
 .mega-menu-overlay.is-visible{clip-path:inset(0 0 0 0);pointer-events:auto}
 .mega-menu-overlay::backdrop{background:transparent}
 .mega-menu-header,.mega-menu-left,.mega-menu-right{
  opacity:0;
- transition:opacity .34s ease,transform .58s cubic-bezier(.22,1,.36,1);
+ transition:opacity .22s ease,transform .34s cubic-bezier(.22,1,.36,1);
 }
 .mega-menu-header{transform:translateY(-12px)}
 .mega-menu-left{transform:translateY(-22px)}
@@ -3024,25 +3022,25 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .mega-menu-overlay.is-visible .mega-menu-header,
 .mega-menu-overlay.is-visible .mega-menu-left,
 .mega-menu-overlay.is-visible .mega-menu-right{opacity:1;transform:translateY(0)}
-.mega-menu-overlay.is-visible .mega-menu-header{transition-delay:.2s}
-.mega-menu-overlay.is-visible .mega-menu-left{transition-delay:.31s}
-.mega-menu-overlay.is-visible .mega-menu-right{transition-delay:.4s}
+.mega-menu-overlay.is-visible .mega-menu-header{transition-delay:.08s}
+.mega-menu-overlay.is-visible .mega-menu-left{transition-delay:.12s}
+.mega-menu-overlay.is-visible .mega-menu-right{transition-delay:.16s}
 .mega-menu-overlay .menu-accordion,.mega-menu-overlay .mega-menu-bottom>a{
  opacity:0;transform:translateY(9px);
- transition:opacity .28s ease,transform .42s cubic-bezier(.22,1,.36,1);
+ transition:opacity .22s ease,transform .32s cubic-bezier(.22,1,.36,1);
 }
 .mega-menu-overlay.is-visible .menu-accordion,.mega-menu-overlay.is-visible .mega-menu-bottom>a{opacity:1;transform:translateY(0)}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(1){transition-delay:.36s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(2){transition-delay:.39s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(3){transition-delay:.42s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(4){transition-delay:.45s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(5){transition-delay:.48s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(6){transition-delay:.51s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(7){transition-delay:.54s}
-.mega-menu-overlay.is-visible .menu-accordion:nth-child(8){transition-delay:.57s}
-.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(1){transition-delay:.53s}
-.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(2){transition-delay:.56s}
-.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(3){transition-delay:.59s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(1){transition-delay:.18s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(2){transition-delay:.2s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(3){transition-delay:.22s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(4){transition-delay:.24s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(5){transition-delay:.26s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(6){transition-delay:.28s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(7){transition-delay:.3s}
+.mega-menu-overlay.is-visible .menu-accordion:nth-child(8){transition-delay:.32s}
+.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(1){transition-delay:.2s}
+.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(2){transition-delay:.24s}
+.mega-menu-overlay.is-visible .mega-menu-bottom>a:nth-child(3){transition-delay:.28s}
 .menu-feature-image::after{display:none;background:none}
 .menu-feature-content h2,.menu-feature-content h2 em{color:#fff}
 @media(prefers-reduced-motion:reduce){
@@ -3093,7 +3091,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 /* Shared ProgramCard: used by the homepage and dynamic School pages. */
 .schools-section{padding:clamp(24px,2.5vw,48px) 0 clamp(44px,4vw,76px);background:#fff}
 .schools-section h2{margin:0 0 clamp(20px,1.7vw,32px);padding:0 5%;color:#111;font-size:clamp(28px,2.15vw,41px);font-weight:500;line-height:1;letter-spacing:1px!important;text-align:center;text-transform:none}
-.schools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(22px,3vw,30px);row-gap:clamp(24px,2.3vw,44px);width:min(98.5%,1900px);margin:0 auto;padding:0 clamp(10px,.8vw,16px)}
+.schools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(22px,3vw,30px);row-gap:clamp(24px,2.3vw,44px);width:min(98.5%,1900px);margin:0 auto;padding:0 clamp(10px,1.9vw,44px)}
 .program-card{min-width:0;min-height:clamp(365px,24vw,455px);padding:0;border-radius:clamp(22px,1.7vw,34px) clamp(22px,1.7vw,34px) 0 0;background:linear-gradient(180deg,#f1f2f2 0%,#f4f5f5 42%,#fafafa 77%,#fff 100%);box-shadow:none;overflow:hidden}
 .program-card-inner{display:flex;flex-direction:column;width:100%;min-height:inherit;padding:clamp(17px,1.35vw,26px) clamp(27px,2.2vw,42px) clamp(24px,2vw,38px);opacity:0;will-change:transform,opacity;transition:transform .8s cubic-bezier(.22,1,.36,1),opacity .65s ease}
 .program-enter-left{transform:translateX(-58px)}

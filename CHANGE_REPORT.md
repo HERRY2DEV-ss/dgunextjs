@@ -23,7 +23,7 @@
 - Differentiator points with meaningful title or description survive empty/invalid links; `url` stays empty. No fake title/link is introduced. Empty heading plus meaningful points succeeds; wholly absent content still returns 404.
 - Common placement-photo folder changes from `placements` to **`placement`**. This is a verified URL correction, not a performance-only change: the original B.Com page declares this folder and its Dev Maggo image loaded at 450×520. Admissions already used the correct folder.
 
-No new pagination, truncation or list limit was introduced. Status, delete_status, searchArea and relationship eligibility filters are preserved. Programme/school rich-text fields retain full HTML; existing admissions HTML handling and differentiator text-field conversion remain unchanged. Theme assets still use configured `DGU_FRONTEND_BASE_PATH` or the verified deployed `/nextjs/homev1`, and are returned only if the actual server file exists.
+No new pagination, truncation or list limit was introduced. Status, delete_status, searchArea and relationship eligibility filters are preserved. Programme/school rich-text fields retain full HTML; existing admissions HTML handling and differentiator text-field conversion remain unchanged. Theme assets still use configured `DGU_FRONTEND_BASE_PATH` or the verified deployed ``, and are returned only if the actual server file exists.
 
 ## Performance-only changes and measured results
 

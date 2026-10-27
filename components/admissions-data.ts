@@ -1,3 +1,4 @@
+import { sitePath } from './site-base';
 import type { SchoolPageData } from './school-page-data';
 
 type AdmissionTrack = { title: string; summary: string; more?: string };
@@ -203,13 +204,12 @@ export const admissionsPlacement: SchoolPageData['placement'] = {
   tagline: ['ENJOY EVERYDAY WHILE', 'ENSURING GREAT CAREER'],
   description: 'Placement is an independent activity managed by the career development cell & the students on their own through their nominated committee member, under the overall guidance of an experienced Placement Coordinator. Moreover, the activities calendar of DGU has incorporated a number of activities which have been designed to promote industry interaction. Relationship building with Corporates through rich knowledge exchange helps build a trust in DGU capabilities to nurture talent and impart necessary skills in its students.',
   videoTitle: 'Placement success story from DBS Global University',
-  videoPoster: '/nextjs/homev1/assets/success-video.webp',
+  videoPoster: sitePath('/assets/hero-campus.webp'),
   students: [
-    { name: 'Nivedita Ranta', company: 'Infosys', image: '/nextjs/homev1/assets/infosys _placement.webp' },
-    { name: 'Harshita Jain', company: 'Tech Mahindra', image: '/nextjs/homev1/assets/tech mahindra _placement.webp' },
-    { name: 'Ankita Lochab', company: 'Deloitte', image: '/nextjs/homev1/assets/placement-ankita.webp' },
-    { name: 'Harshali Goyal', company: 'BCG', image: '/nextjs/homev1/assets/placement-harshali.webp' },
+    { name: 'Nivedita Ranta', company: 'Infosys', image: sitePath('/assets/infosys _placement.webp') },
+    { name: 'Harshita Jain', company: 'Tech Mahindra', image: sitePath('/assets/tech mahindra _placement.webp') },
+    { name: 'Ankita Lochab', company: 'Deloitte', image: sitePath('/assets/placement-ankita.webp') },
+    { name: 'Harshali Goyal', company: 'BCG', image: sitePath('/assets/placement-harshali.webp') },
   ],
   stats: [['400+', 'Recruiters'], ['40+ LPA', 'Highest CTC'], ['1500+', 'Students Placed'], ['92%', 'Placement Rate']],
 };
-

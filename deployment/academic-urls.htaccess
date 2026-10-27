@@ -1,5 +1,5 @@
 # BEGIN DGU ACADEMIC CLEAN URLS
-# Scoped to the exported /nextjs/homev1 folder; existing exported routes win.
+# Scoped to the exported site root; existing exported routes win.
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

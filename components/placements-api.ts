@@ -26,6 +26,9 @@ export type PlacementsData = {
   students: PlacementStudent[];
 };
 
+/** Scoped school responses are not yet verified against the live database. */
+export const SCHOOL_PLACEMENTS_FILTER_VERIFIED = false;
+
 export function parsePlacements(payload: unknown): PlacementsData {
   const root = apiRecord(payload);
   if (!root || String(root.error) !== '0' || !Array.isArray(root.data)) {
@@ -66,28 +69,31 @@ export function parsePlacements(payload: unknown): PlacementsData {
       }
 
       // Check all backend API property aliases for program and school placements
+      const nestedStudent = ['student', 'studentDetails', 'alumni', 'profile', 'candidate']
+        .map(key => apiRecord(apiValue(f, key)))
+        .find(Boolean) || {};
+      const value = (...names: string[]) => apiValue(f, ...names) ?? apiValue(nestedStudent, ...names);
       const studentName =
-        apiPlain(apiValue(f, 'name', 'studentName', 'student_name', 'alumniName', 'alumni_name', 'title')) ||
-        apiPlain(apiValue(f, 'currentEmployer', 'company')) ||
-        'DGU Student';
+        apiPlain(value('name', 'fullName', 'studentName', 'student_name', 'alumniName', 'alumni_name', 'title')) ||
+        '';
 
       const companyName =
-        apiPlain(apiValue(f, 'currentEmployer', 'current_employer', 'company', 'companyName', 'company_name', 'employer', 'organization')) ||
+        apiPlain(value('currentEmployer', 'current_employer', 'company', 'companyName', 'company_name', 'employer', 'organization')) ||
         '';
 
       const designationName =
-        apiPlain(apiValue(f, 'designation', 'role', 'position', 'jobTitle', 'job_title')) || '';
+        apiPlain(value('designation', 'role', 'position', 'jobTitle', 'job_title')) || '';
 
       const batchName =
-        apiPlain(apiValue(f, 'batch', 'year', 'passoutYear', 'passout_year', 'session')) || '';
+        apiPlain(value('batch', 'year', 'passoutYear', 'passout_year', 'session')) || '';
 
       const imageUrl = apiMedia(
-        apiValue(f, 'imageURL', 'image_url', 'image', 'alumniImage', 'alumni_image', 'photo', 'picture')
+        value('imageURL', 'image_url', 'image', 'alumniImage', 'alumni_image', 'photo', 'picture')
       );
 
       const studentInfo =
-        apiText(apiValue(f, 'shortInfo', 'short_info', 'description', 'details', 'info', 'bio')) ||
-        [designationName, companyName, batchName].filter(Boolean).join(' • ');
+        apiText(value('shortInfo', 'short_info', 'description', 'details', 'info', 'bio')) ||
+        '';
 
       return [
         {
@@ -132,6 +138,8 @@ export function parsePlacements(payload: unknown): PlacementsData {
 const pending = new Map<string, Promise<PlacementsData>>();
 
 export function requestPlacements(identifier = '', isProgram = false): Promise<PlacementsData> {
+  const validIdentifier = typeof identifier === 'string' && (identifier === '' && !isProgram || /^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(identifier));
+  if (!validIdentifier) return Promise.reject(new Error(`A valid ${isProgram ? 'program' : 'school'} URL is required.`));
   const cacheKey = `${isProgram ? 'program:' : 'school:'}${identifier}`;
   const active = pending.get(cacheKey);
   if (active) return active;
@@ -147,7 +155,9 @@ export function requestPlacements(identifier = '', isProgram = false): Promise<P
     const timeout = setTimeout(() => controller.abort(), 20000);
 
     try {
-      const payloadBody = isProgram ? { PROGRAM_URL: identifier } : { SCHOOL_URL: identifier };
+      const payloadBody = isProgram
+        ? { PROGRAM_URL: identifier }
+        : identifier ? { SCHOOL_URL: identifier } : {};
 
       const response = await fetch(
         clientDguApiUrl('placements', process.env.NEXT_PUBLIC_DGU_PLACEMENTS_API_URL?.trim()),

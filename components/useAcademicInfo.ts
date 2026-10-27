@@ -1,19 +1,51 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { requestAcademicInfo, type AcademicInfo, type AcademicKind } from './academic-page-api';
+import { academicSlug, readCachedAcademicInfo, requestAcademicInfo, type AcademicInfo, type AcademicKind } from './academic-page-api';
 import { PROGRAM_DETAILS_ENABLED } from './program-detail-policy';
 
-export default function useAcademicInfo(kind:AcademicKind,slug:string,recordId='') {
-  const [attempt,setAttempt]=useState(0),scope=`${kind}:${slug}:${recordId}:${attempt}`;
-  const [state,setState]=useState<{scope:string;info:AcademicInfo|null;error:boolean}>({scope:'',info:null,error:false});
-  const pending=kind==='program' && !PROGRAM_DETAILS_ENABLED;
-  useEffect(()=>{
-    if(pending)return;
-    let active=true;
-    requestAcademicInfo(kind,slug,recordId).then(info=>{if(active)setState({scope,info,error:false});})
-      .catch(()=>{if(active)setState({scope,info:null,error:true});});
-    return()=>{active=false;};
-  },[kind,slug,recordId,scope,pending]);
-  const current=state.scope===scope;
-  return {info:current && !pending ? state.info : null,loading:!current && !pending,error:current&&state.error&&!pending,pending,retry:()=>setAttempt(n=>n+1)};
+type AcademicState = { scope: string; info: AcademicInfo | null; error: boolean; attempt: number };
+
+export default function useAcademicInfo(kind: AcademicKind, slug: string, recordId = '') {
+  const [attempt, setAttempt] = useState(0);
+  const scope = `${kind}:${academicSlug(slug)}:${recordId}`;
+  const [state, setState] = useState<AcademicState>({ scope: '', info: null, error: false, attempt: -1 });
+  const pending = kind === 'program' && !PROGRAM_DETAILS_ENABLED;
+
+  useEffect(() => {
+    if (pending) return;
+    let active = true;
+    const saved = readCachedAcademicInfo(kind, slug, recordId);
+    if (saved) {
+      Promise.resolve().then(() => {
+        if (!active) return;
+        setState(previous => ({
+          scope,
+          info: previous.scope === scope && previous.info ? previous.info : saved,
+          error: false,
+          attempt,
+        }));
+      });
+    }
+
+    requestAcademicInfo(kind, slug, recordId).then(info => {
+      if (active) setState({ scope, info, error: false, attempt });
+    }).catch(() => {
+      if (!active) return;
+      setState(previous => previous.scope === scope && previous.info
+        ? { ...previous, error: false, attempt }
+        : { scope, info: null, error: true, attempt });
+    });
+    return () => { active = false; };
+  }, [kind, slug, recordId, scope, attempt, pending]);
+
+  const current = state.scope === scope;
+  const info = current && !pending ? state.info : null;
+  const failed = current && state.attempt === attempt && state.error && !info;
+  return {
+    info,
+    loading: !pending && !info && !failed,
+    error: failed,
+    pending,
+    retry: () => setAttempt(value => value + 1),
+  };
 }

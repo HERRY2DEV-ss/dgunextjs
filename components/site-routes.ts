@@ -1,7 +1,7 @@
 import { newsDetailHref } from './news-urls';
 import { localNavigationRoutes } from './local-navigation-routes';
 import { cleanAcademicLink } from './academic-clean-routes';
-import { SITE_BASE } from './site-base';
+import { SITE_BASE, sitePath } from './site-base';
 export { SITE_BASE } from './site-base';
 const navigationRoutesLowercase = Object.fromEntries(Object.entries(localNavigationRoutes).map(([url, target]) => [url.toLowerCase(), target]));
 // Routes verified against the pages included in this project.
@@ -219,7 +219,10 @@ export function resolveSiteHref(value: string, label = ''): string {
   const dguSite = ['dgu.ac.in', 'www.dgu.ac.in', 'dgu.ac', 'www.dgu.ac'].includes(url.hostname);
   const navigationKey = (dguSite ? 'https://dgu.ac.in' : url.origin) + url.pathname.replace(/\/$/, '') + url.search;
   const navigationPage = localNavigationRoutes[navigationKey] || navigationRoutesLowercase[navigationKey.toLowerCase()] || localNavigationRoutes[navigationKey + '/'] || navigationRoutesLowercase[(navigationKey + '/').toLowerCase()];
-  if (navigationPage) return url.hash ? navigationPage.split('#')[0] + url.hash : navigationPage;
+  if (navigationPage) {
+    const target = sitePath(navigationPage);
+    return url.hash ? target.split('#')[0] + url.hash : target;
+  }
   if (url.hostname === 'doonbusinessschool.com' && url.pathname.replace(/\/$/, '') === '/mba') return local('programs/mba');
   if (!dguSite) return raw;
   let path = url.pathname.replace(/^\/+|\/+$/g, '');

@@ -1,9 +1,9 @@
 /* Only the three PDF reference pages opt in. Shared homepage styles stay intact. */
 .academic-reference {
-  --academic-width: min(90%, 1710px);
+  --academic-width: min(100%, 1800px);
   --academic-gap: clamp(36px, 4.8vw, 80px);
   --academic-heading: clamp(24px, 2.25vw, 40px);
-  --academic-body: clamp(16px, 1.8vw, 28px);
+  --academic-body: 20px;
   background: #fff;
   color: #37353a;
 }
@@ -117,6 +117,91 @@
 .academic-reference .program-card .program-name small { font-size: clamp(11px, .9vw, 16px); font-weight: 400; line-height: 1.2; }
 .academic-reference .program-card .program-item:hover .program-name strong { color: #68176b; }
 
+/* MBA Business Analytics presents the API-provided option records together;
+   the records remain separate cards and keep their source order. */
+.academic-reference .program-options-cards {
+  width: var(--academic-width); margin: 0 auto; padding: 0 0 var(--academic-gap);
+}
+.academic-reference .program-options-cards > h2 {
+  margin: 0 0 clamp(18px, 1.6vw, 28px); font-size: var(--academic-heading) !important;
+  font-weight: 500; line-height: 1.15; letter-spacing: 0 !important;
+}
+.academic-reference .program-options-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3.6vw, 62px); align-items: stretch;
+}
+.academic-reference .program-options-card {
+  min-width: 0; height: 100%; padding: clamp(18px, 2vw, 32px);
+  border-radius: clamp(18px, 2.5vw, 36px); background: linear-gradient(#f1f1f2, #fafafa);
+}
+.academic-reference .program-options-card > h3 {
+  margin: 0 0 20px; color: #37353a; font-size: clamp(18px, 1.85vw, 28px) !important;
+  font-weight: 400 !important; line-height: 1.15 !important; letter-spacing: 0 !important;
+}
+.academic-reference .program-options-card .dgu-api-copy { min-width: 0; }
+.academic-reference .program-options-card .dgu-api-copy p { text-align: justify; }
+.academic-reference[data-api-slug="mba-international-business"] .program-options-card .dgu-api-copy > :first-child { margin-top: 0; }
+
+/* MBA International Business keeps the API content intact while making its
+   scan-heavy focus and eligibility lists use the existing academic grid. */
+.academic-reference[data-api-slug="mba-international-business"] .academic-core-program-focus .dgu-api-copy > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 34px;
+  padding-left: 1.3em;
+}
+.academic-reference[data-api-slug="mba-international-business"] .academic-core-program-focus .dgu-api-copy > ul > li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.academic-reference[data-api-slug="mba-international-business"] .academic-tab-content[data-tab-kind="eligibility"] .dgu-api-copy {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 14px 34px;
+}
+.academic-reference[data-api-slug="mba-international-business"] .academic-tab-content[data-tab-kind="eligibility"] .dgu-api-copy > :is(p, ul) {
+  min-width: 0;
+  margin: 0;
+}
+.academic-reference[data-api-slug="mba-international-business"] .academic-tab-content[data-tab-kind="eligibility"] .dgu-api-copy > p {
+  font-weight: 500;
+  line-height: 1.4;
+}
+.academic-reference[data-api-slug="dgu-global-mba"] .academic-intro-text .dgu-api-copy {
+  max-width: 78ch;
+  line-height: 1.5 !important;
+  text-align: left;
+}
+.academic-reference[data-api-slug="dgu-global-mba"] .academic-intro-text .dgu-api-copy > p {
+  margin: 0 0 16px;
+  line-height: 1.5 !important;
+  text-align: left;
+}
+.academic-reference[data-api-slug="dgu-global-mba"] .academic-intro-text .dgu-api-copy > h2 {
+  margin: 0 0 12px;
+}
+.academic-reference[data-api-slug="dgu-global-mba"] .academic-intro-text .dgu-api-copy > .dgu-api-row {
+  margin-block: 16px;
+}
+@media(max-width:900px) {
+  .academic-reference .program-options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+}
+@media(max-width:700px) {
+  .academic-reference[data-api-slug="mba-international-business"] .academic-core-program-focus .dgu-api-copy > ul {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .academic-reference[data-api-slug="mba-international-business"] .academic-tab-content[data-tab-kind="eligibility"] .dgu-api-copy {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .academic-reference .program-options-cards { width: 92%; }
+  .academic-reference .program-options-grid { grid-template-columns: 1fr; gap: 14px; }
+  .academic-reference .program-options-card { border-radius: 18px; padding: 18px 22px 24px; }
+  .academic-reference .program-options-card > h3 { font-size: 19px !important; }
+}
+
 .academic-reference .program-pathways,
 .academic-reference .program-admission-details,
 .academic-reference .program-industry { width: var(--academic-width); padding: 0 0 var(--academic-gap); }
@@ -140,7 +225,7 @@
 .academic-reference .dgu-api-copy thead { background: #562b63; color: #fff; }
 .academic-reference .program-industry-grid { gap: 22px 36px; }
 .academic-reference .program-industry-card > summary { min-height: 72px; font-size: clamp(18px, 1.75vw, 28px); font-weight: 400; }
-.academic-reference .program-industry-copy p { font-size: clamp(15px, 1.2vw, 20px) !important; line-height: 1.45 !important; text-align: justify; }
+.academic-reference .program-industry-copy p { font-size: 20px !important; line-height: 1.45 !important; text-align: justify; }
 .academic-reference .difference-wave-point h3 { font-size: clamp(14px, 1.1vw, 21px) !important; line-height: 1.1 !important; }
 .academic-reference .difference-wave-point p { font-size: clamp(10px, .9vw, 16px) !important; line-height: 1.25 !important; }
 
@@ -166,7 +251,7 @@
   .academic-reference .program-specialization-grid { gap: 20px; }
 }
 @media (max-width: 700px) {
-  .academic-reference { --academic-width: 90%; --academic-gap: 42px; --academic-body: 16px; }
+  .academic-reference { --academic-width: 90%; --academic-gap: 42px; --academic-body: 20px; }
   .academic-reference .academic-page-title { font-size: 25px !important; padding: 18px 5% 24px; }
   .academic-reference .school-opening-media,
   .academic-reference .program-hero { aspect-ratio: 1.95 / 1; }
@@ -174,7 +259,7 @@
   .academic-reference[data-school="advanced-computing"] .school-opening-copy--embedded { font-size: 19px; top: 12%; }
   .academic-reference .school-intro { grid-template-columns: 1fr; gap: 28px; padding-top: 24px; }
   .academic-reference .academic-intro-text,
-  .academic-reference .academic-intro-text p { font-size: 16px !important; line-height: 1.5 !important; }
+  .academic-reference .academic-intro-text p { font-size: 20px !important; line-height: 1.5 !important; }
   .academic-reference .school-enquiry { max-width: 520px; width: 100%; justify-self: center; }
   .academic-reference .school-programs-grid,
   .academic-reference .program-specialization-grid { grid-template-columns: 1fr; gap: 22px; }

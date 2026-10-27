@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 import '../app/schools/school.css';
 import '../app/programs/program.css';
 import '../app/academic-reference.css';
@@ -32,12 +34,13 @@ import { groupSchoolPrograms } from './SchoolProgramsSection';
 import type { SchoolProgram } from './programs-api';
 import { academicGallery } from './academic-media';
 import useSchoolCatalogue from './useSchoolCatalogue';
-import { academicFeatures } from './academic-features';
+import { academicFeatureAccordionSections, academicFeaturePresentation, academicFeatures } from './academic-features';
+import { isAdvancedComputingAcademicPage } from './advanced-computing-layout';
 import AcademicFeatureDialog from './AcademicFeatureDialog';
 import AcademicFeatureHover from './AcademicFeatureHover';
 import AcademicBannerImage from './AcademicBannerImage';
 import { trackAccordions } from './academic-tracks';
-import { academicTabContent } from './academic-tab-content';
+import { academicCareerAccordionSections, academicColumnSections, academicSingleAccordionSection, academicTabContent } from './academic-tab-content';
 import AcademicAccordionGroup, { AcademicAccordionCopy } from './AcademicAccordionGroup';
 import { academicLaboratories } from './academic-laboratories';
 import useOtherSpecializations from './useOtherSpecializations';
@@ -59,6 +62,84 @@ function AcademicAccordions({sections,title='',id,lead=[]}:{sections:AcademicSec
     {title && <h2>{title}</h2>}
     {lead.map((section,index)=><ApiRichText key={index} html={section.html} scrollTables />)}
     <AcademicAccordionGroup id={id} items={sections.map(section=>({title:section.title,content:<AcademicAccordionCopy html={section.html} />}))} />
+  </section>;
+}
+
+function CareerAccordionContent({ html, id }: { html: string; id: string }) {
+  const sections=useMemo(()=>academicCareerAccordionSections(html),[html]);
+  return sections.length
+    ? <AcademicAccordions sections={sections} id={id} />
+    : <ApiRichText html={html} scrollTables />;
+}
+
+function FeatureTabContent({ section, id }: { section: AcademicSection; id: string }) {
+  const content = useMemo(() => academicFeatures(section.html), [section.html]);
+  return <div className="academic-tab-content academic-tab-accordions">
+    {(apiPlain(content.remaining) || /<(img|table)\b/i.test(content.remaining)) && <ApiRichText html={content.remaining} scrollTables />}
+    <AcademicAccordions sections={academicFeatureAccordionSections(content.points)} id={`${id}-features`} />
+  </div>;
+}
+
+function advancedComputingCurriculumSections(source: string): AcademicSection[] {
+  if (typeof DOMParser === 'undefined') return [];
+  const document = new DOMParser().parseFromString(source, 'text/html');
+  const headings = Array.from(document.body.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+    .filter(node => !node.closest('table,ul,ol'));
+  const headingKey = (node: Element) => apiPlain(node.textContent).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const designed = headings.find(node => headingKey(node) === 'co designed curriculum');
+  const integration = headings.find(node => headingKey(node) === 'curriculum and industry integration');
+  if (!designed || !integration || headings.indexOf(designed) >= headings.indexOf(integration)) return [];
+  const extract = (start: Element | null, end: Element | null) => {
+    const range = document.createRange();
+    range.selectNodeContents(document.body);
+    if (start) range.setStartAfter(start);
+    if (end) range.setEndBefore(end);
+    const content = document.createElement('div');
+    content.append(range.cloneContents());
+    return content.innerHTML;
+  };
+  return [
+    { title: apiPlain(designed.textContent), html: extract(null, designed) + extract(designed, integration) },
+    { title: apiPlain(integration.textContent), html: extract(integration, null) },
+  ];
+}
+
+function AdvancedComputingCurriculumContent({ section, id }: { section: AcademicSection; id: string }) {
+  const sections = useMemo(() => advancedComputingCurriculumSections(section.html), [section.html]);
+  return sections.length === 2
+    ? <AcademicAccordions sections={sections} id={id} />
+    : <TabRichCopy section={section} />;
+}
+
+function isAcademicFeatureSection(section: AcademicSection, info: AcademicInfo) {
+  const key = academicSectionKey(section.title);
+  return ['difference','features','pillars','global-difference'].includes(key) ||
+    isAdvancedComputingAcademicPage(info) && key === 'industry-aligned-curriculum';
+}
+
+function ProgramOptionsCards({ sections }: { sections: AcademicSection[] }) {
+  if (!sections.length) return null;
+  return <section className="program-options-cards" aria-labelledby="academic-program-options-title">
+    <h2 id="academic-program-options-title">Program Options</h2>
+    <div className="program-options-grid">
+      {sections.map((section, index) => <article className="program-options-card" key={`${section.title}-${index}`}>
+        <h3>{section.title}</h3>
+        <ApiRichText html={section.html} scrollTables />
+      </article>)}
+    </div>
+  </section>;
+}
+
+function ProgramFocusCards({ section }: { section: AcademicSection }) {
+  const cards=useMemo(()=>academicColumnSections(section.html),[section.html]);
+  if(!cards.length)return <section className="program-options-cards academic-core-program-focus" data-content-kind="core-focus">
+    <h2>{section.title}</h2><ApiRichText html={section.html} scrollTables />
+  </section>;
+  return <section className="program-options-cards academic-core-program-focus" data-content-kind="core-focus">
+    <h2>{section.title}</h2>
+    <div className="program-options-grid">{cards.map((card,index)=><article className="program-options-card academic-core-focus-card" key={`${card.title}-${index}`}>
+      <h3>{card.title}</h3><ApiRichText html={card.html} scrollTables />
+    </article>)}</div>
   </section>;
 }
 
@@ -91,12 +172,16 @@ function TabRichCopy({section}:{section:AcademicSection}) {
   }} />;
 }
 
-function TabBody({section,nested,id,hr=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean}) {
+function TabBody({section,nested,id,hr=false,singleAccordion=false}:{section:AcademicSection;nested:AcademicBlock['nested'];id:string;hr?:boolean;singleAccordion?:boolean}) {
   const rules=nested?.find(rule=>academicSectionKey(rule.parent)===academicSectionKey(section.title));
   if(!rules){
-    const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship'].includes(kind));
+    const kind=academicSectionKey(section.title),parts=academicTabContent(section.html,hr || ['structure','scholarship'].includes(kind),singleAccordion);
+    const combined=singleAccordion ? academicSingleAccordionSection(parts) : null;
     return <div className={`academic-tab-content${hr?' academic-hr-tab-content':''}${parts.sections.length?' academic-tab-accordions':''}`} data-tab-kind={academicSectionKey(section.title)}>
-      {parts.sections.length ? <>{(apiPlain(parts.intro) || /<(img|table)\b/i.test(parts.intro)) && <TabRichCopy section={{title:section.title,html:parts.intro}} />}<AcademicAccordions sections={parts.sections} id={id} /></> : kind==='scholarship' ? <AcademicAccordions sections={[section]} id={id} /> : <TabRichCopy section={section} />}
+      {parts.sections.length ? singleAccordion && combined
+        ? <AcademicAccordions sections={[combined]} id={id} />
+        : <>{(apiPlain(parts.intro) || /<(img|table)\b/i.test(parts.intro)) && <TabRichCopy section={{title:section.title,html:parts.intro}} />}<AcademicAccordions sections={parts.sections} id={id} /></>
+        : kind==='scholarship' ? <AcademicAccordions sections={[section]} id={id} /> : <TabRichCopy section={section} />}
     </div>;
   }
   const wanted=new Set(rules.titles.map(academicSectionKey)),parts=splitAcademicContent(section.html,wanted);
@@ -119,10 +204,10 @@ function ProgramLinks({items,title,school=false}:{items:SchoolProgram[];title:st
   </section>;
 }
 
-function FeatureSection({section,id}:{section:AcademicSection;id:string}) {
+function FeatureSection({section,id,info}:{section:AcademicSection;id:string;info:AcademicInfo}) {
   const content=useMemo(()=>{const parsed=academicFeatures(section.html);return parsed.points.length ? parsed : {points:[{title:section.title,description:apiPlain(section.html),html:section.html}],remaining:''};},[section.html,section.title]);
   const [selected,setSelected]=useState('');
-  const points=useMemo(()=>content.points.map((point,index)=>{const description=point.description.replace(/\s+/g,' ').trim();return {...point,description:description.length>150 ? description.slice(0,150).replace(/\s+\S*$/,'')+'…' : description,icon:`/nextjs/homev1/assets/svg/${index%6+1}.svg`};}),[content]);
+  const points=useMemo(()=>content.points.map((point,index)=>{const description=point.description.replace(/\s+/g,' ').trim();return {...point,description:description.length>150 ? description.slice(0,150).replace(/\s+\S*$/,'')+'…' : description,icon:sitePath(`/assets/svg/${index%6+1}.svg`)};}),[content]);
   const active=points.find(point=>point.title===selected);
   const [hovered,setHovered]=useState<{title:string;anchor:HTMLElement}|null>(null),hoverId=useId();
   const closing=useRef<ReturnType<typeof setTimeout>|null>(null);
@@ -132,6 +217,7 @@ function FeatureSection({section,id}:{section:AcademicSection;id:string}) {
   useEffect(()=>()=>{if(closing.current)clearTimeout(closing.current);},[]);
   const hoverPoint=points.find(point=>point.title===hovered?.title);
   if(!points.length)return <section className="academic-api-section" data-content-kind="features"><h2>{section.title}</h2><ApiRichText html={section.html} scrollTables /></section>;
+  if(isAdvancedComputingAcademicPage(info) && academicFeaturePresentation(points.length,7)==='tab')return <FeatureTabContent section={section} id={id} />;
   return <div className="academic-api-features academic-interactive-features" data-content-kind="features">
     <DifferentiatorSection id={id} title={section.title} points={points.slice(0,6)} variant={points.length<=4 ? 'school' : 'default'}
       introduction={apiPlain(content.remaining) || /<(img|table)\b/i.test(content.remaining) ? <ApiRichText html={content.remaining} scrollTables /> : undefined}
@@ -140,7 +226,7 @@ function FeatureSection({section,id}:{section:AcademicSection;id:string}) {
       onPointReadMore={point=>{closeHover();setSelected(point.title);}} />
     <AcademicFeatureDialog point={active} onClose={()=>setSelected('')} />
     {hovered && hoverPoint && <AcademicFeatureHover point={hoverPoint} anchor={hovered.anchor} id={hoverId} onEnter={cancelClose} onLeave={scheduleClose} onDismiss={closeHover} />}
-    {points.length>6 && <AcademicAccordions sections={points.slice(6).map(point=>({title:point.title,html:point.html}))} id={`${id}-additional`} />}
+    {!isAdvancedComputingAcademicPage(info) && points.length>6 && <AcademicAccordions sections={points.slice(6).map(point=>({title:point.title,html:point.html}))} id={`${id}-additional`} />}
   </div>;
 }
 
@@ -148,17 +234,26 @@ function FeatureSection({section,id}:{section:AcademicSection;id:string}) {
 function SchoolVideoHighlights({info,paused}:{info:AcademicInfo;paused:boolean}) {
   const stats=info.facts.length ? info.facts.map(fact=>[fact.value,fact.label] as const) : info.videoStats;
   if(!stats.length && !info.video)return null;
-  return <AdmissionsVideo src={info.video || undefined} poster={info.videoPoster || '/nextjs/homev1/assets/hero-campus.webp'} stats={stats} variant="program" paused={paused} />;
+  return <AdmissionsVideo src={info.video || undefined} poster={info.videoPoster || sitePath('/assets/hero-campus.webp')} stats={stats} variant="program" paused={paused} />;
 }
 
 function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:AcademicInfo;paused:boolean;index:number;catalogue:ReturnType<typeof useSchoolCatalogue>}) {
   const id=`academic-${info.kind}-${index}`,title=block.sections[0]?.title || block.title;
   if(block.kind==='tracks')return info.tracks.length ? <AcademicContent id={`${id}-tracks`} heading={info.tracksHeading} label={info.tracksHeading} className="program-pathways academic-track-tabs"
     tabs={info.tracks.map((track,i)=>({key:String(i),title:track.title,content:<AcademicAccordions sections={trackAccordions(track.html)} id={`${id}-track-${i}`} />}))}/> : null;
+  if(block.kind==='tabs' && block.title==='Program Options' && info.programOptions?.length) return <ProgramOptionsCards sections={block.sections} />;
   if(block.kind==='tabs')return <AcademicContent id={id} heading={block.title || undefined} label={`${info.name} information`} className="program-pathways" tabsClassName="program-details-tabs"
     tabs={block.sections.map((section,i)=>({key:String(i),title:section.title,content:academicSectionKey(section.title)==='other-programs'
       ? <><ApiRichText html={section.html} scrollTables /><ProgramLinks items={info.otherPrograms} title="" /></>
-      : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} />}))}/>;
+      : info.slug==='mba-international-business' && academicSectionKey(section.title)==='careers'
+        ? <ApiRichText html={section.html} scrollTables />
+      : info.slug==='mba-agri-business' && academicSectionKey(section.title)==='careers'
+        ? <CareerAccordionContent html={section.html} id={`${id}-${i}-career`} />
+      : isAdvancedComputingAcademicPage(info) && academicSectionKey(section.title)==='industry'
+        ? <AdvancedComputingCurriculumContent section={section} id={`${id}-${i}-curriculum`} />
+      : isAdvancedComputingAcademicPage(info) && isAcademicFeatureSection(section,info) && academicFeaturePresentation(academicFeatures(section.html).points.length,7)==='tab'
+        ? <FeatureTabContent section={section} id={`${id}-${i}`} />
+        : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} singleAccordion={info.slug==='mba-agri-business' && academicSectionKey(section.title)==='structure'} />}))}/>;
   if(block.kind==='accordion')return <AcademicAccordions sections={block.sections} id={id} title={info.slug==='mba' ? 'INDUSTRY COLLABORATION' : ''}/>;
   if(block.kind==='industry')return <AcademicAccordions sections={block.sections} lead={block.lead} id={id} title={block.title} />;
   if(block.kind==='laboratories')return <>{block.sections.map((section,sectionIndex)=>{
@@ -188,8 +283,9 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
     {info.kind==='school' && <SchoolVideoHighlights info={info} paused={paused} />}
     <RecruitersSection paused={paused} items={info.recruiters.length>0 ? info.recruiters : undefined} title="Top Recruiters" />
   </>;
-  return <>{block.sections.map((section,i)=>(['difference','features','pillars','global-difference'].includes(academicSectionKey(section.title)) || info.kind==='program' && academicSectionKey(section.title)==='specification')
-    ? <FeatureSection section={section} id={`${id}-${i}`} key={i} />
+  if(block.kind==='section' && info.slug==='mba-international-business' && academicSectionKey(title)==='core program focus') return <ProgramFocusCards section={block.sections[0]} />;
+  return <>{block.sections.map((section,i)=>(isAcademicFeatureSection(section,info) || info.kind==='program' && academicSectionKey(section.title)==='specification')
+    ? <FeatureSection section={section} id={`${id}-${i}`} info={info} key={i} />
     : <section className="academic-api-section" data-content-kind="section" key={i}><h2>{section.title}</h2><GalleryCopy section={section} paused={paused}/></section>)}</>;
 }
 
@@ -206,13 +302,18 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
   const info=useMemo(()=>pending || !pageInfo ? null : schoolPrograms ? {...pageInfo,programs:schoolPrograms} : other.items===pageInfo.otherPrograms ? pageInfo : {...pageInfo,otherPrograms:other.items},[pending,pageInfo,schoolPrograms,other.items]);
   useEffect(()=>{
     if(!info)return;
-    document.title=info.metaTitle || `${info.name} | DBS Global University`;
+    if(info.metaTitle)document.title=info.metaTitle;
     // Next/React owns the existing head nodes. Never detach its description
     // while API data is loading: route updates/Fast Refresh still reference it.
     if(info.metaDescription){
       let meta=document.querySelector<HTMLMetaElement>('meta[name="description"]');
       if(!meta){meta=document.createElement('meta');meta.name='description';document.head.appendChild(meta);}
       meta.content=info.metaDescription;
+    }
+    if(info.metaKeywords){
+      let meta=document.querySelector<HTMLMetaElement>('meta[name="keywords"]');
+      if(!meta){meta=document.createElement('meta');meta.name='keywords';document.head.appendChild(meta);}
+      meta.content=info.metaKeywords;
     }
   },[info]);
   const headerBrand=useAcademicBrand(kind,slug,info);
@@ -242,7 +343,7 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
             </StepSlider>
           </div>}
         </section>
-        <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56}
+        <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
           data={{name:info.name,slug:info.schoolUrl,intro:'',showBusinessAccreditations:headerBrand.logoAlt==='Doon Business School'}}
           form={<><QuickContactForm key={info.id} apiOnly applyUrl={info.registrationLink} courses={kind==='program' ? [info.name] : info.programs.flatMap(s=>s.programs.map(p=>p.name))} selectedCourse={kind==='program' ? info.name : ''} />
             {(info.registrationLink || info.prospectusUrl) && <div className="program-api-actions">{info.registrationLink&&<a href={info.registrationLink}>Apply now</a>}{info.prospectusUrl&&<a href={info.prospectusUrl}>Download prospectus</a>}</div>}

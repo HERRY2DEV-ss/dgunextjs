@@ -14,7 +14,7 @@
 .heroCopy h2 span { color:#fff22c; font-size:clamp(35px,5.65vw,90px); line-height:1; font-weight:300; letter-spacing:-.04em; }
 .introduction { width:85%; max-width:1640px; margin:clamp(24px,2.2vw,35px) auto 0; text-align:center; }
 .introduction h2 { font-weight:400; }
-.introduction > p { max-width:1460px; margin:0 auto; font-size:clamp(15px,1.72vw,27px)!important; line-height:1.15!important; }
+.introduction > p { max-width:1460px; margin:0 auto; font-size:18px!important; line-height:1.5!important; }
 .status { min-height:52px; padding:12px; font-size:16px; }
 .status button { margin-top:8px; padding:8px 16px; border:1px solid var(--hostel-purple); background:white; color:var(--hostel-purple); border-radius:30px; }
 .campusReasons { padding:clamp(40px,6.2vw,96px) 0 clamp(42px,5vw,80px); }
@@ -117,7 +117,7 @@
 .videoCaption { padding:18px 25px; }
 .textPreview { padding:60px clamp(25px,4vw,65px) 45px; }
 .textPreview h2 { color:var(--hostel-purple); font-size:clamp(23px,2vw,32px); margin-bottom:20px; }
-.textPreview p { font-size:clamp(17px,1.5vw,22px); line-height:1.6; }
+.textPreview p { font-size:18px; line-height:1.6; }
 @keyframes hostel-pulse { 0% { transform:scale(.8); opacity:1; } 100% { transform:scale(1.7); opacity:0; } }
 @keyframes hostel-copy-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
 @media(min-width:1920px) { .heroCopy p { font-size:21px; } .heroCopy h2 { font-size:42px; } .heroCopy h2 span { font-size:100px; } }

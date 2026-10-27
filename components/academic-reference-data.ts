@@ -1,3 +1,4 @@
+import { sitePath } from './site-base';
 import type { ProgramPageData } from './program-page-data';
 import type { SchoolPageData } from './school-page-data';
 
@@ -5,7 +6,7 @@ import type { SchoolPageData } from './school-page-data';
 export const referenceStats: [string, string][] = [
   ['400+', 'Recruiters'], ['40+ LPA', 'Highest CTC'], ['1500+', 'Students Placed'], ['92%', 'Placement Rate'],
 ];
-export const referenceDifferentiatorIcons = ['industry', 'labs', 'global', 'career', 'interdisciplinary', 'innovation'].map(name => '/nextjs/homev1/assets/academic/difference-' + name + '.webp');
+export const referenceDifferentiatorIcons = ['industry', 'labs', 'global', 'career', 'interdisciplinary', 'innovation'].map(name => sitePath('/assets/academic/difference-') + name + '.webp');
 export const computingRecruiters: ReadonlyArray<readonly [string, string]> = [
   ['wipro', 'Wipro'], ['infosys', 'Infosys'], ['hcltech', 'HCLTech'], ['kpmg', 'KPMG'],
   ['techmahindra', 'Tech Mahindra'], ['deloitte', 'Deloitte'], ['tcs', 'TCS'],
@@ -28,8 +29,8 @@ export function referenceSchoolFaqs(schoolName: string) {
   ];
 }
 
-const route = (slug: string) => '/nextjs/homev1/programs/' + slug + '/';
-const computingRoute = (slug: string) => '/nextjs/homev1/' + slug + '/';
+const route = (slug: string) => sitePath('/programs/') + slug + '/';
+const computingRoute = (slug: string) => sitePath('/') + slug + '/';
 export const mbaReference: Partial<ProgramPageData> = {
   shortName: 'MBA', fullName: 'MBA (Master of Business Administration)',
   heroCaption: 'Unlock the Potential of your Leadership Skills with our innovative MBA',
@@ -39,10 +40,10 @@ export const mbaReference: Partial<ProgramPageData> = {
   ],
   recognitionTitle: 'Global Membership | Recognition',
   recognitions: [
-    { image: '/nextjs/homev1/media/schools/accreditation-aacsb.webp', alt: 'AACSB Member' },
-    { image: '/nextjs/homev1/media/schools/accreditation-business-graduates.webp', alt: 'Business Graduates Association Member' },
-    { image: '/nextjs/homev1/media/schools/accreditation-ioh.webp', alt: 'IOH Certified 2025-26' },
-    { image: '/nextjs/homev1/media/schools/accreditation-iscea.webp', alt: 'ISCEA' },
+    { image: sitePath('/media/schools/accreditation-aacsb.webp'), alt: 'AACSB Member' },
+    { image: sitePath('/media/schools/accreditation-business-graduates.webp'), alt: 'Business Graduates Association Member' },
+    { image: sitePath('/media/schools/accreditation-ioh.webp'), alt: 'IOH Certified 2025-26' },
+    { image: sitePath('/media/schools/accreditation-iscea.webp'), alt: 'ISCEA' },
   ],
   specializationGroups: [
     [

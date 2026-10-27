@@ -1,11 +1,13 @@
 'use client';
+import { sitePath } from './site-base';
+
 import { useEffect, useState } from 'react';
 import type { AcademicInfo, AcademicKind } from './academic-page-api';
 import { requestPrograms } from './programs-api';
 import { academicPathIdentity } from './academic-clean-routes';
 
-const university = { logoSrc: '/nextjs/homev1/assets/dgu_logo_svg2.svg', logoAlt: 'DBS Global University' };
-const business = { logoSrc: '/nextjs/homev1/assets/dgu_logo_svg3.svg', logoAlt: 'Doon Business School' };
+const university = { logoSrc: sitePath('/assets/dgu_logo_svg2.svg'), logoAlt: 'DBS Global University' };
+const business = { logoSrc: sitePath('/assets/dgu_logo_svg3.svg'), logoAlt: 'Doon Business School' };
 
 /** Exact catalogue membership, never a name/prefix guess such as "MBA". */
 export function isBusinessProgram(info: Pick<AcademicInfo, 'id' | 'slug'>, programs: readonly { id: string; href: string }[]) {

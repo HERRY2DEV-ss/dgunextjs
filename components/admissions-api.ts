@@ -2,6 +2,7 @@ import { apiData, apiFields, apiMedia, apiPlain, apiRecord, apiText, apiValue, c
 import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
 import { parseRecruiters, type Recruiter } from './recruiters-api';
 import type { SchoolPageData } from './school-page-data';
+import { sitePath } from './site-base';
 
 export type AdmissionTrack = { label: string; title: string; html: string };
 export type AdmissionSchool = { name: string; tracks: AdmissionTrack[] };
@@ -23,6 +24,18 @@ export type AdmissionData = {
 const clean = (value: unknown) => apiText(value).replace(/<(script|style|head)\b[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<!--[^]*?-->/g, '');
 const meaningful = (html: string) => !!apiPlain(html) || /<(img|table)\b/i.test(html);
 const contentTitle = (value: unknown) => apiPlain(value).replace(/\s*[+⌄›]\s*$/, '').trim();
+
+function admissionsMedia(value: unknown): string {
+  const media = apiMedia(value);
+  if (!media) return '';
+  try {
+    const url = new URL(media);
+    if (['dgu.ac.in', 'www.dgu.ac.in'].includes(url.hostname) && url.pathname === '/assets/addmission_banner.webp') {
+      return sitePath('/assets/addmission_banner.webp');
+    }
+  } catch { return media; }
+  return media;
+}
 
 function documentFor(value: unknown): Document | null {
   if (typeof DOMParser === 'undefined') return null;
@@ -106,7 +119,7 @@ export function parseAdmissions(payload: unknown): AdmissionData {
   const media = apiRecord(apiValue(f, 'media')), m = media ? apiFields(media) : {};
   const resources = apiValue(f, 'resources');
   const info: AdmissionData = {
-    title, intro: clean(apiValue(p, 'intro')), banner: apiMedia(apiValue(p, 'bannerImage')), details: [],
+    title, intro: clean(apiValue(p, 'intro')), banner: admissionsMedia(apiValue(p, 'bannerImage')), details: [],
     metaTitle: apiPlain(apiValue(p, 'metaTitle')), metaDescription: apiPlain(apiValue(p, 'metaDescription')),
     processTitle: process?.title || '', schools: mappedProcess.schools, processExtra: mappedProcess.extra,
     feeTitle: fees?.title || '', feeSchools: mappedFees.schools, feesExtra: mappedFees.extra,

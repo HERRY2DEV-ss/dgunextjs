@@ -10,20 +10,71 @@ function load(filename) {
   const module = {exports:{}};modules.set(file,module.exports);
   vm.runInNewContext(ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,{
     module,exports:module.exports,URL,AbortController,Date,setTimeout,clearTimeout,process:{env},
-    require:name=>load(path.resolve(path.dirname(file),name)),
+    require:name=>name==='server-only'?{}:load(path.resolve(path.dirname(file),name)),
     fetch:async (url,options)=>{
       const body=JSON.parse(options.body);calls.push({url,options,body});
       if(failNext){failNext=false;return new Response('<title>404 Page Not Found</title>',{status:200});}
       const school=!!body.SCHOOL_URL;
       return new Response(JSON.stringify({error:'0',data:[{id:body.PROGRAM_URL ? 92 : 1,url:body.PROGRAM_URL||body.SCHOOL_URL,
-        [school?'schoolName':'programName']:'API name',introText:'API introduction'}]}),{status:200});
+        [school?'schoolName':'programName']:'API name',introText:'API introduction',meta_title:'API metadata title',
+        meta_desc:'API metadata description',meta_keywords:'API keyword one, API keyword two',meta_canonical:body.PROGRAM_URL||''}]}),{status:200});
     },
   });
   return module.exports;
 }
 (async()=>{
-  const programs=load('components/programs-api'),academic=load('components/academic-page-api');
-  const base='/nextjs/homev1';
+  const programs=load('components/programs-api'),academic=load('components/academic-page-api'),features=load('components/academic-features'),tabContent=load('components/academic-tab-content'),seo=load('components/academic-seo-metadata');
+  const btechSeo=seo.parseProgrammeSeoMetadata({error:'0',data:[{meta_title:'API B.Tech title',meta_desc:'API B.Tech description',meta_keywords:'B.Tech, engineering',meta_canonical:'btech'}]},'btech');
+  assert.deepEqual(JSON.parse(JSON.stringify(btechSeo)),{title:'API B.Tech title',description:'API B.Tech description',keywords:'B.Tech, engineering',canonical:''},
+    'Only exact API metadata fields are used; slug-only canonical values do not become fabricated URLs');
+  const canonicalSeo=seo.parseProgrammeSeoMetadata({error:'0',data:[{id:10,url:'mba',meta_title:'API MBA title',meta_desc:'',meta_keywords:null,meta_canonical:'https://dgu.ac.in/programs/mba/'}]},'mba','10');
+  assert.equal(canonicalSeo.canonical,'https://dgu.ac.in/programs/mba/','An absolute canonical is retained only when supplied by the API');
+  const schoolSeo=seo.parseAcademicSeoMetadata({error:'0',data:[{id:1,schoolName:'API Business',meta_title:'API school title',meta_desc:'API school description',meta_keywords:'API school keyword'}]},'school','school-of-business');
+  assert.deepEqual(JSON.parse(JSON.stringify(schoolSeo)),{title:'API school title',description:'API school description',keywords:'API school keyword',canonical:''},
+    'School SEO uses only the school API metadata fields and does not invent a canonical');
+  assert.deepEqual(JSON.parse(JSON.stringify(seo.parseProgrammeSeoMetadata({error:'0',data:[{url:'btech',meta_title:null,meta_desc:'',meta_keywords:null,meta_canonical:''}]},'btech'))),
+    {title:'',description:'',keywords:'',canonical:''},'Missing API metadata stays empty without fallback values');
+  assert.throws(()=>seo.parseProgrammeSeoMetadata({error:'0',data:[{url:'mba',meta_title:'Other programme title'}]},'btech'),/matching programme metadata record/,
+    'Metadata from a different API programme is never used');
+  assert.throws(()=>seo.parseProgrammeSeoMetadata({error:'0',data:[{id:11,url:'mba',meta_title:'Wrong duplicate'}]},'mba','10'),/matching programme metadata record/,
+    'A mismatched programme record ID is rejected');
+  assert.equal(seo.parseProgrammeSeoMetadata({error:'0',data:[{id:33,meta_title:'API MBA Global title',meta_canonical:'mba-global'}]},'dgu-global-mba','33').title,'API MBA Global title',
+    'The API canonical field is metadata, not a route identity');
+  assert.equal(seo.parseProgrammeSeoMetadata({error:'0',data:[{meta_title:'<script>bad()</script>Safe title'}]},'btech').title,'Safe title',
+    'API metadata is reduced to safe text rather than interpreted as HTML');
+  const layoutClasses=load('components/dgu-content-api').apiLayoutClasses;
+  assert.deepEqual(Array.from(layoutClasses('row col-sm-4 col-lg-4 text-center unsafe-class')),['dgu-api-row','dgu-api-col-sm-4','dgu-api-col-lg-4','dgu-api-text-center'],'Only allowlisted CMS layout classes are retained as safe DGU classes');
+  const academicCss=fs.readFileSync(path.resolve('components/academic-api.css'),'utf8');
+  const referenceCss=fs.readFileSync(path.resolve('app/academic-reference.css'),'utf8');
+  assert.match(academicCss,/\.academic-api-page \.dgu-api-row\s*\{/,'CMS rows use the shared academic API layout');
+  assert.match(academicCss,/\.academic-api-page \.dgu-api-text-center/,'CMS text alignment is scoped to academic API pages');
+  assert(referenceCss.includes('[data-api-slug="mba-international-business"]'), 'International Business list formatting remains page-specific');
+  assert(referenceCss.includes('.academic-tab-content[data-tab-kind="eligibility"] .dgu-api-copy'), 'International Business eligibility text and criteria use their page-specific two-column layout');
+  assert.match(fs.readFileSync(path.resolve('components/academic-tab-content.ts'),'utf8'),/includeAllHeadingLevels/,'The Agribusiness Structure path can split headings with different levels');
+  const tabContentSource=fs.readFileSync(path.resolve('components/academic-tab-content.ts'),'utf8');
+  const academicPageSource=fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
+  assert.match(tabContentSource,/export function academicColumnSections/,'International Business focus cards are derived from API columns');
+  assert.match(tabContentSource,/export function academicCareerAccordionSections/,'Agribusiness career accordions are derived from API columns');
+  assert.match(academicPageSource,/className="program-options-card academic-core-focus-card"/,'International Business focus uses the existing program option card design');
+  assert.match(academicPageSource,/info\.slug==='mba-international-business' && academicSectionKey\(section\.title\)==='careers'\s*\? <ApiRichText/,'International Business career content renders directly in its tab');
+  assert.match(academicPageSource,/info\.slug==='mba-agri-business' && academicSectionKey\(section\.title\)==='careers'\s*\? <CareerAccordionContent/,'Agribusiness career content uses its page-specific accordion');
+  assert.match(academicPageSource,/previewHeightOverride=\{info\.slug==='dgu-global-mba'/,'Global MBA keeps a page-specific intro preview length');
+  assert.match(academicCss,/\.academic-api-page \.dgu-api-row > \* \{ grid-column:1\/-1/,'Non-column CMS row content spans the full row');
+  assert.match(fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8'),/academicTabContent\(section\.html,hr \|\| \['structure','scholarship'\]\.includes\(kind\),singleAccordion\)/,'Only the page-specific combined accordion enables mixed heading levels');
+  assert.match(fs.readFileSync(path.resolve('components/AcademicAccordionGroup.tsx'),'utf8'),/useState<number \| null>\(null\)/,'Academic accordions remain collapsed by default');
+  assert.equal(features.academicFeaturePresentation(5),'wave','Five features retain the existing wave path');
+  assert.equal(features.academicFeaturePresentation(6),'tab','Six features use one complete academic tab');
+  assert.equal(features.academicFeaturePresentation(7),'tab','More than six features use one complete academic tab');
+  const featureSections=features.academicFeatureAccordionSections([
+    {title:'T Skillset Development',description:'',html:'<p>T content</p>'},
+    {title:'Student Engagement and Opportunities',description:'',html:'<ul><li>Engagement</li></ul>'},
+  ]);
+  assert.deepEqual(featureSections.map(section=>section.title),['T Skillset Development','Student Engagement and Opportunities']);
+  assert.equal(featureSections[1].html,'<ul><li>Engagement</li></ul>','Feature HTML remains rich content for the existing accordion renderer');
+  const base='';
+  const siteBase=load('components/site-base');
+  assert.equal(siteBase.SITE_BASE,'','Production URLs use the domain root');
+  assert.equal(siteBase.sitePath('/assets/example.webp'),'/assets/example.webp','Legacy asset paths are normalized for root deployment');
   assert.equal(programs.apiProgramHref('mba',10),base+'/programs/mba/');
   assert.equal(programs.apiProgramHref('school-of-business'),base+'/schools/business/');
   const unknown=programs.apiProgramHref('new-published-course',123);
@@ -32,10 +83,24 @@ function load(filename) {
   const routes=load('components/academic-clean-routes');
   assert.equal(programs.apiProgramHref('bcom',6),base+'/programs/bcom/');
   assert.equal(programs.apiProgramHref('bcom',92),base+'/programs/bcom-92/');
-  assert.deepEqual(JSON.parse(JSON.stringify(routes.academicPathIdentity('program',base+'/programs/bcom-92/'))),{slug:'bcom',recordId:'92'});
-  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/nextjs/homev1/programs/mba-human-resource/?slug=mba-human-resource&id=26'),base+'/programs/mba-human-resource/');
-  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/nextjs/homev1/programs/mba/?slug=mba-human-resource&id=26'),base+'/programs/mba/');
-  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/nextjs/homev1/programs/mba/?id=26'),base+'/programs/mba/');
+  assert.deepEqual(JSON.parse(JSON.stringify(routes.academicPathIdentity('program',base+'/programs/bcom-92/'))),{slug:'bcom',recordId:''});
+  const identities=load('components/academic-route-identities');
+  for(const alias of ['bcom-92','bba-mba-94','global-mba-97'])assert.equal(identities.academicProgramRecordIds[alias],undefined,`${alias} resolves through its API slug without a mismatched ID`);
+  assert.equal(identities.academicProgramRoutes['bcom-92'],'bcom');
+  assert.equal(identities.academicProgramRoutes['bba-mba-94'],'bba-mba-integrated');
+  assert.equal(identities.academicProgramRoutes['global-mba-97'],'dgu-global-mba','Global MBA keeps its existing slug-based lookup');
+  const metadataRouteSource=fs.readFileSync(path.resolve('app/programs/[programSlug]/page.tsx'),'utf8');
+  const schoolMetadataRouteSource=fs.readFileSync(path.resolve('app/schools/[schoolSlug]/page.tsx'),'utf8');
+  assert.match(metadataRouteSource,/Object\.keys\(academicProgramRoutes\)/,'Every registered programme route and specialization is statically enumerated');
+  assert.match(schoolMetadataRouteSource,/loadAcademicSeoMetadata\('school',slug\)/,'School metadata is generated from its own API record during static export');
+  assert.match(metadataRouteSource,/loadProgrammeSeoMetadata\(slug,academicProgramRecordIds\[programSlug\]/,'SEO metadata uses the route-specific API slug and record ID');
+  assert.match(metadataRouteSource,/title:seo\.title,\s*description:seo\.description/,'Empty API title and description do not inherit unrelated static metadata');
+  assert.match(metadataRouteSource,/return \{title:'',description:''\}/,'API failures do not substitute static programme metadata');
+  assert.match(academicPageSource,/if\(info\.metaTitle\)document\.title=info\.metaTitle/,'Client metadata never invents a title from programme name');
+  assert.match(academicPageSource,/if\(info\.metaKeywords\)/,'API keywords update the document metadata after hydration');
+  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/programs/mba-human-resource/?slug=mba-human-resource&id=26'),base+'/programs/mba-human-resource/');
+  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/programs/mba/?slug=mba-human-resource&id=26'),base+'/programs/mba/');
+  assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/programs/mba/?id=26'),base+'/programs/mba/');
   assert.equal(load('components/site-routes').resolveSiteHref('https://dgu.ac.in/bcom?id=92&slug=bcom&utm_source=email#fees'),base+'/programs/bcom-92/?utm_source=email#fees');
   assert.equal(programs.apiProgramHref('https://example.com/official-course'),'https://example.com/official-course');
   assert.equal(programs.apiProgramHref('javascript:alert(1)'), '');
@@ -79,7 +144,49 @@ function load(filename) {
     otherSpecializations:[{id:26,programName:'Current programme',url:'mba-human-resource'},{id:27,programName:'API Finance',url:'mba-finance'},{id:28,programName:'API IB',url:'mba-international-business'}],
   }]},'program','mba-human-resource','26');
   assert.deepEqual(Array.from(other.otherPrograms,p=>p.id),['27','28'],'Explicit links deduplicate and exclude the current programme');
-  const otherBlocks=load('components/academic-layout').academicLayout(other);
+  const layout=load('components/academic-layout').academicLayout;
+  const computingPages=load('components/advanced-computing-layout');
+  const computingLayout=computingPages.advancedComputingLayout;
+  assert.equal(computingPages.isAdvancedComputingAcademicPage({kind:'program',slug:'btech',schoolUrl:'school-of-technology'}),true,
+    'Advanced Computing programme pages use the same section-specific renderer');
+  const computing=computingLayout({
+    kind:'school',slug:'school-of-technology',intro:'',pathways:[],
+    tabs:[
+      {title:'Program Options at a Glance',html:'<table><tr><td>API options</td></tr></table>'},
+      {title:'Laboratory & Infrastructure',html:'<p>API laboratories.</p>'},
+      {title:'Co-Designed Curriculum',html:'<p>API industry integration.</p>'},
+      {title:'Placements',html:'<p>API placements.</p>'},
+      {title:'Student Education Immersion Program',html:'<p>API international content.</p>'},
+    ],
+    sections:[{title:'Why Choose School of Advanced Computing',html:'<p>API differentiators.</p>'}],
+    accordions:[
+      {title:'Faculty',html:'<p>API faculty.</p>'},
+      {title:'News',html:'<p>API news.</p>'},
+      {title:'FAQs',html:'<p>API FAQs.</p>'},
+    ],
+    faqs:[{question:'API question',answer:'API answer'}],
+  });
+  assert.deepEqual(Array.from(computing,block=>block.kind),[
+    'programs','tabs','section','tabs','placements','faculty','news','international','faqs',
+  ],'Advanced Computing lists programmes before the long highlights and options content');
+  assert.deepEqual(Array.from(computing[3].sections,section=>section.title),[
+    'State-of-the-Art Infrastructure & Labs','Curriculum and Industry Integration',
+  ],'Advanced Computing keeps lab and industry content in its API-backed tabs');
+  const academicRoutes=load('components/academic-route-identities');
+  const advancedPrograms=[
+    'btech','btech-cse-with-minor','btech-cse-with-spe-in-ai-and-ml-with-minor',
+    'bca-with-specialization','btech-cse-with-spe-in-ai-and-ml-hcl',
+    'btech-cse-with-spe-in-cyber-security-hcl','btech-cse-with-spe-in-data-science-hcl',
+    'integrated-btech-mba','integrated-btech-mtech','mtech','mca',
+    'btech-cse-in-quantum-computing-with-minor','btech-cse-lateral-entry',
+  ];
+  for(const slug of advancedPrograms){
+    const id=academicRoutes.academicProgramRecordIds[slug];
+    assert.ok(id,`Advanced Computing route ${slug} has a programme record ID`);
+    assert.equal(academicRoutes.academicProgramRoutes[slug],slug,`Advanced Computing route ${slug} keeps its clean route identity`);
+    assert.equal(academicRoutes.academicCanonicalPrograms[id],slug,`Advanced Computing record ${id} resolves to ${slug}`);
+  }
+  const otherBlocks=layout(other);
   assert(!otherBlocks.some(block=>block.kind==='other-programs'),'There is no duplicate standalone specialization section');
   const otherGroup=otherBlocks.find(block=>block.kind==='tabs'&&block.sections.some(section=>section.title==='Eligibility Criteria'));
   assert(otherGroup.sections.some(section=>section.title==='Other Specializations'),'Other Specializations shares the lower admission tabs');
@@ -90,7 +197,7 @@ function load(filename) {
   assert.equal(programs.apiProgramHref('https://dgu.ac.in/dgu-global-mba'),base+'/programs/dgu-global-mba/');
   assert.equal(routePolicy.academicPathIdentity('program',base+'/programs/global-mba/').recordId,'33','The legacy alias requests the live API record');
   assert.equal(routePolicy.academicPathIdentity('program',base+'/programs/dgu-global-mba/').recordId,'33');
-  assert.equal(routePolicy.academicPathIdentity('program',base+'/programs/global-mba-97/').recordId,'97');
+  assert.equal(routePolicy.academicPathIdentity('program',base+'/programs/global-mba-97/').recordId,'');
   const shared=academic.parseAcademicInfo({error:'0',data:[{id:26,url:'mba-human-resource',programName:'API HR',
     tabs:[{tabName:'Salient Features',tabDetails:'<p>Full API feature detail.</p>'},{tabName:'Program Structure',tabDetails:'<p>API semester content.</p>'}],
     accordion:[{accordionName:'Career Opportunities',accordionDetails:'<p>API career content.</p>'},{accordionName:'Scholarship',accordionDetails:'<p>API scholarship content.</p>'}],
@@ -100,7 +207,68 @@ function load(filename) {
   for(const title of ['Career Opportunities','Scholarship','Program Structure'])assert.ok(blocks.some(b=>b.kind==='tabs'&&b.sections.some(s=>s.title===title)),title+' uses common tabs');
   assert.ok(blocks.some(b=>b.kind==='section'&&b.sections.some(s=>key(s.title)==='features')),'An old CMS feature tab uses the common feature UI');
   assert.equal(shared.banners.length,2,'Distinct API mobile variants are retained');assert.equal(shared.linkedPages.length,1);
+  const computingFeatures=count=>layout({...shared,slug:'btech',schoolUrl:'school-of-technology',pathways:[],sections:[],accordions:[],tabs:[{
+    title:'Industry-Aligned Curriculum',html:`<ul>${Array.from({length:count},(_,i)=>`<li>API feature ${i+1}</li>`).join('')}</ul>`,
+  }]});
+  assert.ok(computingFeatures(6).some(block=>block.kind==='section'&&block.sections.some(section=>key(section.title)==='industry-aligned-curriculum')),
+    'Six Advanced Computing feature items use the wave section');
+  assert.ok(computingFeatures(7).some(block=>block.kind==='tabs'&&block.sections.some(section=>key(section.title)==='industry-aligned-curriculum')),
+    'More than six Advanced Computing feature items use tabs');
+  const programFeatures=count=>layout({...shared,slug:'generic-test-program',schoolUrl:'',pathways:[],sections:[],accordions:[],tabs:[{
+    title:'Salient Features',html:`<ul>${Array.from({length:count},(_,i)=>`<li>API feature ${i+1}</li>`).join('')}</ul>`,
+  }]});
+  assert.ok(programFeatures(7).some(block=>block.kind==='section'&&block.sections.some(section=>key(section.title)==='features')),
+    'Non-Advanced-Computing programme features retain the existing wave section');
+  const optionsInfo={...shared,slug:'mba-digital-marketing',id:'24',programOptions:[
+    {title:'API option one',html:'<p>Option one detail.</p>'},
+    {title:'API option two',html:'<ul><li>Option two detail.</li></ul>'},
+    {title:'API option three',html:'<p>Option three detail.</p>'},
+  ]};
+  const optionBlocks=layout(optionsInfo);
+  assert.equal(optionBlocks[0].kind,'tabs');assert.equal(optionBlocks[0].title,'Program Options');
+  assert.deepEqual(Array.from(optionBlocks[0].sections,section=>section.title),['API option one','API option two','API option three'],'Program Options preserve API order and all records');
+
+  const international={...shared,slug:'mba-international-business',id:'28',pathways:[],sections:[
+    {title:'Core Program Focus',html:'<ul><li>API focus item</li></ul>'},
+  ],tabs:[
+    {title:'Program Structure',html:'<h3>Semester 1</h3><table><tr><td>API subject</td></tr></table>'},
+    {title:'Eligibility Criteria',html:'<ul><li>API eligibility item</li></ul>'},
+    {title:'Career Opportunities',html:'<p>API career detail.</p>'},
+  ],accordions:[],programOptions:[]};
+  const internationalBlocks=layout(international);
+  assert.ok(internationalBlocks.some(block=>block.kind==='section'&&block.sections.some(section=>section.title==='Core Program Focus')),'International Core Program Focus remains a dedicated section');
+  const internationalTabs=internationalBlocks.find(block=>block.kind==='tabs');
+  assert(internationalTabs,'International admission tabs remain present');
+  assert.deepEqual(Array.from(internationalTabs.sections,section=>section.title),['Program Structure','Eligibility Criteria','Career Opportunities'],'International tabs preserve order and Career Opportunities');
+
+  const agri={...shared,slug:'mba-agri-business',id:'',pathways:[],sections:[],tabs:[
+    {title:'Program Structure',html:'<h3>Semester 1</h3><table><tr><td>API subject</td></tr></table>'},
+  ],accordions:[],programOptions:[]};
+  const agriTabs=layout(agri).find(block=>block.kind==='tabs');
+  assert(agriTabs&&agriTabs.sections.some(section=>section.title==='Program Structure'),'Agri Program Structure uses the shared academic tab path');
+  const agriCombined=tabContent.academicSingleAccordionSection({intro:'',sections:[
+    {title:'Programme Duration: 2 Years (4 Semesters) | Strong MBA Core + Agribusiness Specialisation',html:'<table><tr><td>Semester content</td></tr></table>'},
+    {title:'AI Integration MBA Agribusiness',html:'<table><tr><td>AI content</td></tr></table>'},
+  ]});
+  assert(agriCombined,'Agri Program Structure creates one combined accordion item');
+  assert.equal(agriCombined.title,'Programme Duration: 2 Years (4 Semesters) | Strong MBA Core + Agribusiness Specialisation / AI Integration MBA Agribusiness');
+  assert(agriCombined.html.indexOf('Semester content')<agriCombined.html.indexOf('AI content'),'Agri combined accordion preserves API content order');
+  const renderer=fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
+  assert.match(renderer,/function CareerAccordionContent\(\{ html, id \}/,'MBA Agribusiness career content uses its dedicated API section parser');
+  assert.match(renderer,/<CareerAccordionContent html=\{section\.html\} id=\{`\$\{id\}-\$\{i\}-career`\} \/>/,'MBA Agribusiness career content remains in its existing accordion renderer');
+  assert.match(renderer,/academic-tab-content/,'Academic tab content remains the shared rendering path');
   assert.equal(academic.parseAcademicInfo({error:'0',data:[{id:97,url:'dgu-global-mba',programName:'API Global MBA'}]},'program','dgu-global-mba','97').banner,'','A missing banner does not acquire a static fallback');
+  const globalLayout=layout({...shared,slug:'dgu-global-mba',id:'33',tabs:[
+    {title:'Learn Across Borders',html:'<p>API global learning.</p>'},
+    {title:'Fee Structure for Global MBA 2026-28',html:'<p>API fees.</p>'},
+    {title:'Where This MBA Can Take You',html:'<p>API global career outcomes.</p>'},
+  ],sections:[{title:'Why Choose Global MBA at DBS?',html:'<p>API global difference.</p>'}],accordions:[
+    {title:'A Learning Experience That Goes Beyond Classrooms',html:'<p>API experience.</p>'},
+    {title:'Build a Truly Global Mindset',html:'<p>API mindset.</p>'},
+  ],pathways:[],programOptions:[]});
+  const globalAccordion=globalLayout.find(block=>block.kind==='accordion');
+  assert(globalAccordion&&globalAccordion.sections.some(section=>section.title==='Where This MBA Can Take You'),'Global MBA career content remains in its intended accordion group');
+  assert(!globalLayout.some(block=>block.kind==='tabs'&&block.sections.some(section=>section.title==='Where This MBA Can Take You')),'Global MBA career content is not moved into admission tabs');
   const globalStudents=academic.parseAcademicInfo({error:'0',data:[{id:33,url:'dgu-global-mba',programName:'API Global MBA',students:[{id:1,name:'API student',placementType:'course',linkID:33,imageURL:'https://dgu.ac.in/uploads/images/placement/student.webp'}]}]},'program','dgu-global-mba','33');
   assert.ok(load('components/academic-layout').academicLayout(globalStudents).some(b=>b.kind==='placements'),'Related students remain visible when a legacy guide omits its placements heading');
   const published=academic.parseAcademicInfo({error:'0',data:[{id:97,url:'dgu-global-mba',programName:'API Global MBA',programDetails:'<p>Legacy body.</p>',tabs:[{tabName:'Fee Structure',tabDetails:'<p>Legacy fees.</p>'}],publishedPage:{id:91,url:'dgu-global-mba',title:'Global MBA',html:'<h2>Learn Across Borders</h2><p>Current published CMS content.</p>'}}]},'program','dgu-global-mba','97');
@@ -111,18 +279,27 @@ function load(filename) {
   assert.equal(calls.length,1,'The restored programme endpoint shares one in-flight request');
   assert.deepEqual(calls[0].body,{PROGRAM_URL:'bcom'},'Only the documented PROGRAM_URL is sent');
   assert.equal(calls[0].url,'https://dgu.ac.in/api/get-program-info.php');
+  const slugOnlyBcom=await academic.requestAcademicInfo('program','bcom');
+  assert.equal(slugOnlyBcom.slug,'bcom');
+  assert.deepEqual(calls.at(-1).body,{PROGRAM_URL:'bcom'},'The B.Com alias can request its supported slug without an obsolete record ID');
   await assert.rejects(academic.requestAcademicInfo('program','bcom','6'), /different program record/);
-  assert.equal(calls.length,2,'A duplicate URL never displays the wrong record ID');
+  assert.equal(calls.length,3,'A duplicate URL never displays the wrong record ID');
   await Promise.all([academic.requestAcademicInfo('school','school-of-law'),academic.requestAcademicInfo('school','school-of-law')]);
-  assert.equal(calls.length,3,'School sections still share one in-flight POST');
+  assert.equal(calls.length,4,'School sections still share one in-flight POST');
   assert.equal(calls[0].options.headers.Apikey,'academic-test-key');
   assert.deepEqual(calls.at(-1).body,{SCHOOL_URL:'school-of-law'});
   assert.equal(calls.at(-1).url,'https://dgu.ac.in/api/get-school-info.php');
   failNext=true;
   await assert.rejects(academic.requestAcademicInfo('school','school-of-retry'),/404 HTML/);
-  await academic.requestAcademicInfo('school','school-of-retry');assert.equal(calls.length,5,'Active school failures remain retryable');
+  await academic.requestAcademicInfo('school','school-of-retry');assert.equal(calls.length,6,'Active school failures remain retryable');
   await assert.rejects(academic.requestAcademicInfo('program','../bad'),/valid page/);
   await assert.rejects(academic.requestAcademicInfo('program','bcom','1 OR 1=1'),/valid program ID/);
   await assert.rejects(academic.requestAcademicInfo('program','bcom','9007199254740993'),/valid program ID/);
-  console.log('PASS: shared school/program API contracts, exact URL + record ID, future routes, API-only partial sections, duplicate handling, cache separation and recovery.');
+  const loadedSeo=await seo.loadProgrammeSeoMetadata('bcom','92');
+  assert.equal(loadedSeo.title,'API metadata title');
+  assert.deepEqual(calls.at(-1).body,{PROGRAM_URL:'bcom'},'SEO metadata preserves the programme endpoint POST contract');
+  assert.equal(calls.at(-1).options.method,'POST');
+  assert.equal(calls.at(-1).options.headers.Apikey,'academic-test-key');
+  assert.equal(calls.at(-1).url,'https://dgu.ac.in/api/get-program-info.php');
+  console.log('PASS: shared school/program API contracts, route-scoped SEO metadata, exact URL + record ID, API-only partial sections, duplicate handling, cache separation and recovery.');
 })().catch(error=>{console.error(error);process.exitCode=1});

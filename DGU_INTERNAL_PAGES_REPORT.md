@@ -2,7 +2,7 @@
 
 **15 October follow-up:** this archive now also includes the new placements API integration. See `DGU_PLACEMENTS_API_REPORT.md` for current placement sources, the verified backend school-filter defect and the guard that prevents unrelated students from appearing. The report below describes the preceding internal-page design stage; its earlier statement about unchanged academic adapters applies to that stage.
 
-Extract this ZIP into the **existing project root** and overwrite matching files. Restart the dev server, or run `npm run build` and upload the rebuilt `out` files to the existing configured location. Asset paths and `/nextjs/homev1` configuration are preserved. No new dependency is required.
+Extract this ZIP into the **existing project root** and overwrite matching files. Restart the dev server, or run `npm run build` and upload the rebuilt `out` files to the existing configured location. Asset paths and `` configuration are preserved. No new dependency is required.
 
 ## Pages covered
 

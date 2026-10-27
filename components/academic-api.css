@@ -1,7 +1,41 @@
-/* Content sizing inside the existing DBS/MBA theme. No remote CMS layout rules. */
+/* Content sizing inside the existing DBS/MBA theme. */
 .academic-api-page .academic-api-feedback { width:var(--academic-width);min-height:40vh;margin:45px auto; }
 .academic-api-page .academic-api-section { width:var(--academic-width);margin:0 auto;padding:0 0 var(--academic-gap);min-width:0; }
 .academic-api-page .academic-api-section h2 { margin:0 0 24px;color:#37353a;font-size:var(--academic-heading);font-weight:500;line-height:1.2; }
+.academic-api-page .dgu-api-row {
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:clamp(12px,1.5vw,24px);
+  align-items:stretch;
+}
+.academic-api-page .dgu-api-row > * { grid-column:1/-1;min-width:0; }
+.academic-api-page .dgu-api-row > [class*="dgu-api-col-"] { min-width:0; }
+.academic-api-page .dgu-api-text-center,
+.academic-api-page .dgu-api-text-center p { text-align:center; }
+.academic-api-page .dgu-api-text-justify,
+.academic-api-page .dgu-api-text-justify p { text-align:justify; }
+@media(min-width:701px) {
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-3"] { grid-column:span 3; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-4"] { grid-column:span 4; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-5"] { grid-column:span 5; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-6"] { grid-column:span 6; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-7"] { grid-column:span 7; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-sm-12"] { grid-column:span 12; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-3"] { grid-column:span 3; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-4"] { grid-column:span 4; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-5"] { grid-column:span 5; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-6"] { grid-column:span 6; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-7"] { grid-column:span 7; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-md-12"] { grid-column:span 12; }
+}
+@media(min-width:901px) {
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-3"] { grid-column:span 3; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-4"] { grid-column:span 4; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-5"] { grid-column:span 5; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-6"] { grid-column:span 6; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-7"] { grid-column:span 7; }
+  .academic-api-page .dgu-api-row > [class~="dgu-api-col-lg-12"] { grid-column:span 12; }
+}
 .academic-api-page .dgu-api-copy { max-width:100%;min-width:0;overflow-wrap:anywhere;font-size:clamp(15px,1.25vw,21px);line-height:1.55; }
 .academic-api-page .dgu-api-copy img { max-width:100%;height:auto;object-fit:contain; }
 .academic-api-page .dgu-api-copy table { max-width:none; }
@@ -132,6 +166,21 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
 .academic-api-page .academic-interactive-features .difference-wave-point[role=button] { cursor:pointer; }
 .academic-api-page .academic-laboratory-tabs { width:100%;padding:0; }
 .academic-api-page :is(.academic-tab-content,.academic-accordion-panel) .local-table-scroll table { display:table;width:100%; }
+/* Curriculum tables keep their existing semester accordion structure, but
+   remain readable inside the collapsible panel and horizontally scrollable on
+   narrow screens.  Pathway/fee tables use their own dedicated styles. */
+.academic-api-page .academic-tab-content[data-tab-kind=structure] .local-table-scroll { max-width:100%;overflow-x:auto; }
+.academic-api-page .academic-tab-content[data-tab-kind=structure] .local-table-scroll table {
+  min-width:680px;
+  font-size:clamp(12px,.9vw,16px);
+  line-height:1.4;
+}
+.academic-api-page .academic-tab-content[data-tab-kind=structure] .local-table-scroll :is(th,td) {
+  padding:10px 12px;
+  vertical-align:top;
+  overflow-wrap:anywhere;
+  white-space:normal;
+}
 .academic-api-page .dgu-api-logo-groups { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px; }
 .academic-api-page .dgu-api-logo-row { display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin:20px 0; }
 .academic-api-page .dgu-api-logo { flex:0 1 calc((100% - 40px)/3);min-width:0; }
@@ -158,7 +207,7 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
    navigation, News cards, faculty cards or placement galleries. */
 body .academic-api-page main .dgu-api-copy {
   font-family:var(--dgu-font-family);
-  font-size:var(--dgu-body-size);
+  font-size:var(--dgu-academic-body-size);
   font-weight:400;
   line-height:var(--dgu-body-line);
   letter-spacing:0;
@@ -169,6 +218,10 @@ body .academic-api-page main .dgu-api-copy :is(p,li,blockquote,dt,dd) {
   font-weight:400;
   line-height:inherit!important;
   letter-spacing:0!important;
+}
+body .academic-api-page main :is(.program-advantages-grid li,.program-industry-copy li) {
+  font-size:var(--dgu-academic-body-size);
+  line-height:1.45;
 }
 body .academic-api-page main .dgu-api-copy :is(strong,b) {
   font-family:inherit;
@@ -272,7 +325,7 @@ body .academic-api-page main .advanced-computing-quick-stats>summary {
 body .academic-api-page main .advanced-computing-quick-stats>summary::-webkit-details-marker { display:none; }
 @media(max-width:700px) {
   body .academic-api-page main .academic-intro-text,
-  body .academic-api-page main .academic-intro-text .dgu-api-copy { font-size:16px!important;line-height:1.5!important; }
+  body .academic-api-page main .academic-intro-text .dgu-api-copy { font-size:20px!important;line-height:1.5!important; }
   body .academic-api-page main :is(.program-pathway-tabs,.post-recruiter-tabs>.secondary-tabs) { gap:20px; }
   body .academic-api-page main :is(.program-pathway-tabs>button,.post-recruiter-tabs>.secondary-tabs>.outcomes-tab) {
     max-width:70vw;

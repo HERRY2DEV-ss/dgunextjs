@@ -1,11 +1,12 @@
 'use client';
+import { sitePath } from './site-base';
+
 
 import { useEffect, useRef, useState } from 'react';
-import { admissionsPlacement } from './admissions-data';
 
-const VIDEO_SRC = '/nextjs/homev1/assets/mba.mp4';
+const VIDEO_SRC = sitePath('/assets/mba.mp4');
 
-export default function AdmissionsVideo({ paused = false, src = VIDEO_SRC, poster = '/nextjs/homev1/assets/mba.webp', stats = admissionsPlacement.stats, variant = 'admissions', heading, title, description }: {
+export default function AdmissionsVideo({ paused = false, src = VIDEO_SRC, poster = sitePath('/assets/mba.webp'), stats = [], variant = 'admissions', heading, title, description }: {
   paused?: boolean; src?: string; poster?: string; stats?: ReadonlyArray<readonly [string, string]>;
   variant?: 'admissions' | 'program' | 'placements'; heading?: string; title?: string; description?: string;
 }) {

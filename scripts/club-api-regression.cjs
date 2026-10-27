@@ -8,7 +8,7 @@ function environment(mode = 'production') {
   let mock = () => { throw new Error('Unexpected request'); };
   function load(filename) {
     const file = path.resolve(filename);
-    if (/\.(png|webp)$/.test(file)) return { default: { src: '/nextjs/homev1/assets/' + path.basename(file) } };
+    if (/\.(png|webp)$/.test(file)) return { default: { src: '/assets/' + path.basename(file) } };
     if (modules.has(file)) return modules.get(file);
     const module = { exports: {} }; modules.set(file, module.exports);
     const source = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
@@ -58,7 +58,7 @@ async function contracts(mode) {
   e.use((url, options) => response(JSON.parse(options.body).URL ? { error: '0', data: [club] } : list));
   await api.fetchClubPage(club.url);
   const detail = e.calls.find(call => JSON.parse(call.options.body).URL);
-  assert.equal(detail.url, mode === 'development' ? '/nextjs/homev1/api/dgu-club/' : 'https://dgu.ac.in/api/get-club.php');
+  assert.equal(detail.url, mode === 'development' ? '/api/dgu-club/' : 'https://dgu.ac.in/api/get-club.php');
   assert.equal(detail.options.method, 'POST');
   assert.deepEqual(JSON.parse(detail.options.body), { URL: club.url });
   assert.equal(detail.options.headers.Apikey, 'contract-test-key');

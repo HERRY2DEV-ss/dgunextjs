@@ -41,7 +41,7 @@ async function check(mode) {
     const row = payload.data[0], slug = schoolSlugs[row.id];
     const info = await api.requestAcademicInfo('school', slug);
     const call = e.calls.at(-1);
-    assert.equal(call.url, mode === 'development' ? '/nextjs/homev1/api/dgu-school-info/' : 'https://dgu.ac.in/api/get-school-info.php');
+    assert.equal(call.url, mode === 'development' ? '/api/dgu-school-info/' : 'https://dgu.ac.in/api/get-school-info.php');
     assert.deepEqual(clone(call.body), {SCHOOL_URL:slug});
     assert.equal(call.options.headers.Apikey, 'school-news-test-key');
     assert.equal(info.name, row.schoolName);
@@ -73,7 +73,7 @@ async function check(mode) {
   for (let i=0; i<items.length; i++) {
     assert.equal(plain(items[i].text), plain(newsList.data[i].shortDesc));
     assert(items[i].image.startsWith('https://dgu.ac.in/uploads/'));
-    assert.equal(items[i].href, '/nextjs/homev1/news/' + encodeURIComponent(newsList.data[i].url) + '/');
+    assert.equal(items[i].href, '/news/' + encodeURIComponent(newsList.data[i].url) + '/');
   }
   const before = e.calls.length;
   await Promise.all([news.requestNews('campus', {SCHOOL_URL:'school-of-technology'}), news.requestNews('campus', {SCHOOL_URL:' SCHOOL-OF-TECHNOLOGY '})]);

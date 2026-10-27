@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 import QuickContactForm from './QuickContactForm';
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
@@ -15,10 +17,10 @@ const accreditations = [
 ];
 
 type IntroData = Pick<SchoolPageData, 'name' | 'slug' | 'intro' | 'introMore' | 'vision' | 'partners' | 'showBusinessAccreditations'>;
-export default function SchoolIntroSection({ data, reference = false, contentHtml, recognitions, recognitionTitle, form, children, previewWords = 72, introContent }: {
+export default function SchoolIntroSection({ data, reference = false, contentHtml, recognitions, recognitionTitle, form, children, previewWords = 72, previewHeightOverride, introContent }: {
   data: IntroData; reference?: boolean; contentHtml?: string;
   recognitions?: ReadonlyArray<{ image: string; alt: string }>; recognitionTitle?: string;
-  form?: ReactNode; children?: ReactNode; previewWords?: number; introContent?: ReactNode;
+  form?: ReactNode; children?: ReactNode; previewWords?: number; previewHeightOverride?: { desktop: number; mobile: number }; introContent?: ReactNode;
 }) {
   const enquiry = useRef<HTMLElement>(null), extras = useRef<HTMLDivElement>(null);
   const [previewHeight, setPreviewHeight] = useState(220);
@@ -28,13 +30,13 @@ export default function SchoolIntroSection({ data, reference = false, contentHtm
     const measure = () => {
       const height = enquiry.current!.offsetHeight;
       enquiry.current!.style.setProperty('--enquiry-height', `${height}px`);
-      setPreviewHeight(media.matches ? Math.max(120, height - extras.current!.offsetHeight - 38) : 260);
+      setPreviewHeight(media.matches ? Math.max(120, height - extras.current!.offsetHeight - 38, previewHeightOverride?.desktop || 0) : previewHeightOverride?.mobile || 260);
     };
     const observer = new ResizeObserver(measure);
     observer.observe(enquiry.current); observer.observe(extras.current);
     media.addEventListener('change', measure); measure();
     return () => { observer.disconnect(); media.removeEventListener('change', measure); };
-  }, [reference]);
+  }, [reference, previewHeightOverride?.desktop, previewHeightOverride?.mobile]);
 
   return (
     <section className="school-intro is-visible" aria-label={`About ${data.name}`}>
@@ -69,7 +71,7 @@ export default function SchoolIntroSection({ data, reference = false, contentHtm
           <div className="school-accreditations" aria-label="Accreditations and memberships">
           {accreditations.map(([image, label], index) => (
             <div className="school-accreditation" style={{ '--logo-delay': `${.45 + index * .12}s` } as CSSProperties} key={image}>
-              <img src={`/nextjs/homev1/media/schools/${image}.webp`} alt={label} loading="lazy" decoding="async" />
+              <img src={sitePath(`/media/schools/${image}.webp`)} alt={label} loading="lazy" decoding="async" />
             </div>
           ))}
           </div>

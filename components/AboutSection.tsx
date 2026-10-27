@@ -1,3 +1,4 @@
+import { sitePath } from './site-base';
 import ExpandableText from './ExpandableText';
 
 const additionalAboutText='To promote future-ready education, all programs integrate AI-embedded learning, contemporary tools, and 21st-century skills. Students are encouraged to grow beyond academics and think beyond conventional boundaries by actively participating in more than 25+ student-led clubs and committees, fostering leadership, creativity, collaboration, and holistic development.';
@@ -15,7 +16,7 @@ export default function AboutSection(){
    <div className="about-visual">
     <i className="about-shape about-shape-top" aria-hidden="true" />
     <i className="about-shape about-shape-bottom" aria-hidden="true" />
-    <figure><img src="/nextjs/homev1/assets/hero-campus.webp" alt="DBS Global University campus" width="1920" height="901" loading="lazy" /></figure>
+    <figure><img src={sitePath("/assets/hero-campus.webp")} alt="DBS Global University campus" width="1920" height="901" loading="lazy" /></figure>
    </div>
   </div>
  </section>;

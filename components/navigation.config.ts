@@ -1,5 +1,6 @@
+import { sitePath } from './site-base';
 // School names and destinations verified against https://dgu.ac.in/.
-export const MENU_IMAGE = '/nextjs/homev1/assets/hero-campus.webp';
+export const MENU_IMAGE = sitePath('/assets/hero-campus.webp');
 export const menuLinks = [
   ['Overview', 'https://dgu.ac.in/dgu-at-glance'],
   ['Academics', 'https://dgu.ac.in/research'],
@@ -11,11 +12,11 @@ export const menuLinks = [
   ['News & Resources', '#news'],
 ];
 export const schoolLinks = [
-  ['Doon Business School', '/nextjs/homev1/schools/business/'],
+  ['Doon Business School', sitePath('/schools/business/')],
   ['Doon School of Advanced Computing', 'https://dgu.ac.in/school-of-technology'],
-  ['Doon School of Law', '/nextjs/homev1/schools/law/'],
-  ['Doon School of Liberal Studies', '/nextjs/homev1/schools/liberal-studies/'],
-  ['Doon School of Modern Media', '/nextjs/homev1/schools/modern-media/'],
+  ['Doon School of Law', sitePath('/schools/law/')],
+  ['Doon School of Liberal Studies', sitePath('/schools/liberal-studies/')],
+  ['Doon School of Modern Media', sitePath('/schools/modern-media/')],
   ['DBS School of Pharmacy and Research', 'https://dgu.ac.in/school-of-pharmacy'],
   ['Doon School of Modern Agriculture & Forestry', 'https://dgu.ac.in/school-of-agriculture-science'],
   ['Doon School of Future Skills', 'https://dgu.ac.in/school-of-future-skills'],

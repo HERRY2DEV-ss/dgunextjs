@@ -39,7 +39,7 @@
 <h2>Apply in this order</h2>
 <ol><li>Extract ZIP into existing <code>mba_gt</code> root; replace matching files. Keep <code>public/</code> and <code>.env.local</code>.</li>
 <li>Upload <code>get-school-info.php</code>, <code>get-program-info.php</code> and <code>dgu-academic-common.php</code> from <code>server-api/api/</code> to <code>public_html/api/</code>. Keep <code>includes/classes.php</code> and PDO credentials. The updated helper is needed for lab-tab bodies.</li>
-<li>Run <code>npm ci</code> if needed, then <code>npm run build</code>. Upload fresh <code>out/</code> to <code>/nextjs/homev1/</code> with generated <code>.htaccess</code>; preserve unrelated site rules.</li>
+<li>Run <code>npm ci</code> if needed, then <code>npm run build</code>. Upload fresh <code>out/</code> to <code>/</code> with generated <code>.htaccess</code>; preserve unrelated site rules.</li>
 <li>Verify actual JSON/images on MBA, HR, Computing and Global MBA. Apply the two CMS updates above. No DB/schema/credential changes are made by this package.</li></ol>
 <p>Approved static exceptions: exact homepage placement right-side copy/counters, recognition logos and manual feature icons. Other academic content and students remain API-driven.</p>
 </html>

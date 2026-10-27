@@ -33,7 +33,7 @@ export type AcademicInfo = {
   facultyIds: string[] | null;
   faculty?: ApiFaculty[];
   testimonials?: Review[];
-  registrationLink: string; prospectusUrl: string; metaTitle: string; metaDescription: string;
+  registrationLink: string; prospectusUrl: string; metaTitle: string; metaDescription: string; metaKeywords: string; metaCanonical: string;
 };
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const clean = (value: unknown) => apiText(value).replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<!--[\s\S]*?-->/g, '').replace(/<div\b[^>]*class\s*=\s*(["'])[^"']*global-program-title[^"']*\1[^>]*>([\s\S]*?)<\/div>/gi, '<h3>$2</h3>');
@@ -96,7 +96,8 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     tracksHeading:'', linkedPages:[], pathways: [], tabs: [], sections: [], accordions: [], faqs: [], facts: [], programs: [], recruiters: [], relatedPrograms: [], otherPrograms: [], students: [], placementStats: [], placementTagline: [], placementHref: '', banners: [], recognitions: [], video: apiMedia(take('videoSrc', 'videoURL')), videoPoster: apiMedia(take('videoPoster')), videoStats: [],
     schoolUrl: academicSlug(apiText(take('schoolUrl', 'schoolURL'))), schoolName: apiPlain(take('schoolName')), facultyIds: null,
     registrationLink: apiMedia(take('registrationLink')), prospectusUrl: apiMedia(take('prospectusURL', 'prospectus')),
-    metaTitle: apiPlain(take('meta_title', 'metaTitle')), metaDescription: apiPlain(take('meta_desc', 'metaDescription')) };
+    metaTitle: apiPlain(take('meta_title', 'metaTitle')), metaDescription: apiPlain(take('meta_desc', 'metaDescription')),
+    metaKeywords: apiPlain(take('meta_keywords', 'metaKeywords')), metaCanonical: apiPlain(take('meta_canonical', 'metaCanonical')) };
   if (kind === 'program') info.testimonials = academicTestimonialRecords(take('studentTestimonials', 'testimonials'));
   const readHtml = (value: unknown) => {
     const source = html(value);
@@ -361,6 +362,108 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
 }
 
 const cached = contentCache<AcademicInfo>();
+const ACADEMIC_CACHE_VERSION = 2;
+
+function academicCacheKey(kind: AcademicKind, slug: string, recordId: string): string {
+  return `dgu:academic-info:v${ACADEMIC_CACHE_VERSION}:${kind}:${encodeURIComponent(slug)}:${recordId || 'none'}`;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+function hasStringFields(value: unknown, fields: string[]): boolean {
+  return isRecord(value) && fields.every(field => typeof value[field] === 'string');
+}
+
+function isAcademicSchool(value: unknown): boolean {
+  return hasStringFields(value, ['id', 'title', 'href', 'url']) && isRecord(value) &&
+    Array.isArray(value.programs) && value.programs.every(program => hasStringFields(program, ['id', 'name', 'href']));
+}
+
+function isAcademicInfoFor(value: unknown, kind: AcademicKind, slug: string, recordId: string): value is AcademicInfo {
+  if (!isRecord(value) || value.kind !== kind || value.slug !== slug || typeof value.id !== 'string' ||
+      (recordId && value.id !== recordId) || typeof value.name !== 'string' || !value.name.trim()) return false;
+
+  const strings = [
+    'intro', 'banner', 'mobileBanner', 'tracksHeading', 'placementHref', 'video', 'videoPoster',
+    'schoolUrl', 'schoolName', 'registrationLink', 'prospectusUrl', 'metaTitle', 'metaDescription', 'metaKeywords', 'metaCanonical',
+  ];
+  if (!strings.every(field => typeof value[field] === 'string')) return false;
+
+  const recordArrays = [
+    'tracks', 'linkedPages', 'pathways', 'tabs', 'sections', 'accordions', 'faqs', 'facts',
+    'programs', 'recruiters', 'relatedPrograms', 'otherPrograms', 'students', 'banners', 'recognitions',
+  ];
+  if (!recordArrays.every(field => Array.isArray(value[field]) && (value[field] as unknown[]).every(isRecord))) return false;
+  if (value.programOptions !== undefined && (!Array.isArray(value.programOptions) || !value.programOptions.every(isRecord))) return false;
+  if (value.faculty !== undefined && (!Array.isArray(value.faculty) || !value.faculty.every(isRecord))) return false;
+  if (value.testimonials !== undefined && (!Array.isArray(value.testimonials) || !value.testimonials.every(isRecord))) return false;
+  if (value.facultyIds !== null && (!Array.isArray(value.facultyIds) || !value.facultyIds.every(item => typeof item === 'string'))) return false;
+  if (value.placementScopeVerified !== undefined && typeof value.placementScopeVerified !== 'boolean') return false;
+  if (!Array.isArray(value.placementStats) || !Array.isArray(value.placementTagline) || !Array.isArray(value.videoStats)) return false;
+
+  const sections = ['pathways', 'tabs', 'sections', 'accordions', 'programOptions'];
+  if (!sections.every(field => value[field] === undefined || (value[field] as unknown[]).every(item => hasStringFields(item, ['title', 'html'])))) return false;
+  if (!(value.tracks as unknown[]).every(item => hasStringFields(item, ['title', 'html']))) return false;
+  if (!(value.linkedPages as unknown[]).every(item => hasStringFields(item, ['title', 'url', 'html']))) return false;
+  if (!(value.faqs as unknown[]).every(item => hasStringFields(item, ['question', 'answer']))) return false;
+  if (!(value.facts as unknown[]).every(item => hasStringFields(item, ['label', 'value']))) return false;
+  if (!(value.recruiters as unknown[]).every(item => hasStringFields(item, ['id', 'name', 'image']))) return false;
+  if (!(value.relatedPrograms as unknown[]).every(item => hasStringFields(item, ['id', 'name', 'href']))) return false;
+  if (!(value.otherPrograms as unknown[]).every(item => hasStringFields(item, ['id', 'name', 'href']))) return false;
+  if (!(value.programs as unknown[]).every(isAcademicSchool)) return false;
+  if (!(value.students as unknown[]).every(item => hasStringFields(item, ['name', 'company', 'image']))) return false;
+  if (!(value.banners as unknown[]).every(item => hasStringFields(item, ['image', 'mobile', 'alt', 'href']))) return false;
+  if (!(value.recognitions as unknown[]).every(item => hasStringFields(item, ['image', 'alt']))) return false;
+  if (!(value.placementTagline as unknown[]).every(item => typeof item === 'string')) return false;
+  if (!(value.placementStats as unknown[]).every(item => Array.isArray(item) && item.length === 2 && item.every(part => typeof part === 'string'))) return false;
+  if (!(value.videoStats as unknown[]).every(item => Array.isArray(item) && item.length === 2 && item.every(part => typeof part === 'string'))) return false;
+
+  return true;
+}
+
+export function readCachedAcademicInfo(kind: AcademicKind, rawSlug: string, recordId = ''): AcademicInfo | null {
+  const slug = academicSlug(rawSlug);
+  if (kind !== 'program' || !slug || typeof window === 'undefined') return null;
+  const key = academicCacheKey(kind, slug, recordId);
+  let raw: string | null;
+  try {
+    raw = window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+  if (!raw) return null;
+  let entry: unknown;
+  try {
+    entry = JSON.parse(raw);
+  } catch {
+    try { window.localStorage.removeItem(key); } catch { /* Storage can be unavailable. */ }
+    return null;
+  }
+  try {
+    if (!isRecord(entry) || entry.version !== ACADEMIC_CACHE_VERSION || entry.kind !== kind ||
+        entry.slug !== slug || entry.recordId !== recordId || !isAcademicInfoFor(entry.info, kind, slug, recordId)) {
+      window.localStorage.removeItem(key);
+      return null;
+    }
+    return entry.info;
+  } catch {
+    return null;
+  }
+}
+
+function persistAcademicInfo(info: AcademicInfo, kind: AcademicKind, slug: string, recordId: string): void {
+  if (kind !== 'program' || typeof window === 'undefined' || !isAcademicInfoFor(info, kind, slug, recordId)) return;
+  try {
+    window.localStorage.setItem(academicCacheKey(kind, slug, recordId), JSON.stringify({
+      version: ACADEMIC_CACHE_VERSION, kind, slug, recordId, info,
+    }));
+  } catch {
+    // Storage can be unavailable or full; the live response remains usable.
+  }
+}
+
 export function requestAcademicInfo(kind: AcademicKind, rawSlug: string, recordId = ''): Promise<AcademicInfo> {
   const slug = academicSlug(rawSlug);
   if (!slug) return Promise.reject(new Error('A valid page URL is required.'));
@@ -380,7 +483,12 @@ export function requestAcademicInfo(kind: AcademicKind, rawSlug: string, recordI
         && !info.relatedPrograms.length && !info.otherPrograms.length && !info.faqs.length && !info.banner && !info.mobileBanner && !info.banners.length && !info.video) {
         throw new Error('The API returned no published programme content.');
       }
+      if (!isAcademicInfoFor(info, kind, slug, recordId)) throw new Error('The API returned information for a different page.');
       return info;
     } finally { clearTimeout(timeout); }
+  }).then(info => {
+    if (!isAcademicInfoFor(info, kind, slug, recordId)) throw new Error('The API returned information for a different page.');
+    persistAcademicInfo(info, kind, slug, recordId);
+    return info;
   });
 }

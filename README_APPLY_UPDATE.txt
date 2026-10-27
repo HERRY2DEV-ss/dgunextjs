@@ -11,7 +11,7 @@ and the updated placement of the school statistics.
 
 Run npm run build, then deploy the rebuilt frontend with your existing process.
 For the static site, deploy the generated out/ contents to the existing
-/nextjs/homev1/ location. No PHP changes are required for this placement update.
+/ location. No PHP changes are required for this placement update.
 
 RESULT
 The school page sequence is now:

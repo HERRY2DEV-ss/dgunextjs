@@ -1,8 +1,9 @@
-import { isAdvancedComputing, advancedComputingLayout } from './advanced-computing-layout';
+import { isAdvancedComputing, isAdvancedComputingAcademicPage, advancedComputingLayout } from './advanced-computing-layout';
 import { academicFlow } from './academic-content-flow';
 import { academicSectionKey } from './academic-section-key';
 import type { AcademicInfo, AcademicSection } from './academic-page-api';
 import { mergeAcademicBody } from './academic-html';
+import { academicFeaturePointCount, academicFeaturePresentation } from './academic-features';
 
 export type AcademicBlock = {
   kind: 'section' | 'tabs' | 'accordion' | 'industry' | 'laboratories' | 'tracks' | 'programs' | 'specializations' | 'other-programs' | 'placements' | 'international' | 'news' | 'faculty' | 'testimonials' | 'faqs' | 'video';
@@ -64,20 +65,51 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     blocks.splice(index, 0, { kind: 'section', title: '', sections: specifications });
     index++;
   }
-  // A guide or old CMS tab must not disable the common feature hover/dialog UI.
+  // Advanced Computing uses its API feature count to select waves or tabs.
   const featureKeys=new Set(['difference','features','pillars','global-difference']);
-  for(let index=0;index<blocks.length;index++){
-    const block=blocks[index];if(!['tabs','accordion'].includes(block.kind))continue;
-    const features=block.sections.filter(section=>featureKeys.has(academicSectionKey(section.title)));
-    if(features.length){block.sections=block.sections.filter(section=>!features.includes(section));blocks.splice(index+1,0,{kind:'section',title:'',sections:features});index++;}
+  const advancedComputingPage=isAdvancedComputingAcademicPage(info);
+  if(advancedComputingPage){
+    featureKeys.add('industry-aligned-curriculum');
+    const tabFeatures:AcademicSection[]=[];
+    for(const block of blocks){
+      const large=block.sections.filter(section=>featureKeys.has(academicSectionKey(section.title)) && academicFeaturePresentation(academicFeaturePointCount(section.html),7)==='tab');
+      if(!large.length)continue;
+      block.sections=block.sections.filter(section=>!large.includes(section));
+      tabFeatures.push(...large);
+    }
+    for(let index=0;index<blocks.length;index++){
+      const block=blocks[index];if(!['tabs','accordion'].includes(block.kind))continue;
+      const features=block.sections.filter(section=>featureKeys.has(academicSectionKey(section.title)));
+      if(features.length){block.sections=block.sections.filter(section=>!features.includes(section));blocks.splice(index+1,0,{kind:'section',title:'',sections:features});index++;}
+    }
+    if(tabFeatures.length){
+      let group=blocks.find(block=>block.kind==='tabs'&&block.sections.some(section=>['advantage','eligibility','fees','scholarship','structure','specification'].includes(academicSectionKey(section.title)))) || blocks.find(block=>block.kind==='tabs');
+      if(!group){group={kind:'tabs',title:'',sections:[]};const ending=blocks.findIndex(block=>['placements','international','news','faculty','faqs'].includes(block.kind));blocks.splice(ending<0?blocks.length:ending,0,group);}
+      const before=group.sections.findIndex(section=>['eligibility','fees','scholarship','structure','specification'].includes(academicSectionKey(section.title)));
+      group.sections.splice(before<0?group.sections.length:before,0,...tabFeatures);
+    }
+  } else {
+    for(let index=0;index<blocks.length;index++){
+      const block=blocks[index];if(!['tabs','accordion'].includes(block.kind))continue;
+      const features=block.sections.filter(section=>featureKeys.has(academicSectionKey(section.title)));
+      if(features.length){block.sections=block.sections.filter(section=>!features.includes(section));blocks.splice(index+1,0,{kind:'section',title:'',sections:features});index++;}
+    }
   }
   // Careers belong with admission/structure tabs on every school and programme.
   const careers:AcademicSection[]=[];
-  for(const block of blocks){block.sections=block.sections.filter(section=>{if(['careers','global-careers'].includes(academicSectionKey(section.title))){careers.push(section);return false;}return true;});}
+  for(const block of blocks){block.sections=block.sections.filter(section=>{
+    const key=academicSectionKey(section.title);
+    // Global MBA explicitly places "Where This MBA Can Take You" in its
+    // dedicated accordion group. Do not let the generic career-tab rule
+    // pull that API section out of the page-specific flow.
+    if(key==='global-careers' && info.slug==='dgu-global-mba')return true;
+    if(['careers','global-careers'].includes(key)){careers.push(section);return false;}
+    return true;
+  });}
   if(careers.length){
     let group=blocks.find(block=>block.kind==='tabs'&&block.sections.some(s=>['structure','eligibility','fees','scholarship','advantage'].includes(academicSectionKey(s.title)))) || blocks.find(block=>block.kind==='tabs');
     if(!group){group={kind:'tabs',title:'',sections:[]};const ending=blocks.findIndex(b=>['placements','international','news','faculty','faqs'].includes(b.kind));blocks.splice(ending<0?blocks.length:ending,0,group);}
-    group.sections.push(...careers);
+    group.sections.push(...(info.slug==='bcom' ? careers.map(section=>({...section,title:'Outcomes'})) : careers));
   }
   // Related specialization links use the same admission tab row and the same
   // three-card presentation as the parent Programme Specialization section.

@@ -41,7 +41,7 @@ export type GlobalLearningProps = {
   apiOnly?: boolean;
 };
 
-// The image folder is at the domain root, outside /nextjs/homev1/.
+// The image folder is at the domain root, outside /.
 const INTERNATIONAL_IMAGE_FOLDER = 'https://dgu.ac.in/images/university-logo/';
 
 const defaultPhotos: GlobalLearningPhoto[] = Array.from({ length: 14 }, (_, index) => ({

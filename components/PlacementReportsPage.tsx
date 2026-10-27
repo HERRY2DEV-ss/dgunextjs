@@ -9,7 +9,7 @@ import AdmissionsVideo from './AdmissionsVideo';
 import { PlacementCounter, usePlacementMotion } from './placement-motion';
 import data from './placement-page-data.json';
 import type { LocalPage } from './local-pages';
-import { SITE_BASE } from './site-routes';
+import { SITE_BASE, sitePath } from './site-base';
 import './placement-reports.css';
 
 const sectorYears = ['2026', '2025', '2024'] as const;
@@ -24,7 +24,7 @@ export function placementReportTables(source: string) {
 
 function PlacementImage({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   const [failed, setFailed] = useState(false);
-  return failed ? <span className={`placement-image-fallback ${className}`}>{alt}</span> : <img className={className} src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
+  return failed ? <span className={`placement-image-fallback ${className}`}>{alt}</span> : <img className={className} src={sitePath(src)} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
 }
 function StudentCard({ student }: { student: { name: string; company: string; image: string; logo?: string; artwork?: boolean } }) {
   return <article className={`placement-student${student.artwork ? ' placement-student--artwork' : ''}`}><div className="placement-student-photo"><PlacementImage src={student.image} alt={`${student.name} · ${student.company}`} /></div>{student.logo && <div className="placement-student-logo"><PlacementImage src={student.logo} alt={student.company} /></div>}<div className="placement-student-copy"><h3>{student.name}</h3><p>{student.company}</p></div></article>;
@@ -70,7 +70,7 @@ function PlacementReportsPageContent({ page }: { page: LocalPage }) {
       <div className="placement-content">
       <header className="placement-hero" id="placement" data-navigation-opening>
         <div className="placement-hero-title"><nav className="placement-visually-hidden" aria-label="Breadcrumb"><a href={`${SITE_BASE}/`}>Home</a> / <span aria-current="page">Placements</span></nav><h1>Placements</h1></div>
-        <div className="placement-hero-image" data-reveal><img src={data.design.hero} alt="DBS Global University campus and students. Begin your journey with a promising future." width="1644" height="528" fetchPriority="high" /></div>
+        <div className="placement-hero-image" data-reveal><img src={sitePath(data.design.hero)} alt="DBS Global University campus and students. Begin your journey with a promising future." width="1644" height="528" fetchPriority="high" /></div>
         <div className="placement-intro" data-reveal><p>“{data.quote}”</p>{data.quoteMore && <details><summary>Read more</summary><p>{data.quoteMore}</p></details>}</div>
       </header>
 

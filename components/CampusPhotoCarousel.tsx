@@ -1,11 +1,13 @@
 'use client';
+import { sitePath } from './site-base';
+
 
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 
 type Photo = readonly [image: string, alt: string];
 type Variant = 'celeb' | 'fest' | 'clubs' | 'hostel' | 'tour' | 'logos';
 type Pose = { left: number; width: number; height: number; depth: number; taper: number };
-const ASSETS = '/nextjs/homev1/assets/campus/';
+const ASSETS = sitePath('/assets/campus/');
 const wrap = (index: number, count: number) => ((index % count) + count) % count;
 
 function frames(variant: Variant, mobile: boolean): Pose[] {

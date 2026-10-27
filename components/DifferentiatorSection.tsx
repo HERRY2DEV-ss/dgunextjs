@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 
 import { resolveSiteHref } from './site-routes';
 
@@ -95,11 +97,11 @@ export default function DifferentiatorSection({
   const mobilePath = fitPoints ? fittedMobile : mobilePaths[variant];
   const titleId = `${id}-title`;
 
-  // The static export is hosted at /nextjs/homev1. Legacy school data uses icon
+  // The static export is hosted at . Legacy school data uses icon
   // filenames which are absent from public/assets/svg; reuse the real 1–6 SVGs.
   const iconSrc = (icon: string, index: number) => {
     if (/\/(innovative-pedagogy|new-curriculums|future-skill-programs|certified-trainings)\.svg$/.test(icon)) {
-      return `/nextjs/homev1/assets/svg/${index + 1}.svg`;
+      return sitePath(`/assets/svg/${index + 1}.svg`);
     }
     return icon;
   };

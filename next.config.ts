@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   turbopack: { root: __dirname },
   ...(!isDevelopment ? { output: 'export' as const } : {}),
   images: { unoptimized: true },
-  basePath: '/nextjs/homev1',
+  basePath: isDevelopment ? '' : '',
   trailingSlash: true,
   ...(isDevelopment ? {
     async rewrites() {

@@ -25,7 +25,7 @@ async function check(mode){
     assert.equal((await academic.requestAcademicInfo('program',slug,id)).id,id);
     const call=calls.at(-1);
     assert.deepEqual(JSON.parse(call.options.body),{PROGRAM_URL:slug});
-    assert.equal(call.url,mode==='development'?'/nextjs/homev1/api/dgu-program-info/':'https://dgu.ac.in/api/get-program-info.php');
+    assert.equal(call.url,mode==='development'?'/api/dgu-program-info/':'https://dgu.ac.in/api/get-program-info.php');
     await legacy.requestProgramInfo(slug);
     await content.postContent('program',{PROGRAM_URL:slug});
   }
@@ -35,7 +35,7 @@ async function check(mode){
   const call=calls.at(-1);
   assert.deepEqual(JSON.parse(call.options.body),{SCHOOL_URL:'school-of-law'});
   assert.equal(call.options.headers.Apikey,'test-key','School keeps its shared key');
-  assert.equal(call.url,mode==='development'?'/nextjs/homev1/api/dgu-school-info/':'https://dgu.ac.in/api/get-school-info.php');
+  assert.equal(call.url,mode==='development'?'/api/dgu-school-info/':'https://dgu.ac.in/api/get-school-info.php');
 }
 function removal(){
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'dgu-program-cleanup-'));

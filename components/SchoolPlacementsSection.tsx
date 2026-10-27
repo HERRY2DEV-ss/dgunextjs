@@ -56,15 +56,15 @@ export default function SchoolPlacementsSection({
   const section = feed.data?.sections[0];
 
   const rawApiDescription = feed.data?.sections.map(item => item.description).filter(Boolean).join('\n');
-  const cleanDescription = (rawApiDescription || contentHtml || suppliedPlacement?.description || DEFAULT_STATIC_DESCRIPTION)
+  const cleanDescription = (fromApi ? (rawApiDescription || contentHtml || '') : (contentHtml || suppliedPlacement?.description || DEFAULT_STATIC_DESCRIPTION))
     .replaceAll('&amp;', '&');
 
   const placement = fromApi ? {
     title: (section?.title || suppliedPlacement?.title || 'PLACEMENTS').toUpperCase(),
-    tagline: section?.tagline?.length ? section.tagline : (suppliedPlacement?.tagline?.length ? suppliedPlacement.tagline : DEFAULT_STATIC_TAGLINE),
+    tagline: section?.tagline || [],
     description: cleanDescription,
-    students: feed.data?.students?.length ? feed.data.students : (suppliedPlacement?.students || []),
-    stats: section?.stats?.length ? section.stats : (suppliedPlacement?.stats?.length ? suppliedPlacement.stats : DEFAULT_STATIC_STATS),
+    students: feed.data?.students || [],
+    stats: section?.stats || [],
   } : suppliedPlacement || {
     title: 'PLACEMENTS',
     tagline: DEFAULT_STATIC_TAGLINE,
@@ -78,7 +78,7 @@ export default function SchoolPlacementsSection({
   const [openProfile, setOpenProfile] = useState<string | null>(null);
   const copy = useMemo(() => academicPlacementCopy(source, target), [source, target]);
   const hasCopy = !!apiPlain(copy.html) || /<(img|table)\b/i.test(copy.html);
-  const mediaOnly = !homepageCopy && !hasCopy && placement.tagline.length === 0 && placement.stats.length === 0 && !copy.href;
+  const mediaOnly = !homepageCopy && placement.students.length > 0 && !hasCopy && placement.tagline.length === 0 && placement.stats.length === 0 && !copy.href;
 
   if (targetUrl === null) return null;
 
@@ -92,7 +92,7 @@ export default function SchoolPlacementsSection({
       {mediaOnly && <h2 id="school-placements-title">{placement.title}</h2>}
       <div className="placement-overview">
         <div className={`outcome-panel-content outcome-placement${placement.students.length === 0 && !homepageCopy ? ' school-placement-copy-only' : ''}`}>
-          {fromApi && !placement.students.length && feed.status === 'error' && <PlacementsFeedback state={feed} />}
+          {fromApi && !placement.students.length && <PlacementsFeedback state={feed} />}
           {placement.students.length > 0 && (
             <BatchSlider
               className="placement-media-slider"
@@ -115,7 +115,7 @@ export default function SchoolPlacementsSection({
                     key={key} 
                     student={{
                       id: student.id || '',
-                      name: student.name || 'DGU Student',
+                      name: student.name || '',
                       company: student.company || '',
                       image: student.image || '',
                       description: student.description || '',

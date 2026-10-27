@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { requestAcademicInfo, type AcademicInfo } from './academic-page-api';
+import { readCachedAcademicInfo, requestAcademicInfo, type AcademicInfo } from './academic-page-api';
 import type { SchoolProgram } from './programs-api';
 
 /** MBA's live specialization array is the explicit parent/child relationship.
@@ -14,11 +14,26 @@ export default function useOtherSpecializations(info: AcademicInfo | null) {
   useEffect(() => {
     if (!eligible || !recordId) return;
     let active = true;
+    const relatedItems = (parent: AcademicInfo) => parent.relatedPrograms.some(program => program.id === recordId)
+      ? parent.relatedPrograms.filter(program => program.id !== recordId)
+      : [];
+    const cachedParent = readCachedAcademicInfo('program', 'mba', '10');
+    if (cachedParent) {
+      Promise.resolve().then(() => {
+        if (active) setState(previous => ({
+          scope,
+          items: previous.scope === scope && previous.items.length ? previous.items : relatedItems(cachedParent),
+          error: false,
+        }));
+      });
+    }
     requestAcademicInfo('program', 'mba', '10').then(parent => {
-      const related = parent.relatedPrograms.some(program => program.id === recordId);
-      const items = related ? parent.relatedPrograms.filter(program => program.id !== recordId) : [];
-      if (active) setState({ scope, items, error: false });
-    }).catch(() => { if (active) setState({ scope, items: [], error: true }); });
+      if (active) setState({ scope, items: relatedItems(parent), error: false });
+    }).catch(() => {
+      if (active) setState(previous => previous.scope === scope && previous.items.length
+        ? { ...previous, error: false }
+        : { scope, items: [], error: true });
+    });
     return () => { active = false; };
   }, [eligible, recordId, scope]);
   const current = state.scope === scope;

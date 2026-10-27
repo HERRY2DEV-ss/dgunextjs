@@ -1,6 +1,7 @@
 /** Shared transport for the Reviews and Program Info feeds. */
 import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
 import { PROGRAM_DETAILS_ENABLED, ProgramDetailsPausedError } from './program-detail-policy';
+import { sitePath } from './site-base';
 export type ApiRecord = Record<string, unknown>;
 export const apiRecord = (value: unknown): ApiRecord | null =>
   value && typeof value === 'object' && !Array.isArray(value) ? value as ApiRecord : null;
@@ -34,6 +35,22 @@ export function apiPlain(value: unknown): string {
       return point > 0 && point <= 0x10ffff ? String.fromCodePoint(point) : entity;
     }).replace(/\s+/g, ' ').trim();
 }
+export function apiLayoutClasses(value: string): string[] {
+  const layoutClasses: Record<string, string> = {
+    'badge-row': 'dgu-api-badges', badge: 'dgu-api-badge', tags: 'dgu-api-badges', tag: 'dgu-api-badge',
+    actions: 'dgu-api-actions', metrics: 'dgu-api-metrics', met: 'dgu-api-metric',
+    'met-n': 'dgu-api-metric-value', 'met-l': 'dgu-api-metric-label',
+    'industry-collab-main': 'dgu-api-logo-groups', 'industry-collab': 'dgu-api-logo-group',
+    'industry-collab-img-box-main': 'dgu-api-logo-row', 'industry-collab-img-box': 'dgu-api-logo',
+    row: 'dgu-api-row', 'text-center': 'dgu-api-text-center', 'text-justify': 'dgu-api-text-justify',
+  };
+  const classes = value.split(/\s+/).flatMap(name => {
+    if (layoutClasses[name]) return [layoutClasses[name]];
+    const column = /^col-(sm|md|lg)-(3|4|5|6|7|12)$/.exec(name);
+    return column ? [`dgu-api-col-${column[1]}-${column[2]}`] : [];
+  });
+  return [...new Set(classes)];
+}
 export function apiMedia(value: unknown): string {
   const raw = apiText(value);
   if (!raw) return '';
@@ -41,7 +58,7 @@ export function apiMedia(value: unknown): string {
     const url = new URL(raw, 'https://dgu.ac.in/');
     if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return '';
     if (['dgu.ac.in', 'www.dgu.ac.in'].includes(url.hostname)) url.pathname = url.pathname.replace(/\/{2,}/g, '/');
-    return url.href;
+    return sitePath(url.href);
   } catch { return ''; }
 }
 export function apiData(payload: unknown, aliases: string[]): unknown {

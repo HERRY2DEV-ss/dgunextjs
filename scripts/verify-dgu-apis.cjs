@@ -19,6 +19,14 @@ function load(file) {
   loaded.set(file,module.exports);return module.exports;
 }
 function normalizedData(name, json, body) {
+  if(name.startsWith('academic-program-')){
+    const info=load('components/academic-page-api.ts').parseAcademicInfo(json,'program',body.PROGRAM_URL);
+    return{slug:info.slug,recordId:info.id,namePresent:!!info.name,metaTitle:info.metaTitle,metaDescription:info.metaDescription,metaKeywords:info.metaKeywords,metaCanonical:info.metaCanonical};
+  }
+  if(name.startsWith('academic-school-')){
+    const info=load('components/academic-page-api.ts').parseAcademicInfo(json,'school',body.SCHOOL_URL);
+    return{slug:info.slug,recordId:info.id,namePresent:!!info.name,metaTitle:info.metaTitle,metaDescription:info.metaDescription,metaKeywords:info.metaKeywords,metaCanonical:info.metaCanonical};
+  }
   if(name==='reviews')return{uniqueReviews:load('components/reviews-api.ts').parseReviews(json).length};
   if(name.startsWith('programs-')){const schools=load('components/programs-api.ts').parsePrograms(json,body.SCHOOL_URL || '');return{schools:schools.length,programs:schools.reduce((sum,school)=>sum+school.programs.length,0)};}
   if(name.startsWith('program-')){const info=load('components/program-info-api.ts').parseProgramInfo(json,body.PROGRAM_URL);return{overview:!!info.overviewHtml,eligibility:!!info.eligibilityHtml,fees:!!info.feesHtml,international:!!info.internationalHtml,unmappedFields:info.unmappedFields};}
@@ -33,6 +41,10 @@ const checks = [
   ['faculty-law', 'get-faculty.php', { SCHOOL_URL: 'school-of-law' }, environment.NEXT_PUBLIC_DGU_FACULTY_API_KEY || shared],
   ['faculty-profile', 'get-faculty.php', { URL: 'mohit-aggarwal' }, environment.NEXT_PUBLIC_DGU_FACULTY_API_KEY || shared],
   ['reviews', 'get-reviews.php', {}, environment.NEXT_PUBLIC_DGU_REVIEWS_API_KEY || shared],
+  ['academic-program-bcom', 'get-program-info.php', { PROGRAM_URL: 'bcom' }, environment.NEXT_PUBLIC_DGU_PROGRAM_INFO_API_KEY || shared],
+  ['academic-program-bba-mba', 'get-program-info.php', { PROGRAM_URL: 'bba-mba-integrated' }, environment.NEXT_PUBLIC_DGU_PROGRAM_INFO_API_KEY || shared],
+  ['academic-program-global-mba', 'get-program-info.php', { PROGRAM_URL: 'dgu-global-mba' }, environment.NEXT_PUBLIC_DGU_PROGRAM_INFO_API_KEY || shared],
+  ['academic-school-business', 'get-school-info.php', { SCHOOL_URL: 'school-of-business' }, environment.NEXT_PUBLIC_DGU_MENU_API_KEY],
   ['news', 'get-news.php', { CATEGORY_ID: '3' }, shared], ['footer', 'get-footer.php', {}, shared],
 ];
 async function check([name, path, body, key]) {

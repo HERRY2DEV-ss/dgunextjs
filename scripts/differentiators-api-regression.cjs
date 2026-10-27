@@ -56,7 +56,7 @@ function environment(nodeEnv = 'production') {
   assert.equal(call.options.headers.Apikey, 'test-only-key');
   assert.equal(call.options.headers['Content-Type'], 'application/json');
   const dev = environment('development'); dev.mode('ok'); await dev.api.requestDifferentiators();
-  assert.equal(dev.calls[0].url, '/nextjs/homev1/api/dgu-differentiators/');
+  assert.equal(dev.calls[0].url, '/api/dgu-differentiators/');
   const local = environment(); local.mode('ok'); local.env.NEXT_PUBLIC_DGU_API_BASE_URL = 'http://127.0.0.1:8080/api';
   await local.api.requestDifferentiators(); assert.equal(local.calls[0].url, 'http://127.0.0.1:8080/api/get-differentiators.php');
   const missingKey = environment(); delete missingKey.env.NEXT_PUBLIC_DGU_MENU_API_KEY;

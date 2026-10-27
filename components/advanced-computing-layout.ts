@@ -7,6 +7,27 @@ export function isAdvancedComputing(info: AcademicInfo) {
   return info.kind === 'school' && info.slug === 'school-of-technology';
 }
 
+const advancedComputingProgramSlugs = new Set([
+  'btech',
+  'btech-cse-with-minor',
+  'btech-cse-with-spe-in-ai-and-ml-with-minor',
+  'bca-with-specialization',
+  'btech-cse-with-spe-in-ai-and-ml-hcl',
+  'btech-cse-with-spe-in-cyber-security-hcl',
+  'btech-cse-with-spe-in-data-science-hcl',
+  'integrated-btech-mba',
+  'integrated-btech-mtech',
+  'mtech',
+  'mca',
+  'btech-cse-in-quantum-computing-with-minor',
+  'btech-cse-lateral-entry',
+]);
+
+export function isAdvancedComputingAcademicPage(info: AcademicInfo) {
+  return isAdvancedComputing(info) || info.kind === 'program' &&
+    (info.schoolUrl === 'school-of-technology' || advancedComputingProgramSlugs.has(info.slug));
+}
+
 export function advancedComputingContent(info: AcademicInfo) {
   if (typeof DOMParser === 'undefined') return { intro: info.intro, highlights: '' };
   const doc = new DOMParser().parseFromString(info.intro, 'text/html');
@@ -36,17 +57,16 @@ export function advancedComputingLayout(info: AcademicInfo): AcademicBlock[] {
     });
     return { ...section, html: doc.body.innerHTML };
   });
-  const placements = take(['placements']);
   const labs = take(['laboratories']);
   const industry = take(['industry', 'co-designed', 'co-delivered', 'co-certified', 'industry-benefits']);
+  const placements = take(['placements']);
   const international = take(['international']);
   const reserved = take(['faculty', 'news', 'faqs']);
   const join = (parts: AcademicSection[]) => parts.map(section => `<h3>${section.title.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</h3>${section.html}`).join('');
   const blocks: AcademicBlock[] = [
-    { kind: 'tabs', title: '', sections: [...highlights, ...options] },
     { kind: 'programs', title: 'OUR PROGRAMS', sections: [] },
+    { kind: 'tabs', title: '', sections: [...highlights, ...options] },
     { kind: 'section', title: '', sections: difference.map(section => ({ ...section, title: 'What Makes Us Different' })) },
-    { kind: 'placements', title: 'Placements', sections: placements },
     { kind: 'tabs', title: '', sections: [
       ...(labs.length ? [{ title: 'State-of-the-Art Infrastructure & Labs', html: join(labs) }] : []),
       ...(industry.length ? [{ title: 'Curriculum and Industry Integration', html: join(industry) }] : []),
@@ -55,9 +75,10 @@ export function advancedComputingLayout(info: AcademicInfo): AcademicBlock[] {
   // Keep additional published content without changing any other school's guide.
   const remaining = sections.filter(section => !used.has(section));
   if (remaining.length) blocks.push({ kind: 'section', title: '', sections: remaining });
-  if (international.length) blocks.push({ kind: 'international', title: international[0].title, sections: international });
+  blocks.push({ kind: 'placements', title: 'Placements', sections: placements });
   blocks.push({ kind: 'faculty', title: 'Faculty', sections: reserved.filter(s => academicSectionKey(s.title) === 'faculty') });
   blocks.push({ kind: 'news', title: 'News', sections: [] });
+  if (international.length) blocks.push({ kind: 'international', title: international[0].title, sections: international });
   if (info.faqs.length) blocks.push({ kind: 'faqs', title: 'FAQs', sections: [] });
   return blocks.filter(block => !['tabs', 'section'].includes(block.kind) || block.sections.length);
 }

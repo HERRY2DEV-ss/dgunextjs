@@ -150,7 +150,7 @@
 .school-intro-extra > div p {
   margin: 0 0 10px;
   color: #45434a;
-  font-size: clamp(14px, 1vw, 18px);
+  font-size: 20px;
   line-height: 1.5;
 }
 .school-intro-extra .expandable-toggle {

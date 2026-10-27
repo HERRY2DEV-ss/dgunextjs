@@ -3,6 +3,20 @@ import { splitAcademicContent } from './academic-page-api';
 
 export type AcademicFeature = { title: string; description: string; html: string };
 
+export function academicFeaturePresentation(pointCount: number, tabThreshold = 6): 'wave' | 'tab' {
+  return pointCount >= tabThreshold ? 'tab' : 'wave';
+}
+
+/** Count feature records during layout as well as in the browser parser. */
+export function academicFeaturePointCount(source: string): number {
+  if (typeof DOMParser !== 'undefined') return academicFeatures(source).points.length;
+  return (source.match(/<li\b/gi) || []).length;
+}
+
+export function academicFeatureAccordionSections(points: readonly AcademicFeature[]) {
+  return points.map(point => ({ title: point.title, html: point.html }));
+}
+
 /** Keep each CMS feature's own detail, and retain copy outside its list. */
 export function academicFeatures(source: string): { points: AcademicFeature[]; remaining: string } {
   if (typeof DOMParser === 'undefined') return { points: [], remaining: source };

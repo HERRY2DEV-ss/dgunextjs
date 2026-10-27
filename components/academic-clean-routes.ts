@@ -23,6 +23,7 @@ export function academicHref(kind: Kind, slug: string, rawId: string | number = 
   }
   const route=id ? academicCanonicalPrograms[id] : primaryRoute(slug);
   if (route && academicProgramRoutes[route]===slug) return `${SITE_BASE}/programs/${route}/`;
+  if (id) return `${SITE_BASE}/programs/${slug}/${id}/`;
   // Future CMS records use the same shell via the scoped static-host rewrite.
   return `${SITE_BASE}/programs/${slug}/`;
 }

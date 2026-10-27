@@ -31,7 +31,7 @@ export function liveDguApiUrl(feed: DguFeed, override = ''): string {
 
 export function clientDguApiUrl(feed: DguFeed, override = ''): string {
   return process.env.NODE_ENV === 'development'
-    ? `/nextjs/homev1/api/dgu-${feed}/`
+    ? `/api/dgu-${feed}/`
     : liveDguApiUrl(feed, override);
 }
 
@@ -51,7 +51,9 @@ export async function readDguApiJson(response: Response, label = 'DGU API'): Pro
     catch { throw new DguApiResponseError(`${label} returned invalid JSON.`, 'invalid-json', response.status); }
   }
   const body = await response.text();
-  try { return JSON.parse(body.replace(/^\uFEFF/, '')) as unknown; }
+  const normalized = body.replace(/^\uFEFF/, '');
+  if (!normalized.trim()) throw new DguApiResponseError(`${label} returned an empty response.`, 'invalid-json', response.status);
+  try { return JSON.parse(normalized) as unknown; }
   catch {
     const missing = /(?:<title[^>]*>[^<]*(?:404|page not found)|<h[1-6][^>]*>\s*404)/i.test(body);
     throw new DguApiResponseError(missing

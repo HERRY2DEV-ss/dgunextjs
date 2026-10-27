@@ -1,4 +1,6 @@
 'use client';
+import { sitePath } from './site-base';
+
 
 import { useEffect, useRef, useState } from 'react';
 import { requestFooter, type FooterData, type FooterGroup } from './footer-api';
@@ -42,7 +44,7 @@ export default function SiteFooter() {
   const columns = data?.groups.slice(1) || [];
   return (
     <footer ref={root} aria-busy={status === 'loading'} className="site-footer" id="contact"><div className="footer-inner content-width">
-      <div className="footer-contact"><a href="/nextjs/homev1/"><img className="footer-logo" src="/nextjs/homev1/assets/dgu_logo_svg2.svg" alt="DBS Global University" width="452" height="132" loading="lazy" /></a>{data?.contacts.map((contact, index) => <address key={index}><strong>Visit Us</strong>{contact.campusAddress && <><span>Campus</span><p style={{ whiteSpace: 'pre-line' }}>{contact.campusAddress}</p></>}{contact.cityAddress && <><span>City Office</span><p style={{ whiteSpace: 'pre-line' }}>{contact.cityAddress}</p></>}{contact.mobileNo && <a href={`tel:${contact.mobileNo.replace(/[^+\d]/g, '')}`}>{contact.mobileNo}</a>}{contact.emailID && <a href={`mailto:${contact.emailID}`}>{contact.emailID}</a>}</address>)}{(data?.social.length || 0)>0 && <p className="follow-us">Follow Us: <span className="footer-social-icons" aria-label="Social channels">{data?.social.map(item=><a key={item.name} href={item.href} aria-label={item.name} target="_blank" rel="noopener noreferrer"><SocialIcon name={item.name}/></a>)}</span></p>}</div>
+      <div className="footer-contact"><a href={sitePath("/")}><img className="footer-logo" src={sitePath("/assets/dgu_logo_svg2.svg")} alt="DBS Global University" width="452" height="132" loading="lazy" /></a>{data?.contacts.map((contact, index) => <address key={index}><strong>Visit Us</strong>{contact.campusAddress && <><span>Campus</span><p style={{ whiteSpace: 'pre-line' }}>{contact.campusAddress}</p></>}{contact.cityAddress && <><span>City Office</span><p style={{ whiteSpace: 'pre-line' }}>{contact.cityAddress}</p></>}{contact.mobileNo && <a href={`tel:${contact.mobileNo.replace(/[^+\d]/g, '')}`}>{contact.mobileNo}</a>}{contact.emailID && <a href={`mailto:${contact.emailID}`}>{contact.emailID}</a>}</address>)}{(data?.social.length || 0)>0 && <p className="follow-us">Follow Us: <span className="footer-social-icons" aria-label="Social channels">{data?.social.map(item=><a key={item.name} href={item.href} aria-label={item.name} target="_blank" rel="noopener noreferrer"><SocialIcon name={item.name}/></a>)}</span></p>}</div>
       <div className="footer-quick">
         {status === 'loading' ? <p role="status">Loading footer…</p> : status === 'error' ? <div role="status"><p>Footer information is temporarily unavailable.</p><button type="button" className="text-link" onClick={load}>Try again</button></div> : first ? <LinkGroup group={first} /> : <p>No footer links available.</p>}
       </div>

@@ -19,7 +19,7 @@ function load(env) {
   for(const [feed,file] of Object.entries(feeds)) {
     assert.equal(original.clientDguApiUrl(feed),'https://dgu.ac.in/api/'+file);checks++;
     assert.equal(local.clientDguApiUrl(feed),'http://127.0.0.1:8001/'+file);checks++;
-    assert.equal(dev.clientDguApiUrl(feed),'/nextjs/homev1/api/dgu-'+feed+'/');checks++;
+    assert.equal(dev.clientDguApiUrl(feed),'/api/dgu-'+feed+'/');checks++;
   }
   assert.equal(local.liveDguApiUrl('menus','https://dgu.ac.in/api/get-menus.php'),'http://127.0.0.1:8001/get-menus.php');checks++;
   assert.equal(local.liveDguApiUrl('reviews','https://dgu.ac.in/api/custom-reviews.php'),'https://dgu.ac.in/api/custom-reviews.php');checks++;
@@ -30,6 +30,8 @@ function load(env) {
   assert.equal(good.data[0].programName,'Law');checks++;
   const bom = await original.readDguApiJson(new Response('\uFEFF{"error":0,"data":[]}'));
   assert.equal(bom.error,0);checks++;
+  await assert.rejects(original.readDguApiJson(new Response('')),
+    error=>error.reason==='invalid-json' && error.httpStatus===200 && /empty response/i.test(error.message));checks++;
   await assert.rejects(original.readDguApiJson(new Response('<!DOCTYPE html><title>404 – Page Not Found | DBS Global University</title>',{status:200})),error=>error.reason==='endpoint-missing' && error.httpStatus===200);checks++;
   await assert.rejects(original.readDguApiJson(new Response('<html>Unexpected website response</html>',{status:200})),error=>error.reason==='invalid-json');checks++;
   await assert.rejects(original.readDguApiJson(new Response('not allowed',{status:401})),error=>error.reason==='http' && error.httpStatus===401);checks++;

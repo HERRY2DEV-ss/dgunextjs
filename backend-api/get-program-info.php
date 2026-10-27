@@ -3,14 +3,21 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With, Apikey");
 $json = trim(file_get_contents('php://input'));
-define("APIKEY", "e33af7151e5cce3e14fff44c544e3c9fb9e0bece8a8d3ede63df4598012153e1");
+$configuredApiKey = getenv('DGU_PROGRAM_INFO_API_KEY');
+if (!is_string($configuredApiKey) || trim($configuredApiKey) === '') {
+    http_response_code(503);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(array('Result' => 'Error', 'message' => 'Programme API is not configured.', 'data' => null));
+    exit;
+}
+define('APIKEY', trim($configuredApiKey));
 
 $headers = apache_request_headers();
 //print_r($headers);
 $json_decode = json_decode($json, true);
 $postApiKey = preg_replace('/[^a-zA-Z0-9]/', '', trim($headers['Apikey']));
 $programURL = trim( $json_decode['PROGRAM_URL'] );
-if( $postApiKey != "" && $postApiKey == APIKEY )
+if( $postApiKey !== "" && hash_equals(APIKEY, $postApiKey) )
 {
     get_programs_info($programURL);
 }

@@ -2,7 +2,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('ass
 const modules=new Map();
 function load(file){let resolved=path.resolve(file);if(!path.extname(resolved))resolved+=fs.existsSync(resolved+'.ts')?'.ts':'.tsx';if(modules.has(resolved))return modules.get(resolved);const module={exports:{}};modules.set(resolved,module.exports);vm.runInNewContext(ts.transpileModule(fs.readFileSync(resolved,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX}}).outputText,{module,exports:module.exports,URL,AbortController,Date,setTimeout,clearTimeout,process:{env:{NODE_ENV:'production'}},require:name=>name.startsWith('.')?load(path.resolve(path.dirname(resolved),name)):require(name)});return module.exports;}
 const brand=load('components/useAcademicBrand'),api=load('components/academic-page-api'),news=load('components/news-detail-api');
-const business=[{id:'10',href:'/nextjs/homev1/programs/mba/'},{id:'2',href:'/nextjs/homev1/programs/bba/'}];
+const business=[{id:'10',href:'/programs/mba/'},{id:'2',href:'/programs/bba/'}];
 assert.equal(brand.isBusinessProgram({id:'10',slug:'mba'},business),true);
 assert.equal(brand.isBusinessProgram({id:'44',slug:'bpharm'},business),false);
 assert.equal(brand.isBusinessProgram({id:'32',slug:'mba-agri-business'},business),false,'MBA prefix never selects branding');

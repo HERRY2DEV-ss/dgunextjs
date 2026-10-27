@@ -1,3 +1,4 @@
+import { sitePath } from '../../components/site-base';
 import type { Metadata } from 'next';
 import LocalPageShell from '../../components/LocalPageShell';
 import FacultyDirectory from '../../components/FacultyDirectory';
@@ -15,7 +16,7 @@ export default function FacultiesPage() {
       <header className="faculty-intro">
         <h1>LEADERSHIP &amp; FACULTY</h1>
       </header>
-      <div className="faculty-wordcloud" data-navigation-opening><img src="/nextjs/homev1/assets/faculty/learn-from-best.png" alt="Learn from the best: expertise, guidance, experience, leadership, knowledge and research" width={1632} height={520} fetchPriority="high" /></div>
+      <div className="faculty-wordcloud" data-navigation-opening><img src={sitePath("/assets/faculty/learn-from-best.png")} alt="Learn from the best: expertise, guidance, experience, leadership, knowledge and research" width={1632} height={520} fetchPriority="high" /></div>
       <FacultyDirectory />
     </main>
   </LocalPageShell>;
