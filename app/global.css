@@ -3753,3 +3753,43 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
     line-height: 1.3;
   }
 }
+
+
+/* Mobile-only homepage refinements: programme cards and placement controls. */
+@media (max-width: 600px) {
+  .schools-section .program-card:not(.program-card--specialization) h2,
+  .schools-section .program-card:not(.program-card--specialization) .program-school-heading-link {
+    font-size: 23px;
+    line-height: 1.2;
+  }
+  .schools-section .program-card:not(.program-card--specialization) .program-name strong {
+    font-size: 21px;
+    line-height: 1.25;
+  }
+  .placements-section > .outcomes-tabs {
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.55fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 5px;
+    width: 100%;
+  }
+  .placements-section > .outcomes-tabs .outcomes-tab {
+    min-width: 0;
+    padding: 8px 2px 10px;
+    font-size: clamp(11px, 3.1vw, 14px);
+    line-height: 1.18;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .placements-section .batch-controls button {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    font-size: 16px;
+  }
+  .placements-section .batch-controls {
+    gap: 7px;
+  }
+}
