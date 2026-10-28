@@ -24,7 +24,7 @@ function newsHeroCopy(title: string) {
   const year = /^(.*?\b(?:19|20)\d{2})\s+(.+)$/.exec(clean);
   if (year) return { heroTitle: year[1].trim(), heroDescription: year[2].trim() };
   const words = clean.split(' ');
-  if (words.length > 5) return { heroTitle: words.slice(0, 4).join(' '), heroDescription: words.slice(4).join(' ') };
+  if (words.length > 3) return { heroTitle: words.slice(0, 3).join(' '), heroDescription: words.slice(3).join(' ') };
   return { heroTitle: clean, heroDescription: '' };
 }
 
