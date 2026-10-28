@@ -367,7 +367,8 @@
     padding: 18px 20px 22px;
     background: #100e18;
   }
-  .newsVariant .caption h1 { font-size: clamp(24px, 7vw, 34px) !important; }
+  .newsVariant .caption h1 { font-size: clamp(28px, 8vw, 42px) !important; line-height: 1.04; }
+  .newsVariant .caption h1 .titleEmphasis { font-size: .68em; line-height: 1.05; }
   .newsVariant .date { margin-bottom: 8px; }
   .newsVariant .description { margin-top: 6px; font-size: 13px; }
   .newsVariant .thumbnails { right: 12px; bottom: 42px; left: auto; width: 52%; max-width: 52%; justify-content: flex-end; gap: 6px; }
