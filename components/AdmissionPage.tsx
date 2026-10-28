@@ -120,8 +120,8 @@ function AdmissionPageContent() {
           {state.status === 'error' && <button type="button" className="text-link" onClick={load}>Try again</button>}
         </div> : <>
           <section className={`admissions-opening${data.banner ? '' : ' admissions-opening--no-banner'}`} id="home" aria-labelledby="admissions-title">
-            <h1 id="admissions-title">{data.title}</h1>
             {data.banner && <div className="admissions-banner"><img src={data.banner} width="1105" height="352" alt={data.title} /></div>}
+            <h1 id="admissions-title">{data.title}</h1>
             {data.intro && <ApiRichText className="admissions-intro admissions-rich-copy" html={data.intro} />}
           </section>
           {(data.processTitle || data.feeTitle || data.resources.length || data.commencement) && <nav className="admissions-section-links" aria-label="Admissions resources">
