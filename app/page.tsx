@@ -24,11 +24,11 @@ import { requestHomepageData, type HomepageData } from '../components/homepage-a
 import usePlacements from '../components/usePlacements';
 import PlacementStudentCard from '../components/PlacementStudentCard';
 import PlacementsFeedback from '../components/PlacementsFeedback';
-import AnimatedHeroSlider from '../components/AnimatedHeroSlider';
-import type { HeroSlide } from '../components/AnimatedHeroSlider';
+import HomepageTimedCardsSlider from '../components/HomepageTimedCardsSlider';
+import type { HomepageCardSlide } from '../components/HomepageTimedCardsSlider';
 
 const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
-const homepageHeroSlides: HeroSlide[] = [
+const homepageHeroSlides: HomepageCardSlide[] = [
   { image: 'https://dgu.ac.in/oldv1/images/slides/banner1.jpg', alt: 'DBS Global University banner 1' },
   { image: 'https://dgu.ac.in/oldv1/images/slides/banner4.jpg', alt: 'DBS Global University banner 4' },
   { image: 'https://dgu.ac.in/oldv1/images/slides/banner7.jpg', alt: 'DBS Global University banner 7' },
@@ -114,8 +114,7 @@ export default function Home() {
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
       <link rel="preload" as="image" href={homepageHeroSlides[0].image} fetchPriority="high" />
-      <AnimatedHeroSlider className="homepageHeroSlider" variant="home" aspectRatio="1920 / 708"
-        slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={5200} />
+      <HomepageTimedCardsSlider slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={5200} />
       <Navigation onOpenChange={setMenuOpen} />
     </header>
 
