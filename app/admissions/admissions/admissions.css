@@ -4,7 +4,7 @@
 }
 
 .admissions-opening {
-  padding: calc(var(--dgu-header-height, 96px) + 24px) 0 26px;
+  padding: 0 0 26px;
   background: #fff;
   text-align: center;
 }
