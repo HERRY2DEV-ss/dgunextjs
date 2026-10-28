@@ -75,7 +75,6 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
           data-home-card={index} data-distance={distance} aria-hidden={!isActive} style={{
             backgroundImage: `url("${slide.image}")`,
             zIndex: isActive ? 2 : preview ? 10 - distance : 0,
-            '--card-order': distance,
           } as CSSProperties}>
           {isActive && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
         </div>;
