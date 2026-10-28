@@ -100,7 +100,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
       {archiveTab ? <><InternalPageHero title="News & updates." eyebrow="The DGU journal"><p className="internal-hero-intro">Ideas, achievements and everyday moments from DBS Global University.</p></InternalPageHero><div className="internal-width"><NavigationNewsList tab={archiveTab} /></div></> : error ? <div className="news-feedback" role="alert"><h1>Article unavailable</h1><p>{error}</p><button type="button" onClick={() => setAttempt(n => n + 1)}>Try again</button><a href={archiveHref}>Back to news</a></div> : !article ? <><h1 className="visually-hidden">University news</h1><p className="news-feedback" role="status">Loading article…</p></> : <article>
         {article.heroImages.some(image => !failedImages.includes(image.image))
           ? <AnimatedHeroSlider className="news-hero" variant="news" aspectRatio="3.14 / 1"
-              slides={article.heroImages.filter(image => !failedImages.includes(image.image))} label={`${article.title} images`} title={article.heroTitle}
+              slides={article.heroImages.filter(image => !failedImages.includes(image.image))} label={`${article.title} images`} title={article.heroTitle} titleEmphasis={article.heroTitleEmphasis}
               date={article.date || undefined} description={article.heroDescription || undefined}
               onHeroButtonRef={node => { opener.current = node; }}
               onActivateHero={slide => { setDialogImage(slide.image); dialog.current?.showModal(); setImageOpen(true); }}
