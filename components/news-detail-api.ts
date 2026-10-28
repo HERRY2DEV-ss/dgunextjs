@@ -1,7 +1,7 @@
 import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
 import { apiMedia, apiPlain } from './dgu-content-api';
 import { mergeAcademicBody } from './academic-html';
-export type NewsDetail = { id: string; title: string; category: string; date: string; details: string; image: string; slug: string };
+export type NewsDetail = { id: string; title: string; subtitle: string; category: string; date: string; details: string; image: string; slug: string };
 import { newsSlug } from './news-urls';
 export { newsSlug, newsDetailHref } from './news-urls';
 const string = (v: unknown) => typeof v === 'string' ? v.trim() : '';
@@ -15,12 +15,14 @@ export function parseNewsDetail(payload: unknown, slug: string): NewsDetail {
   if (!payload || typeof payload !== 'object') throw new Error('Invalid news response.');
   const result = payload as { error?: unknown; data?: unknown };
   if (String(result.error) !== '0' || !Array.isArray(result.data)) throw new Error('This article is unavailable.');
-  const row = result.data.find(item => item && typeof item === 'object' && newsSlug(string(item.url)) === slug);
+  const row = result.data.find((item): item is Record<string, unknown> => !!item && typeof item === 'object' && newsSlug(string((item as Record<string, unknown>).url)) === slug);
   if (!row || !apiPlain(row.newsTitle)) throw new Error('Article not found.');
+  // API subtitle names have varied; accept known variants and leave it empty when absent.
+  const subtitleValue = row.newsSubtitle ?? row.newsSubTitle ?? row.subtitle ?? row.subTitle ?? row.sub_title ?? row.newsDescription;
   // details can be only a shortened introduction. otherDetails contains the
   // complete article and inline photos; retain both without repeating the intro.
   const details = mergeAcademicBody(articleHtml(row.details), articleHtml(row.otherDetails));
-  return { id: String(row.id ?? slug), title: apiPlain(row.newsTitle), category: apiPlain(row.category ?? row.categoryName), date: apiPlain(row.newsDate), details, image: apiMedia(row.imageURL ?? row.image), slug };
+  return { id: String(row.id ?? slug), title: apiPlain(row.newsTitle), subtitle: apiPlain(subtitleValue), category: apiPlain(row.category ?? row.categoryName), date: apiPlain(row.newsDate), details, image: apiMedia(row.imageURL ?? row.image), slug };
 }
 export async function requestNewsDetail(slug: string, signal: AbortSignal): Promise<NewsDetail> {
   if (!slug || newsSlug(slug) !== slug) throw new Error('A valid news article URL is required.');
