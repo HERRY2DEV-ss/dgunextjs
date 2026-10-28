@@ -24,7 +24,7 @@ function newsHeroCopy(title: string) {
   const year = /^(.*?\b(?:19|20)\d{2})\s+(.+)$/.exec(clean);
   if (year) return { heroTitle: year[1].trim(), heroDescription: year[2].trim() };
   const words = clean.split(' ');
-  if (words.length > 7) return { heroTitle: words.slice(0, 5).join(' '), heroDescription: words.slice(5).join(' ') };
+  if (words.length > 5) return { heroTitle: words.slice(0, 4).join(' '), heroDescription: words.slice(4).join(' ') };
   return { heroTitle: clean, heroDescription: '' };
 }
 
@@ -84,7 +84,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
     requestNewsDetail(slug, controller.signal).then(data => {
       if (!active) return;
       const moved = moveArticleImagesToHero(data.details, data.image, data.title);
-      setArticle({ ...data, ...newsHeroCopy(data.title), heroDescription: data.subtitle || newsHeroCopy(data.title).heroDescription, details: moved.details, heroImages: moved.images });
+      setArticle({ ...data, ...newsHeroCopy(data.title), details: moved.details, heroImages: moved.images });
       document.title = `${data.title} | DBS Global University`;
     }).catch(() => {
       if (active) setError(timedOut ? 'The article took too long to load. Please try again.' : 'We could not load this article. Please try again or choose another story.');
