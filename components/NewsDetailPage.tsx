@@ -17,9 +17,15 @@ import '../app/[contentSlug]/local-content.css';
 type NewsArticle = NewsDetail & { heroImages: HeroSlide[]; heroTitle: string; heroDescription: string };
 
 function newsHeroCopy(title: string) {
-  // Some API headlines append a descriptive phrase after the event year.
-  const match = /^(.*?\b(?:19|20)\d{2})\s+(.+)$/.exec(title);
-  return match ? { heroTitle: match[1], heroDescription: match[2] } : { heroTitle: title, heroDescription: '' };
+  // Keep the event name prominent and move the remaining headline into the smaller supporting line.
+  const clean = title.replace(/\s+/g, ' ').trim();
+  const marked = /^(.*?)(?:\s+[|:–—-]\s+)(.+)$/.exec(clean);
+  if (marked && marked[1].trim().length >= 5) return { heroTitle: marked[1].trim(), heroDescription: marked[2].trim() };
+  const year = /^(.*?\b(?:19|20)\d{2})\s+(.+)$/.exec(clean);
+  if (year) return { heroTitle: year[1].trim(), heroDescription: year[2].trim() };
+  const words = clean.split(' ');
+  if (words.length > 7) return { heroTitle: words.slice(0, 5).join(' '), heroDescription: words.slice(5).join(' ') };
+  return { heroTitle: clean, heroDescription: '' };
 }
 
 function moveArticleImagesToHero(details: string, primary: string, title: string) {
