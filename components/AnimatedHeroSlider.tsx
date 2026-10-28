@@ -7,10 +7,11 @@ export type HeroSlide = { image: string; mobile?: string; alt?: string; href?: s
 type HeroFlightStart = { left: number; top: number; width: number; height: number; borderRadius: string; objectFit: string; objectPosition: string };
 type HeroTransition = { previous: string; source: string; start?: HeroFlightStart };
 
-export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date, description, paused = false, interval = 5200, aspectRatio, variant, className = '', onImageUnavailable, onImageRatio, onActivateHero, onHeroButtonRef }: {
+export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis, eyebrow, date, description, paused = false, interval = 5200, aspectRatio, variant, className = '', onImageUnavailable, onImageRatio, onActivateHero, onHeroButtonRef }: {
   slides: HeroSlide[];
   label: string;
   title?: string;
+  titleEmphasis?: string;
   eyebrow?: string;
   date?: string;
   description?: ReactNode;
@@ -352,7 +353,7 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
       {variant !== 'school' && hasCaption && <div className={styles.caption}>
         {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
         {date && <p className={styles.date}>{date}</p>}
-        {title && <h1>{title}</h1>}
+        {title && <h1><span className={styles.titleLead}>{title}</span>{titleEmphasis && <><br /><strong className={styles.titleEmphasis}>{titleEmphasis}</strong></>}</h1>}
         {description && <div className={styles.description}>{description}</div>}
         {current.caption && <p className={styles.slideCaption}>{current.caption}</p>}
       </div>}
