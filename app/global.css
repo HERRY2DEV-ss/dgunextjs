@@ -3389,7 +3389,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 }
 @media(max-width:700px){
  .hero#home{display:grid;grid-template-rows:82px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
- .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:calc(100vh - 82px);height:calc(100svh - 82px);min-height:0;aspect-ratio:auto;margin:0}
+ .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
  .hero#home>.site-header:not(.is-sticky){position:absolute;top:0;left:0;right:0;height:82px}
 }
 @media(prefers-reduced-motion:reduce){.header-dropdown-list{transition:none}}

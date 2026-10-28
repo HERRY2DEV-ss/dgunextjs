@@ -1,52 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { gsap } from 'gsap';
 import styles from './AnimatedHeroSlider.module.css';
 
 export type HeroSlide = { image: string; mobile?: string; alt?: string; href?: string; caption?: string };
 type HeroFlightStart = { left: number; top: number; width: number; height: number; borderRadius: string; objectFit: string; objectPosition: string };
 type HeroTransition = { previous: string; source: string; start?: HeroFlightStart };
-type HomeSliderLayout = { width: number; height: number; cardWidth: number; cardHeight: number; stackLeft: number; stackTop: number; step: number };
-
-function getHomeSliderLayout(width: number, height: number, slideCount: number): HomeSliderLayout {
-  const cardWidth = Math.min(200, Math.max(70, width * 0.19));
-  const cardHeight = Math.min(300, cardWidth * 1.5);
-  const gap = Math.min(40, Math.max(12, width * 0.0375));
-  const stackWidth = Math.max(0, slideCount - 1) * cardWidth + Math.max(0, slideCount - 2) * gap;
-  const rightMargin = Math.min(136, Math.max(12, width * 0.07));
-  return {
-    width,
-    height,
-    cardWidth,
-    cardHeight,
-    stackLeft: Math.max(12, width - stackWidth - rightMargin),
-    stackTop: Math.max(72, height - cardHeight - (height < 600 ? 72 : 130)),
-    step: cardWidth + gap,
-  };
-}
-
-function getHomeCardTarget(rank: number, layout: HomeSliderLayout) {
-  return rank === 0
-    ? { x: 0, y: 0, width: layout.width, height: layout.height, borderRadius: 0, scale: 1, zIndex: 20 }
-    : {
-      x: layout.stackLeft + (rank - 1) * layout.step,
-      y: layout.stackTop,
-      width: layout.cardWidth,
-      height: layout.cardHeight,
-      borderRadius: 10,
-      scale: 1,
-      zIndex: 30,
-    };
-}
-
-function setHomeCardPositions(slides: HeroSlide[], activeIndex: number, cards: Map<string, HTMLButtonElement>, layout: HomeSliderLayout) {
-  const order = Array.from({ length: slides.length }, (_, offset) => (activeIndex + offset) % slides.length);
-  order.forEach((slideIndex, rank) => {
-    const card = cards.get(slides[slideIndex].image);
-    if (card) gsap.set(card, getHomeCardTarget(rank, layout));
-  });
-}
 
 export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date, description, paused = false, interval = 5200, aspectRatio, variant, className = '', onImageUnavailable, onImageRatio, onActivateHero, onHeroButtonRef }: {
   slides: HeroSlide[];
@@ -74,20 +33,11 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
   const [preloading, setPreloading] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [flightReady, setFlightReady] = useState(false);
+  const [homeImageRatio, setHomeImageRatio] = useState('');
   const root = useRef<HTMLElement>(null);
   const media = useRef<HTMLDivElement>(null);
   const image = useRef<HTMLImageElement>(null);
   const outgoingImage = useRef<HTMLImageElement>(null);
-  const homeCards = useRef(new Map<string, HTMLButtonElement>());
-  const homeSlides = useRef<HeroSlide[]>([]);
-  const homeIndex = useRef(0);
-  const homeDetails = useRef<HTMLDivElement>(null);
-  const homePagination = useRef<HTMLDivElement>(null);
-  const homeIndicator = useRef<HTMLDivElement>(null);
-  const homeActiveImage = useRef<string | null>(null);
-  const homeSlideSignature = useRef('');
-  const homeInitialized = useRef(false);
-  const homeAnimation = useRef<gsap.core.Timeline | null>(null);
   const transitionLock = useRef(false);
   const ratioSource = useRef<string | null>(null);
   const [flight, setFlight] = useState<HeroTransition | null>(null);
@@ -141,146 +91,8 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
     return () => observer.disconnect();
   }, []);
 
-  useLayoutEffect(() => {
-    homeSlides.current = available;
-    homeIndex.current = index;
-  }, [available, index]);
-
-  useLayoutEffect(() => {
-    if (variant !== 'home') return;
-    const node = root.current;
-    if (!node || !homeSlides.current.length) return;
-    const animationTargets = [...homeCards.current.values(), homeDetails.current, homePagination.current, homeIndicator.current].filter(Boolean);
-    const slidesNow = homeSlides.current;
-    const activeIndex = homeIndex.current;
-    const layout = getHomeSliderLayout(node.clientWidth, node.clientHeight, slidesNow.length);
-    if (!layout.width || !layout.height) return;
-    const order = Array.from({ length: slidesNow.length }, (_, offset) => (activeIndex + offset) % slidesNow.length);
-
-    order.forEach((slideIndex, rank) => {
-      const card = homeCards.current.get(slidesNow[slideIndex].image);
-      if (!card) return;
-      const target = getHomeCardTarget(rank, layout);
-      gsap.set(card, target);
-    });
-
-    if (homeDetails.current) gsap.set(homeDetails.current, { x: 0, opacity: 1 });
-    if (homePagination.current) gsap.set(homePagination.current, { y: 0, opacity: 1 });
-    if (homeIndicator.current) {
-      gsap.set(homeIndicator.current, { x: -layout.width });
-    }
-
-    homeActiveImage.current = slidesNow[activeIndex]?.image || null;
-    homeSlideSignature.current = slidesNow.map(slide => slide.image).join('\0');
-    homeInitialized.current = true;
-    const resizeObserver = new ResizeObserver(() => {
-      const currentSlides = homeSlides.current;
-      if (!currentSlides.length) return;
-      const currentActive = currentSlides.findIndex(slide => slide.image === homeActiveImage.current);
-      const nextLayout = getHomeSliderLayout(node.clientWidth, node.clientHeight, currentSlides.length);
-      homeAnimation.current?.kill();
-      homeAnimation.current = null;
-      gsap.killTweensOf([...homeCards.current.values(), homeDetails.current, homePagination.current, homeIndicator.current].filter(Boolean));
-      setHomeCardPositions(currentSlides, currentActive >= 0 ? currentActive : 0, homeCards.current, nextLayout);
-      homeActiveImage.current = currentSlides[homeIndex.current]?.image || currentSlides[0].image;
-      homeSlideSignature.current = currentSlides.map(slide => slide.image).join('\0');
-      if (homeDetails.current) gsap.set(homeDetails.current, { x: 0, opacity: 1 });
-      if (homePagination.current) gsap.set(homePagination.current, { y: 0, opacity: 1 });
-      if (homeIndicator.current) gsap.set(homeIndicator.current, { x: -nextLayout.width });
-      transitionLock.current = false;
-      setTransitioning(false);
-    });
-    resizeObserver.observe(node);
-
-    return () => {
-      resizeObserver.disconnect();
-      homeAnimation.current?.kill();
-      homeAnimation.current = null;
-      homeInitialized.current = false;
-      homeActiveImage.current = null;
-      homeSlideSignature.current = '';
-      transitionLock.current = false;
-      gsap.killTweensOf(animationTargets);
-    };
-  }, [variant]);
-
-  useLayoutEffect(() => {
-    if (variant !== 'home' || !homeInitialized.current || !current) return;
-    const signature = available.map(slide => slide.image).join('\0');
-    const previousIndex = available.findIndex(slide => slide.image === homeActiveImage.current);
-    if (homeActiveImage.current === current.image) {
-      if (signature !== homeSlideSignature.current) {
-        const node = root.current;
-        homeAnimation.current?.kill();
-        homeAnimation.current = null;
-        gsap.killTweensOf([...homeCards.current.values(), homeDetails.current, homePagination.current, homeIndicator.current].filter(Boolean));
-        if (node) setHomeCardPositions(available, index, homeCards.current, getHomeSliderLayout(node.clientWidth, node.clientHeight, available.length));
-        homeSlideSignature.current = signature;
-      }
-      return;
-    }
-
-    const node = root.current;
-    if (!node || !available.length) return;
-    const layout = getHomeSliderLayout(node.clientWidth, node.clientHeight, available.length);
-    homeAnimation.current?.kill();
-    homeAnimation.current = null;
-    gsap.killTweensOf([...homeCards.current.values(), homeDetails.current, homePagination.current, homeIndicator.current].filter(Boolean));
-    if (!layout.width || !layout.height || previousIndex < 0 || reducedMotion) {
-      setHomeCardPositions(available, index, homeCards.current, layout);
-      homeActiveImage.current = current.image;
-      homeSlideSignature.current = signature;
-      transitionLock.current = false;
-      setTransitioning(false);
-      if (homeDetails.current) gsap.set(homeDetails.current, { x: 0, opacity: 1 });
-      return;
-    }
-
-    const timeline = gsap.timeline({
-      defaults: { duration: 0.8, ease: 'sine.inOut' },
-      onComplete: () => {
-        transitionLock.current = false;
-        setTransitioning(false);
-      },
-    });
-    const order = Array.from({ length: available.length }, (_, offset) => (index + offset) % available.length);
-    order.forEach((slideIndex, rank) => {
-      const slide = available[slideIndex];
-      const card = homeCards.current.get(slide.image);
-      if (!card) return;
-      const target = getHomeCardTarget(rank, layout);
-      if (rank === 0) {
-        timeline.set(card, { zIndex: 20 }, 0);
-        timeline.to(card, target, 0);
-      } else if (slide.image === homeActiveImage.current) {
-        timeline.set(card, { zIndex: 10 }, 0);
-        timeline.to(card, { scale: 1.5 }, 0);
-        timeline.set(card, target, 0.8);
-      } else {
-        timeline.set(card, { zIndex: 30 }, 0);
-        timeline.to(card, target, 0.1 * rank);
-      }
-    });
-    if (homeDetails.current) timeline.fromTo(homeDetails.current, { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'sine.out' }, 0.35);
-    if (homeIndicator.current) {
-      timeline.set(homeIndicator.current, { x: -layout.width }, 0);
-      timeline.to(homeIndicator.current, { x: 0, duration: 2, ease: 'none' }, 0);
-      timeline.to(homeIndicator.current, { x: layout.width, duration: 0.8, ease: 'none' }, 2.3);
-      timeline.set(homeIndicator.current, { x: -layout.width }, 3.1);
-    }
-    homeAnimation.current = timeline;
-    homeActiveImage.current = current.image;
-    homeSlideSignature.current = signature;
-  }, [available, current, index, reducedMotion, variant]);
-
   const select = useCallback(async (next: number, source?: HTMLButtonElement) => {
     if (transitionLock.current || next === index || !available[next]) return;
-    if (variant === 'home') {
-      transitionLock.current = true;
-      setTransitioning(true);
-      setActive(next);
-      return;
-    }
     const sourceButton = source || root.current?.querySelector<HTMLButtonElement>(`[data-slide-index="${next}"]`);
     const thumbnail = sourceButton?.querySelector('img');
     const previous = image.current?.currentSrc || current?.image;
@@ -295,11 +107,13 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
     const request = ++flightRequest.current;
     setPreloading(true);
     let decodedSource = sourceUrl;
+    let decodedImages: { url: string; image: HTMLImageElement }[] = [];
     try {
-      await Promise.all([decodedSource, previous].map(async url => {
+      decodedImages = await Promise.all([decodedSource, previous].map(async url => {
         const preload = new Image();
         preload.src = url;
         await preload.decode();
+        return { url, image: preload };
       }));
     } catch {
       if (request !== flightRequest.current) return;
@@ -310,6 +124,7 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
           const fallback = new Image();
           fallback.src = decodedSource;
           await fallback.decode();
+          decodedImages = [{ url: decodedSource, image: fallback }];
         } catch {
           transitionLock.current = false;
           setPreloading(false);
@@ -327,6 +142,10 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
     }
 
     if (request !== flightRequest.current || !root.current) return;
+    const incomingImage = decodedImages.find(decoded => decoded.url === decodedSource)?.image;
+    if (variant === 'home' && incomingImage?.naturalWidth && incomingImage.naturalHeight) {
+      setHomeImageRatio(`${incomingImage.naturalWidth} / ${incomingImage.naturalHeight}`);
+    }
     const track = media.current.querySelector<HTMLDivElement>(`.${styles.thumbnails}`);
     const buttons = track ? Array.from(track.querySelectorAll<HTMLButtonElement>('[data-slide-index]')) : [];
     thumbnailPositions.current = new Map(buttons.map(button => [Number(button.dataset.slideIndex), button.getBoundingClientRect()]));
@@ -343,8 +162,8 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
         width: thumbnailBounds.width,
         height: thumbnailBounds.height,
         borderRadius: getComputedStyle(selectedButton).borderRadius,
-        objectFit: thumbnailStyle.objectFit,
-        objectPosition: thumbnailStyle.objectPosition,
+        objectFit: variant === 'home' ? 'contain' : thumbnailStyle.objectFit,
+        objectPosition: variant === 'home' ? 'center' : thumbnailStyle.objectPosition,
       };
     }
     setPreloading(false);
@@ -452,6 +271,9 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
           ratioSource.current = source;
           onImageRatio?.(`${node.naturalWidth} / ${node.naturalHeight}`);
         }
+        if (variant === 'home' && node.naturalWidth && node.naturalHeight) {
+          setHomeImageRatio(`${node.naturalWidth} / ${node.naturalHeight}`);
+        }
       }}
       onError={event => {
         const failedImage = event.currentTarget.currentSrc || current.image;
@@ -481,108 +303,53 @@ export default function AnimatedHeroSlider({ slides, label, title, eyebrow, date
       }} />
   </picture>;
 
-  return <section ref={root} className={`${styles.hero}${variant === 'home' ? ` ${styles.homeVariant}` : ''}${variant === 'school' ? ` ${styles.schoolVariant}` : ''}${variant === 'news' ? ` ${styles.newsVariant}` : ''} ${className}`} style={{ '--hero-aspect': variant === 'home' ? aspectRatio || '1920 / 708' : aspectRatio || '1920 / 680' } as CSSProperties} aria-label={label} aria-roledescription={available.length > 1 ? 'carousel' : undefined}
+  return <section ref={root} className={`${styles.hero}${variant === 'home' ? ` ${styles.homeVariant}` : ''}${variant === 'school' ? ` ${styles.schoolVariant}` : ''}${variant === 'news' ? ` ${styles.newsVariant}` : ''} ${className}`} style={{ '--hero-aspect': variant === 'home' ? homeImageRatio || aspectRatio || '1920 / 708' : aspectRatio || '1920 / 680' } as CSSProperties} aria-label={label} aria-roledescription={available.length > 1 ? 'carousel' : undefined}
     onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}
     onFocusCapture={() => setHeld(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeld(false); }}>
     <div className={`${styles.stage}${hasCaption ? ` ${styles.hasCaption}` : ''}${transitioning ? ` ${styles.transitioning}` : ''}`} aria-busy={preloading || transitioning}>
       <div ref={media} className={styles.media}>
-        {variant === 'home' ? <>
-          <div className={styles.homeCards} aria-label="Homepage slides">
-            {available.map((slide, slideIndex) => <button key={slide.image} ref={node => {
-              if (node) homeCards.current.set(slide.image, node);
-              else homeCards.current.delete(slide.image);
-            }} className={styles.homeCard} type="button" data-slide-index={slideIndex}
-              disabled={preloading || transitioning || slideIndex === index}
-              aria-label={`${slideIndex === index ? 'Current slide' : `Show slide ${slideIndex + 1}`}: ${slide.alt || label}`}
-              aria-current={slideIndex === index ? 'true' : undefined} onClick={() => select(slideIndex)}>
+        {flight && <img ref={outgoingImage} className={styles.outgoingImage} src={flight.previous} alt="" aria-hidden="true" />}
+        {flight?.start && <img ref={flightImage} className={styles.flightImage} src={flight.source} alt="" aria-hidden="true" onLoad={() => setFlightReady(true)} onError={() => {
+          setFlight(previous => previous ? { ...previous, start: undefined } : previous);
+          setFlightReady(true);
+        }} style={{
+          left: `${flight.start.left}px`,
+          top: `${flight.start.top}px`,
+          width: `${flight.start.width}px`,
+          height: `${flight.start.height}px`,
+          borderRadius: flight.start.borderRadius,
+          objectFit: flight.start.objectFit as CSSProperties['objectFit'],
+          objectPosition: flight.start.objectPosition,
+        }} />}
+        {current.href ? <a className={styles.heroLink} href={current.href} aria-label={current.alt || label}>{content}</a>
+          : onActivateHero ? <button ref={onHeroButtonRef} className={styles.heroButton} type="button" onClick={() => onActivateHero(current)} aria-label={`Enlarge image: ${title || label}`}>{content}</button>
+            : content}
+        {thumbnailIndices.length > 0 && <div className={styles.thumbnails} aria-label="Upcoming slides">
+          {thumbnailIndices.map(slideIndex => {
+            const slide = available[slideIndex];
+            return <button key={`${slide.image}-${slideIndex}`} type="button" data-slide-index={slideIndex} disabled={preloading || transitioning} aria-label={`Show slide ${slideIndex + 1}: ${slide.alt || label}`}
+              aria-current={slideIndex === index ? 'true' : undefined}
+              onClick={event => select(slideIndex, event.currentTarget)}>
               <picture>
-                {slide.mobile && !failedMobile.includes(slide.mobile) && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
-                <img ref={slideIndex === index ? image : undefined} src={slide.image} alt="" loading={slideIndex === index ? 'eager' : 'lazy'}
-                  onLoad={event => {
-                    if (slideIndex === index && event.currentTarget.naturalWidth && event.currentTarget.naturalHeight) {
-                      const source = event.currentTarget.currentSrc || event.currentTarget.src;
-                      if (ratioSource.current !== source) {
-                        ratioSource.current = source;
-                        onImageRatio?.(`${event.currentTarget.naturalWidth} / ${event.currentTarget.naturalHeight}`);
-                      }
-                    }
-                  }}
-                  onError={event => {
-                    const failedImage = event.currentTarget.currentSrc || slide.image;
-                    if (slide.mobile && failedImage === slide.mobile) {
-                      setFailedMobile(previous => previous.includes(slide.mobile!) ? previous : [...previous, slide.mobile!]);
-                      return;
-                    }
-                    setFailed(previous => previous.includes(slide.image) ? previous : [...previous, slide.image]);
-                    onImageUnavailable?.(slide.image);
-                    transitionLock.current = false;
-                  }} />
+                {slide.mobile && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
+                <img src={slide.image} alt="" loading="lazy" />
               </picture>
-              {slideIndex !== index && slide.caption && <span className={styles.homeCardCaption} aria-hidden="true">{slide.caption}</span>}
+            </button>;
+          })}
+        </div>}
+        {available.length > 1 && <div className={styles.controls}>
+          <button type="button" disabled={preloading || transitioning} aria-label={`Previous ${label}`} onClick={() => select((index + available.length - 1) % available.length)}>‹</button>
+          <button type="button" disabled={preloading || transitioning} aria-label={`Next ${label}`} onClick={() => select((index + 1) % available.length)}>›</button>
+          <span className={styles.progress} role="group" aria-label={`${label} slides`}>
+            {available.map((slide, slideIndex) => <button key={`${slide.image}-progress`} type="button" disabled={preloading || transitioning} aria-label={`Go to slide ${slideIndex + 1}`}
+              aria-current={slideIndex === index ? 'true' : undefined} onClick={() => select(slideIndex)}>
+              <span className={slideIndex === index && !paused && !held && !preloading && !transitioning && !reducedMotion ? styles.progressActive : undefined} style={{ animationDuration: `${interval}ms` }} />
             </button>)}
-          </div>
-          {(title || eyebrow || description || current.caption) && <div ref={homeDetails} className={styles.homeDetails} aria-live="polite">
-            <span className={styles.homeDetailsRule} aria-hidden="true" />
-            {eyebrow && <p className={styles.homeEyebrow}>{eyebrow}</p>}
-            {title && <h1>{title}</h1>}
-            {description ? <div className={styles.homeDescription}>{description}</div> : current.caption && <p className={styles.homeDescription}>{current.caption}</p>}
-          </div>}
-          {available.length > 1 && <div ref={homePagination} className={styles.homePagination}>
-            <button type="button" disabled={preloading || transitioning} aria-label={`Previous ${label}`} onClick={() => select((index + available.length - 1) % available.length)}>‹</button>
-            <button type="button" disabled={preloading || transitioning} aria-label={`Next ${label}`} onClick={() => select((index + 1) % available.length)}>›</button>
-            <div className={styles.homeProgress} role="group" aria-label={`${label} slides`}>
-              <span style={{ width: `${((index + 1) / available.length) * 100}%` }} />
-              {available.map((slide, slideIndex) => <button key={`${slide.image}-progress`} type="button" aria-label={`Go to slide ${slideIndex + 1}`}
-                aria-current={slideIndex === index ? 'true' : undefined} onClick={() => select(slideIndex)}
-                style={{ left: `${(slideIndex / available.length) * 100}%`, width: `${100 / available.length}%` }} />)}
-            </div>
-            <span className={styles.homeCount} aria-label={`Slide ${index + 1} of ${available.length}`}>{index + 1}</span>
-          </div>}
-          <div ref={homeIndicator} className={styles.homeIndicator} aria-hidden="true" />
-        </> : <>
-          {flight && <img ref={outgoingImage} className={styles.outgoingImage} src={flight.previous} alt="" aria-hidden="true" />}
-          {flight?.start && <img ref={flightImage} className={styles.flightImage} src={flight.source} alt="" aria-hidden="true" onLoad={() => setFlightReady(true)} onError={() => {
-            setFlight(previous => previous ? { ...previous, start: undefined } : previous);
-            setFlightReady(true);
-          }} style={{
-            left: `${flight.start.left}px`,
-            top: `${flight.start.top}px`,
-            width: `${flight.start.width}px`,
-            height: `${flight.start.height}px`,
-            borderRadius: flight.start.borderRadius,
-            objectFit: flight.start.objectFit as CSSProperties['objectFit'],
-            objectPosition: flight.start.objectPosition,
-          }} />}
-          {current.href ? <a className={styles.heroLink} href={current.href} aria-label={current.alt || label}>{content}</a>
-            : onActivateHero ? <button ref={onHeroButtonRef} className={styles.heroButton} type="button" onClick={() => onActivateHero(current)} aria-label={`Enlarge image: ${title || label}`}>{content}</button>
-              : content}
-          {thumbnailIndices.length > 0 && <div className={styles.thumbnails} aria-label="Upcoming slides">
-            {thumbnailIndices.map(slideIndex => {
-              const slide = available[slideIndex];
-              return <button key={`${slide.image}-${slideIndex}`} type="button" data-slide-index={slideIndex} disabled={preloading || transitioning} aria-label={`Show slide ${slideIndex + 1}: ${slide.alt || label}`}
-                aria-current={slideIndex === index ? 'true' : undefined}
-                onClick={event => select(slideIndex, event.currentTarget)}>
-                <picture>
-                  {slide.mobile && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
-                  <img src={slide.image} alt="" loading="lazy" />
-                </picture>
-              </button>;
-            })}
-          </div>}
-          {available.length > 1 && <div className={styles.controls}>
-            <button type="button" disabled={preloading || transitioning} aria-label={`Previous ${label}`} onClick={() => select((index + available.length - 1) % available.length)}>‹</button>
-            <button type="button" disabled={preloading || transitioning} aria-label={`Next ${label}`} onClick={() => select((index + 1) % available.length)}>›</button>
-            <span className={styles.progress} role="group" aria-label={`${label} slides`}>
-              {available.map((slide, slideIndex) => <button key={`${slide.image}-progress`} type="button" disabled={preloading || transitioning} aria-label={`Go to slide ${slideIndex + 1}`}
-                aria-current={slideIndex === index ? 'true' : undefined} onClick={() => select(slideIndex)}>
-                <span className={slideIndex === index && !held && !paused && !preloading && !transitioning && !reducedMotion ? styles.progressActive : undefined} style={{ animationDuration: `${interval}ms` }} />
-              </button>)}
-            </span>
-            <span className={styles.count} aria-live="polite">{String(index + 1).padStart(2, '0')} / {String(available.length).padStart(2, '0')}</span>
-          </div>}
-        </>}
+          </span>
+          <span className={styles.count} aria-live="polite">{String(index + 1).padStart(2, '0')} / {String(available.length).padStart(2, '0')}</span>
+        </div>}
       </div>
-      {variant !== 'school' && variant !== 'home' && hasCaption && <div className={styles.caption}>
+      {variant !== 'school' && hasCaption && <div className={styles.caption}>
         {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
         {date && <p className={styles.date}>{date}</p>}
         {title && <h1>{title}</h1>}
