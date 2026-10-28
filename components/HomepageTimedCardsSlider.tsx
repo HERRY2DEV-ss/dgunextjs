@@ -45,19 +45,6 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
         style={{ backgroundImage: `url("${slide.image}")` }}>
         {index === active && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
       </div>)}
-      {safeSlides.length > 1 && <div className={styles.pagination}>
-        <button type="button" aria-label="Previous slide" onClick={() => goTo(activeIndex.current - 1)}>‹</button>
-        <button type="button" aria-label="Next slide" onClick={() => goTo(activeIndex.current + 1)}>›</button>
-        <div className={styles.progress} role="group" aria-label="Choose slide">
-          {safeSlides.map((slide, index) => <button key={slide.image} type="button"
-            aria-label={`Go to slide ${index + 1}`} aria-current={index === active ? 'true' : undefined}
-            onClick={() => goTo(index)}>
-            <span className={index === active && !paused && !held ? styles.progressActive : undefined}
-              style={{ animationDuration: `${interval}ms` }} />
-          </button>)}
-        </div>
-        <span className={styles.count} aria-live="polite">{String(active + 1).padStart(2, '0')} / {String(safeSlides.length).padStart(2, '0')}</span>
-      </div>}
     </div>
   </section>;
 }
