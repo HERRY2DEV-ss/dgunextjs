@@ -56,7 +56,12 @@ export default function ExpandableText({ text, html, className = '', collapseAll
     if (trimPreviewToLines) document.fonts?.ready.then(measure);
     measure(); return () => { active = false; observer.disconnect(); };
   }, [previewHeight, source, trimPreviewToLines]);
-  useEffect(() => { refreshLayout(); }, [open, source]);
+  useEffect(() => {
+    // Expanding CMS text changes normal document flow; it does not need a global
+    // GSAP ScrollTrigger refresh. On news detail pages that refresh can recreate
+    // pinned spacer elements and leave a viewport-sized blank area after Read More.
+    if (!document.querySelector('.news-detail-page')) refreshLayout();
+  }, [open, source]);
   if (!copy && !hasMedia) return null;
   if (href) return <div className={`expandable-text ${className}`}>
     {copy && <p>{words.slice(0, split).join(' ')}{shortened ? '…' : ''}</p>}
