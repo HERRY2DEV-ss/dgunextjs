@@ -150,3 +150,16 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .news-detail-page .news-article-body .dgu-api-copy br + br { display:none !important; }
 .news-detail-page .news-article-body .dgu-api-copy p { margin-block:0 12px !important; }
 .news-detail-page .news-article-body .dgu-api-copy p:last-child { margin-bottom:0 !important; }
+
+/* Prevent CMS spacer/placeholder nodes from creating a viewport-sized gap after Read More. */
+.news-detail-page .news-article-body .dgu-api-copy [style*="100vh"],
+.news-detail-page .news-article-body .dgu-api-copy [style*="100 vw"] {
+  display: none !important;
+}
+.news-detail-page .news-article-body .dgu-api-copy :is(div, section, p, span):empty {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding-block: 0 !important;
+}
