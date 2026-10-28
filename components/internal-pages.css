@@ -141,5 +141,5 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 }
 
 /* Shared news-detail headline treatment. */
-.internal-title-lead { font-weight: 400; }
-.internal-title-emphasis { font-weight: 600; }
+.internal-page main .internal-hero h1 .internal-title-lead { font-weight: 400; }
+.internal-page main .internal-hero h1 .internal-title-emphasis { display:inline-block; font-size:.64em; line-height:1.05; font-weight:600; }
