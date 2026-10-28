@@ -281,6 +281,8 @@
   letter-spacing: 0 !important;
   text-transform: uppercase;
 }
+.newsVariant .caption h1 .titleLead { font-size: 1em; font-weight: 400; }
+.newsVariant .caption h1 .titleEmphasis { display: inline-block; font-size: .64em; line-height: 1.05; font-weight: 600; }
 .newsVariant .eyebrow,
 .newsVariant .date { margin-bottom: 12px; }
 .newsVariant .date { font-size: clamp(12px, 1.4vw, 16px); }
