@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import gsap from 'gsap';
 import styles from './HomepageTimedCardsSlider.module.css';
 
@@ -72,11 +72,11 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
         const isActive = index === active;
         const preview = !isActive && distance > 0;
         return <div key={slide.image} className={`${styles.card} ${isActive ? styles.activeCard : preview ? styles.previewCard : styles.hiddenCard}`}
-          data-home-card={index} aria-hidden={!isActive} style={{
+          data-home-card={index} data-distance={distance} aria-hidden={!isActive} style={{
             backgroundImage: `url("${slide.image}")`,
             zIndex: isActive ? 2 : preview ? 10 - distance : 0,
             '--card-order': distance,
-          } as React.CSSProperties}>
+          } as CSSProperties}>
           {isActive && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
         </div>;
       })}
