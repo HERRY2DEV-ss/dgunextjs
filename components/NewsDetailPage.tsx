@@ -16,12 +16,15 @@ import '../app/[contentSlug]/local-content.css';
 
 type NewsArticle = NewsDetail & { heroImages: HeroSlide[]; heroTitle: string; heroTitleEmphasis: string; heroDescription: string };
 
-function newsHeroCopy(title: string) {
-  const words = title.replace(/\\s+/g, ' ').trim().split(' ').filter(Boolean);
+function newsHeroCopy(title: string, subtitle = '') {
+  // Keep the headline hierarchy used by the DGU news design:
+  // first word as the large lead, the next two words as the smaller bold line,
+  // and the API subtitle as the supporting description.
+  const words = title.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
   return {
-    heroTitle: words.slice(0, 2).join(' '),
-    heroTitleEmphasis: words.slice(2, 4).join(' '),
-    heroDescription: words.slice(4).join(' '),
+    heroTitle: words.slice(0, 1).join(' '),
+    heroTitleEmphasis: words.slice(1, 3).join(' '),
+    heroDescription: subtitle.trim() || words.slice(3).join(' '),
   };
 }
 
@@ -81,7 +84,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
     requestNewsDetail(slug, controller.signal).then(data => {
       if (!active) return;
       const moved = moveArticleImagesToHero(data.details, data.image, data.title);
-      setArticle({ ...data, ...newsHeroCopy(data.title), details: moved.details, heroImages: moved.images });
+      setArticle({ ...data, ...newsHeroCopy(data.title, data.subtitle), details: moved.details, heroImages: moved.images });
       document.title = `${data.title} | DBS Global University`;
     }).catch(() => {
       if (active) setError(timedOut ? 'The article took too long to load. Please try again.' : 'We could not load this article. Please try again or choose another story.');
