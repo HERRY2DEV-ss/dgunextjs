@@ -114,10 +114,14 @@
 }
 
 .schoolVariant .heroImage,
-.schoolVariant .thumbnails img,
+.schoolVariant .thumbnails img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .newsVariant .heroImage,
 .newsVariant .thumbnails img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
@@ -254,7 +258,7 @@
 }
 
 .newsVariant .outgoingImage,
-.newsVariant .flightImage { object-fit: contain; object-position: center; }
+.newsVariant .flightImage { object-fit: cover; object-position: center; }
 
 .schoolVariant .media::after { display: none; }
 
@@ -292,7 +296,7 @@
 .newsVariant .transitioning .caption { opacity: 1; }
 .newsVariant .thumbnails {
   right: 0;
-  bottom: 40px;
+  bottom: 42px;
   left: auto;
   width: 44%;
   max-width: 44%;
@@ -300,7 +304,8 @@
   gap: 8px;
   overflow: hidden;
 }
-.newsVariant .thumbnails button { flex: 0 0 clamp(92px, 16.5vw, 190px); }
+.newsVariant .thumbnails button { flex: 0 0 clamp(92px, 16.5vw, 190px); aspect-ratio: 1.48; }
+.newsVariant .thumbnails img { object-fit: cover; object-position: center; }
 .newsVariant .controls { right: 0; bottom: 6px; left: auto; width: 44%; }
 
 .homeVariant .thumbnails {
