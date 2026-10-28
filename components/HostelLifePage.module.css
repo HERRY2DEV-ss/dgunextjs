@@ -3,10 +3,10 @@
 .page button:focus-visible, .page summary:focus-visible { outline:3px solid var(--hostel-purple); outline-offset:5px; }
 .skip { position:fixed; left:16px; top:-100px; z-index:90; padding:12px 18px; background:white; color:var(--hostel-purple); }
 .skip:focus { top:12px; }
-.hero { position:relative; padding:calc(var(--dgu-header-height,132px) + clamp(28px,2.55vw,49px)) 0 0; isolation:isolate; }
+.hero { position:relative; padding:var(--dgu-header-height,96px) 0 0; isolation:isolate; }
 .hero::before { content:''; position:absolute; z-index:-1; inset:0 0 auto; height:44.8%; background:var(--hostel-purple); }
-.hero h1 { color:#fff; text-align:center; margin:0 0 clamp(22px,2.4vw,38px); font-size:clamp(28px,3.05vw,48px)!important; line-height:1.1!important; font-weight:500; }
-.heroImage { width:89.2%; max-width:1760px; margin:auto; position:relative; }
+.hero h1 { color:#383438; text-align:center; margin:clamp(24px,3vw,42px) 16px 0; font-size:clamp(28px,3.05vw,48px)!important; line-height:1.1!important; font-weight:500; }
+.heroImage { width:100%; max-width:none; margin:0 auto; position:relative; }
 .heroImage > img { width:100%; height:auto; aspect-ratio:1711/546; object-fit:cover; }
 .heroCopy { position:absolute; z-index:2; inset:auto auto 10.5% 3.8%; width:40%; color:#fff; }
 .heroCopy p { font-size:clamp(9px,1.13vw,18px)!important; font-weight:500; line-height:1.15!important; }
