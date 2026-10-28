@@ -2,6 +2,7 @@
  * Routing only: article content is always fetched live. New URLs also have a
  * scoped hosting fallback; refresh this list when adding export-only routes. */
 export const newsRouteSlugs: readonly string[] = [
+  "dgu-football-tournament",
   "ai-focused-learning-translates",
   "blood-donation-drive-dbs-global-university-dehradun-2026",
   "campus-safety-mock-drill-2026",
