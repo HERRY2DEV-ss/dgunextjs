@@ -143,3 +143,10 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 /* Shared news-detail headline treatment. */
 .internal-page main .internal-hero h1 .internal-title-lead { font-weight: 400; }
 .internal-page main .internal-hero h1 .internal-title-emphasis { display:inline-block; font-size:.64em; line-height:1.05; font-weight:600; }
+
+/* Keep expanded news copy compact when CMS markup contains blank paragraphs. */
+.news-detail-page .news-article-body .dgu-api-copy p:empty,
+.news-detail-page .news-article-body .dgu-api-copy div:empty,
+.news-detail-page .news-article-body .dgu-api-copy br + br { display:none !important; }
+.news-detail-page .news-article-body .dgu-api-copy p { margin-block:0 12px !important; }
+.news-detail-page .news-article-body .dgu-api-copy p:last-child { margin-bottom:0 !important; }
