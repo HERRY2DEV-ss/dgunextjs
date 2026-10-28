@@ -8,14 +8,17 @@
 }
 
 .homeVariant {
+  --home-header-offset: 108px;
   position: relative;
   inset: auto;
-  height: auto;
+  height: calc(100vh - var(--home-header-offset));
+  height: calc(100svh - var(--home-header-offset));
   aspect-ratio: auto;
   overflow: hidden;
+  background: #100e18;
 }
 
-.homeVariant .stage { height: auto; aspect-ratio: var(--hero-aspect, 1920 / 708); }
+.homeVariant .stage { height: 100%; aspect-ratio: auto; }
 .homeVariant .media::after { display: none; }
 
 .stage {
@@ -104,14 +107,6 @@
 
 .schoolVariant .outgoingImage,
 .newsVariant .outgoingImage { object-fit: contain; }
-
-.homeVariant .outgoingImage,
-.homeVariant .heroImage,
-.homeVariant .flightImage,
-.homeVariant .thumbnails img {
-  object-fit: contain !important;
-  object-position: center !important;
-}
 
 .schoolVariant .heroImage,
 .schoolVariant .thumbnails img,
@@ -301,38 +296,120 @@
 .newsVariant .thumbnails button { flex: 0 0 clamp(92px, 16.5vw, 190px); }
 .newsVariant .controls { right: 0; bottom: 6px; left: auto; width: 44%; }
 
-.homeVariant .thumbnails {
-  right: 0;
-  bottom: 56px;
-  width: 44%;
-  max-width: 44%;
-  justify-content: flex-start;
-  gap: 8px;
+.homeCards { position: absolute; inset: 0; overflow: hidden; }
+.homeCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding: 0;
   overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: #16121c;
+  box-shadow: 6px 6px 10px 2px #0009;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transform-origin: center;
+  will-change: transform, width, height;
 }
-
-.homeVariant .thumbnails button {
-  flex: 0 0 calc(28.5714% - 8px);
+.homeCard:disabled { opacity: 1; cursor: default; }
+.homeCard:focus-visible { outline: 3px solid #ffe21b; outline-offset: 3px; }
+.homeCard picture,
+.homeCard img { display: block; width: 100%; height: 100%; }
+.homeCard img { object-fit: cover; object-position: center; }
+.homeCardCaption {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  left: 14px;
+  overflow: hidden;
+  color: #fff;
+  font-size: clamp(10px, .8vw, 13px);
+  font-weight: 500;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 5px #000;
+  white-space: nowrap;
 }
-
-.homeVariant .controls {
-  right: 44%;
-  bottom: 56px;
-  width: 56%;
-  height: clamp(48px, 8.5vw, 160px);
-  box-sizing: border-box;
-  padding-left: 8px;
-  justify-content: flex-start;
+.homeDetails {
+  position: absolute;
+  z-index: 22;
+  top: 24%;
+  left: clamp(20px, 5.6vw, 80px);
+  width: min(500px, 46%);
+  color: #fff;
+  pointer-events: none;
+  text-shadow: 0 2px 14px #0009;
+  will-change: transform, opacity;
 }
+.homeDetailsRule { display: block; width: 30px; height: 5px; margin-bottom: 16px; border-radius: 99px; background: #fff; }
+.homeEyebrow { margin: 0 0 8px; font-size: clamp(13px, 1.3vw, 20px); font-weight: 500; }
+.homeDetails h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 72px);
+  font-weight: 600;
+  line-height: 1.06;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.homeDescription { max-width: 500px; margin: 16px 0 0; font-size: clamp(14px, 1.1vw, 18px); line-height: 1.45; }
+.homePagination {
+  position: absolute;
+  z-index: 60;
+  bottom: clamp(20px, 5vh, 50px);
+  left: max(20px, calc(100% - 830px));
+  display: flex;
+  width: min(694px, calc(100% - 40px));
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+  will-change: transform, opacity;
+}
+.homePagination > button {
+  display: grid;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  place-items: center;
+  border: 2px solid #ffffff55;
+  border-radius: 50%;
+  background: transparent;
+  color: #ffffffc7;
+  font-size: 30px;
+  line-height: 1;
+}
+.homePagination > button:hover,
+.homePagination > button:focus-visible { border-color: #ffe21b; color: #fff; }
+.homePagination > button:disabled { opacity: .5; }
+.homeProgress {
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 3px;
+  margin-left: 4px;
+  background: #ffffff40;
+}
+.homeProgress > span { display: block; height: 100%; background: #ecad29; transition: width .8s ease; }
+.homeProgress button { position: absolute; top: -12px; height: 27px; padding: 0; border: 0; background: transparent; }
+.homeProgress button:focus-visible { outline: 2px solid #ffe21b; outline-offset: 2px; }
+.homeCount { display: grid; flex: 0 0 50px; width: 50px; height: 50px; place-items: center; font-size: 32px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.homeIndicator { position: absolute; z-index: 60; top: 0; left: 0; width: 100%; height: 5px; background: #ecad29; pointer-events: none; will-change: transform; }
 
 @keyframes slide-progress { to { transform: scaleX(1); } }
 
+@media (min-width: 1001px) {
+  .homeVariant { --home-header-offset: 96px; }
+}
+
 @media (max-width: 700px) {
   .homeVariant {
+    --home-header-offset: 82px;
     position: relative;
     inset: auto;
     grid-row: 2;
-    height: auto;
   }
   .stage { min-height: 0; aspect-ratio: 16 / 11; }
   .schoolVariant .stage { aspect-ratio: var(--hero-aspect, 898 / 1315); }
@@ -348,16 +425,6 @@
   .controls { right: 12px; bottom: 10px; left: 12px; width: auto; gap: 6px; }
   .controls>button { flex-basis: 26px; width: 26px; height: 26px; }
   .count { font-size: 10px; }
-  .homeVariant .controls {
-    top: 12px;
-    right: 52%;
-    bottom: auto;
-    left: 0;
-    width: 48%;
-    height: clamp(35px, 10vw, 70px);
-    padding-left: 8px;
-  }
-
   .newsVariant .caption {
     position: relative;
     inset: auto;
@@ -373,16 +440,17 @@
   .newsVariant .thumbnails { right: 12px; bottom: 42px; left: auto; width: 52%; max-width: 52%; justify-content: flex-end; gap: 6px; }
   .newsVariant .thumbnails button { flex-basis: clamp(70px, 27vw, 105px); border-radius: 5px; }
   .newsVariant .controls { right: 12px; bottom: 8px; left: auto; width: 52%; gap: 6px; }
-  .homeVariant .thumbnails { right: 0; bottom: auto; top: 12px; left: auto; width: 52%; max-width: 52%; justify-content: flex-start; gap: 6px; }
-  .homeVariant .thumbnails button { flex-basis: calc(28.5714% - 6px); }
-  .homeVariant .controls {
-    top: calc(12px + (52vw / 3.5 - 6px) / 1.48 + 8px);
-    right: 0;
-    bottom: auto;
-    left: auto;
-    width: 52%;
-    height: 28px;
-  }
+  .homeDetails { top: 16%; left: 20px; width: min(62%, 330px); }
+  .homeDetailsRule { width: 24px; height: 4px; margin-bottom: 10px; }
+  .homeDetails h1 { font-size: clamp(24px, 7vw, 36px); line-height: 1.04; }
+  .homeEyebrow { font-size: 12px; }
+  .homeDescription { margin-top: 8px; font-size: 12px; line-height: 1.35; }
+  .homeCardCaption { right: 7px; bottom: 7px; left: 8px; font-size: 9px; }
+  .homePagination { bottom: 14px; left: 20px; width: calc(100% - 40px); gap: 10px; }
+  .homePagination > button { flex-basis: 38px; width: 38px; height: 38px; font-size: 24px; }
+  .homeProgress { margin-left: 0; }
+  .homeCount { flex-basis: 38px; width: 38px; height: 38px; font-size: 24px; }
+  .homeIndicator { height: 3px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
