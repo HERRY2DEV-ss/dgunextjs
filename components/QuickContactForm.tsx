@@ -42,7 +42,7 @@ export default function QuickContactForm(_props: QuickContactFormProps) {
     <div className="school-contact-form">
       <div
         className="npf_wgts"
-        data-height="520px"
+        data-height="480px"
         data-w="8227f920997b1da931caf83225eca082"
       />
     </div>
