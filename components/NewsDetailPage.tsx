@@ -54,6 +54,45 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
     if (!hasContent) element.remove();
   }
   for (const element of Array.from(document.body.querySelectorAll('br + br'))) element.remove();
+
+  // News details should read as one continuous article paragraph rather than
+  // showing every CMS sentence as a separately spaced paragraph. Preserve
+  // inline emphasis and links, while flattening CMS block wrappers.
+  const inlineContent = document.createElement('span');
+  const appendFlattened = (node: Node, target: Node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      target.appendChild(document.createTextNode(node.textContent || ''));
+      return;
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+    const element = node as Element;
+    const tag = element.tagName.toLowerCase();
+    if (tag === 'br' || ['p', 'div', 'section', 'article', 'li', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
+      target.appendChild(document.createTextNode(' '));
+    }
+    if (['ul', 'ol'].includes(tag)) {
+      for (const child of Array.from(element.childNodes)) {
+        appendFlattened(child, target);
+        target.appendChild(document.createTextNode(' '));
+      }
+      return;
+    }
+    for (const child of Array.from(element.childNodes)) appendFlattened(child, target);
+    if (tag === 'br' || ['p', 'div', 'section', 'article', 'li', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
+      target.appendChild(document.createTextNode(' '));
+    }
+  };
+  for (const child of Array.from(document.body.childNodes)) appendFlattened(child, inlineContent);
+  const cleanedText = inlineContent.innerHTML
+    .replace(/(?:\s|&nbsp;|&#160;)+/gi, ' ')
+    .replace(/>\s+</g, '><')
+    .trim();
+  document.body.replaceChildren();
+  if (cleanedText) {
+    const paragraph = document.createElement('p');
+    paragraph.innerHTML = cleanedText;
+    document.body.appendChild(paragraph);
+  }
   return { details: document.body.innerHTML, images };
 }
 
