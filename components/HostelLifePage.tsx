@@ -151,11 +151,11 @@ export default function HostelLifePage() {
   return <main className={styles.page} ref={root} id="hostel-content">
     <a className={styles.skip} href="#hostel-facilities">Skip to hostel facilities</a>
     <section className={styles.hero} aria-labelledby="hostel-title" data-navigation-opening>
-      <h1 id="hostel-title">HOSTEL LIFE</h1>
       <div className={styles.heroImage}>
         <img src={asset('hero.webp')} width={1711} height={546} alt="Students enjoying campus life together on the lawn" fetchPriority="high" />
         <div className={styles.heroCopy}><p>MORE THAN A ROOM</p><h2>IT’S WHERE YOUR<br />COLLEGE STORY<br /><span>BEGINS.</span></h2></div>
       </div>
+      <h1 id="hostel-title">HOSTEL LIFE</h1>
     </section>
 
     <section className={styles.introduction} aria-labelledby="hostel-reasons-heading" data-hostel-reveal>
