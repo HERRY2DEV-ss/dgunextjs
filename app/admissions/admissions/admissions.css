@@ -4,22 +4,22 @@
 }
 
 .admissions-opening {
-  padding: clamp(23px, 2.3vw, 31px) 0 26px;
-  background: linear-gradient(to bottom, #68176b 0, #68176b clamp(185px, 16.2vw, 200px), #fff clamp(185px, 16.2vw, 200px));
+  padding: calc(var(--dgu-header-height, 96px) + 24px) 0 26px;
+  background: #fff;
   text-align: center;
 }
 
 .admissions-opening h1 {
-  margin: 0 0 clamp(25px, 2.6vw, 34px);
-  color: #fff;
+  margin: clamp(24px, 3vw, 42px) 16px 0;
+  color: #383438;
   font-size: clamp(28px, 3.25vw, 40px);
-  font-weight:500;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: 0;
 }
 
 .admissions-banner {
-  width: min(89.3%, 1440px);
+  width: 100%;
   margin: 0 auto;
 }
 
