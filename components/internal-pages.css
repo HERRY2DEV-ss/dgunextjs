@@ -139,3 +139,7 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .news-detail-page .news-article-body .dgu-api-copy > :last-child {
   margin-bottom: 0 !important;
 }
+
+/* Shared news-detail headline treatment. */
+.internal-title-lead { font-weight: 400; }
+.internal-title-emphasis { font-weight: 600; }
