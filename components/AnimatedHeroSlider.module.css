@@ -119,7 +119,10 @@
   object-position: center;
 }
 
-.newsVariant .heroImage,
+.newsVariant .heroImage {
+  object-fit: contain;
+  object-position: center;
+}
 .newsVariant .thumbnails img {
   object-fit: cover;
   object-position: center;
@@ -258,7 +261,7 @@
 }
 
 .newsVariant .outgoingImage,
-.newsVariant .flightImage { object-fit: cover; object-position: center; }
+.newsVariant .flightImage { object-fit: contain; object-position: center; }
 
 .schoolVariant .media::after { display: none; }
 
