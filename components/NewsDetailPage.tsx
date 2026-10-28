@@ -49,7 +49,7 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
   // CMS descriptions sometimes contain empty paragraphs/columns that become a large
   // blank block after Read More expands. Remove only truly empty content wrappers.
   for (const element of Array.from(document.body.querySelectorAll('p, div, section, li'))) {
-    const hasContent = !!element.textContent?.replace(/[\\u00a0\\u200b\\s]/g, '') ||
+    const hasContent = !!element.textContent?.replace(/[\u00a0\u200b\s]/g, '') ||
       !!element.querySelector('img, table, video, iframe, hr, a, strong, em');
     if (!hasContent) element.remove();
   }
