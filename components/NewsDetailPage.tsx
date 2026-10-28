@@ -14,18 +14,15 @@ import ExpandableText from './ExpandableText';
 import { academicImageSource } from './academic-media';
 import '../app/[contentSlug]/local-content.css';
 
-type NewsArticle = NewsDetail & { heroImages: HeroSlide[]; heroTitle: string; heroDescription: string };
+type NewsArticle = NewsDetail & { heroImages: HeroSlide[]; heroTitle: string; heroTitleEmphasis: string; heroDescription: string };
 
 function newsHeroCopy(title: string) {
-  // Keep the event name prominent and move the remaining headline into the smaller supporting line.
-  const clean = title.replace(/\s+/g, ' ').trim();
-  const marked = /^(.*?)(?:\s+[|:–—-]\s+)(.+)$/.exec(clean);
-  if (marked && marked[1].trim().length >= 5) return { heroTitle: marked[1].trim(), heroDescription: marked[2].trim() };
-  const year = /^(.*?\b(?:19|20)\d{2})\s+(.+)$/.exec(clean);
-  if (year) return { heroTitle: year[1].trim(), heroDescription: year[2].trim() };
-  const words = clean.split(' ');
-  if (words.length > 3) return { heroTitle: words.slice(0, 3).join(' '), heroDescription: words.slice(3).join(' ') };
-  return { heroTitle: clean, heroDescription: '' };
+  const words = title.replace(/\\s+/g, ' ').trim().split(' ').filter(Boolean);
+  return {
+    heroTitle: words.slice(0, 2).join(' '),
+    heroTitleEmphasis: words.slice(2, 4).join(' '),
+    heroDescription: words.slice(4).join(' '),
+  };
 }
 
 function moveArticleImagesToHero(details: string, primary: string, title: string) {
@@ -108,7 +105,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
               onHeroButtonRef={node => { opener.current = node; }}
               onActivateHero={slide => { setDialogImage(slide.image); dialog.current?.showModal(); setImageOpen(true); }}
               onImageUnavailable={image => setFailedImages(previous => previous.includes(image) ? previous : [...previous, image])} />
-          : <InternalPageHero title={article.heroTitle} eyebrow={article.category || 'University news'} parent={{label:'News & Updates',href:archiveHref}}>{article.date && <p className="internal-hero-date">{article.date}</p>}{article.heroDescription && <p className="internal-hero-intro">{article.heroDescription}</p>}</InternalPageHero>}
+          : <InternalPageHero title={article.heroTitle} titleEmphasis={article.heroTitleEmphasis} eyebrow={article.category || 'University news'} parent={{label:'News & Updates',href:archiveHref}}>{article.date && <p className="internal-hero-date">{article.date}</p>}{article.heroDescription && <p className="internal-hero-intro">{article.heroDescription}</p>}</InternalPageHero>}
         <div className="news-reading-layout"><aside className="news-reading-label"><p>The DGU journal</p><h2>Explore updates</h2><nav aria-label="More university news"><a href={newsListingHref("campus")}>Campus &amp; events <span aria-hidden="true">↗</span></a><a href={newsListingHref("placements")}>Placement updates <span aria-hidden="true">↗</span></a><a href={newsListingHref("admissions")}>Admission notices <span aria-hidden="true">↗</span></a></nav></aside><div className="news-article-body">{article.details
           ? <ExpandableText text="" html={article.details} previewHeight={210} trimPreviewToLines className="news-article-expandable" />
           : <p role="status">Article details are not available.</p>}<a className="news-back" href={archiveHref}>← Back to news & updates</a></div></div>
