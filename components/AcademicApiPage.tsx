@@ -45,6 +45,7 @@ import AcademicAccordionGroup, { AcademicAccordionCopy } from './AcademicAccordi
 import { academicLaboratories } from './academic-laboratories';
 import useOtherSpecializations from './useOtherSpecializations';
 import AcademicTestimonials from './AcademicTestimonials';
+import AnimatedHeroSlider from './AnimatedHeroSlider';
 
 function GalleryCopy({section,paused}:{section:AcademicSection;paused:boolean}) {
   const [failed,setFailed]=useState<string[]>([]),gallery=useMemo(()=>academicGallery(section.html),[section.html]);
@@ -317,7 +318,7 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
 /** The single DBS/MBA design renderer. API content and guide placement are separate. */
 export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKind;slug:string;recordId?:string}) {
   const [menuOpen,setMenuOpen]=useState(false),[failedImages,setFailedImages]=useState<string[]>([]);
-  const [bannerRatio,setBannerRatio]=useState(''),[activeBanner,setActiveBanner]=useState(0);
+  const [bannerRatio,setBannerRatio]=useState('');
   const {info:pageInfo,loading,error,pending,retry}=useAcademicInfo(kind,slug,recordId);
   const catalogue=useSchoolCatalogue(kind==='school' ? slug : '');
   const other=useOtherSpecializations(pageInfo);
@@ -358,14 +359,13 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
       </>}
       {info && <>
         <section className={kind==='school' ? 'school-opening' : 'program-opening'} aria-label={info.name}>
-          <h1 className="academic-page-title">{info.name}</h1>
-          {media.length>0 && <div className={kind==='school' ? 'school-opening-media' : 'program-hero'} style={bannerRatio?{'--academic-banner-ratio':bannerRatio} as CSSProperties:undefined}>
-            <StepSlider key={`${info.kind}-${info.id}`} className="academic-api-banner" size={1} interval={3400} paused={menuOpen} pauseOnHover={false} horizontalOnMobile overlayControls mouseDrag onPageChange={setActiveBanner} label={`${info.name} banners`}>
-              {media.map((item,i)=>{
-                const image=<AcademicBannerImage {...item} active={i===activeBanner} onRatio={setBannerRatio} onUnavailable={()=>setFailedImages(old=>[...old,item.image])}/>;
-                return <div className="academic-api-banner-slide" key={item.image}>{item.href ? <a href={item.href}>{image}</a> : image}</div>;
-              })}
-            </StepSlider>
+          {(kind==='program' || !media.length) && <h1 className="visually-hidden">{info.name}</h1>}
+          {kind==='school' && media.length>0 && <AnimatedHeroSlider key={`${info.kind}-${info.id}`} className="school-opening-media"
+            slides={media} label={`${info.name} banners`} paused={menuOpen} interval={5200} variant="school" aspectRatio={bannerRatio}
+            onImageRatio={setBannerRatio} onImageUnavailable={image=>setFailedImages(old=>old.includes(image)?old:[...old,image])} />}
+          {kind==='program' && media[0] && <div className="program-hero" style={bannerRatio?{'--academic-banner-ratio':bannerRatio} as CSSProperties:undefined}>
+            <AcademicBannerImage {...media[0]} active onRatio={setBannerRatio} onUnavailable={()=>setFailedImages(old=>old.includes(media[0].image)?old:[...old,media[0].image])}/>
+            <p className="program-hero-caption">{info.name}</p>
           </div>}
         </section>
         <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}

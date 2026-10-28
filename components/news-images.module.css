@@ -1,7 +1,7 @@
-/* Only image fitting belongs here. Keep card geometry and typography intact.
-   The anchor/image classes also cover linked placement thumbnails, which no
-   longer match the legacy .update-card > img selector. */
+/* Use one crop treatment for the linked thumbnails in each News category. */
 a.media > img.image {
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   object-position: center;
 }

@@ -670,6 +670,11 @@
 .school-opening-copy h1{max-width:510px;margin:0;color:#ffda16;font-size:clamp(46px,5.1vw,92px);font-weight:500;line-height:.9;letter-spacing:-.04em;text-align:left}
 @media(max-width:700px){.school-opening-copy h1{font-size:clamp(38px,9vw,64px)}}
 
+/* API school banners start directly under the shared navigation. */
+.academic-api-page.school-page .school-opening{padding:0;background:#fff}
+.academic-api-page.school-page .school-opening-media{width:100%;max-width:none;aspect-ratio:auto;margin:0;border-radius:0}
+.academic-api-page.school-page .school-opening-media::after{display:none}
+
 /* School placement uses two student photographs in the homepage media layout. */
 .school-placements-section .placement-media-slider .batch-page{display:grid;grid-template-columns:repeat(var(--batch-size),minmax(0,1fr));gap:clamp(12px,1.4vw,24px)}
 .school-placements-section .placement-media-slider .student-card{position:relative;min-width:0;aspect-ratio:355/498;overflow:hidden;border-radius:14px;box-shadow:0 9px 22px #1d0d2b16}

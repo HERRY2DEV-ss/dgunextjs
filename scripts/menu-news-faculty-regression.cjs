@@ -74,9 +74,10 @@ async function check(mode) {
     expectCall('news', { CATEGORY_ID: categoryIds[tab] });
   }
   const newsSection = fs.readFileSync(path.resolve('components/NewsUpdatesSection.tsx'), 'utf8');
-  assert.deepEqual(Array.from(newsSection.matchAll(/<StepSlider\b[^>]*className="(?:compact-news-slider campus-news-slider|updates-track|compact-news-slider admission-news-slider)"[^>]*size=\{(\d+)\}[^>]*>/g), match => Number(match[1])), [3, 3, 3],
-    'Campus, Placement, and Admission sliders each show three API items per page.');
-  assert.match(newsSection, /campus-news-slider[^>]*size=\{3\}[^>]*horizontalOnMobile/,
+  assert.deepEqual(Array.from(newsSection.matchAll(/<StepSlider\b[^>]*className="(?:compact-news-slider campus-news-slider|updates-track|compact-news-slider admission-news-slider)"[^>]*size=\{([^}]+)\}[^>]*>/g), match => match[1]), [
+    'Math.min(3, current.items.length)', 'Math.min(3, current.items.length)', 'Math.min(3, current.items.length)',
+  ], 'News sliders fit up to three available API items per page.');
+  assert.match(newsSection, /campus-news-slider[^>]*size=\{Math\.min\(3, current\.items\.length\)\}[^>]*horizontalOnMobile/,
     'Campus news remains horizontally navigable on mobile.');
   assert.match(newsSection, /admission-news-slider[^>]*vertical horizontalOnMobile/,
     'Admission news retains its desktop orientation and mobile horizontal navigation.');

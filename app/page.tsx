@@ -6,7 +6,6 @@ import SlidingTabList from '../components/SlidingTabList';
 import { useEffect, useRef, useState } from 'react';
 import Navigation from '../components/Navigation';
 import SiteFooter from '../components/SiteFooter';
-import HeroVideo from '../components/HeroVideo';
 import SmoothScrolling from '../components/SmoothScrolling';
 import SchoolsProgramsSection from '../components/SchoolsProgramsSection';
 import BatchSlider from '../components/StepSlider';
@@ -25,10 +24,16 @@ import { requestHomepageData, type HomepageData } from '../components/homepage-a
 import usePlacements from '../components/usePlacements';
 import PlacementStudentCard from '../components/PlacementStudentCard';
 import PlacementsFeedback from '../components/PlacementsFeedback';
+import AnimatedHeroSlider from '../components/AnimatedHeroSlider';
+import type { HeroSlide } from '../components/AnimatedHeroSlider';
 
-/* Replace these optional values with your actual video file URLs (MP4/WebM).
-   A missing video opens the original poster in the accessible media viewer. */
 const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
+const homepageHeroSlides: HeroSlide[] = [
+  { image: 'https://dgu.ac.in/oldv1/images/slides/banner1.jpg', alt: 'DBS Global University banner 1' },
+  { image: 'https://dgu.ac.in/oldv1/images/slides/banner4.jpg', alt: 'DBS Global University banner 4' },
+  { image: 'https://dgu.ac.in/oldv1/images/slides/banner7.jpg', alt: 'DBS Global University banner 7' },
+  { image: 'https://dgu.ac.in/oldv1/images/slides/banner8.jpg', alt: 'DBS Global University banner 8' },
+];
 type Viewer = { title: string; image?: string; text?: string; video?: string; related?: boolean };
 type OutcomeTab = 'placements' | 'startup' | 'higher';
 
@@ -108,10 +113,10 @@ export default function Home() {
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
-      <link rel="preload" as="image" href={asset('hero-campus')} fetchPriority="high" />
-      <HeroVideo src={sitePath("/assets/hero-campus-demo.mp4")} poster={asset('hero-campus')} paused={motionStopped} />
+      <link rel="preload" as="image" href={homepageHeroSlides[0].image} fetchPriority="high" />
+      <AnimatedHeroSlider className="homepageHeroSlider" variant="home" aspectRatio="1920 / 708"
+        slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={5200} />
       <Navigation onOpenChange={setMenuOpen} />
-      {/* <button className="hero-play play-circle" aria-label={MEDIA.campusVideo ? 'Play campus video' : 'View campus image'} onClick={() => show('DBS Global University', 'hero-campus', undefined, MEDIA.campusVideo)}><span /></button> */}
     </header>
 
 

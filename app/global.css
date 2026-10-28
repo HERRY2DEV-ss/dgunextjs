@@ -104,9 +104,17 @@ section {
 }
 
 .hero-image {
+  display:block;
   width:100%;
   height:100%;
   object-fit:cover;
+}
+
+.hero#home {
+  box-sizing:border-box;
+  min-height:0;
+  padding-top:108px;
+  aspect-ratio:auto;
 }
 
 .site-header {
@@ -2516,7 +2524,6 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 
 /* Final visual handoff: unified typography, integrated Dehradun scene and video hero. */
 :where(h1,h2,h3,h4,h5,h6,p,a,button,li,span,strong,label,input,address,time,summary){letter-spacing:1px!important}
-.hero-video{display:block;object-fit:cover;background:#dce3e2}
 .school-course-content h2{font-weight:500}
 
 /* The heading fades into the sky instead of ending on a hard white seam. */
@@ -2788,9 +2795,11 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 
 /* Recruiter-following update tabs reuse the same stable shell and moving tab indicator. */
 .post-recruiter-tabs{padding:clamp(42px,3.8vw,68px) 0}
+.post-recruiter-tabs.content-width{width:min(92%,1640px)}
 .secondary-tabs{width:min(820px,72%)}
 .post-recruiter-panel{position:relative;min-height:0;padding:clamp(22px,2.2vw,36px);overflow:hidden;border:1px solid #e7e7e7;border-radius:28px;background:var(--light)}
 .tab-news-content{animation:outcomeContentIn .62s cubic-bezier(.22,1,.36,1) both}
+.post-recruiter-panel .section-heading{text-align:center}
 .tab-news-content .section-heading{padding-bottom:clamp(20px,1.8vw,30px)}
 .tab-news-content .section-heading h2{font-size:clamp(25px,1.8vw,34px)}
 .tab-news-content .section-heading p{margin-top:1px;font-size:clamp(11px,.72vw,13px)}
@@ -2808,29 +2817,37 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .tab-news-content .news-item time{margin:3px 0 7px;font-size:11px}
 .tab-news-content .news-item h3{font-size:clamp(14px,1vw,18px)}
 .tab-news-content .news-item p{font-size:clamp(12px,.82vw,15px);line-height:1.45}
-.compact-news-slider{width:min(100%,900px);margin-inline:auto}
-.compact-news-slider{width:min(100%,1180px)}
-.compact-news-slider .batch-page{display:grid;grid-template-columns:repeat(var(--batch-size),minmax(0,1fr));gap:clamp(14px,1.5vw,24px);align-items:stretch}
+.compact-news-slider{width:100%;margin-inline:auto}
+.compact-news-slider .batch-page{display:grid;grid-template-columns:repeat(var(--batch-size),minmax(0,1fr));gap:clamp(12px,1vw,18px);align-items:stretch}
 .compact-news-slider .batch-controls{display:grid;grid-template-columns:38px auto 38px;justify-content:center;align-items:center;gap:10px;padding-top:14px;color:var(--muted)}
 .compact-news-slider .batch-controls>button{width:38px;height:38px;border-color:#d8d8d8;color:#111}
 .compact-news-slider .batch-controls>span{grid-column:1/-1;grid-row:2;text-align:center}
 .compact-news-slider .batch-dots{display:flex;align-items:center;justify-content:center;gap:7px}
 .compact-news-slider .batch-dots button{width:9px;height:9px;min-width:0;min-height:0;padding:0;border:0;border-radius:50%;background:#ccc;font-size:0}
 .compact-news-slider .batch-dots button.is-active{width:12px;height:12px;background:#111}
-.simple-news-card{width:100%;min-height:0;padding:clamp(16px,1.5vw,24px);border:0;border-radius:14px;background:#fff;color:#111;box-shadow:0 8px 26px #1111110d}
-.campus-news-card{display:flex;flex-direction:column;gap:clamp(14px,1.3vw,20px);align-items:stretch}
-.campus-news-card .news-image{height:190px;align-self:stretch;border-radius:10px}
-.campus-news-card .news-image img{width:100%;height:190px;min-height:0;object-fit:cover}
-.simple-news-card time{display:block;margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:500}
-.simple-news-card h3{margin:0 0 12px;font-size:clamp(18px,1.5vw,27px);line-height:1.25;color:#111}
+.simple-news-card{width:100%;min-height:0;padding:clamp(14px,1.25vw,20px);border:0;border-radius:14px;background:#fff;color:#111;box-shadow:0 8px 26px #1111110d}
+.campus-news-card{display:flex;flex-direction:column;gap:clamp(10px,1vw,14px);align-items:stretch}
+.campus-news-card>div{display:flex;flex:1;flex-direction:column;align-items:flex-start}
+.campus-news-card .news-image{width:100%;height:auto;aspect-ratio:16/10;align-self:stretch;border-radius:10px}
+.campus-news-card .news-image img{width:100%;height:100%;min-height:0;object-fit:cover}
+.simple-news-card time{display:block;margin:0 0 8px;color:var(--muted);font-size:12px;font-weight:500}
+.simple-news-card h3{margin:0 0 8px;font-size:clamp(18px,1.25vw,22px);line-height:1.3;color:#111}
 .simple-news-card h3 button{padding:0;background:transparent;text-align:left;font:inherit;line-height:inherit}
-.simple-news-card p{margin:0 0 18px;color:var(--muted);font-size:clamp(13px,.9vw,16px);line-height:1.55}
-.admission-news-card{display:flex;flex-direction:column;justify-content:flex-start;max-width:760px;min-height:clamp(210px,15vw,270px);margin-inline:auto;text-align:center}
+.simple-news-card p{margin:0 0 12px;color:var(--muted);font-size:clamp(13px,.86vw,15px);line-height:1.5}
+.simple-news-card .text-link{margin-top:auto}
+.admission-news-card{display:flex;flex-direction:column;justify-content:flex-start;max-width:none;min-height:0;margin-inline:auto;text-align:center}
 .admission-news-card .text-link,.admission-news-card .apply-button{align-self:center}
 .admission-news-card .text-link,.admission-news-card .apply-button{margin-top:auto}
 .admission-news-card .apply-button{margin-top:4px;padding:10px 18px;border:1px solid #111;background:transparent;color:#111}
+.post-recruiter-panel .updates-track.batch-slider .update-card{min-width:0}
+.post-recruiter-panel .updates-track.batch-slider .update-card>a.media{width:100%;height:auto;aspect-ratio:16/10;flex:0 0 auto}
+.post-recruiter-panel .updates-track.batch-slider .update-card>a.media>img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+.post-recruiter-panel .update-copy h3{margin:0;font-size:clamp(16px,1.15vw,20px);line-height:1.3}
+.post-recruiter-panel .update-copy>p{margin:7px 0 10px;font-size:clamp(13px,.86vw,15px);line-height:1.5}
+.post-recruiter-panel .update-copy .text-link{margin-top:auto}
 
 @media(max-width:1050px){
+ .post-recruiter-tabs.content-width{width:92%}
  .outcomes-tabs{width:92%;min-width:0}
  .placement-overview{min-height:860px;padding:34px 18px}
  .outcome-panel-content{grid-template-columns:1fr;gap:38px;min-height:0}
@@ -2838,7 +2855,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .placement-copy{width:min(100%,760px);margin-inline:auto}
  .outcome-story-copy{width:min(100%,700px);margin-inline:auto;text-align:center}
  .secondary-tabs{width:92%}
- .post-recruiter-panel{min-height:0;padding:26px 20px}
+ .post-recruiter-panel{min-height:0;padding:22px 18px}
 }
 @media(max-width:700px){
  .placements-section{width:100%;padding:44px 12px 0}
@@ -2870,7 +2887,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .placement-stats .stat span{font-size:clamp(10px,2.8vw,12px)}
  .outcome-story-card,.outcome-story-card img{min-height:0;height:auto;max-height:520px}
  .outcome-story-copy h2{font-size:30px}
- .post-recruiter-tabs{width:100%;padding:36px 12px}
+ .post-recruiter-tabs.content-width{width:100%;padding:36px 12px}
  .secondary-tabs{width:calc(100% - 8px)}
  .post-recruiter-panel{min-height:0;padding:14px 8px 18px;border-radius:20px}
  .tab-news-content .section-heading{padding:2px 6px 20px}
@@ -2879,9 +2896,10 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .tab-news-content .campus-news-list,.tab-news-content .admission-panel{height:390px;max-height:390px}
  .tab-news-content .admission-panel{padding:8px 14px}
  .tab-news-content .admission-panel article{padding:12px 0}
- .tab-news-content .updates-track.batch-slider .update-card>img{height:145px;aspect-ratio:auto;object-fit:cover}
+ .tab-news-content .updates-track.batch-slider .update-card>a.media{height:auto;aspect-ratio:16/10}
+ .tab-news-content .updates-track.batch-slider .update-card>a.media>img{height:100%;aspect-ratio:auto;object-fit:cover}
  .tab-news-content .update-copy{padding:10px}
- .tab-news-content .update-copy h3{font-size:13px;line-height:1.3}
+ .tab-news-content .update-copy h3{font-size:14px;line-height:1.3}
  .tab-news-content .update-copy>p{display:none}
  .tab-news-content .news-item{display:grid;grid-template-columns:36% minmax(0,1fr);gap:11px;padding:11px;min-height:0}
  .tab-news-content .news-image{width:100%;height:100%;align-self:stretch}
@@ -2895,8 +2913,8 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .simple-news-card{min-height:0;padding:16px;border-radius:10px}
  .admission-news-card{min-height:210px}
  .campus-news-card{display:flex;flex-direction:column;gap:14px;align-items:stretch}
- .campus-news-card .news-image{height:150px}
- .campus-news-card .news-image img{height:150px;min-height:0;object-fit:cover}
+ .campus-news-card .news-image{height:auto;aspect-ratio:16/10}
+ .campus-news-card .news-image img{height:100%;min-height:0;object-fit:cover}
  .simple-news-card time{margin-bottom:8px;font-size:10px}
  .simple-news-card h3{margin-bottom:9px;font-size:17px}
  .simple-news-card p{margin-bottom:12px;font-size:12px;line-height:1.45}
@@ -3358,6 +3376,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 
 /* Compact desktop header and unobstructed mobile hero. */
 @media(min-width:1001px){
+ .hero#home{padding-top:96px}
  .site-header{height:96px;padding-block:8px}
  .site-header .brand{width:18%;max-width:320px}
  .site-header .desktop-nav{font-size:clamp(12px,calc(1.36vw - 5px),17px)}
@@ -3370,7 +3389,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 }
 @media(max-width:700px){
  .hero#home{display:grid;grid-template-rows:82px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
- .hero#home>.hero-video{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:1921/953;object-fit:contain;margin:0;transform:none}
+ .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
  .hero#home>.site-header:not(.is-sticky){position:absolute;top:0;left:0;right:0;height:82px}
 }
 @media(prefers-reduced-motion:reduce){.header-dropdown-list{transition:none}}

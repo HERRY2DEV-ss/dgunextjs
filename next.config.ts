@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
   ...(isDevelopment ? {
     async rewrites() {
       return [
-        { source: '/news/:articleSlug([a-zA-Z0-9_-]+)/', destination: '/news/' },
         { source: '/programs/:programSlug/:recordId([1-9][0-9]*)/', destination: '/program-detail/' },
         { source: '/api/dgu-menus/', destination: liveDguApiUrl('menus', process.env.NEXT_PUBLIC_DGU_MENU_API_URL) },
         { source: '/api/dgu-news/', destination: liveDguApiUrl('news') },

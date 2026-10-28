@@ -145,6 +145,16 @@
 .academic-api-page .academic-api-card-gallery .dgu-api-copy { font-size:clamp(13px,1vw,16px); }
 .academic-api-page .academic-api-card-gallery img { aspect-ratio:16/9;object-fit:contain; }
 .academic-api-page .academic-api-card-gallery :is(h3,h4) { font-size:clamp(16px,1.3vw,21px);margin:14px 0 6px; }
+.academic-api-page.program-page .academic-api-gallery { display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center; }
+.academic-api-page.program-page .academic-api-gallery .batch-window { grid-column:2;grid-row:1;min-width:0; }
+.academic-api-page.program-page .academic-api-gallery .batch-page { display:flex;gap:8px; }
+.academic-api-page.program-page .academic-api-gallery .batch-page>* { flex:0 0 calc(28.5714% - 8px); }
+.academic-api-page.program-page .academic-api-gallery .batch-controls { grid-column:1;grid-row:1;box-sizing:border-box;width:120px;justify-content:center;gap:8px;padding-top:0; }
+.academic-api-page.program-page .academic-api-gallery .batch-controls>button { transform:none; }
+@media(max-width:700px) {
+  .academic-api-page.program-page .academic-api-gallery { grid-template-columns:108px minmax(0,1fr); }
+  .academic-api-page.program-page .academic-api-gallery .batch-controls { width:108px;gap:4px; }
+}
 @media(max-width:700px) { .academic-api-page .program-industry-card>summary { gap:12px;overflow-wrap:anywhere; }.academic-api-page .school-intro-main{min-width:0;} }
 /* Common feature previews keep the full API copy in hover/dialog details. */
 .academic-api-page .academic-interactive-features .difference-wave-layout { max-width:min(100%,var(--feature-wave-width));margin-inline:auto; }

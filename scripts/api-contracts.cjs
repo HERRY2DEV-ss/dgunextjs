@@ -86,6 +86,7 @@ async function run(mode) {
     }
     assert.equal(rewrites.find(route=>route.source==='/api/dgu-program-info/').destination,'https://dgu.ac.in/api/get-program-info.php');
     assert.equal(rewrites.find(route => route.source === '/api/dgu-homepage/').destination, 'https://dgu.ac.in/api/next-homepage-data.php');
+    assert.equal(rewrites.some(route => route.source.startsWith('/news/:articleSlug')), false, 'News detail routes are not rewritten to the archive page.');
   } else {
     assert.equal(config.output, 'export');
     assert.equal(config.rewrites, undefined, 'static exports do not depend on a server-side proxy');

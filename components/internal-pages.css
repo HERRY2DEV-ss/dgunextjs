@@ -91,7 +91,8 @@ body main .internal-hero .internal-eyebrow { text-align:center; font-size:11px!i
 
 /* Existing data-driven destinations share the same shell, without changing their feeds. */
 body .news-detail-page.internal-page .news-detail-main { width:100%; max-width:none; padding:0 0 56px; }
-.news-detail-page.internal-page .news-hero,.news-detail-page.internal-page .news-reading-layout { width:min(86%,1320px); margin-inline:auto; }
+.news-detail-page.internal-page .news-hero { width:100%; max-width:none; margin-inline:0; }
+.news-detail-page.internal-page .news-reading-layout { width:min(86%,1320px); margin-inline:auto; }
 .news-detail-page.internal-page .news-reading-layout { margin-top:36px; }
 .news-detail-page.internal-page .news-feedback { width:min(86%,1320px); margin:calc(var(--internal-opening-height,96px) + 30px) auto 40px; }
 body main .internal-hero .internal-hero-intro,body main .internal-hero .internal-hero-date { max-width:760px; margin:18px auto 0; text-align:center; color:#e4cde6; font-size:14px!important; }

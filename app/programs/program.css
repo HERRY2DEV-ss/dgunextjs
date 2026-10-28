@@ -482,6 +482,7 @@
   .program-specializations .program-card--specialization .program-accordion-content {
     display: flex; max-height: none; overflow: visible; opacity: 1; padding: 0;
   }
+
   .program-specializations .program-card--specialization .program-item { min-height: 52px; padding: 8px 0 5px; }
   .program-specializations .program-card--specialization .program-item-eyebrow { font-size: 11px; }
   .program-specializations .program-card--specialization .program-name strong { font-size: 16px; }
@@ -506,6 +507,13 @@
 
 /* Final program spacing and gentle, one-time content entrance. */
 .program-page { --program-section-gap:clamp(32px,3.3vw,60px); }
+
+/* API programme pages retain one full-width banner beneath the shared header. */
+.academic-api-page.program-page .program-opening{padding:0;background:#fff}
+.academic-api-page.program-page .program-hero{width:100%;max-width:none;margin:0;border-radius:0;aspect-ratio:var(--academic-banner-ratio,3.14 / 1)}
+.academic-api-page.program-page .program-hero::after{display:none}
+.academic-api-page.program-page .program-hero picture{display:block;width:100%;height:100%}
+.academic-api-page.program-page .program-hero picture img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#17171a;filter:none}
 .program-page .program-overview { padding-bottom:var(--program-section-gap); }
 .program-page .program-specializations,
 .program-page .program-pathways,

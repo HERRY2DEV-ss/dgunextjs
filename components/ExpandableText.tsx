@@ -25,9 +25,9 @@ function completeLineHeight(viewport: HTMLElement, limit: number): number {
   return last || (Number.isFinite(first) ? first : limit);
 }
 
-export default function ExpandableText({ text, html, className = '', collapseAll = false, previewWords = 72, previewHeight, href, trimPreviewToLines = false }: {
+export default function ExpandableText({ text, html, className = '', collapseAll = false, previewWords = 72, previewHeight, href, trimPreviewToLines = false, animatedHeight = false }: {
   text: string; html?: string; className?: string; collapseAll?: boolean; previewWords?: number; previewHeight?: number; href?: string;
-  trimPreviewToLines?: boolean;
+  trimPreviewToLines?: boolean; animatedHeight?: boolean;
 }) {
   const source = html || text;
   const [expandedSource, setExpandedSource] = useState<string | null>(null);
@@ -39,6 +39,7 @@ export default function ExpandableText({ text, html, className = '', collapseAll
   const viewport = useRef<HTMLDivElement>(null);
   const [overflows, setOverflows] = useState(false);
   const [safePreviewHeight, setSafePreviewHeight] = useState(previewHeight);
+  const [contentHeight, setContentHeight] = useState<number>();
   useEffect(() => {
     const node = viewport.current;
     if (!node || previewHeight === undefined) return;
@@ -47,6 +48,7 @@ export default function ExpandableText({ text, html, className = '', collapseAll
       if (!active) return;
       const overflow = node.scrollHeight > previewHeight + 1;
       setOverflows(overflow);
+      setContentHeight(node.scrollHeight);
       setSafePreviewHeight(trimPreviewToLines && overflow ? completeLineHeight(node, previewHeight) : previewHeight);
     };
     const observer = new ResizeObserver(measure);
@@ -67,7 +69,9 @@ export default function ExpandableText({ text, html, className = '', collapseAll
       onFocusCapture={event => {
         if (!open && (event.target as HTMLElement).getBoundingClientRect().bottom > event.currentTarget.getBoundingClientRect().bottom) setExpandedSource(source);
       }}
-      style={!open ? { maxHeight: trimPreviewToLines ? safePreviewHeight ?? previewHeight : previewHeight, overflow: 'hidden' } : undefined}>
+      style={animatedHeight
+        ? { height: open ? contentHeight ?? previewHeight : trimPreviewToLines ? safePreviewHeight ?? previewHeight : previewHeight, overflow: 'hidden' }
+        : !open ? { maxHeight: trimPreviewToLines ? safePreviewHeight ?? previewHeight : previewHeight, overflow: 'hidden' } : undefined}>
       {html ? <ApiRichText html={html} scrollTables /> : <p>{copy}</p>}
     </div>;
     return <div className={`expandable-text expandable-text--height ${className}`}>

@@ -17,7 +17,7 @@ const initialState = (): Record<NewsTab, NewsState> => ({
 });
 const tabs: readonly NewsTab[] = ['campus', 'placements', 'admissions'];
 const labels: Record<NewsTab, string> = { campus: 'Campus News', placements: 'Placement Updates', admissions: 'Admission News' };
-const cardHref = (item: NewsItem, tab: NewsTab) => item.sourceHref || newsItemHref(item.href, tab);
+const cardHref = (item: NewsItem, tab: NewsTab) => newsItemHref(item.href || item.sourceHref || '', tab);
 
 function NewsImage({ item, tab, placement = false }: { item: NewsItem; tab: NewsTab; placement?: boolean }) {
   const [failed, setFailed] = useState(false);
@@ -79,7 +79,7 @@ export default function NewsUpdatesSection({ paused = false, id = 'news', school
         : current.items.length === 0 ? <p role="status">No updates available.</p>
         : tab === 'campus' ? <div className="tab-news-content campus-news" key="campus">
           <div className="section-heading"><h2>Campus News</h2><p>Discover vibrant life &amp; events</p></div>
-          <StepSlider className="compact-news-slider campus-news-slider" label="Campus news" size={3} interval={5600} paused={paused} horizontalOnMobile controls dots>
+          <StepSlider className="compact-news-slider campus-news-slider" label="Campus news" size={Math.min(3, current.items.length)} interval={5600} paused={paused} horizontalOnMobile controls dots>
             {current.items.map(item => <article className="simple-news-card campus-news-card" key={item.id}>
               <NewsImage item={item} tab={tab} />
               <div>{item.date && <time>{item.date}</time>}<h3><a href={cardHref(item, tab)}>{item.title}</a></h3>{item.text && <p className="news-excerpt">{item.text}</p>}<ReadMore item={item} tab={tab} /></div>
@@ -87,7 +87,7 @@ export default function NewsUpdatesSection({ paused = false, id = 'news', school
           </StepSlider>
         </div> : tab === 'placements' ? <div className="tab-news-content tab-placement-updates" key="placements">
           <div className="section-heading"><h2>Placement Updates</h2><p>Career milestones from our university community</p></div>
-          <StepSlider className="updates-track" label={labels[tab]} size={3} interval={6500} paused={paused} horizontalOnMobile controls>
+          <StepSlider className="updates-track" label={labels[tab]} size={Math.min(3, current.items.length)} interval={6500} paused={paused} horizontalOnMobile controls>
             {current.items.map(item => <article className="update-card" key={item.id}>
               <NewsImage item={item} tab={tab} placement />
               {item.date && <time className="update-date">{item.date}</time>}<div className="update-copy"><h3><a href={cardHref(item, tab)}>{item.title}</a></h3>{item.text && <p className="news-excerpt">{item.text}</p>}<ReadMore item={item} tab={tab} /></div>
@@ -95,7 +95,7 @@ export default function NewsUpdatesSection({ paused = false, id = 'news', school
           </StepSlider>
         </div> : <div className="tab-news-content admission-news" key="admissions">
           <div className="section-heading"><h2>Admission News</h2><p>Important updates &amp; deadlines</p></div>
-          <StepSlider className="compact-news-slider admission-news-slider" label="Admission news" size={3} interval={5600} paused={paused} vertical horizontalOnMobile controls dots>
+          <StepSlider className="compact-news-slider admission-news-slider" label="Admission news" size={Math.min(3, current.items.length)} interval={5600} paused={paused} vertical horizontalOnMobile controls dots>
             {current.items.map(item => <article className="simple-news-card admission-news-card" key={item.id}>
               {item.date && <time>{item.date}</time>}<h3><a href={cardHref(item, tab)}>{item.title}</a></h3>{item.text && <p className="news-excerpt">{item.text}</p>}<ReadMore item={item} tab={tab} />
             </article>)}
