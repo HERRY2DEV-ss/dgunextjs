@@ -122,3 +122,20 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .internal-content .internal-media-rail img { width:100%; height:100%; aspect-ratio:4/3; object-fit:cover; margin:0; }
 .internal-content .internal-media-rail figure { aspect-ratio:4/3; overflow:hidden; }
 .internal-content .internal-media-rail .internal-source { height:100%; }
+
+
+/* News API markup can contain Bootstrap-style rows with default margins/gutters.
+   Keep the existing grid structure but prevent those rows from creating large blank gaps. */
+.news-detail-page .news-article-body .dgu-api-row {
+  margin-block: 0 !important;
+  row-gap: 0 !important;
+}
+.news-detail-page .news-article-body .dgu-api-row + .dgu-api-row {
+  margin-top: 0 !important;
+}
+.news-detail-page .news-article-body .dgu-api-copy > :first-child {
+  margin-top: 0 !important;
+}
+.news-detail-page .news-article-body .dgu-api-copy > :last-child {
+  margin-bottom: 0 !important;
+}
