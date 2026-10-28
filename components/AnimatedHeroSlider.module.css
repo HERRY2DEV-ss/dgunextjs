@@ -391,3 +391,7 @@
   .thumbnails button { transition: none; }
   .progress button .progressActive { animation: none; transform: scaleX(1); }
 }
+
+/* News headlines: first two words regular, next two words semibold. */
+.titleLead { font-weight: 400; }
+.titleEmphasis { font-weight: 600; }
