@@ -1,18 +1,9 @@
-.slider{position:relative;isolation:isolate;width:100%;height:min(49vw,calc(100svh - 108px));min-height:360px;max-height:760px;overflow:hidden;background:#171717;color:#fff;font-family:'Clash Grotesk',Arial,sans-serif}
+.slider{position:relative;isolation:isolate;width:100%;height:min(62vw,calc(100svh - 70px));min-height:460px;max-height:900px;overflow:hidden;background:#171717;color:#fff;font-family:'Clash Grotesk',Arial,sans-serif}
 .stage{position:relative;width:100%;height:100%;overflow:hidden}
-.card{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity .55s ease;pointer-events:none}
+.card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .55s ease;pointer-events:none;background:#171717}
+.slideImage{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .activeCard{z-index:2;opacity:1;pointer-events:auto}
 .hiddenCard{z-index:0}
-.caption{position:absolute;left:7%;bottom:16%;max-width:min(42%,620px);padding:16px 20px;background:#1118;color:#fff;font-size:clamp(14px,1.3vw,20px);line-height:1.4}
-.pagination{position:absolute;z-index:30;left:7%;right:7%;bottom:20px;display:flex;align-items:center;gap:12px}
-.pagination>button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid #ffffff70;border-radius:50%;background:#1115;color:#fff;font-size:30px;line-height:1;cursor:pointer;transition:background .2s ease}
-.pagination>button:hover{background:#ffffff24}
-.progress{height:8px;flex:1;min-width:30px;display:flex;align-items:center;gap:4px}
-.progress>button{position:relative;flex:1;height:3px;padding:0;overflow:hidden;border:0;background:#ffffff55;cursor:pointer}
-.progress>button[aria-current=true]{height:5px;background:#ffffff80}
-.progress>button>span{display:block;width:100%;height:100%;background:#ecad29;transform:scaleX(0);transform-origin:left}
-.progress>button>.progressActive{animation:slide-progress linear forwards}
-.count{min-width:64px;text-align:right;font-size:13px;font-weight:600;letter-spacing:.08em;color:#fff;font-variant-numeric:tabular-nums}
-@keyframes slide-progress{to{transform:scaleX(1)}}
-@media(max-width:700px){.slider{height:clamp(390px,72svh,620px);min-height:390px;max-height:none}.pagination{left:4%;right:4%;bottom:14px;gap:8px}.pagination>button{flex-basis:38px;width:38px;height:38px;font-size:26px}.count{min-width:52px;font-size:11px}.caption{left:4%;bottom:20%;max-width:88%;padding:10px 12px;font-size:13px}}
-@media(prefers-reduced-motion:reduce){.card,.pagination>button{transition:none}.progress>button>.progressActive{animation:none;transform:scaleX(1)}}
+.caption{position:absolute;left:7%;bottom:10%;max-width:min(42%,620px);padding:16px 20px;background:#1118;color:#fff;font-size:clamp(14px,1.3vw,20px);line-height:1.4}
+@media(max-width:700px){.slider{height:clamp(440px,78svh,700px);min-height:440px;max-height:none}.slideImage{width:100%;height:100%;object-fit:contain}.caption{left:4%;bottom:5%;max-width:88%;padding:10px 12px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){.card{transition:none}}
