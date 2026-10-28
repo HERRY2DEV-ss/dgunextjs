@@ -78,7 +78,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
     requestNewsDetail(slug, controller.signal).then(data => {
       if (!active) return;
       const moved = moveArticleImagesToHero(data.details, data.image, data.title);
-      setArticle({ ...data, ...newsHeroCopy(data.title), details: moved.details, heroImages: moved.images });
+      setArticle({ ...data, ...newsHeroCopy(data.title), heroDescription: data.subtitle || newsHeroCopy(data.title).heroDescription, details: moved.details, heroImages: moved.images });
       document.title = `${data.title} | DBS Global University`;
     }).catch(() => {
       if (active) setError(timedOut ? 'The article took too long to load. Please try again.' : 'We could not load this article. Please try again or choose another story.');
@@ -102,7 +102,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
               onHeroButtonRef={node => { opener.current = node; }}
               onActivateHero={slide => { setDialogImage(slide.image); dialog.current?.showModal(); setImageOpen(true); }}
               onImageUnavailable={image => setFailedImages(previous => previous.includes(image) ? previous : [...previous, image])} />
-          : <InternalPageHero title={article.title} eyebrow={article.category || 'University news'} parent={{label:'News & Updates',href:archiveHref}}>{article.date && <p className="internal-hero-date">{article.date}</p>}</InternalPageHero>}
+          : <InternalPageHero title={article.title} eyebrow={article.category || 'University news'} parent={{label:'News & Updates',href:archiveHref}}>{article.subtitle && <p className="internal-hero-intro">{article.subtitle}</p>}{article.date && <p className="internal-hero-date">{article.date}</p>}</InternalPageHero>}
         <div className="news-reading-layout"><aside className="news-reading-label"><p>The DGU journal</p><h2>Explore updates</h2><nav aria-label="More university news"><a href={newsListingHref("campus")}>Campus &amp; events <span aria-hidden="true">↗</span></a><a href={newsListingHref("placements")}>Placement updates <span aria-hidden="true">↗</span></a><a href={newsListingHref("admissions")}>Admission notices <span aria-hidden="true">↗</span></a></nav></aside><div className="news-article-body">{article.details
           ? <ExpandableText text="" html={article.details} previewHeight={210} trimPreviewToLines animatedHeight className="news-article-expandable" />
           : <p role="status">Article details are not available.</p>}<a className="news-back" href={archiveHref}>← Back to news & updates</a></div></div>
