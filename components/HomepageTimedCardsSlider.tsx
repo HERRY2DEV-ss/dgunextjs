@@ -42,7 +42,8 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
       {safeSlides.map((slide, index) => <div key={slide.image}
         className={`${styles.card} ${index === active ? styles.activeCard : styles.hiddenCard}`}
         aria-hidden={index !== active}
-        style={{ backgroundImage: `url("${slide.image}")` }}>
+        >
+        <img className={styles.slideImage} src={slide.image} alt={slide.alt ?? ''} />
         {index === active && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
       </div>)}
     </div>
