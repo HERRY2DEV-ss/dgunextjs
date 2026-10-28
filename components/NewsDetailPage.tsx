@@ -46,6 +46,14 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
     element.remove();
     if (figure && !figure.textContent?.trim() && !figure.querySelector('*')) figure.remove();
   }
+  // CMS descriptions sometimes contain empty paragraphs/columns that become a large
+  // blank block after Read More expands. Remove only truly empty content wrappers.
+  for (const element of Array.from(document.body.querySelectorAll('p, div, section, li'))) {
+    const hasContent = !!element.textContent?.replace(/[\\u00a0\\u200b\\s]/g, '') ||
+      !!element.querySelector('img, table, video, iframe, hr, a, strong, em');
+    if (!hasContent) element.remove();
+  }
+  for (const element of Array.from(document.body.querySelectorAll('br + br'))) element.remove();
   return { details: document.body.innerHTML, images };
 }
 
