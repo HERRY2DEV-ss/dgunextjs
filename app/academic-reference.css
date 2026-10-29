@@ -307,3 +307,61 @@
     font-size: clamp(17px, 5vw, 23px);
   }
 }
+
+
+/* Hero headings stay semantic H1 overlays, before the intro section in reading order. */
+.academic-reference .school-intro {
+  box-sizing: border-box;
+  margin-inline: auto;
+  min-width: 0;
+}
+.academic-reference .school-intro-main,
+.academic-reference .academic-intro-text,
+.academic-reference .school-enquiry {
+  min-width: 0;
+  max-width: 100%;
+}
+.academic-reference .program-hero {
+  isolation: isolate;
+}
+.academic-reference .program-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 48% 0 0;
+  display: block;
+  background: linear-gradient(180deg, transparent 0%, rgba(13, 8, 17, .25) 38%, rgba(13, 8, 17, .82) 100%);
+  pointer-events: none;
+}
+.academic-reference .program-hero-caption {
+  z-index: 1;
+  max-width: 76%;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+@media (max-width: 1000px) and (min-width: 701px) {
+  .academic-reference .school-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 31%);
+    gap: clamp(20px, 2.5vw, 30px);
+  }
+  .academic-reference .program-hero-caption {
+    right: 8%;
+    left: 8%;
+    max-width: 84%;
+    font-size: clamp(18px, 2.5vw, 28px);
+  }
+}
+@media (max-width: 700px) {
+  .academic-reference .program-hero::after {
+    inset: 38% 0 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(13, 8, 17, .35) 32%, rgba(13, 8, 17, .86) 100%);
+  }
+  .academic-reference .program-hero-caption {
+    right: 6%;
+    left: 6%;
+    bottom: 12px;
+    max-width: 88%;
+    font-size: clamp(17px, 5vw, 23px);
+    line-height: 1.12;
+  }
+}
