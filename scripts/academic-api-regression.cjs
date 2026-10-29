@@ -110,8 +110,10 @@ function load(filename, globals = {}) {
   assert.match(academicPageSource,/kind==='school' && media\.length>0 && <AnimatedHeroSlider[\s\S]*?variant="school" aspectRatio=\{bannerRatio\}/,'Schools use the shared multi-image API hero without a title overlay');
   assert.doesNotMatch(academicPageSource,/AnimatedHeroSlider[\s\S]*?variant="school"[\s\S]*?title=\{info\.name\}/,'School hero titles are not passed into the image slider');
   assert.match(academicPageSource,/kind==='program' && media\[0\] && <div className="program-hero"[\s\S]*?<AcademicBannerImage/,'Programs retain the single API banner renderer');
-  assert.match(academicPageSource,/<p className="program-hero-caption">\{info\.name\}<\/p>/,'The program title is overlaid on its API banner');
-  assert.match(academicPageSource,/kind==='program' \|\| !media\.length\) && <h1 className="visually-hidden">\{info\.name\}/,'Pages retain an accessible title when a banner cannot be displayed');
+  assert.match(academicPageSource,/<h1 className="program-hero-caption">\\{info\\.name\\}<\\/h1>/,'The program title is a semantic H1 overlaid on its API banner');
+  assert.match(academicPageSource,/!media\\.length && <h1 className="visually-hidden">\\{info\\.name\\}/,'Pages retain an accessible title when no banner can be displayed');
+  assert.match(academicPageSource,/slides=\\{media\\} label=\\{`\\$\\{info\\.name\\} banners`\\} title=\\{info\\.name\\}[^>]*variant="school"/,'School hero title is passed to the visible H1 overlay');
+  assert.match(heroSource,/variant !== 'school' \\|\\| title/,'School hero renders a caption when an accessible title is supplied');
   assert.match(heroSource,/slides\.filter\(slide => slide\.image && !failed\.includes\(slide\.image\)\)/,'The hero only displays valid API slide images');
   assert.match(heroSource,/onImageUnavailable\?\.\(current\.image\)/,'Failed hero images are reported to the owning API page');
   assert.match(heroSource,/aria-label=\{`Show slide \$\{slideIndex \+ 1\}/,'Hero thumbnail controls remain accessible');
