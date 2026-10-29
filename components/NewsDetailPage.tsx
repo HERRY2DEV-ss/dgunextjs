@@ -62,7 +62,7 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
   const appendInline = (node: Node, target: Node) => {
     if (node.nodeType === Node.TEXT_NODE) {
       const text = node.textContent || '';
-      if (text.trim()) target.appendChild(document.createTextNode(text.replace(/[\\s\\u00a0\\u200b]+/g, ' ')));
+      if (text.trim()) target.appendChild(document.createTextNode(text.replace(/[\s\u00a0\u200b]+/g, ' ')));
       return;
     }
     if (node.nodeType !== Node.ELEMENT_NODE) return;
@@ -96,7 +96,7 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
   };
   for (const child of Array.from(document.body.childNodes)) appendInline(child, paragraph);
   paragraph.innerHTML = paragraph.innerHTML
-    .replace(/(?:\\s|&nbsp;|&#160;)+/gi, ' ')
+    .replace(/(?:\s|&nbsp;|&#160;)+/gi, ' ')
     .replace(/>\\s+</g, '><')
     .trim();
   document.body.replaceChildren();
