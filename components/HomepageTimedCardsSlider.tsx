@@ -14,9 +14,6 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
   const safeSlides = slides.filter(slide => slide.image);
   const [active, setActive] = useState(0);
   const [held, setHeld] = useState(false);
-  const activeIndex = useRef(0);
-  activeIndex.current = active;
-
   const goTo = useCallback((target: number) => {
     if (safeSlides.length < 2) return;
     setActive((target + safeSlides.length) % safeSlides.length);
@@ -24,9 +21,9 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
 
   useEffect(() => {
     if (paused || held || safeSlides.length < 2) return;
-    const timer = window.setInterval(() => goTo(activeIndex.current + 1), interval);
+    const timer = window.setInterval(() => goTo(active + 1), interval);
     return () => window.clearInterval(timer);
-  }, [goTo, held, interval, paused, safeSlides.length]);
+  }, [active, goTo, held, interval, paused, safeSlides.length]);
 
   useEffect(() => {
     if (active >= safeSlides.length) setActive(0);
