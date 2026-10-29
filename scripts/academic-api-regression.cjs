@@ -79,7 +79,7 @@ function load(filename, globals = {}) {
   assert.match(heroSource,/previousImage\.animate\(\[\{ opacity: 1 \}, \{ opacity: 0 \}\]/,'The outgoing image fades only after the incoming image is ready');
   assert.match(heroSource,/const ratioSource = useRef<string \| null>\(null\)/,'The hero keeps a stable stage ratio during slide changes to prevent layout jumps');
   assert.match(heroSource,/if \(node\.naturalWidth && node\.naturalHeight && !ratioSource\.current\)/,'A slide load cannot resize the stage in the middle of an image transition');
-  assert.match(heroSource,/await Promise\.all\(\[decodedSource, previous\]\.map\(url =>/,'Both incoming and outgoing images are decoded before the cross-fade starts');
+  assert.match(heroSource,/await Promise\.all\(\[decodedSource, previous\]\.map\(async url =>/,'Both incoming and outgoing images are decoded before the cross-fade starts');
   assert.match(heroSource,/thumbnailPositions\.current = new Map\(buttons\.map/,'Thumbnail positions are captured before their order changes');
   assert.match(heroSource,/flight\?\.start && <img ref=\{flightImage\} className=\{styles\.flightImage\} src=\{flight\.source\}/,'The expanding thumbnail image remains in React\'s rendered tree throughout the state update');
   assert.doesNotMatch(heroCss,/transform: translateY\(-5px\)/,'Thumbnail hover does not move the measured source during a flight');
@@ -96,7 +96,7 @@ function load(filename, globals = {}) {
   assert.match(heroSource,/String\(available\.length\)\.padStart\(2, '0'\)/,'The total slide count is formatted as two digits');
   assert.match(heroCss,/\.controls \{\s*position: absolute;\s*z-index: 7;/,'Navigation controls remain above the expanding image');
   assert.match(heroCss,/\.thumbnails \{\s*position: absolute;\s*z-index: 5;/,'The thumbnail strip stays above the background images');
-  assert.match(heroSource,/await Promise\.all\(\[decodedSource, previous\]\.map\(url =>/,'The selected thumbnail is decoded before its flight layer is rendered');
+  assert.match(heroSource,/await Promise\.all\(\[decodedSource, previous\]\.map\(async url =>/,'The selected thumbnail is decoded before its flight layer is rendered');
   assert.match(heroSource,/expandingImage\.animate\(\[[\s\S]*?left: `\$\{start\.left\}px`[\s\S]*?width: `\$\{start\.width\}px`[\s\S]*?left: '0px'[\s\S]*?width: `\$\{media\.current\.clientWidth\}px`/,'The flight image animates from measured thumbnail bounds to the measured hero frame');
   assert.match(heroCss,/\.flightImage \{\s*position: absolute;\s*z-index: 3;/,'The expanding image stays above the background and below the visible thumbnails');
   assert.match(heroCss,/\.thumbnails \{\s*position: absolute;[\s\S]*?width: 42%;/,'The thumbnail row has a stable responsive width instead of shrinking to its empty intrinsic content');
