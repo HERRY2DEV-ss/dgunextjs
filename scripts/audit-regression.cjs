@@ -54,12 +54,12 @@ assert.equal(resolveSiteHref('javascript:alert(1)'), '');
 assert.equal(resolveSiteHref('data:text/html,test'), '');
 assert.equal(resolveSiteHref('https://dgu.ac.in/school-of-law'), route('schools/law'));
 const items = parseNews({ error: 0, data: [
-  { id: 1, categoryName: 'Campus & Event Updates', newsTitle: 'Campus story', url: 'campus-story', image: '/uploads/story.webp' },
+  { id: 1, categoryName: 'Campus & Event Updates', newsTitle: 'Campus story', url: 'dgu-football-tournament', image: '/uploads/story.webp' },
   { id: 1, categoryName: 'Campus & Event Updates', newsTitle: 'Campus story', url: 'campus-story' },
   { id: 2, categoryName: 'Admission News', newsTitle: 'Admission story', url: 'admission-story' },
 ] }, 'campus');
 assert.equal(items.length, 1, 'duplicates and wrong news categories are excluded');
-assert.equal(newsItemHref(items[0].href, 'campus'), `${SITE_BASE}/news/campus-story/`);
+assert.equal(newsItemHref(items[0].href, 'campus'), `${SITE_BASE}/news/dgu-football-tournament/`);
 assert.equal(newsItemHref('', 'campus'), newsListingHref('campus'), 'missing article URLs open their archive');
 const program = { id: 1, programName: 'MBA', url: 'mba' };
 const schools = parsePrograms({ error: 0, data: [
