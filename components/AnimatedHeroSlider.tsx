@@ -350,7 +350,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
           <span className={styles.count} aria-live="polite">{String(index + 1).padStart(2, '0')} / {String(available.length).padStart(2, '0')}</span>
         </div>}
       </div>
-      {variant !== 'school' && hasCaption && <div className={styles.caption}>
+      {(variant !== 'school' || title) && hasCaption && <div className={styles.caption}>
         {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
         {date && <p className={styles.date}>{date}</p>}
         {title && <h1><span className={styles.titleLead}>{title}</span>{titleEmphasis && <><br /><strong className={styles.titleEmphasis}>{titleEmphasis}</strong></>}</h1>}
