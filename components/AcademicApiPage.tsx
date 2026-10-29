@@ -359,13 +359,13 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
       </>}
       {info && <>
         <section className={kind==='school' ? 'school-opening' : 'program-opening'} aria-label={info.name}>
-          {(kind==='program' || !media.length) && <h1 className="visually-hidden">{info.name}</h1>}
+          {!media.length && <h1 className="visually-hidden">{info.name}</h1>}
           {kind==='school' && media.length>0 && <AnimatedHeroSlider key={`${info.kind}-${info.id}`} className="school-opening-media"
-            slides={media} label={`${info.name} banners`} paused={menuOpen} interval={5200} variant="school" aspectRatio={bannerRatio}
+            slides={media} label={`${info.name} banners`} title={info.name} paused={menuOpen} interval={5200} variant="school" aspectRatio={bannerRatio}
             onImageRatio={setBannerRatio} onImageUnavailable={image=>setFailedImages(old=>old.includes(image)?old:[...old,image])} />}
           {kind==='program' && media[0] && <div className="program-hero" style={bannerRatio?{'--academic-banner-ratio':bannerRatio} as CSSProperties:undefined}>
             <AcademicBannerImage {...media[0]} active onRatio={setBannerRatio} onUnavailable={()=>setFailedImages(old=>old.includes(media[0].image)?old:[...old,media[0].image])}/>
-            <p className="program-hero-caption">{info.name}</p>
+            <h1 className="program-hero-caption">{info.name}</h1>
           </div>}
         </section>
         <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
