@@ -356,3 +356,12 @@ body .academic-api-page main .academic-tab-content[data-tab-kind="fees"] .dgu-ap
   line-height: inherit !important;
   letter-spacing: 0 !important;
 }
+
+/* Keep API-driven programme titles readable over the hero on small viewports. */
+.academic-api-page .program-hero { isolation:isolate; }
+.academic-api-page .program-hero::after { z-index:0; }
+.academic-api-page .program-hero-caption { z-index:1;max-width:76%;margin:0 auto;overflow-wrap:anywhere;text-shadow:0 2px 14px rgba(0,0,0,.55); }
+@media(max-width:700px) {
+  .academic-api-page .program-hero { aspect-ratio:var(--academic-banner-ratio,4 / 3); }
+  .academic-api-page .program-hero-caption { right:6%;bottom:clamp(14px,5vw,28px);left:6%;max-width:88%;font-size:clamp(20px,5.6vw,32px);line-height:1.08; }
+}
