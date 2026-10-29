@@ -268,7 +268,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
       onLoad={event => {
         const node = event.currentTarget;
         const source = node.currentSrc || node.src;
-        if (node.naturalWidth && node.naturalHeight && ratioSource.current !== source) {
+        if (node.naturalWidth && node.naturalHeight && !ratioSource.current) {
           ratioSource.current = source;
           onImageRatio?.(`${node.naturalWidth} / ${node.naturalHeight}`);
         }
