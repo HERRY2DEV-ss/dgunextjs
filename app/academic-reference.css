@@ -365,3 +365,9 @@
     line-height: 1.12;
   }
 }
+
+
+/* Override the legacy API-banner no-overlay rule only for readable title contrast. */
+body .academic-api-page.program-page .program-hero::after {
+  display: block;
+}
