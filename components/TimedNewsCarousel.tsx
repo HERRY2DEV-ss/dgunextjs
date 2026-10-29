@@ -12,10 +12,12 @@ export default function TimedNewsCarousel({ items, tab, categoryLabel }: Props) 
   const [failedImages, setFailedImages] = useState<string[]>([]);
   const active = items[activeIndex];
 
+  const itemsKey = items.map(item => item.id).join('|');
+
   useEffect(() => {
     setActiveIndex(0);
     setFailedImages([]);
-  }, [items, tab]);
+  }, [itemsKey, tab]);
 
   const goTo = useCallback((index: number) => {
     if (!items.length) return;
