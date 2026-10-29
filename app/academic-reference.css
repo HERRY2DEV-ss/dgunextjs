@@ -277,3 +277,33 @@
   .academic-reference .academic-placement-stats > div { min-height: 75px; }
   .academic-reference .academic-placement-stats dd { font-size: 18px; }
 }
+
+/* Semantic programme hero heading with responsive spacing and readable contrast. */
+.academic-reference .program-hero-caption {
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-transform: none;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .5);
+}
+.academic-reference .school-opening-media { min-width: 0; }
+@media (max-width: 1000px) {
+  .academic-reference .school-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 31%);
+    gap: clamp(20px, 3vw, 34px);
+  }
+  .academic-reference .school-opening-media,
+  .academic-reference .program-hero { max-width: 100%; }
+}
+@media (max-width: 700px) {
+  .academic-reference .school-intro {
+    grid-template-columns: minmax(0, 1fr);
+    width: min(92%, 640px);
+  }
+  .academic-reference .program-hero-caption {
+    right: 6%;
+    left: 6%;
+    bottom: 12px;
+    font-size: clamp(17px, 5vw, 23px);
+  }
+}
