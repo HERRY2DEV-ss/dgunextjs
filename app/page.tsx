@@ -28,12 +28,13 @@ import HomepageTimedCardsSlider from '../components/HomepageTimedCardsSlider';
 import type { HomepageCardSlide } from '../components/HomepageTimedCardsSlider';
 
 const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
-const homepageHeroSlides: HomepageCardSlide[] = [
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner1.jpg', alt: 'DBS Global University banner 1' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner4.jpg', alt: 'DBS Global University banner 4' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner7.jpg', alt: 'DBS Global University banner 7' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner8.jpg', alt: 'DBS Global University banner 8' },
-];
+const homepageHeroSlides: HomepageCardSlide[] = Array.from({ length: 8 }, (_, index) => {
+  const banner = index + 1;
+  return {
+    image: `https://dgu.ac.in/oldv1/images/slides/banner${banner}.jpg`,
+    alt: `DBS Global University banner ${banner}`,
+  };
+});
 type Viewer = { title: string; image?: string; text?: string; video?: string; related?: boolean };
 type OutcomeTab = 'placements' | 'startup' | 'higher';
 

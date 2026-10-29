@@ -194,12 +194,12 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
       return;
     }
     if (flight.start && (!flightImage.current?.complete || !flightImage.current.naturalWidth)) return;
-    const duration = 420;
-    const options: KeyframeAnimationOptions = { duration, easing: 'cubic-bezier(.42,0,.58,1)', fill: 'both' };
+    const duration = 620;
+    const options: KeyframeAnimationOptions = { duration, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both' };
     const animations: Animation[] = [
       previousImage.animate([{ opacity: 1 }, { opacity: 0 }], options),
       targetImage.animate([
-        { opacity: 0, transform: 'scale(1.05)' },
+        { opacity: 0, transform: 'scale(1.025)' },
         { opacity: 1, transform: 'scale(1)' },
       ], options),
     ];
