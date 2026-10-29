@@ -199,7 +199,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
     const animations: Animation[] = [
       previousImage.animate([{ opacity: 1 }, { opacity: 0 }], options),
       targetImage.animate([
-        { opacity: 0, transform: 'scale(1.025)' },
+        { opacity: 0, transform: 'scale(1.05)' },
         { opacity: 1, transform: 'scale(1)' },
       ], options),
     ];
