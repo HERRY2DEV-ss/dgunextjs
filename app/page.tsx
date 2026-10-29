@@ -114,7 +114,7 @@ export default function Home() {
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
       <link rel="preload" as="image" href={homepageHeroSlides[0].image} fetchPriority="high" />
-      <AnimatedHeroSlider className="homepageHeroSlider" slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} variant="home" />
+      <AnimatedHeroSlider className="homepageHeroSlider" variant="home" slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} />
       <Navigation onOpenChange={setMenuOpen} />
     </header>
 
