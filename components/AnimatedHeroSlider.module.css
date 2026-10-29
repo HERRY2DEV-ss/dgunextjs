@@ -439,3 +439,11 @@
 /* News headlines: first two words regular, next two words semibold. */
 .titleLead { font-weight: 400; }
 .titleEmphasis { font-weight: 600; }
+
+/* Keep the school title over the hero image on narrow screens as well. */
+@media (max-width:700px) {
+  .schoolVariant.stage.hasCaption { display:block;aspect-ratio:var(--hero-aspect,898 / 1315); }
+  .schoolVariant.stage.hasCaption .media { position:absolute;inset:0;height:100%;aspect-ratio:auto; }
+  .schoolVariant .caption { position:absolute;right:18px;bottom:18px;left:18px;width:auto;max-width:none;margin:0;padding:14px 12px;background:linear-gradient(90deg,rgba(12,8,18,.72),rgba(12,8,18,.18)); }
+  .schoolVariant .caption h1 { font-size:clamp(26px,7.5vw,42px);line-height:1.04;overflow-wrap:anywhere; }
+}
