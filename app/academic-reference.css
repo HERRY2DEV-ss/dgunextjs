@@ -1,6 +1,6 @@
 /* Only the three PDF reference pages opt in. Shared homepage styles stay intact. */
 .academic-reference {
-  --academic-width: min(100%, 1800px);
+  --academic-width: min(91%, 1440px);
   --academic-gap: clamp(36px, 4.8vw, 80px);
   --academic-heading: clamp(24px, 2.25vw, 40px);
   --academic-body: 20px;
