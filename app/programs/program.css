@@ -136,7 +136,7 @@
 
 /* MBA specializations follow the same three soft panels as the reference. */
 .program-specializations {
-  width: min(94%, 1710px);
+  width: min(91%, 1710px);
   margin: 0 auto;
   padding: 0 0 clamp(45px, 5vw, 95px);
 }
