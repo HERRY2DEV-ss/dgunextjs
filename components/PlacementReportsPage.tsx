@@ -16,7 +16,6 @@ import './placement-reports.css';
 const sectorYears = ['2026', '2025', '2024'] as const;
 const categoryLabels = ['Consulting companies', 'IT companies', 'FMCG companies', 'Cement companies', 'Home construction'];
 const companyCategories = [data.categories[1], data.categories[2], data.categories[3], data.categories[4], data.categories[5]];
-const placementStats = data.design.stats.map(stat => [`${stat.value}${stat.suffix}`, stat.label] as const);
 
 // Retain every original report row without rendering the removed career-path panel.
 export function placementReportTables(source: string) {
@@ -88,7 +87,7 @@ function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
       </section>
       </div>
 
-      <div data-reveal><AdmissionsVideo variant="placements" paused={stopped} stats={placementStats} /></div>
+      <div data-reveal><AdmissionsVideo variant="placements" paused={stopped} /></div>
 
       <div className="placement-content">
       <section className="placement-preparation" aria-labelledby="placement-preparation-title" data-reveal>
