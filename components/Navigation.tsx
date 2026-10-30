@@ -195,8 +195,8 @@ export default function Navigation({
         {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined} onClick={closeMenu}>{link.label}</a>)}
       </nav>}
       {(!search || 'startup entrepreneurial success'.includes(search) || 'higher education'.includes(search)) && <nav className="mega-menu-bottom" aria-label="Success stories">
-        {(!search || 'startup entrepreneurial success'.includes(search)) && <a href={sitePath('/placement-reports/#startup')} onClick={closeMenu}>Startup &amp; Entrepreneurial Success</a>}
-        {(!search || 'higher education'.includes(search)) && <a href={sitePath('/placement-reports/#higher-education')} onClick={closeMenu}>Higher Education</a>}
+        {(!search || 'startup entrepreneurial success'.includes(search)) && <a href={sitePath('/startup-entrepreneurial-success/')} onClick={closeMenu}>Startup &amp; Entrepreneurial Success</a>}
+        {(!search || 'higher education'.includes(search)) && <a href={sitePath('/higher-education/')} onClick={closeMenu}>Higher Education</a>}
       </nav>}
     </div>
     <div className="mega-menu-right">
