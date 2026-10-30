@@ -60,6 +60,21 @@ async function contracts(mode) {
   assert.equal(homepageCalls[0].options.headers, undefined, 'Homepage PHP has no Apikey authentication.');
   await e.load('components/homepage-api.ts').requestHomepageData();
   assert.equal(e.calls.filter(call => call.url === homepageCalls[0].url).length, 1, 'Success stories reuse that same response.');
+
+  const archiveEnv = environment(mode), archive = archiveEnv.load('components/news-archive-api.ts');
+  archiveEnv.use(url => /(?:get-news\\.php|dgu-news\\/)$/.test(url)
+    ? response('')
+    : response(homepage));
+  const admissionArchive = await archive.requestArchiveNews('admissions');
+  assert.equal(admissionArchive.length, 0, 'The archive must return the actual homepage Admission News bucket (empty in this fixture), not fail on an empty primary body.');
+  assert.equal(archiveEnv.calls.length, 2, 'An empty admission archive response makes one homepage GET fallback.');
+  assert.equal(archiveEnv.calls[1].options.method, undefined, 'The homepage fallback uses GET.');
+  assert.equal(archiveEnv.calls[1].options.headers, undefined, 'The homepage fallback does not send the menu API key.');
+
+  const archiveCampusEnv = environment(mode), archiveCampus = archiveCampusEnv.load('components/news-archive-api.ts');
+  archiveCampusEnv.use(() => response({ error: 0, data: [{ id: 7, newsTitle: 'Campus archive', url: '/campus-archive', categoryID: '3' }] }));
+  assert.equal((await archiveCampus.requestArchiveNews('campus'))[0].title, 'Campus archive');
+  assert.equal(archiveCampusEnv.calls.length, 1, 'Campus archive continues using its own category endpoint without a fallback.');
   const before = e.calls.length;
   await assert.rejects(news.requestNews('campus', { SCHOOL_URL: 'school-of-technology' }), /404 HTML/);
   assert.equal(e.calls.length, before + 1, 'Missing scoped news must not borrow unfiltered homepage news.');
