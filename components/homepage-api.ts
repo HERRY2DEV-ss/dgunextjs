@@ -41,7 +41,7 @@ function parseHomepageHeroSlides(payload: unknown): HomepageHeroSlide[] {
   }
   return response.data.flatMap(item => {
     const record = apiRecord(item);
-    const image = apiMedia(record?.imageURL);
+    const image = apiMedia(record ? record.imageURL ?? record.bannerImage ?? record.banner ?? record.image : undefined);
     if (!record || !image) return [];
     const name = typeof record.name === 'string' ? record.name.trim() : '';
     return [{ image, alt: name || 'DBS Global University' }];
