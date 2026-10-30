@@ -64,9 +64,10 @@ async function contracts(mode) {
   const archiveEnv = environment(mode), archive = archiveEnv.load('components/news-archive-api.ts');
   archiveEnv.use(url => /(?:get-news\\.php|dgu-news\\/)$/.test(url)
     ? response('')
-    : response(homepage));
+    : response({ ...homepage, news: { ...homepage.news, admission: [{ id: 'admission', title: 'Admission notice', href: 'https://dgu.ac.in/admission-notice' }] } }));
   const admissionArchive = await archive.requestArchiveNews('admissions');
-  assert.equal(admissionArchive.length, 0, 'The archive must return the actual homepage Admission News bucket (empty in this fixture), not fail on an empty primary body.');
+  assert.equal(admissionArchive.length, 1, 'The archive must return live Admission News from the homepage bucket when the primary category endpoint is empty.');
+  assert.equal(admissionArchive[0].title, 'Admission notice');
   assert.equal(archiveEnv.calls.length, 2, 'An empty admission archive response makes one homepage GET fallback.');
   assert.equal(archiveEnv.calls[1].options.method, undefined, 'The homepage fallback uses GET.');
   assert.equal(archiveEnv.calls[1].options.headers, undefined, 'The homepage fallback does not send the menu API key.');
