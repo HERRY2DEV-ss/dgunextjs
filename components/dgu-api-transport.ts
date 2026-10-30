@@ -1,6 +1,6 @@
 /** Original developer endpoints. The optional base lets local/restored PHP APIs
  * use the same contracts without depending on a CMS folder or a data snapshot. */
-export type DguFeed = 'menus' | 'programs' | 'program-info' | 'school-info' | 'admissions' | 'differentiators' | 'faculty' | 'reviews' | 'news' | 'footer' | 'homepage' | 'club' | 'recruiters' | 'placements' | 'hostel-life' | 'international' | 'glance';
+export type DguFeed = 'menus' | 'programs' | 'program-info' | 'school-info' | 'admissions' | 'differentiators' | 'faculty' | 'reviews' | 'news' | 'footer' | 'homepage' | 'club' | 'recruiters' | 'placements' | 'hostel-life' | 'international' | 'glance' | 'sliders';
 const filenames: Record<DguFeed, string> = {
   menus: 'get-menus.php', programs: 'get-programs.php', 'program-info': 'get-program-info.php',
   'school-info': 'get-school-info.php',
@@ -8,7 +8,7 @@ const filenames: Record<DguFeed, string> = {
   placements: 'get-placements.php',
   'hostel-life': 'get-hostel-life.php',
   international: 'get-international.php',
-  glance: 'get-glance.php',
+  glance: 'get-glance.php', sliders: 'get-sliders.php',
   differentiators: 'get-differentiators.php',
   faculty: 'get-faculty.php', reviews: 'get-reviews.php', news: 'get-news.php',
   footer: 'get-footer.php', homepage: 'next-homepage-data.php', club: 'get-club.php', recruiters: 'get-recruiters.php',
