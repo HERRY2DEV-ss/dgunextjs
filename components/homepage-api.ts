@@ -1,5 +1,5 @@
 import { apiMedia, apiRecord, contentCache } from './dgu-content-api';
-import { readDguApiJson } from './dgu-api-transport';
+import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
 
 export type HomepageData = {
   success: true;
