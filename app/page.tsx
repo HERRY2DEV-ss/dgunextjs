@@ -162,13 +162,13 @@ export default function Home() {
             {startupImages.length > 0 && <BatchSlider className="outcome-story-slider" label="Startup and entrepreneurial success stories" size={2} interval={5500} paused={motionStopped} vertical controls>
               {startupImages.map((image,index)=><article className="outcome-story-card" key={`${image}-${index}`}><img src={asset(image)} alt="DBS Global Startup and Entrepreneurial Success" loading="lazy" /></article>)}
             </BatchSlider>}
-            <div className="outcome-story-copy"><h2 className="outcome-tiered-heading"><span className="outcome-bold-line">STARTUP &amp;</span><span className="outcome-light-lines"><span>ENTREPRENEURIAL</span><span>SUCCESS</span></span></h2></div>
+            <div className="outcome-story-copy"><h2 className="outcome-tiered-heading"><span className="outcome-bold-line">STARTUP &amp;</span><span className="outcome-light-lines"><span>ENTREPRENEURIAL</span><span>SUCCESS</span></span></h2><a className="text-link" href={sitePath('/startup-entrepreneurial-success/')}>View all startup stories →</a></div>
           </div> : <div className="outcome-panel-content outcome-story" key="higher">
             {homepageFeedback(higherEducationImages.length > 0)}
             {higherEducationImages.length > 0 && <BatchSlider className="outcome-story-slider" label="Higher education success stories" size={2} interval={5500} paused={motionStopped} vertical controls>
               {higherEducationImages.map((image,index)=><article className="outcome-story-card" key={`${image}-${index}`}><img src={asset(image)} alt="DBS Global University student success" loading="lazy" /></article>)}
             </BatchSlider>}
-            <div className="outcome-story-copy"><h2 className="outcome-tiered-heading"><span className="outcome-bold-line">CAREER SUCCESS IN</span><span className="outcome-light-lines"><span>HIGHER EDUCATION</span></span></h2></div>
+            <div className="outcome-story-copy"><h2 className="outcome-tiered-heading"><span className="outcome-bold-line">CAREER SUCCESS IN</span><span className="outcome-light-lines"><span>HIGHER EDUCATION</span></span></h2><a className="text-link" href={sitePath('/higher-education/')}>View all higher education stories →</a></div>
           </div>}
         </div>
         <RecruitersSection paused={motionStopped} />
