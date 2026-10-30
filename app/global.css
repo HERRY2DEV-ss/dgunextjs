@@ -3818,3 +3818,24 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
     padding: 8px 0;
   }
 }
+
+
+/* Show the Resources links in two balanced columns to reduce footer height. */
+.footer-link-group ul.footer-resources-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 22px;
+  row-gap: 5px;
+  align-items: start;
+}
+.footer-link-group ul.footer-resources-list li {
+  min-width: 0;
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 540px) {
+  .footer-link-group ul.footer-resources-list { column-gap: 14px; row-gap: 7px; }
+}
+@media (max-width: 360px) {
+  .footer-link-group ul.footer-resources-list { grid-template-columns: 1fr; }
+}
