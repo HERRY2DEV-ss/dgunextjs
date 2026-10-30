@@ -3374,9 +3374,11 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .placement-related-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
-/* Compact desktop header and unobstructed mobile hero. */
+/* Keep the homepage hero image below the shared header at every viewport. */
 @media(min-width:1001px){
- .hero#home{padding-top:0}
+ .hero#home{display:grid;grid-template-rows:96px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
+ .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
+ .hero#home>.site-header:not(.is-sticky){grid-row:1;position:relative;inset:auto;height:96px}
  .site-header{height:96px;padding-block:8px}
  .site-header .brand{width:18%;max-width:320px}
  .site-header .desktop-nav{font-size:clamp(12px,calc(1.36vw - 5px),17px)}
@@ -3387,10 +3389,15 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .site-header.is-sticky .desktop-nav{font-size:clamp(12px,.9vw,15px)}
  .site-header.is-sticky~.mega-menu-overlay{top:76px;height:calc(100vh - 76px);height:calc(100dvh - 76px)}
 }
+@media(min-width:701px) and (max-width:1000px){
+ .hero#home{display:grid;grid-template-rows:108px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
+ .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
+ .hero#home>.site-header:not(.is-sticky){grid-row:1;position:relative;inset:auto;height:108px}
+}
 @media(max-width:700px){
  .hero#home{display:grid;grid-template-rows:82px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
  .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
- .hero#home>.site-header:not(.is-sticky){position:absolute;top:0;left:0;right:0;height:82px}
+ .hero#home>.site-header:not(.is-sticky){grid-row:1;position:relative;inset:auto;height:82px}
 }
 @media(prefers-reduced-motion:reduce){.header-dropdown-list{transition:none}}
 

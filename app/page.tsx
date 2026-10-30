@@ -118,9 +118,9 @@ export default function Home() {
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
-      {heroSlides[0]?.image && <link rel="preload" as="image" href={heroSlides[0].image} fetchPriority="high" />}
-      <HomepageTimedCardsSlider slides={heroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} />
       <Navigation onOpenChange={setMenuOpen} />
+      {heroSlides[0]?.image && <link rel="preload" as="image" href={heroSlides[0].image} fetchPriority="high" />}
+      <HomepageTimedCardsSlider className="homepageHeroSlider" slides={heroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} />
     </header>
 
 

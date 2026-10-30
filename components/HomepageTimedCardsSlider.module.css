@@ -1,7 +1,7 @@
 .slider{position:relative;isolation:isolate;width:100%;aspect-ratio:1920 / 708;height:auto;min-height:0;max-height:none;overflow:hidden;background:#171717;color:#fff;font-family:'Clash Grotesk',Arial,sans-serif}
 .stage{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
 .card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .72s cubic-bezier(.22,1,.36,1);pointer-events:none;background:#171717;backface-visibility:hidden;will-change:opacity}
-.slideImage{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.slideImage{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .activeCard{z-index:2;opacity:1;pointer-events:auto}
 .hiddenCard{z-index:0}
 .caption{position:absolute;left:7%;bottom:10%;max-width:min(42%,620px);padding:16px 20px;background:#1118;color:#fff;font-size:clamp(14px,1.3vw,20px);line-height:1.4}

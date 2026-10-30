@@ -34,53 +34,39 @@ export function requestHomepageData(): Promise<HomepageData> {
 
 export type HomepageHeroSlide = { image: string; alt?: string; caption?: string };
 
-function extractHeroSlides(payload: unknown): HomepageHeroSlide[] {
-  const slides: HomepageHeroSlide[] = [];
-  const seen = new Set<string>();
-  const normalize = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
-  const imageKeys = new Set(['image', 'imageurl', 'sliderimage', 'sliderimageurl', 'banner', 'bannerimage', 'bannerurl', 'desktopimage', 'desktopimageurl', 'photourl', 'picture', 'src']);
-  const titleKeys = new Set(['title', 'heading', 'name', 'caption', 'alt', 'description']);
-  const visit = (value: unknown, depth = 0): void => {
-    if (depth > 6 || !value || typeof value !== 'object') return;
-    if (Array.isArray(value)) { value.forEach(item => visit(item, depth + 1)); return; }
-    const entries = Object.entries(value as Record<string, unknown>);
-    const imageEntry = entries.find(([key, item]) => imageKeys.has(normalize(key)) && typeof item === 'string' && Boolean(apiMedia(item)));
-    if (imageEntry) {
-      const image = apiMedia(imageEntry[1]);
-      if (image && !seen.has(image)) {
-        seen.add(image);
-        const textEntry = entries.find(([key, item]) => titleKeys.has(normalize(key)) && typeof item === 'string' && item.trim());
-        slides.push({ image, alt: textEntry ? String(textEntry[1]).trim() : 'DBS Global University' });
-      }
-    }
-    entries.forEach(([, child]) => { if (child && typeof child === 'object') visit(child, depth + 1); });
-  };
-  visit(payload);
-  return slides;
+function parseHomepageHeroSlides(payload: unknown): HomepageHeroSlide[] {
+  const response = apiRecord(payload);
+  if (!response || String(response.error) !== '0' || !Array.isArray(response.data)) {
+    throw new Error('Homepage sliders API returned an invalid response.');
+  }
+  return response.data.flatMap(item => {
+    const record = apiRecord(item);
+    const image = apiMedia(record?.imageURL);
+    if (!record || !image) return [];
+    const name = typeof record.name === 'string' ? record.name.trim() : '';
+    return [{ image, alt: name || 'DBS Global University' }];
+  });
 }
 
-export async function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
-  const key = process.env.NEXT_PUBLIC_DGU_SLIDERS_API_KEY?.trim()
-    || process.env.NEXT_PUBLIC_DGU_MENU_API_KEY?.trim();
-  if (!key || /^(PASTE_YOUR_API_KEY_HERE|YOUR_ACTUAL_API_KEY|apikey)$/i.test(key)) {
-    throw new Error('Configure the DGU API key for the homepage sliders endpoint.');
-  }
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
-  try {
-    const response = await fetch(clientDguApiUrl('sliders'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Apikey: key },
-      body: JSON.stringify({}),
-      cache: 'no-store',
-      signal: controller.signal,
-    });
-    const payload = await readDguApiJson(response, 'Homepage sliders API');
-    const slides = extractHeroSlides(payload);
-    if (!slides.length) throw new Error('Homepage sliders API returned no usable image records.');
-    return slides;
-  } catch (error) {
-    if (controller.signal.aborted) throw new Error('Homepage sliders API request timed out.');
-    throw error;
-  } finally { clearTimeout(timeout); }
+const cachedHomepageHeroSlides = contentCache<HomepageHeroSlide[]>();
+
+export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
+  return cachedHomepageHeroSlides('home', async () => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+    try {
+      const response = await fetch('/api/get-homepage-sliders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+        cache: 'no-store',
+        signal: controller.signal,
+      });
+      const payload = await readDguApiJson(response, 'Homepage sliders API');
+      return parseHomepageHeroSlides(payload);
+    } catch (error) {
+      if (controller.signal.aborted) throw new Error('Homepage sliders API request timed out.');
+      throw error;
+    } finally { clearTimeout(timeout); }
+  });
 }
