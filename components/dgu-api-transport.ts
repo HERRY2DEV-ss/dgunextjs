@@ -1,8 +1,8 @@
 /** Original developer endpoints. The optional base lets local/restored PHP APIs
  * use the same contracts without depending on a CMS folder or a data snapshot. */
-export type DguFeed = 'menus' | 'programs' | 'program-info' | 'school-info' | 'admissions' | 'differentiators' | 'faculty' | 'reviews' | 'news' | 'footer' | 'homepage' | 'club' | 'recruiters' | 'homepage-sliders' | 'placements' | 'hostel-life' | 'international' | 'glance' | 'sliders';
+export type DguFeed = 'menus' | 'programs' | 'program-info' | 'school-info' | 'admissions' | 'differentiators' | 'faculty' | 'reviews' | 'news' | 'footer' | 'homepage' | 'club' | 'recruiters' | 'placements' | 'hostel-life' | 'international' | 'glance' | 'sliders';
 const filenames: Record<DguFeed, string> = {
-  menus: 'get-menus.php', 'homepage-sliders': 'get-homepage-sliders.php', programs: 'get-programs.php', 'program-info': 'get-program-info.php',
+  menus: 'get-menus.php', programs: 'get-programs.php', 'program-info': 'get-program-info.php',
   'school-info': 'get-school-info.php',
   admissions: 'get-admissions.php',
   placements: 'get-placements.php',
