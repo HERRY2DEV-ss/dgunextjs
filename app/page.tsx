@@ -24,10 +24,9 @@ import { requestHomepageData, requestHomepageHeroSlides, type HomepageData, type
 import usePlacements from '../components/usePlacements';
 import PlacementStudentCard from '../components/PlacementStudentCard';
 import PlacementsFeedback from '../components/PlacementsFeedback';
-import HomepageTimedCardsSlider, { type HomepageCardSlide } from '../components/HomepageTimedCardsSlider';
+import HomepageTimedCardsSlider from '../components/HomepageTimedCardsSlider';
 
 const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
-const homepageHeroSlides: HomepageCardSlide[] = [];
 type Viewer = { title: string; image?: string; text?: string; video?: string; related?: boolean };
 type OutcomeTab = 'placements' | 'startup' | 'higher';
 
