@@ -1,3 +1,8 @@
+.success-story-banner{position:relative;width:100%;aspect-ratio:5133/1635;min-height:220px;max-height:520px;overflow:hidden;background:#f0f0ef}
+.success-story-banner>img{display:block;width:100%;height:100%;object-fit:cover}
+.success-story-banner-title{position:absolute;inset:auto 8% 9%;color:#fff;text-shadow:0 2px 18px #0008}
+.success-story-banner-title p{margin:0 0 10px;font-size:clamp(12px,1.2vw,18px);font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.success-story-banner-title h1{max-width:900px;margin:0;font-size:clamp(25px,4.2vw,64px);line-height:1.05;font-weight:600;text-transform:uppercase}
 .success-story-detail-page .internal-body{padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(48px,7vw,88px)}
 .success-story-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 30px;padding-bottom:22px;border-bottom:1px solid rgba(35,25,70,.16)}
 .success-story-intro p{max-width:720px;margin:0;font-size:clamp(17px,2vw,22px);line-height:1.55;color:#383344}
@@ -14,3 +19,5 @@
 .success-story-switch a{color:#4f3c83;font-weight:600;text-decoration:none}
 .success-story-switch a:hover{text-decoration:underline}
 @media(max-width:640px){.success-story-intro{display:block}.success-story-intro>span{display:block;margin-top:12px}.success-story-grid{grid-template-columns:1fr}.success-story-card img{aspect-ratio:4/3}.success-story-switch{flex-direction:column;gap:16px}}
+
+@media(max-width:640px){.success-story-banner{aspect-ratio:16/9;min-height:190px}.success-story-banner-title{inset:auto 6% 8%}.success-story-banner-title p{font-size:10px;margin-bottom:6px}.success-story-banner-title h1{font-size:clamp(20px,6vw,32px)}}
