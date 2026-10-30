@@ -51,5 +51,5 @@ export function PlacementCounter({ value, suffix, animate }: { value: number; su
     preference.addEventListener('change', changed);
     return () => { observer.disconnect(); preference.removeEventListener('change', changed); finish(); };
   }, [value, suffix, animate]);
-  return <><span ref={element} aria-hidden="true">{value}{suffix}</span><span className="placement-visually-hidden">{value}{suffix}</span></>;
+  return <span ref={element}>{value}{suffix}</span>;
 }
