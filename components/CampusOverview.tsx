@@ -57,8 +57,7 @@ const hostel: readonly Photo[] = [
 ];
 const tours: readonly Photo[] = [
   ['tour-landmark.webp', 'Students exploring a landmark'],
-  ['tour-night.webp', 'Students on an international tour'],
-  ['tour-bse.webp', 'Educational visit to the Bombay Stock Exchange'],
+  
 ];
 
 type Preview = (image: string, alt: string) => void;
@@ -82,7 +81,7 @@ function ReferenceLines({ children }: { children: string }) {
 
 function FeaturedArtist({ paused }: { paused: boolean }) {
   const artists = [
-    ['girl.webp', 'Aastha Gill performing at the university fest', 'artist-aastha-name.svg'],
+    ['Aastha-Gill.webp', 'Aastha Gill performing at the university fest', 'artist-aastha-name.svg'],
     ['celebrity-moment-4.webp', 'A guest artist visiting DBS Global University', ''],
     ['fest-performer.webp', 'A performer at the university fest', ''],
   ];

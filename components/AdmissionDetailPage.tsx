@@ -6,6 +6,8 @@ import InternalContent from './InternalContent';
 import InternalPageHero from './InternalPageHero';
 import { requestAdmissions, type AdmissionData } from './admissions-api';
 import { admissionDetail, admissionDetailHref } from './admissions-routes';
+import { getLocalPage } from './local-pages';
+import PlacementReportsPage from './PlacementReportsPage';
 import { SITE_BASE } from './site-routes';
 import SchoolPlacementsSection from './SchoolPlacementsSection';
 
@@ -23,9 +25,24 @@ export default function AdmissionDetailPage({ slug }: { slug: string }) {
   }, []);
   useEffect(() => { mounted.current = true; load(); return () => { mounted.current = false; }; }, [load, slug]);
   const detail = state.data ? admissionDetail(state.data, slug) : null;
+  const placementPage = slug === 'placement-reports' ? getLocalPage(slug) : null;
   useEffect(() => {
-    document.title = detail ? `${detail.title} | DBS Global University` : 'Admissions | DBS Global University';
-  }, [detail]);
+    document.title = slug === 'placement-reports'
+      ? 'Placements | DBS Global University'
+      : detail ? `${detail.title} | DBS Global University` : 'Admissions | DBS Global University';
+  }, [detail, slug]);
+
+  if (slug === 'placement-reports') {
+    if (!placementPage) throw new Error('The placement page content is missing.');
+    const reportStatus = state.status === 'error' ? 'error'
+      : state.status === 'loading' ? 'loading'
+        : detail ? 'ready' : 'unavailable';
+    return <PlacementReportsPage
+      page={placementPage}
+      reportHtml={detail?.html ?? null}
+      reportStatus={reportStatus}
+    />;
+  }
 
   return <LocalPageShell className="local-page internal-page local-page--content admission-detail-page">
     <a className="local-skip" href="#local-content">Skip to page content</a>

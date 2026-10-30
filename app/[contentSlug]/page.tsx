@@ -11,6 +11,7 @@ export const dynamicParams = false;
 export function generateStaticParams() { return localPages.filter(page => !['hostel-life', 'office-of-international-affairs', 'dgu-at-glance'].includes(page.slug)).map(page => ({ contentSlug: page.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ contentSlug: string }> }): Promise<Metadata> {
   const { contentSlug } = await params;
+  if (contentSlug === 'placement-reports') return { title: 'Placements | DBS Global University' };
   if (isAdmissionDetailSlug(contentSlug)) return { title: 'Admissions | DBS Global University' };
   const page = getLocalPage(contentSlug);
   if (page && localProgramSlug(page)) return { title: 'Programme | DBS Global University' };

@@ -7,6 +7,7 @@ import StepSlider from './StepSlider';
 import NewsUpdatesSection from './NewsUpdatesSection';
 import AdmissionsVideo from './AdmissionsVideo';
 import { PlacementCounter, usePlacementMotion } from './placement-motion';
+import ExpandableText from './ExpandableText';
 import data from './placement-page-data.json';
 import type { LocalPage } from './local-pages';
 import { SITE_BASE, sitePath } from './site-base';
@@ -44,7 +45,11 @@ const preparation = [
 const reportLabels = ['Placement Data 2025-26', 'Placement Data 2023-25', 'Placement Data 2022-24'];
 const regions = ['Delhi-NCR', 'Mumbai', 'Hyderabad', 'Bangalore'];
 
-function PlacementReportsPageContent({ page }: { page: LocalPage }) {
+function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
+  page: LocalPage;
+  reportHtml?: string | null;
+  reportStatus?: 'loading' | 'ready' | 'error' | 'unavailable';
+}) {
   const menuOpen = usePageMenuOpen();
   const [logosPaused, setLogosPaused] = useState(false);
   const [company, setCompany] = useState(0);
@@ -62,16 +67,17 @@ function PlacementReportsPageContent({ page }: { page: LocalPage }) {
   const topFive = sectors.slice(0, 5).reduce((total, item) => total + item.value, 0);
   const logoGroups = Array.from({ length: Math.ceil(data.recruiters.length / 32) }, (_, index) => data.recruiters.slice(index * 32, (index + 1) * 32));
   const directory = data.directory[directoryTab];
-  const reports = placementReportTables(page.html);
+  const reports = reportStatus === undefined || reportStatus === 'ready'
+    ? placementReportTables(reportHtml ?? page.html)
+    : [];
 
   return <div className="local-page local-page--placements">
     <a className="local-skip" href="#local-content">Skip to placements</a>
     <main ref={main} id="local-content" className="placement-main">
       <div className="placement-content">
       <header className="placement-hero" id="placement" data-navigation-opening>
-        <div className="placement-hero-title"><nav className="placement-visually-hidden" aria-label="Breadcrumb"><a href={`${SITE_BASE}/`}>Home</a> / <span aria-current="page">Placements</span></nav><h1>Placements</h1></div>
-        <div className="placement-hero-image" data-reveal><img src={sitePath(data.design.hero)} alt="DBS Global University campus and students. Begin your journey with a promising future." width="1644" height="528" fetchPriority="high" /></div>
-        <div className="placement-intro" data-reveal><p>“{data.quote}”</p>{data.quoteMore && <details><summary>Read more</summary><p>{data.quoteMore}</p></details>}</div>
+        <div className="placement-hero-image"><img src={sitePath('/assets/placement/placements_banner.webp')} alt="DBS Global University placement banner" width="5133" height="1635" fetchPriority="high" decoding="async" /></div>
+        <div className="placement-intro" data-reveal><p>“{data.quote}”</p>{data.quoteMore && <ExpandableText className="placement-intro-more" text={data.quoteMore} collapseAll />}</div>
       </header>
 
       <section className="placement-section placement-recruiters" id="panel-0" aria-labelledby="placement-recruiters-title" data-reveal>
@@ -103,7 +109,7 @@ function PlacementReportsPageContent({ page }: { page: LocalPage }) {
 
       <section className="placement-directory" id="secGrid" aria-labelledby="placement-directory-title" data-reveal><div className="placement-directory-title"><h2 id="placement-directory-title">Sector wise leading recruiters</h2><SlidingTabList activeKey={directoryTab} className="placement-tabs placement-directory-tabs" role="tablist" aria-label="Leading recruiter sectors">{data.directory.map((sector, index) => <button key={sector.label} id={`placement-directory-tab-${index}`} type="button" role="tab" aria-selected={directoryTab === index} aria-controls="placement-directory-panel" tabIndex={directoryTab === index ? 0 : -1} onClick={() => setDirectoryTab(index)} onKeyDown={event => tabKeys(event, index, data.directory.length, setDirectoryTab)}>{sector.label}</button>)}</SlidingTabList></div><div id="placement-directory-panel" className="placement-directory-panel" role="tabpanel" aria-labelledby={`placement-directory-tab-${directoryTab}`} tabIndex={0}><h3>{directory.label}</h3><p>Leading companies by year</p><div className="placement-directory-table" role="region" tabIndex={0} aria-label={`${directory.label} recruiters by year`}><table><thead><tr><th scope="col">#</th>{sectorYears.map(item => <th key={item} scope="col">{item}</th>)}</tr></thead><tbody>{directory.rows.map((row, index) => <tr key={index}><th scope="row">{index + 1}</th>{row.map((name, col) => <td key={col}>{name || '—'}</td>)}</tr>)}</tbody></table></div></div></section>
 
-      <section className="placement-records" aria-labelledby="placement-records" data-reveal><h2 id="placement-records">Placement reports</h2><div className="placement-report-list">{reports.map((table, index) => <details className="placement-report" key={index}><summary>{reportLabels[index]}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 7 6-7" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></summary><div className="placement-report-table local-article" tabIndex={0} role="region" aria-label={`${reportLabels[index]} table`} dangerouslySetInnerHTML={{ __html: table }} /></details>)}</div></section>
+      <section className="placement-records" aria-labelledby="placement-records" data-reveal><h2 id="placement-records">Placement reports</h2><div className="placement-report-list">{reportStatus === 'loading' ? <p role="status">Loading placement reports…</p> : reportStatus === 'error' ? <p role="status">Placement reports are temporarily unavailable.</p> : reports.length ? reports.map((table, index) => <details className="placement-report" key={index}><summary>{reportLabels[index]}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 7 6-7" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></summary><div className="placement-report-table local-article" tabIndex={0} role="region" aria-label={`${reportLabels[index]} table`} dangerouslySetInnerHTML={{ __html: table }} /></details>) : <p role="status">Placement reports are currently unavailable.</p>}</div></section>
 
       <section className="placement-team placement-section" aria-labelledby="placement-team" data-reveal><p className="placement-team-eyebrow">Meet the team</p><h2 id="placement-team">Corporate engagement team</h2><SlidingTabList activeKey={teamTab} className="placement-tabs placement-team-tabs" role="tablist" aria-label="Corporate engagement team city">{regions.map((label, index) => <button key={label} id={`placement-team-tab-${index}`} type="button" role="tab" aria-selected={teamTab === index} aria-controls={`placement-team-panel-${index}`} tabIndex={teamTab === index ? 0 : -1} onClick={() => setTeamTab(index)} onKeyDown={event => tabKeys(event, index, regions.length, setTeamTab)}>{label}</button>)}</SlidingTabList>{regions.map((label, index) => <div className="placement-team-panel" key={label} id={`placement-team-panel-${index}`} role="tabpanel" aria-labelledby={`placement-team-tab-${index}`} hidden={teamTab !== index} tabIndex={0}><StepSlider horizontalOnMobile className="placement-team-slider placement-line-slider" label={`${label} corporate engagement team`} size={2} paused={stopped || teamTab !== index} controls>{data.team.filter(member => member.region === index).map(member => <article className="placement-team-card" key={member.name}><div className="placement-team-copy"><h3>{member.name}</h3><p>{member.role}</p>{member.email ? <a href={`mailto:${member.email}`}>Email: {member.email}</a> : <a href={`${SITE_BASE}/contacts/`}>Contact directory ↗</a>}</div><PlacementImage className="placement-team-photo" src={member.image} alt={member.name} /></article>)}</StepSlider></div>)}</section>
 
@@ -112,4 +118,10 @@ function PlacementReportsPageContent({ page }: { page: LocalPage }) {
   </div>;
 }
 
-export default function PlacementReportsPage({page}:{page:LocalPage}) { return <LocalPageShell className="local-page local-page--placements"><PlacementReportsPageContent page={page}/></LocalPageShell>; }
+export default function PlacementReportsPage({ page, reportHtml, reportStatus }: {
+  page: LocalPage;
+  reportHtml?: string | null;
+  reportStatus?: 'loading' | 'ready' | 'error' | 'unavailable';
+}) {
+  return <LocalPageShell className="local-page local-page--placements"><PlacementReportsPageContent page={page} reportHtml={reportHtml} reportStatus={reportStatus} /></LocalPageShell>;
+}
