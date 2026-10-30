@@ -55,10 +55,12 @@ export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      // Call the existing live DGU API directly. The /api rewrite in
-      // next.config.ts exists only for local development and is absent from
-      // the production static export uploaded to hosting.
-      const response = await fetch('https://dgu.ac.in/api/get-homepage-sliders.php', {
+      // Local development uses the Next.js rewrite to avoid browser CORS;
+      // production static hosting calls the existing live DGU API directly.
+      const sliderApiUrl = process.env.NODE_ENV === 'development'
+        ? '/api/get-homepage-sliders.php'
+        : 'https://dgu.ac.in/api/get-homepage-sliders.php';
+      const response = await fetch(sliderApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
