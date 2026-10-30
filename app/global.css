@@ -3863,3 +3863,28 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
 @media (max-width: 360px) {
   .footer-resources-two-col { column-gap: 10px; }
 }
+
+
+/* Resources must use the full available footer-links width before splitting evenly. */
+.footer-link-columns > .footer-resources-group {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+}
+.footer-resources-group .footer-resources-two-col {
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(20px, 2.2vw, 40px);
+}
+.footer-resources-group .footer-resources-two-col > ul {
+  min-width: 0;
+}
+.footer-resources-group .footer-resources-two-col li {
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-align: left;
+}
+@media (max-width: 540px) {
+  .footer-link-columns > .footer-resources-group { grid-column: 1 / -1; }
+  .footer-resources-group .footer-resources-two-col { column-gap: 18px; }
+}
