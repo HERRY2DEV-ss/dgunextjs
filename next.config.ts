@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     async rewrites() {
       return [
         { source: '/programs/:programSlug/:recordId([1-9][0-9]*)/', destination: '/program-detail/' },
-        { source: '/api/dgu-homepage-sliders/', destination: liveDguApiUrl('homepage-sliders', process.env.NEXT_PUBLIC_DGU_HOMEPAGE_SLIDERS_API_URL) },
+        { source: '/api/get-homepage-sliders.php', destination: process.env.DGU_SLIDERS_PROXY_URL || 'https://dgu.ac.in/api/get-homepage-sliders.php' },
         { source: '/api/dgu-menus/', destination: liveDguApiUrl('menus', process.env.NEXT_PUBLIC_DGU_MENU_API_URL) },
         { source: '/api/dgu-news/', destination: liveDguApiUrl('news') },
         { source: '/api/dgu-footer/', destination: liveDguApiUrl('footer') },
