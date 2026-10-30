@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import LocalPageShell from './LocalPageShell';
-import InternalPageHero from './InternalPageHero';
 import { requestHomepageData } from './homepage-api';
 import { sitePath } from './site-base';
 import './success-story-detail.css';
@@ -49,7 +48,13 @@ export default function SuccessStoryDetailPage({ kind }: { kind: StoryKind }) {
   return <LocalPageShell className="local-page internal-page success-story-detail-page">
     <a className="local-skip" href="#local-content">Skip to page content</a>
     <main className="local-page-main" id="local-content" aria-busy={status === 'loading'}>
-      <InternalPageHero title={content.title} eyebrow={content.eyebrow} parent={{ label: 'Placements', href: sitePath('/placement-reports/') }} />
+      <header className="success-story-banner" data-navigation-opening>
+        <img src={sitePath('/assets/placement/placements_banner.webp')} alt="DBS Global University placements banner" fetchPriority="high" />
+        <div className="success-story-banner-title">
+          <p>{content.eyebrow}</p>
+          <h1>{content.title}</h1>
+        </div>
+      </header>
       <div className="internal-body">
         <section className="success-story-intro">
           <p>{content.intro}</p>
