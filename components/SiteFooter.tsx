@@ -5,8 +5,23 @@ import { sitePath } from './site-base';
 import { useEffect, useRef, useState } from 'react';
 import { requestFooter, type FooterData, type FooterGroup } from './footer-api';
 
-function LinkGroup({ group, listClassName = '' }: { group: FooterGroup; listClassName?: string }) {
-  return <><h2>{group.name}</h2><ul className={listClassName}>{group.links.map(link => <li key={link.id}>{link.href ? <a href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.name}</a> : link.name}</li>)}</ul></>;
+function FooterLink({ link }: { link: FooterGroup['links'][number] }) {
+  return <li>{link.href ? <a href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.name}</a> : link.name}</li>;
+}
+function LinkGroup({ group }: { group: FooterGroup }) {
+  return <><h2>{group.name}</h2><ul>{group.links.map(link => <FooterLink key={link.id} link={link} />)}</ul></>;
+}
+function ResourcesGroup({ group }: { group: FooterGroup }) {
+  const splitAt = Math.ceil(group.links.length / 2);
+  const left = group.links.slice(0, splitAt);
+  const right = group.links.slice(splitAt);
+  return <section className="footer-link-group footer-resources-group" aria-label={group.name}>
+    <h2>{group.name}</h2>
+    <div className="footer-resources-two-col">
+      <ul>{left.map(link => <FooterLink key={link.id} link={link} />)}</ul>
+      <ul>{right.map(link => <FooterLink key={link.id} link={link} />)}</ul>
+    </div>
+  </section>;
 }
 function SocialIcon({name}:{name:string}) {
   const key=name.toLowerCase();
@@ -48,7 +63,7 @@ export default function SiteFooter() {
       <div className="footer-quick">
         {status === 'loading' ? <p role="status">Loading footer…</p> : status === 'error' ? <div role="status"><p>Footer information is temporarily unavailable.</p><button type="button" className="text-link" onClick={load}>Try again</button></div> : first ? <LinkGroup group={first} /> : <p>No footer links available.</p>}
       </div>
-      <div className="footer-resources"><div className="footer-link-columns">{columns.map(group => <div className="footer-link-group" key={group.id}><LinkGroup group={group} listClassName={group.name.trim().toLowerCase() === 'resources' ? 'footer-resources-list' : ''} /></div>)}</div></div>
+      <div className="footer-resources"><div className="footer-link-columns">{columns.map(group => group.name.trim().toLowerCase() === 'resources' ? <ResourcesGroup group={group} key={group.id} /> : <div className="footer-link-group" key={group.id}><LinkGroup group={group} /></div>)}</div></div>
       {data?.copyright && <p className="copyright">Copyright © {new Date().getFullYear()} {data.copyright}</p>}
     </div></footer>
   );
