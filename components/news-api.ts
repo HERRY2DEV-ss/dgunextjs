@@ -1,5 +1,6 @@
 import { newsDetailHref } from './news-detail-api';
-import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
+import { clientDguApiUrl, DguApiResponseError, readDguApiJson } from './dgu-api-transport';
+import { requestHomepageData } from './homepage-api';
 export type NewsTab = 'campus' | 'placements' | 'admissions';
 export type NewsScope = { SCHOOL_URL?: string };
 export type NewsItem = {
@@ -133,9 +134,22 @@ async function loadNews(tab: NewsTab, schoolUrl: string): Promise<NewsItem[]> {
       signal: controller.signal,
       cache: 'no-store',
     });
+    // The redeveloped admissions endpoint currently returns only whitespace.
+    // Use the verified live homepage admission bucket for global lists only;
+    // keep malformed HTML, auth failures and school-scoped errors visible.
+    if (tab === 'admissions' && !schoolUrl && response.ok && typeof response.clone === 'function' &&
+      !(await response.clone().text()).replace(/^\uFEFF/, '').trim()) {
+      return parseHomepageNews(await requestHomepageData(), tab);
+    }
     const payload = await readDguApiJson(response, 'News API');
     return parseNews(payload, tab);
   } catch (error) {
+    // Only the verified missing-endpoint case can use the other supplied API.
+    // Auth, database, malformed JSON and scoped requests retain their errors.
+    if (!schoolUrl && error instanceof DguApiResponseError &&
+      (error.reason === 'endpoint-missing' || error.reason === 'http' && error.httpStatus === 404)) {
+      return parseHomepageNews(await requestHomepageData(), tab);
+    }
     if (controller.signal.aborted) throw new Error('News request timed out.');
     throw error;
   } finally { clearTimeout(timeout); }
