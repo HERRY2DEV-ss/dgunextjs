@@ -63,7 +63,7 @@ export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
       const response = await fetch(sliderApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Apikey: apiKey },
-        body: JSON.stringify({ IS_HOME: 1 }),
+        body: JSON.stringify({}),
         cache: 'no-store',
         credentials: 'omit',
         signal: controller.signal,
