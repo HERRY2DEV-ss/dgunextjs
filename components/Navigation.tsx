@@ -194,6 +194,10 @@ export default function Navigation({
       {bottomLinks.length > 0 && <nav className="mega-menu-bottom" aria-label="Additional university links">
         {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined} onClick={closeMenu}>{link.label}</a>)}
       </nav>}
+      {(!search || 'startup entrepreneurial success'.includes(search) || 'higher education'.includes(search)) && <nav className="mega-menu-bottom" aria-label="Success stories">
+        {(!search || 'startup entrepreneurial success'.includes(search)) && <a href={sitePath('/startup-entrepreneurial-success/')} onClick={closeMenu}>Startup &amp; Entrepreneurial Success</a>}
+        {(!search || 'higher education'.includes(search)) && <a href={sitePath('/higher-education/')} onClick={closeMenu}>Higher Education</a>}
+      </nav>}
     </div>
     <div className="mega-menu-right">
       <div className="menu-feature-image"><img src={MENU_IMAGE} alt="DBS Global University campus" width="1921" height="901" /></div>
