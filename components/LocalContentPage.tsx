@@ -2,7 +2,6 @@ import LocalPageShell from './LocalPageShell';
 import NavigationNewsList from './NavigationNewsList';
 import LocalDocumentViewer from './LocalDocumentViewer';
 import LocalGallery from './LocalGallery';
-import AdmissionDetailPage from './AdmissionDetailPage';
 import ClubsCommitteesPage from './ClubsCommitteesPage';
 import IndividualClubPage from './IndividualClubPage';
 import { SITE_BASE } from './site-routes';
@@ -14,10 +13,11 @@ import { localProgramSlug } from './local-program-data';
 import InternalPageHero from './InternalPageHero';
 import InternalContent from './InternalContent';
 import { internalHeroContent } from './internal-page-presentation';
+import PlacementsLandingPage from './PlacementsLandingPage';
 
 export default function LocalContentPage({ page }: { page: LocalPage }) {
   if (page.kind === 'profile' && page.group === 'Faculty') return <FacultyProfilePage slug={page.slug} />;
-  if (page.slug === 'placement-reports') return <AdmissionDetailPage slug="placement-reports" />;
+  if (page.slug === 'placement-reports') return <PlacementsLandingPage />;
   if (page.slug === 'students-clubs-and-committees') return <ClubsCommitteesPage />;
   if (page.slug.endsWith('-club')) return <IndividualClubPage slug={page.slug} />;
   const program = localProgramSlug(page);

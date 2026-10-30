@@ -129,7 +129,7 @@ async function loadNews(tab: NewsTab, schoolUrl: string): Promise<NewsItem[]> {
     const response = await fetch(NEWS_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Apikey: key },
-      body: JSON.stringify({ RECORD_TYPE: 'home', CATEGORY_ID: categories[tab].id, ...(schoolUrl ? { SCHOOL_URL: schoolUrl } : {}) }),
+      body: JSON.stringify({ RECORD_TYPE: 'home', CATEGORY_ID: categories[tab].id, ...(tab === 'admissions' ? { SCHOOL_ID: '1' } : {}), ...(schoolUrl ? { SCHOOL_URL: schoolUrl } : {}) }),
       signal: controller.signal,
       cache: 'no-store',
     });

@@ -19,7 +19,7 @@ async function load(tab: NewsTab): Promise<NewsItem[]> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
   try {
-    const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Apikey: key }, body: JSON.stringify({ RECORD_TYPE: 'home', CATEGORY_ID: categoryIds[tab] }), signal: controller.signal, cache: 'no-store' });
+    const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Apikey: key }, body: JSON.stringify({ RECORD_TYPE: 'home', CATEGORY_ID: categoryIds[tab], ...(tab === 'admissions' ? { SCHOOL_ID: '1' } : {}) }), signal: controller.signal, cache: 'no-store' });
     return parseNews(await readDguApiJson(response, 'News API'), tab);
   } finally { clearTimeout(timeout); }
 }

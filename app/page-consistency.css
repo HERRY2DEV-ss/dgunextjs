@@ -116,7 +116,7 @@ body main :is(.program-card,.local-content-card,.local-news-card,.faculty-card,.
 body main :is(.school-contact-form,.campus-contact,.program-enquiry) h2,
 body main .news-reading-label h2,
 body main .local-profile-summary h2 {
-  font-size: 28px !important; line-height: 1.3 !important;
+  font-size: 25px !important; line-height: 1.3 !important;
 }
 body main .post-recruiter-panel .simple-news-card h3,
 body main .post-recruiter-panel .update-card h3 {

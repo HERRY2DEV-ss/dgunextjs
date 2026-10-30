@@ -61,10 +61,13 @@ async function run(mode) {
   const news = load('components/news-api.ts');
   for (const [tab, category] of [['placements', '1'], ['admissions', '2'], ['campus', '3']]) {
     assert.equal((await news.requestNews(tab)).length, 1);
-    expectCall('news', { CATEGORY_ID: category });
+    expectCall('news', { RECORD_TYPE: 'home', CATEGORY_ID: category, ...(tab === 'admissions' ? { SCHOOL_ID: '1' } : {}) });
   }
-  await load('components/news-archive-api.ts').requestArchiveNews('campus');
-  expectCall('news', { CATEGORY_ID: '3' });
+  const archive = load('components/news-archive-api.ts');
+  await archive.requestArchiveNews('campus');
+  expectCall('news', { RECORD_TYPE: 'home', CATEGORY_ID: '3' });
+  await archive.requestArchiveNews('admissions');
+  expectCall('news', { RECORD_TYPE: 'home', CATEGORY_ID: '2', SCHOOL_ID: '1' });
   assert.equal((await load('components/news-detail-api.ts').requestNewsDetail('audit-article', new AbortController().signal)).title, 'Audit article');
   expectCall('news', { URL: 'audit-article' });
   assert.equal((await load('components/footer-api.ts').requestFooter()).groups.length, 1);
