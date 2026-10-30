@@ -3836,11 +3836,30 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
 @media (max-width: 540px) {
   .footer-link-group ul.footer-resources-list { column-gap: 14px; row-gap: 7px; }
 }
-/* Keep Resources in two columns at every viewport, including narrow phones. */
+/* Resources are rendered as two real, balanced lists to keep the layout reliable. */
+.footer-resources-group { min-width: 0; }
+.footer-resources-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.4vw, 28px);
+  align-items: start;
+}
+.footer-resources-two-col ul {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-resources-two-col li {
+  min-width: 0;
+  margin: 0 0 9px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+  .footer-resources-two-col { column-gap: 18px; }
+}
 @media (max-width: 360px) {
-  .footer-link-group ul.footer-resources-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 10px;
-    row-gap: 7px;
-  }
+  .footer-resources-two-col { column-gap: 10px; }
 }
