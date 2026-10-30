@@ -62,7 +62,7 @@ async function contracts(mode) {
   assert.equal(e.calls.filter(call => call.url === homepageCalls[0].url).length, 1, 'Success stories reuse that same response.');
 
   const archiveEnv = environment(mode), archive = archiveEnv.load('components/news-archive-api.ts');
-  archiveEnv.use(url => /(?:get-news\\.php|dgu-news\\/)$/.test(url)
+  archiveEnv.use(url => /(?:get-news\.php|dgu-news\/)$/.test(url)
     ? response('')
     : response({ ...homepage, news: { ...homepage.news, admission: [{ id: 'admission', title: 'Admission notice', href: 'https://dgu.ac.in/admission-notice' }] } }));
   const admissionArchive = await archive.requestArchiveNews('admissions');
