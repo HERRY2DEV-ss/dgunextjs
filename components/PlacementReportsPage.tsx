@@ -1,7 +1,7 @@
 'use client';
 import SlidingTabList from './SlidingTabList';
 
-import { useRef, useState, type KeyboardEvent, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type CSSProperties } from 'react';
 import LocalPageShell, { usePageMenuOpen } from './LocalPageShell';
 import StepSlider from './StepSlider';
 import NewsUpdatesSection from './NewsUpdatesSection';
@@ -12,6 +12,8 @@ import data from './placement-page-data.json';
 import type { LocalPage } from './local-pages';
 import { SITE_BASE, sitePath } from './site-base';
 import './placement-reports.css';
+import './success-story-detail.css';
+import { requestHomepageData } from './homepage-api';
 
 const sectorYears = ['2026', '2025', '2024'] as const;
 const categoryLabels = ['Consulting companies', 'IT companies', 'FMCG companies', 'Cement companies', 'Home construction'];
@@ -43,6 +45,37 @@ const preparation = [
 ];
 const reportLabels = ['Placement Data 2025-26', 'Placement Data 2023-25', 'Placement Data 2022-24'];
 const regions = ['Delhi-NCR', 'Mumbai', 'Hyderabad', 'Bangalore'];
+
+function PlacementSuccessStories() {
+  const [startup, setStartup] = useState<string[]>([]);
+  const [higher, setHigher] = useState<string[]>([]);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const load = useCallback(() => {
+    setStatus('loading');
+    requestHomepageData().then(data => {
+      setStartup(data.startupSuccess);
+      setHigher(data.higherEducation);
+      setStatus('ready');
+    }).catch(error => {
+      console.warn('Placement success stories unavailable.', error);
+      setStartup([]); setHigher([]); setStatus('error');
+    });
+  }, []);
+  useEffect(() => { load(); }, [load]);
+  const renderStories = (items: string[], label: string) => items.length
+    ? <div className="success-story-grid">{items.map((image, index) => <figure className="success-story-card" key={`${image}-${index}`}><img src={image.startsWith('/') || /^https?:/.test(image) ? image : sitePath(`/assets/${image}.webp`)} alt={`${label} ${index + 1}`} loading="lazy" /><figcaption><span>{label}</span><strong>{String(index + 1).padStart(2, '0')}</strong></figcaption></figure>)}</div>
+    : <p className="success-story-status" role="status">No stories are available at the moment.</p>;
+  return <div className="placement-content placement-success-stories">
+    <section id="startup" className="placement-section" aria-labelledby="startup-stories-title" data-reveal>
+      <h2 id="startup-stories-title">Startup &amp; Entrepreneurial Success</h2>
+      {status === 'loading' ? <p className="success-story-status" role="status">Loading success stories…</p> : status === 'error' ? <div className="success-story-status" role="status"><p>These stories are temporarily unavailable.</p><button type="button" onClick={load}>Try again</button></div> : renderStories(startup, 'Startup success story')}
+    </section>
+    <section id="higher-education" className="placement-section" aria-labelledby="higher-education-title" data-reveal>
+      <h2 id="higher-education-title">Higher Education</h2>
+      {status === 'loading' ? <p className="success-story-status" role="status">Loading success stories…</p> : status === 'error' ? <div className="success-story-status" role="status"><p>These stories are temporarily unavailable.</p><button type="button" onClick={load}>Try again</button></div> : renderStories(higher, 'Higher education story')}
+    </section>
+  </div>;
+}
 
 function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
   page: LocalPage;
@@ -109,6 +142,8 @@ function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
       <section className="placement-directory" id="secGrid" aria-labelledby="placement-directory-title" data-reveal><div className="placement-directory-title"><h2 id="placement-directory-title">Sector wise leading recruiters</h2><SlidingTabList activeKey={directoryTab} className="placement-tabs placement-directory-tabs" role="tablist" aria-label="Leading recruiter sectors">{data.directory.map((sector, index) => <button key={sector.label} id={`placement-directory-tab-${index}`} type="button" role="tab" aria-selected={directoryTab === index} aria-controls="placement-directory-panel" tabIndex={directoryTab === index ? 0 : -1} onClick={() => setDirectoryTab(index)} onKeyDown={event => tabKeys(event, index, data.directory.length, setDirectoryTab)}>{sector.label}</button>)}</SlidingTabList></div><div id="placement-directory-panel" className="placement-directory-panel" role="tabpanel" aria-labelledby={`placement-directory-tab-${directoryTab}`} tabIndex={0}><h3>{directory.label}</h3><p>Leading companies by year</p><div className="placement-directory-table" role="region" tabIndex={0} aria-label={`${directory.label} recruiters by year`}><table><thead><tr><th scope="col">#</th>{sectorYears.map(item => <th key={item} scope="col">{item}</th>)}</tr></thead><tbody>{directory.rows.map((row, index) => <tr key={index}><th scope="row">{index + 1}</th>{row.map((name, col) => <td key={col}>{name || '—'}</td>)}</tr>)}</tbody></table></div></div></section>
 
       <section className="placement-records" aria-labelledby="placement-records" data-reveal><h2 id="placement-records">Placement reports</h2><div className="placement-report-list">{reportStatus === 'loading' ? <p role="status">Loading placement reports…</p> : reportStatus === 'error' ? <p role="status">Placement reports are temporarily unavailable.</p> : reports.length ? reports.map((table, index) => <details className="placement-report" key={index}><summary>{reportLabels[index]}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 7 6-7" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" /></svg></summary><div className="placement-report-table local-article" tabIndex={0} role="region" aria-label={`${reportLabels[index]} table`} dangerouslySetInnerHTML={{ __html: table }} /></details>) : <p role="status">Placement reports are currently unavailable.</p>}</div></section>
+
+      <PlacementSuccessStories />
 
       <section className="placement-team placement-section" aria-labelledby="placement-team" data-reveal><p className="placement-team-eyebrow">Meet the team</p><h2 id="placement-team">Corporate engagement team</h2><SlidingTabList activeKey={teamTab} className="placement-tabs placement-team-tabs" role="tablist" aria-label="Corporate engagement team city">{regions.map((label, index) => <button key={label} id={`placement-team-tab-${index}`} type="button" role="tab" aria-selected={teamTab === index} aria-controls={`placement-team-panel-${index}`} tabIndex={teamTab === index ? 0 : -1} onClick={() => setTeamTab(index)} onKeyDown={event => tabKeys(event, index, regions.length, setTeamTab)}>{label}</button>)}</SlidingTabList>{regions.map((label, index) => <div className="placement-team-panel" key={label} id={`placement-team-panel-${index}`} role="tabpanel" aria-labelledby={`placement-team-tab-${index}`} hidden={teamTab !== index} tabIndex={0}><StepSlider horizontalOnMobile className="placement-team-slider placement-line-slider" label={`${label} corporate engagement team`} size={2} paused={stopped || teamTab !== index} controls>{data.team.filter(member => member.region === index).map(member => <article className="placement-team-card" key={member.name}><div className="placement-team-copy"><h3>{member.name}</h3><p>{member.role}</p>{member.email ? <a href={`mailto:${member.email}`}>Email: {member.email}</a> : <a href={`${SITE_BASE}/contacts/`}>Contact directory ↗</a>}</div><PlacementImage className="placement-team-photo" src={member.image} alt={member.name} /></article>)}</StepSlider></div>)}</section>
 
