@@ -5,8 +5,8 @@ import { sitePath } from './site-base';
 import { useEffect, useRef, useState } from 'react';
 import { requestFooter, type FooterData, type FooterGroup } from './footer-api';
 
-function LinkGroup({ group }: { group: FooterGroup }) {
-  return <><h2>{group.name}</h2><ul>{group.links.map(link => <li key={link.id}>{link.href ? <a href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.name}</a> : link.name}</li>)}</ul></>;
+function LinkGroup({ group, listClassName = '' }: { group: FooterGroup; listClassName?: string }) {
+  return <><h2>{group.name}</h2><ul className={listClassName}>{group.links.map(link => <li key={link.id}>{link.href ? <a href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.name}</a> : link.name}</li>)}</ul></>;
 }
 function SocialIcon({name}:{name:string}) {
   const key=name.toLowerCase();
@@ -48,7 +48,7 @@ export default function SiteFooter() {
       <div className="footer-quick">
         {status === 'loading' ? <p role="status">Loading footer…</p> : status === 'error' ? <div role="status"><p>Footer information is temporarily unavailable.</p><button type="button" className="text-link" onClick={load}>Try again</button></div> : first ? <LinkGroup group={first} /> : <p>No footer links available.</p>}
       </div>
-      <div className="footer-resources"><div className="footer-link-columns">{columns.map(group => <div className="footer-link-group" key={group.id}><LinkGroup group={group} /></div>)}</div></div>
+      <div className="footer-resources"><div className="footer-link-columns">{columns.map(group => <div className="footer-link-group" key={group.id}><LinkGroup group={group} listClassName={group.name.trim().toLowerCase() === 'resources' ? 'footer-resources-list' : ''} /></div>)}</div></div>
       {data?.copyright && <p className="copyright">Copyright © {new Date().getFullYear()} {data.copyright}</p>}
     </div></footer>
   );
