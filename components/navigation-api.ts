@@ -109,8 +109,16 @@ export function menuHref(item: Pick<MenuItem, 'label' | 'url'>): string | null {
   if (name === 'LIFE AT DGU' || name === 'CAMPUS LIFE') return `${SITE_BASE}/life-at-dgu/`;
   const raw = item.url.trim();
   const normalizedPath = raw.toLowerCase();
-  if (normalizedPath.includes('/placement-reports/#startup') || normalizedPath.includes('/placement-reports#startup')) return `${SITE_BASE}/startup-entrepreneurial-success/`;
-  if (normalizedPath.includes('/placement-reports/#higher-education') || normalizedPath.includes('/placement-reports#higher-education') || normalizedPath.includes('/placement-reports/#higher_education')) return `${SITE_BASE}/higher-education/`;
+  const [menuPath = '', menuHash = ''] = normalizedPath.split('#', 2);
+  const legacyPath = menuPath.split('?')[0].replace(/\/+$/, '');
+  const legacyHash = menuHash.split(/[?&]/)[0];
+  const isLegacyPlacementReports = legacyPath.endsWith('/placement-reports');
+  if (isLegacyPlacementReports && (legacyHash === 'startup' || legacyHash === 'startup-entrepreneurial-success')) {
+    return `${SITE_BASE}/startup-entrepreneurial-success/`;
+  }
+  if (isLegacyPlacementReports && (legacyHash === 'higher-education' || legacyHash === 'higher_education')) {
+    return `${SITE_BASE}/higher-education/`;
+  }
   if (!raw || raw === '#') {
     if (name === 'OVERVIEW' || name === 'HOME') return `${SITE_BASE}/`;
     if (name === 'PLACEMENTS') return `${SITE_BASE}/placement-reports/`;
