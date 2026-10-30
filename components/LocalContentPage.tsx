@@ -13,11 +13,11 @@ import { localProgramSlug } from './local-program-data';
 import InternalPageHero from './InternalPageHero';
 import InternalContent from './InternalContent';
 import { internalHeroContent } from './internal-page-presentation';
-import PlacementsLandingPage from './PlacementsLandingPage';
+import PlacementReportsPage from './PlacementReportsPage';
 
 export default function LocalContentPage({ page }: { page: LocalPage }) {
   if (page.kind === 'profile' && page.group === 'Faculty') return <FacultyProfilePage slug={page.slug} />;
-  if (page.slug === 'placement-reports') return <PlacementsLandingPage />;
+  if (page.slug === 'placement-reports') return <PlacementReportsPage page={page} />;
   if (page.slug === 'students-clubs-and-committees') return <ClubsCommitteesPage />;
   if (page.slug.endsWith('-club')) return <IndividualClubPage slug={page.slug} />;
   const program = localProgramSlug(page);
