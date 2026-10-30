@@ -23,7 +23,7 @@ async function load(tab: NewsTab): Promise<NewsItem[]> {
     // Admission category endpoint can return an empty body even with HTTP 200.
     // Match the homepage's verified live-source fallback for the global archive only.
     if (tab === 'admissions' && response.ok && typeof response.clone === 'function' &&
-      !(await response.clone().text()).replace(/^\\uFEFF/, '').trim()) {
+      !(await response.clone().text()).replace(/^\uFEFF/, '').trim()) {
       return parseHomepageNews(await requestHomepageData(), tab);
     }
     try {
