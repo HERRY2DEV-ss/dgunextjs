@@ -55,13 +55,15 @@ export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      // Use the shared slider endpoint in both development and static production.
-      // Development is proxied by next.config.ts; production calls the same-origin API.
+      // Match the authenticated POST contract used by programme and school feeds.
+      const apiKey = process.env.NEXT_PUBLIC_DGU_SLIDERS_API_KEY?.trim()
+        || process.env.NEXT_PUBLIC_DGU_MENU_API_KEY?.trim();
+      if (!apiKey) throw new Error('Homepage sliders API key is not configured.');
       const sliderApiUrl = clientDguApiUrl('sliders', process.env.NEXT_PUBLIC_DGU_SLIDERS_API_URL);
       const response = await fetch(sliderApiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        headers: { 'Content-Type': 'application/json', Apikey: apiKey },
+        body: JSON.stringify({ IS_HOME: 1 }),
         cache: 'no-store',
         credentials: 'omit',
         signal: controller.signal,
