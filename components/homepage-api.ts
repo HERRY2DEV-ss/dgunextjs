@@ -1,5 +1,5 @@
 import { apiMedia, apiRecord, contentCache } from './dgu-content-api';
-import { clientDguApiUrl, readDguApiJson } from './dgu-api-transport';
+import { readDguApiJson } from './dgu-api-transport';
 
 export type HomepageData = {
   success: true;
@@ -55,9 +55,11 @@ export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      // Use the same shared DGU API transport as the other live homepage feeds.
-      // Development is routed through Next.js; static production calls the live API.
-      const response = await fetch(clientDguApiUrl('homepage-sliders', process.env.NEXT_PUBLIC_DGU_HOMEPAGE_SLIDERS_API_URL), {
+      // Keep the known-working local Next.js proxy. Static production calls the live API directly.
+      const sliderApiUrl = process.env.NODE_ENV === 'development'
+        ? '/api/get-homepage-sliders.php'
+        : 'https://dgu.ac.in/api/get-homepage-sliders.php';
+      const response = await fetch(sliderApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
