@@ -21,7 +21,7 @@ function environment(mode = 'production') {
   }
   return { load, calls, use: fn => { mock = fn; } };
 }
-const response = (body, status = 200) => ({ ok: status >= 200 && status < 300, status, text: async () => typeof body === 'string' ? body : JSON.stringify(body) });
+const response = (body, status = 200) => { const result = { ok: status >= 200 && status < 300, status, text: async () => typeof body === 'string' ? body : JSON.stringify(body) }; result.clone = () => result; return result; };
 const a = { id: 10, programName: 'MBA', url: 'mba' }, b = { id: 59, programName: 'BA LLB', url: 'ba-llb' };
 const homepage = { success: true, higherEducation: ['/uploads/images/slides/career/A-1.webp'], startupSuccess: [], news: {
   campus: [{ id: 'campus', title: 'Campus article', date: '14 Oct 2026', text: 'API summary', href: 'https://dgu.ac.in/campus-article', image: '/uploads/images/news/campus.webp' }],
