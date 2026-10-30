@@ -51,6 +51,15 @@ function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
   reportStatus?: 'loading' | 'ready' | 'error' | 'unavailable';
 }) {
   const menuOpen = usePageMenuOpen();
+  useEffect(() => {
+    const hash = window.location.hash.toLowerCase();
+    const destination = hash === '#startup' || hash === '#startup-entrepreneurial-success'
+      ? sitePath('/startup-entrepreneurial-success/')
+      : hash === '#higher-education' || hash === '#higher_education'
+        ? sitePath('/higher-education/')
+        : null;
+    if (destination) window.location.replace(destination);
+  }, []);
   const [logosPaused, setLogosPaused] = useState(false);
   const [company, setCompany] = useState(0);
   const [internationalTab, setInternationalTab] = useState(0);
