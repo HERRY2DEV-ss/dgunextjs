@@ -55,10 +55,9 @@ export function requestHomepageHeroSlides(): Promise<HomepageHeroSlide[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      // Keep the known-working local Next.js proxy. Static production calls the live API directly.
-      const sliderApiUrl = process.env.NODE_ENV === 'development'
-        ? '/api/get-homepage-sliders.php'
-        : 'https://dgu.ac.in/api/get-homepage-sliders.php';
+      // Use the shared slider endpoint in both development and static production.
+      // Development is proxied by next.config.ts; production calls the same-origin API.
+      const sliderApiUrl = clientDguApiUrl('sliders', process.env.NEXT_PUBLIC_DGU_SLIDERS_API_URL);
       const response = await fetch(sliderApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
