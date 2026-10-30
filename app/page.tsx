@@ -20,19 +20,14 @@ import RecruitersSection from '../components/RecruitersSection';
 import PlacementVideoCard from '../components/PlacementVideoCard';
 import PlacementRelatedVideos from '../components/PlacementRelatedVideos';
 import NewsUpdatesSection from '../components/NewsUpdatesSection';
-import { requestHomepageData, type HomepageData } from '../components/homepage-api';
+import { requestHomepageData, requestHomepageHeroSlides, type HomepageData, type HomepageHeroSlide } from '../components/homepage-api';
 import usePlacements from '../components/usePlacements';
 import PlacementStudentCard from '../components/PlacementStudentCard';
 import PlacementsFeedback from '../components/PlacementsFeedback';
 import HomepageTimedCardsSlider, { type HomepageCardSlide } from '../components/HomepageTimedCardsSlider';
 
 const asset = (name: string) => name.startsWith('/') || /^https?:/.test(name) ? name : sitePath(`/assets/${name}.webp`);
-const homepageHeroSlides: HomepageCardSlide[] = [
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner1.jpg', alt: 'DBS Global University banner 1' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner4.jpg', alt: 'DBS Global University banner 4' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner7.jpg', alt: 'DBS Global University banner 7' },
-  { image: 'https://dgu.ac.in/oldv1/images/slides/banner8.jpg', alt: 'DBS Global University banner 8' },
-];
+const homepageHeroSlides: HomepageCardSlide[] = [];
 type Viewer = { title: string; image?: string; text?: string; video?: string; related?: boolean };
 type OutcomeTab = 'placements' | 'startup' | 'higher';
 
@@ -50,6 +45,7 @@ export default function Home() {
   const [viewer, setViewer] = useState<Viewer | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const [homepageData, setHomepageData] = useState<HomepageData | null>(null);
+  const [heroSlides, setHeroSlides] = useState<HomepageHeroSlide[]>([]);
   const [homepageAttempt, setHomepageAttempt] = useState(0);
   const [homepageStatus, setHomepageStatus] = useState<{ attempt: number; status: 'ready' | 'error' }>({ attempt: -1, status: 'ready' });
   const motionStopped = menuOpen || Boolean(viewer);
@@ -63,6 +59,17 @@ export default function Home() {
   const homepageFeedback = (hasImages: boolean) => homepageLoading ? <p role="status">Loading success stories…</p>
     : homepageStatus.status === 'error' ? <div role="status"><p>Success stories are temporarily unavailable.</p><button type="button" className="text-link" onClick={() => setHomepageAttempt(value => value + 1)}>Try again</button></div>
     : !hasImages ? <p role="status">No success stories are available yet.</p> : null;
+
+  useEffect(() => {
+    let active = true;
+    requestHomepageHeroSlides().then(slides => {
+      if (active) setHeroSlides(slides);
+    }).catch(error => {
+      console.warn('Homepage sliders feed unavailable.', error);
+      if (active) setHeroSlides([]);
+    });
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -112,8 +119,8 @@ export default function Home() {
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="hero" id="home">
       <h1 className="visually-hidden">DBS Global University Dehradun</h1>
-      <link rel="preload" as="image" href={homepageHeroSlides[0].image} fetchPriority="high" />
-      <HomepageTimedCardsSlider slides={homepageHeroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} />
+      {heroSlides[0]?.image && <link rel="preload" as="image" href={heroSlides[0].image} fetchPriority="high" />}
+      <HomepageTimedCardsSlider slides={heroSlides} label="DBS Global University highlights" paused={motionStopped} interval={3000} />
       <Navigation onOpenChange={setMenuOpen} />
     </header>
 
