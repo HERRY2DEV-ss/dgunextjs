@@ -12,6 +12,7 @@ assert.equal(routes.resolveSiteHref(clean),clean);assert.equal(routes.resolveSit
 assert.equal(routes.resolveSiteHref('/news/?filter=admissions'),'/news/?filter=admissions');
 assert(slugs.includes(slug));assert.equal(new Set(slugs).size,slugs.length);for(const item of slugs)assert.equal(urls.newsSlug(item),item);
 assert.equal(newsRoutes.newsItemHref(slug,'campus'),clean,'Known exported article slugs use their clean route.');
-assert.equal(newsRoutes.newsItemHref('dandiya-nights-2026-at-dgu','campus'),'/news/?url=dandiya-nights-2026-at-dgu','New API articles use the exported query route until their clean route is generated.');
+assert.equal(newsRoutes.newsItemHref('dandiya-nights-2026-at-dgu','campus'),'/news/dandiya-nights-2026-at-dgu/','New API articles also use the clean route before their static export identity is refreshed.');
+assert.equal(newsRoutes.newsItemHref('freshly-published-article','placements'),'/news/freshly-published-article/','All valid article slugs use clean routes independent of the static slug list.');
 assert.equal(newsRoutes.newsItemHref('','admissions'),'/admission-news/','Missing API article URLs open the category archive, not an unrelated article.');
 console.log('PASS: clean/legacy/news link resolution, export identities, invalid host/path rejection and archive filter preservation.');
