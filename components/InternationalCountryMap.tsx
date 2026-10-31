@@ -58,8 +58,8 @@ export default function InternationalCountryMap({ partners, showAllCountries = f
       {countries.map(country => {
         const [x, y] = positions[country], selected = active === country;
         return <button type="button" key={country} className={`${styles.dot} ${selected ? styles.selected : ''}`}
-          style={{ left: `${x}%`, top: `${y}%` }} aria-label={`Show partner logos in ${country}`} aria-expanded={selected} aria-controls={selected ? `${id}-partners` : undefined}
-          onPointerEnter={event => { if (event.pointerType === 'mouse') show(country); }} onPointerLeave={event => { if (event.pointerType === 'mouse') closeSoon(); }}
+          style={{ left: `${x}%`, top: `${y}%` }} data-country={country} title={country} aria-label={`Show partner logos in ${country}`} aria-expanded={selected} aria-controls={selected ? `${id}-partners` : undefined}
+          onMouseEnter={() => show(country)} onMouseLeave={closeSoon}
           onFocus={event => { if (event.currentTarget.matches(':focus-visible')) show(country); }} onClick={() => { cancelClose(); setActive(previous => previous === country ? null : country); }}>
           <span aria-hidden="true" />
         </button>;
