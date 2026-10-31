@@ -85,7 +85,6 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
       ref={element => { panelRefs.current[level] = element; }} id={`${id}-${level}`} className="dgu-header-panel"
       style={{ left: panel.left, top: panel.top, width: panel.width, maxHeight: `calc(100dvh - ${panel.top + 12}px)` }}
       onMouseEnter={cancelClose} onMouseLeave={leavePanel}
-      onScroll={() => setPanels(previous => previous.length > level + 1 ? previous.slice(0, level + 1) : previous)}
       onKeyDown={event => {
         if (event.key === 'Escape') { event.preventDefault(); close(); toggle.current?.focus(); }
         if (event.key === 'ArrowLeft' && level > 0) { event.preventDefault(); setPanels(previous => previous.slice(0, level)); panel.parent.focus(); }
