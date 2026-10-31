@@ -338,7 +338,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
             </button>;
           })}
         </div>}
-        {available.length > 1 && <div className={styles.controls}>
+        {variant !== 'school' && available.length > 1 && <div className={styles.controls}>
           <button type="button" disabled={preloading || transitioning} aria-label={`Previous ${label}`} onClick={() => select((index + available.length - 1) % available.length)}>‹</button>
           <button type="button" disabled={preloading || transitioning} aria-label={`Next ${label}`} onClick={() => select((index + 1) % available.length)}>›</button>
           <span className={styles.progress} role="group" aria-label={`${label} slides`}>
