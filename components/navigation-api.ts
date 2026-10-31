@@ -130,16 +130,3 @@ export function menuHref(item: Pick<MenuItem, 'label' | 'url'>): string | null {
 
 export const menuMatches = (item: MenuItem, term: string): boolean =>
   item.label.toLowerCase().includes(term) || item.children.some(child => menuMatches(child, term));
-
-let initialMenuRequest: Promise<MenuItem[]> | null = null;
-
-if (typeof window !== 'undefined') {
-  initialMenuRequest = requestMenus();
-  void initialMenuRequest.catch(() => {});
-}
-
-export function takeInitialMenuRequest(): Promise<MenuItem[]> {
-  const request = initialMenuRequest;
-  initialMenuRequest = null;
-  return request ?? requestMenus();
-}
