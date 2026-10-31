@@ -1,6 +1,6 @@
 /* Only the three PDF reference pages opt in. Shared homepage styles stay intact. */
 .academic-reference {
-  --academic-width: min(91%, 1440px);
+  --academic-width: min(94%, 1560px);
   --academic-gap: clamp(36px, 4.8vw, 80px);
   --academic-heading: clamp(24px, 2.25vw, 40px);
   --academic-body: 20px;
@@ -384,10 +384,10 @@ body .academic-api-page.program-page .program-hero::after {
   display: block;
   width: 100%;
   margin: 0;
-  padding: 18px 4.2% 30px;
+  padding: 20px 5.2% 32px;
   background: #f2f4f7;
   color: #071d42;
-  font-size: clamp(21px, 2vw, 27px) !important;
+  font-size: clamp(23px, 2.15vw, 30px) !important;
   font-weight: 600;
   line-height: 1.2 !important;
   text-align: left;
@@ -396,7 +396,7 @@ body .academic-api-page.program-page .program-hero::after {
 .academic-reference .academic-page-title::after {
   content: '';
   position: absolute;
-  left: 4.2%;
+  left: 5.2%;
   bottom: 14px;
   width: 31px;
   height: 4px;
@@ -413,8 +413,8 @@ body .academic-api-page.program-page .program-hero::after {
 }
 @media (max-width: 700px) {
   .academic-reference .academic-page-title {
-    padding: 16px 5% 28px;
-    font-size: 21px !important;
+    padding: 17px 5.5% 29px;
+    font-size: 22px !important;
   }
-  .academic-reference .academic-page-title::after { left: 5%; bottom: 12px; }
+  .academic-reference .academic-page-title::after { left: 5.5%; bottom: 12px; }
 }
