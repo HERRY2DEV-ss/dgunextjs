@@ -180,6 +180,19 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
   line-height: 1.75;
 }
 .news-detail-page .news-article-body .dgu-api-copy li { margin: 0 0 9px; padding-left: 3px; }
+.news-detail-page .news-article-body .dgu-api-copy p.news-api-list-item {
+  position: relative;
+  margin: 0 0 10px !important;
+  padding-left: 24px;
+  text-align: left;
+}
+.news-detail-page .news-article-body .dgu-api-copy p.news-api-list-item::before {
+  content: "•";
+  position: absolute;
+  left: 5px;
+  color: #68176b;
+  font-weight: 600;
+}
 .news-detail-page .news-article-body .dgu-api-copy li > p { margin: 0 0 8px !important; }
 .news-detail-page .news-article-body .dgu-api-copy blockquote {
   margin: 22px 0;
