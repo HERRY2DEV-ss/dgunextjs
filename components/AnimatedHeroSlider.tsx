@@ -54,7 +54,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
   const hasCaption = !!(title || eyebrow || date || description);
   const thumbnailIndices = variant === 'home'
     ? Array.from({ length: Math.min(4, available.length) }, (_, offset) => (index + offset) % available.length)
-    : upcoming;
+    : variant === 'school' ? [] : upcoming;
 
   useEffect(() => {
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
