@@ -240,6 +240,7 @@ export default function GlobalLearning({
           margin: 0 0 18px;
         }
         .global-learning-section .global-learning-map {
+          pointer-events: auto;
           left: 35%;
           right: 0;
           width: 65%;
