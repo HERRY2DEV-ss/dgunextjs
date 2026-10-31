@@ -10,7 +10,7 @@ function articleHtml(value: unknown): string {
   if (!body) return '';
   // Keep CMS HTML exactly as supplied so headings, paragraphs, lists and emphasis
   // remain semantic elements in the individual news detail view.
-  if (/<[a-z][\\s\\S]*>/i.test(body)) return body;
+  if (/<[a-z][\s\S]*>/i.test(body)) return body;
 
   const decodeLine = (line: string) => line
     .replace(/&nbsp;|&#160;/gi, ' ')
@@ -21,9 +21,9 @@ function articleHtml(value: unknown): string {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-  const lines = decodeLine(body.replace(/\\r\\n?/g, '\\n'))
-    .split(/\\n+/)
-    .map(line => line.replace(/[\\t\\u00a0 ]+/g, ' ').trim())
+  const lines = decodeLine(body.replace(/\r\n?/g, '\n'))
+    .split(/\n+/)
+    .map(line => line.replace(/[\t\u00a0 ]+/g, ' ').trim())
     .filter(Boolean);
   if (!lines.length) return '';
 
@@ -35,14 +35,14 @@ function articleHtml(value: unknown): string {
       paragraph = [];
     }
   };
-  const sentencePattern = /(?<=[.!?])\\s+(?=(?:[“"'(]*[A-Z0-9]))/g;
+  const sentencePattern = /(?<=[.!?])\s+(?=(?:[“"'(]*[A-Z0-9]))/g;
   for (const line of lines) {
-    const listMatch = /^(?:[•●▪◦*-]|\\d+[.)]|[a-z][.)])\\s+/.test(line);
+    const listMatch = /^(?:[•●▪◦*-]|\d+[.)]|[a-z][.)])\s+/.test(line);
     const headingLike = line.length <= 90 && !/[.!?]$/.test(line) && /:$/.test(line);
     if (listMatch || headingLike) {
       flush();
       if (listMatch) {
-        const item = line.replace(/^(?:[•●▪◦*-]|\\d+[.)]|[a-z][.)])\\s+/, '');
+        const item = line.replace(/^(?:[•●▪◦*-]|\d+[.)]|[a-z][.)])\s+/, '');
         blocks.push('<p class="news-api-list-item">' + escapeHtml(item) + '</p>');
       } else {
         blocks.push('<h3>' + escapeHtml(line.replace(/:$/, '')) + '</h3>');
