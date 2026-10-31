@@ -360,7 +360,7 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
       {info && <>
         <section className={kind==='school' ? 'school-opening' : 'program-opening'} aria-label={`${info.name} banner`}>
           {kind==='school' && media.length>0 && <AnimatedHeroSlider key={`${info.kind}-${info.id}`} className="school-opening-media"
-            slides={media} label={`${info.name} banners`} paused={menuOpen} interval={5200} variant="school" aspectRatio={bannerRatio}
+            slides={media} label={`${info.name} banners`} paused={menuOpen} interval={4200} variant="school" aspectRatio={bannerRatio}
             onImageRatio={setBannerRatio} onImageUnavailable={image=>setFailedImages(old=>old.includes(image)?old:[...old,image])} />}
           {kind==='program' && media[0] && <div className="program-hero" style={bannerRatio?{'--academic-banner-ratio':bannerRatio} as CSSProperties:undefined}>
             <AcademicBannerImage {...media[0]} active onRatio={setBannerRatio} onUnavailable={()=>setFailedImages(old=>old.includes(media[0].image)?old:[...old,media[0].image])}/>
