@@ -227,9 +227,6 @@ export default function Navigation({
       </div>
     <nav className="side-quick-menu" aria-label="Quick links" hidden={menuOpen}>
       <a href={APPLY_URL} aria-label="Apply now"><span>Apply Now</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5H5v15h14v-8M14 4l3-3 4 4-3 3-3 3-8 8-4 1 1-4Z" /></svg></a>
-      {bottomLinks.length > 0 && <div className="side-quick-menu-utility" aria-label="Additional quick links">
-        {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.label}</a>)}
-      </div>}
       <a href={resolveSiteHref("https://dgu.ac.in/uploads/documents/View-Book-2026.pdf")} target="_blank" rel="noopener noreferrer" aria-label="Download brochure"><span>Download Brochure</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v13m-5-5 5 5 5-5M3 14v7h18v-7" /></svg></a>
     </nav>
     <dialog id="site-menu" className={`mega-menu-overlay${menuVisible ? ' is-visible' : ''}`} ref={menuDialog}
