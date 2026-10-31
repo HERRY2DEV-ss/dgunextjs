@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import LocalPageShell from './LocalPageShell';
 import InternalPageHero from './InternalPageHero';
 import { newsSlug, newsDetailHref, requestNewsDetail, type NewsDetail } from './news-detail-api';
-import { newsRouteSlugs } from './news-route-slugs';
 import { newsListingHref } from './news-routes';
 import NavigationNewsList from './NavigationNewsList';
 import type { NewsTab } from './news-api';
@@ -129,7 +128,9 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
   useEffect(() => {
     const controller = new AbortController(); let active = true; let timedOut = false;
     const params = new URLSearchParams(window.location.search);
-    const articlePath = /^\/nextjs\/homev1\/news\/[^/]+\/?$/.test(window.location.pathname) ? window.location.pathname : '';
+    // Clean article URLs are used for both pre-exported and newly published slugs.
+    // The hosting .htaccess sends unexported /news/<slug>/ paths to this shared shell.
+    const articlePath = window.location.pathname.match(/(?:^|\/)news\/([^/]+)\/?$/)?.[1] || '';
     const selected = articlePath || defaultSlug || params.get('url') || '';
     const slug = newsSlug(selected);
     setArticle(null); setError(''); setArchiveTab(null); setFailedImages([]); setDialogImage('');
@@ -142,7 +143,7 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
     if (!slug) { setError('This article link is invalid. Please choose a story from the news archive.'); return; }
     // Keep old shared links working, but present the clean article URL.
     const canonical = newsDetailHref(slug);
-    if (newsRouteSlugs.includes(slug) && (window.location.pathname !== canonical || params.has('url'))) {
+    if (window.location.pathname !== canonical || params.has('url')) {
       window.history.replaceState(window.history.state, '', canonical + window.location.hash);
     }
     const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 20000);
