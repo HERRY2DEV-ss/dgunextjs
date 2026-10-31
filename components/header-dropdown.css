@@ -5,7 +5,7 @@
 .dgu-header-dropdown-toggle svg{display:block;transition:transform .18s ease}
 .dgu-header-dropdown-toggle[aria-expanded=true] svg{transform:rotate(180deg)}
 .dgu-header-dropdown:has(.dgu-header-dropdown-toggle[aria-expanded=true])>a{color:#fff}
-.dgu-header-panel{position:fixed;z-index:11000;box-sizing:border-box;height:max-content;min-height:0;max-height:calc(100dvh - 24px);overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-color:#ffffff65 transparent;padding:6px 0;background:rgba(37,12,42,.42);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;border:1px solid #ffffff24;border-radius:2px;animation:dgu-dropdown-enter .15s ease-out;font-family:inherit;text-align:left}
+.dgu-header-panel{position:fixed;z-index:11000;box-sizing:border-box;min-height:0;max-height:calc(100dvh - 24px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-color:#ffffff65 transparent;padding:6px 0;background:rgba(37,12,42,.42);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;border:1px solid #ffffff24;border-radius:2px;animation:dgu-dropdown-enter .15s ease-out;font-family:inherit;text-align:left}
 .dgu-header-panel ul{list-style:none;padding:0;margin:0}
 .dgu-header-panel li{display:flex;align-items:stretch;gap:0;transition:background-color .15s ease}
 .dgu-header-panel li:hover,.dgu-header-panel li.is-active,.dgu-header-panel li:focus-within{background:#ffffff12}
