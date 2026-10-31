@@ -365,3 +365,50 @@ body .academic-api-page main .academic-tab-content[data-tab-kind="fees"] .dgu-ap
   .academic-api-page .program-hero { aspect-ratio:var(--academic-banner-ratio,4 / 3); }
   .academic-api-page .program-hero-caption { right:6%;bottom:clamp(14px,5vw,28px);left:6%;max-width:88%;font-size:clamp(20px,5.6vw,32px);line-height:1.08; }
 }
+
+/* Keep API school titles in the same dedicated strip directly below the banner
+   as programme titles. The title remains outside the hero so it never overlays
+   or shifts the banner artwork. */
+.academic-api-page.school-page .academic-title-strip {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f2f4f7;
+}
+.academic-api-page.school-page .academic-title-strip .academic-page-title {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 22px 6.5% 34px;
+  background: #f2f4f7;
+  color: #071d42;
+  font-size: clamp(26px, 2.35vw, 34px) !important;
+  font-weight: 600;
+  line-height: 1.2 !important;
+  letter-spacing: 0;
+  text-align: left;
+  text-shadow: none;
+}
+.academic-api-page.school-page .academic-title-strip .academic-page-title::after {
+  content: '';
+  position: absolute;
+  left: 6.5%;
+  bottom: 14px;
+  width: 31px;
+  height: 4px;
+  background: #68176b;
+}
+@media (max-width: 700px) {
+  .academic-api-page.school-page .academic-title-strip .academic-page-title {
+    padding: 18px 6% 30px;
+    font-size: 24px !important;
+  }
+  .academic-api-page.school-page .academic-title-strip .academic-page-title::after {
+    left: 6%;
+    bottom: 12px;
+  }
+}
+
