@@ -6,7 +6,8 @@ import { menuHref, type MenuItem } from './navigation-api';
 import './header-dropdown.css';
 
 type Panel = { items: MenuItem[]; label: string; left: number; top: number; width: number; side?: 'left' | 'right'; parent: HTMLElement };
-const GAP = 8;
+// Keep nested panels flush so the pointer never crosses an unhoverable gap.
+const GAP = 0;
 
 export default function HeaderDropdown({ title, href, group }: { title: string; href: string; group?: MenuItem }) {
   const id = useId();
