@@ -169,10 +169,11 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .news-detail-page .news-article-body .dgu-api-copy > h3 { font-size: clamp(20px, 1.7vw, 25px); }
 .news-detail-page .news-article-body .dgu-api-copy > :is(h4,h5,h6) { font-size: clamp(17px, 1.4vw, 21px); }
 .news-detail-page .news-article-body .dgu-api-copy > p {
-  margin: 0 0 16px !important;
+  margin: 0 0 18px !important;
   line-height: 1.8;
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: left;
+  text-justify: auto;
+  word-spacing: normal;
 }
 .news-detail-page .news-article-body .dgu-api-copy > :is(ul,ol) {
   margin: 12px 0 22px;
