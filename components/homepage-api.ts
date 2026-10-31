@@ -32,7 +32,7 @@ export function requestHomepageData(): Promise<HomepageData> {
 }
 
 
-export type HomepageHeroSlide = { image: string; alt?: string; caption?: string };
+export type HomepageHeroSlide = { image: string; mobile?: string; alt?: string; caption?: string };
 
 function parseHomepageHeroSlides(payload: unknown): HomepageHeroSlide[] {
   const response = apiRecord(payload);
@@ -43,8 +43,9 @@ function parseHomepageHeroSlides(payload: unknown): HomepageHeroSlide[] {
     const record = apiRecord(item);
     const image = apiMedia(record ? record.imageURL ?? record.bannerImage ?? record.banner ?? record.image : undefined);
     if (!record || !image) return [];
+    const mobile = apiMedia(record.mobileImageURL ?? record.mobile_image_url ?? record.mobileImage);
     const name = typeof record.name === 'string' ? record.name.trim() : '';
-    return [{ image, alt: name || 'DBS Global University' }];
+    return [{ image, ...(mobile ? { mobile } : {}), alt: name || 'DBS Global University' }];
   });
 }
 
