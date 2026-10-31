@@ -412,3 +412,28 @@ body .academic-api-page main .academic-tab-content[data-tab-kind="fees"] .dgu-ap
   }
 }
 
+/* School API banners: show clean artwork without dark slide overlays or
+   leftover slider navigation/progress UI beneath the banner. */
+.academic-api-page.school-page .school-opening-media::before,
+.academic-api-page.school-page .school-opening-media::after,
+.academic-api-page.school-page .school-opening-media .academic-api-banner::before,
+.academic-api-page.school-page .school-opening-media .academic-api-banner::after,
+.academic-api-page.school-page .school-opening-media .academic-api-banner-slide::before,
+.academic-api-page.school-page .school-opening-media .academic-api-banner-slide::after,
+.academic-api-page.school-page .school-opening-media .academic-api-banner-slide > a::before,
+.academic-api-page.school-page .school-opening-media .academic-api-banner-slide > a::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.academic-api-page.school-page .school-opening-media .batch-controls,
+.academic-api-page.school-page .school-opening-media .batch-pagination,
+.academic-api-page.school-page .school-opening-media .batch-progress,
+.academic-api-page.school-page .school-opening-media .slider-controls,
+.academic-api-page.school-page .school-opening-media .slider-pagination,
+.academic-api-page.school-page .school-opening-media .swiper-pagination,
+.academic-api-page.school-page .school-opening-media .slick-dots {
+  display: none !important;
+}
+
