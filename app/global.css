@@ -162,6 +162,13 @@ section {
   line-height:1.1;
 }
 
+/* Keep the MENU hover treatment visible while the overlay is open. */
+.menu-toggle:hover,
+.menu-toggle[aria-expanded="true"] {
+  background:#3e0840;
+  color:#fff;
+}
+
 .menu-toggle span {
   font-size:.85em;
 }
