@@ -192,9 +192,7 @@ export default function Navigation({
         {menuApiStatus === 'ready' && search && !visibleMenus.length && !bottomLinks.length && <p role="status">No matching navigation links.</p>}
         {menuApiStatus === 'ready' && !search && !menus.length && <p role="status">No navigation links are available yet.</p>}
       </nav>
-      {bottomLinks.length > 0 && <nav className="mega-menu-bottom" aria-label="Additional university links">
-        {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined} onClick={closeMenu}>{link.label}</a>)}
-      </nav>}
+
 
     </div>
     <div className="mega-menu-right">
