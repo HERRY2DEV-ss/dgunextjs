@@ -3910,9 +3910,3 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
 .mega-menu-utility-links a span{font-size:12px;opacity:.7}
 .mega-menu-utility-links a:hover,.mega-menu-utility-links a:focus-visible{color:#e8d9ea;text-decoration:underline;text-underline-offset:4px}
 
-
-/* Keep a dedicated close control interactive inside the modal menu. */
-.menu-dialog-close{position:fixed!important;top:14px;right:18px;z-index:2147483647!important;display:flex;align-items:center;gap:12px;padding:10px 18px;border:1px solid #ffffff70;background:#5f2765;color:#fff;font:500 14px 'Clash Grotesk',Arial,sans-serif;cursor:pointer;pointer-events:auto!important}
-.menu-dialog-close span{font-size:25px;line-height:1}
-.menu-dialog-close:hover{background:#74337a}
-@media(max-width:700px){.menu-dialog-close{top:10px;right:10px;padding:8px 12px;font-size:12px}}
