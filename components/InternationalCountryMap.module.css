@@ -1,13 +1,15 @@
 .root { position:relative; width:min(100%,1000px); margin:0 auto; isolation:isolate; }
 .surface { position:relative; width:100%; aspect-ratio:510 / 225; }
 .earth { display:block; width:100%; height:100%; }
-.dot { position:absolute; z-index:2; display:grid; place-items:center; width:26px; height:26px; padding:0; border:0; border-radius:50%; background:transparent; transform:translate(-50%,-50%); cursor:pointer; }
+.dot { position:absolute; z-index:2; display:grid; place-items:center; width:34px; height:34px; padding:0; border:0; border-radius:50%; background:transparent; transform:translate(-50%,-50%); cursor:pointer; overflow:visible; -webkit-tap-highlight-color:transparent; }
 .dot span { position:relative; display:block; width:8px; height:8px; border-radius:50%; background:#ed3545; box-shadow:0 0 0 4px #ed35451a; transition:transform .25s ease,box-shadow .25s ease,background .25s ease; }
-.dot span::before { content:''; position:absolute; inset:-5px; border:1.5px solid #ed3545; border-radius:50%; opacity:0; transform:scale(.55); }
-.dot:hover span,.dot:focus-visible span,.selected span { transform:scale(1.55); background:#c9142b; box-shadow:0 0 0 7px #ed354535,0 0 14px #ed354580; }
+.dot span::before { content:''; position:absolute; inset:-7px; border:2px solid #ed3545; border-radius:50%; opacity:0; transform:scale(.45); pointer-events:none; }
+.dot::after { content:attr(data-country); position:absolute; left:50%; bottom:calc(100% + 9px); z-index:6; padding:5px 9px; border-radius:5px; background:#fff; color:#74166f; box-shadow:0 3px 14px #1c193326; font:600 12px/1.2 Arial,sans-serif; white-space:nowrap; opacity:0; visibility:hidden; transform:translate(-50%,4px); transition:opacity .16s ease,transform .16s ease,visibility .16s; pointer-events:none; }
+.dot:hover::after,.dot:focus-visible::after,.selected::after { opacity:1; visibility:visible; transform:translate(-50%,0); }
+.dot:hover span,.dot:focus-visible span,.selected span { transform:scale(2); background:#c9142b; box-shadow:0 0 0 8px #ed35454d,0 0 22px 7px #ed3545a6; }
 .dot:hover span::before,.dot:focus-visible span::before,.selected span::before { animation:country-dot-pulse 1.15s ease-out infinite; }
 .dot:hover,.dot:focus-visible,.selected { z-index:4; }
-@keyframes country-dot-pulse { 0% { opacity:.9; transform:scale(.55); } 100% { opacity:0; transform:scale(2.2); } }
+@keyframes country-dot-pulse { 0% { opacity:1; transform:scale(.45); } 100% { opacity:0; transform:scale(2.8); } }
 .dot:focus-visible { outline:2px solid #751875; outline-offset:3px; }
 .popup { position:absolute; z-index:5; width:300px; max-width:calc(100% - 16px); padding:16px; border:1px solid #e5dce9; border-radius:14px; background:#fff; box-shadow:0 15px 45px #3522412a; animation:popup-in .22s ease-out; }
 .popupHeader { display:flex; justify-content:space-between; align-items:center; gap:12px; padding-bottom:10px; border-bottom:1px solid #eee; }
