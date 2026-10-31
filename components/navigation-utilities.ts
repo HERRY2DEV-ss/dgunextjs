@@ -2,36 +2,25 @@ import { menuHref, type MenuItem } from './navigation-api';
 
 export type UtilityLink = { label: string; href: string; target?: '_blank' };
 
-const utilityLabels = new Set([
-  'alumni',
-  'events',
-  'virtual tour',
-  'video gallery',
-  'merch shop',
-  'scholarship',
-  'ai cell',
-  'career',
-  'contact us',
-]);
-
-/** Utility categories are layout-only; labels and destinations always come from the live menu API. */
+/** The API group is used only to position links; all labels and destinations remain API-driven. */
 export function isUtilityGroup(item: MenuItem): boolean {
   return /^(additional|quick|utility)\s+links$/i.test(item.label.trim());
 }
 
-/** Collect the nine requested utility links wherever the API nests them. */
 export function apiUtilityLinks(menus: MenuItem[]): UtilityLink[] {
   const links: UtilityLink[] = [];
   const seen = new Set<string>();
+  const excludedLabels = new Set(['home', 'startup & entrepreneurial success', 'higher education']);
   const visit = (items: MenuItem[]) => items.forEach(item => {
     const label = item.label.trim();
     const href = menuHref(item);
-    if (utilityLabels.has(label.toLowerCase()) && href && !seen.has(label.toLowerCase())) {
-      seen.add(label.toLowerCase());
+    const key = label.toLowerCase();
+    if (!item.children.length && href && !excludedLabels.has(key) && !seen.has(key)) {
+      seen.add(key);
       links.push({ label, href, ...(item.target === '_blank' ? { target: '_blank' as const } : {}) });
     }
     visit(item.children);
   });
-  menus.forEach(group => visit([group]));
+  menus.filter(isUtilityGroup).forEach(group => visit(group.children));
   return links;
 }
