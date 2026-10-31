@@ -106,6 +106,7 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
     if (!hasContent) element.remove();
   }
   for (const element of Array.from(document.body.querySelectorAll('br + br'))) element.remove();
+  splitLongArticleParagraphs(document);
 
   // Preserve the CMS block structure. ApiRichText renders paragraphs, headings,
   // lists, tables and inline emphasis separately; flattening them into one <p>
