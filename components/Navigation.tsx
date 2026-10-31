@@ -10,6 +10,17 @@ import { requestMenus, takeInitialMenuRequest, menuHref, menuMatches, type MenuI
 import { apiUtilityLinks, isUtilityGroup } from './navigation-utilities';
 const MAIN_LOGO = sitePath('/assets/dgu_logo_svg.svg');
 const FOOTER_LOGO = sitePath('/assets/dgu_logo_svg2.svg');
+const additionalMenuLinks = [
+  { label: 'Alumni', href: 'https://alumni.doonbusinessschool.com/?_gl=1*1ta7p8f*_gcl_au*MTAyNjI5MzQwMC4xNzY0MzkwNTAx' },
+  { label: 'Events', href: 'https://doonbusinessschool.com/news&filter=campus' },
+  { label: 'Virtual Tour', href: 'https://walkinside.s3.ap-south-1.amazonaws.com/dbs/index.html' },
+  { label: 'Video Gallery', href: 'https://doonbusinessschool.com/video-gallery' },
+  { label: 'Merch Shop', href: 'https://dgu.ac.in/collective/dgu-merch.html' },
+  { label: 'Scholarship', href: 'https://doonbusinessschool.com/scholarship' },
+  { label: 'AI Cell', href: 'https://aicelldgu.in/' },
+  { label: 'Career', href: 'https://dgu.ac.in/career-with-us' },
+  { label: 'Contact Us', href: 'https://doonbusinessschool.com/contacts' },
+];
 export default function Navigation({
   onOpenChange,
   logoSrc = MAIN_LOGO,
@@ -194,9 +205,10 @@ export default function Navigation({
       {bottomLinks.length > 0 && <nav className="mega-menu-bottom" aria-label="Additional university links">
         {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined} onClick={closeMenu}>{link.label}</a>)}
       </nav>}
-      {(!search || 'startup entrepreneurial success'.includes(search) || 'higher education'.includes(search)) && <nav className="mega-menu-bottom" aria-label="Success stories">
-        {(!search || 'startup entrepreneurial success'.includes(search)) && <a href={sitePath('/startup-entrepreneurial-success/')} onClick={closeMenu}>Startup &amp; Entrepreneurial Success</a>}
-        {(!search || 'higher education'.includes(search)) && <a href={sitePath('/higher-education/')} onClick={closeMenu}>Higher Education</a>}
+      <nav className="mega-menu-bottom mega-menu-quick-links" aria-label="Additional university links">
+        {additionalMenuLinks.filter(link => !search || link.label.toLowerCase().includes(search)).map(link =>
+          <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>{link.label}</a>
+        )}
       </nav>}
     </div>
     <div className="mega-menu-right">
