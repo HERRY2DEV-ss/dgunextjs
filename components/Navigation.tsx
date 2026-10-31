@@ -229,7 +229,6 @@ export default function Navigation({
       {bottomLinks.length > 0 && <div className="side-quick-menu-utility" aria-label="Additional quick links">
         {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>{link.label}</a>)}
       </div>}
-      <a href="tel:+917259162060" aria-label="Contact Us"><span>Contact Us</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3 2 6c0 7 9 16 16 16l3-3-5-5-3 2c-3-1-5-3-6-6l2-3Z" /></svg></a>
       <a href={resolveSiteHref("https://dgu.ac.in/uploads/documents/View-Book-2026.pdf")} target="_blank" rel="noopener noreferrer" aria-label="Download brochure"><span>Download Brochure</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v13m-5-5 5 5 5-5M3 14v7h18v-7" /></svg></a>
     </nav>
     <dialog id="site-menu" className={`mega-menu-overlay${menuVisible ? ' is-visible' : ''}`} ref={menuDialog}
