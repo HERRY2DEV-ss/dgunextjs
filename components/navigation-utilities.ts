@@ -1,20 +1,24 @@
-import { resolveSiteHref } from './site-routes';
-import type { MenuItem } from './navigation-api';
+import { menuHref, type MenuItem } from './navigation-api';
 
-export type UtilityLink = { label: string; href: string };
+export type UtilityLink = { label: string; href: string; target?: '_blank' };
 
-/** Fixed quick links for the right-side utility strip. */
-export const utilityLinks: UtilityLink[] = [
-  { label: 'Alumni', href: resolveSiteHref('https://dgu.ac.in/alumni') },
-  { label: 'Events', href: resolveSiteHref('https://dgu.ac.in/news') },
-  { label: 'Virtual Tour', href: resolveSiteHref('https://dgu.ac.in/virtual-tour') },
-  { label: 'Video Gallery', href: resolveSiteHref('https://dgu.ac.in/video-gallery') },
-  { label: 'Merch Shop', href: resolveSiteHref('https://dgu.ac.in/merch-shop') },
-  { label: 'Scholarship', href: resolveSiteHref('https://dgu.ac.in/scholarships') },
-  { label: 'AI Cell', href: resolveSiteHref('https://dgu.ac.in/ai-cell') },
-  { label: 'Career', href: resolveSiteHref('https://dgu.ac.in/career-with-us') },
-  { label: 'Contact Us', href: resolveSiteHref('https://dgu.ac.in/contacts') },
-].filter((link): link is UtilityLink => Boolean(link.href));
+/** Layout categories only. Every displayed link still comes from the menu API. */
+export function isUtilityGroup(item: MenuItem): boolean {
+  return /^(additional|quick|utility)\s+links$/i.test(item.label.trim());
+}
 
-export function isUtilityGroup(_item: MenuItem): boolean { return false; }
-export function apiUtilityLinks(_menus: MenuItem[]): UtilityLink[] { return utilityLinks; }
+export function apiUtilityLinks(menus: MenuItem[]): UtilityLink[] {
+  const links: UtilityLink[] = [];
+  const seen = new Set<string>();
+  const excludedLabels = new Set(['home', 'startup & entrepreneurial success', 'higher education']);
+  const visit = (items: MenuItem[]) => items.forEach(item => {
+    const href = menuHref(item);
+    if (!item.children.length && href && !excludedLabels.has(item.label.trim().toLowerCase()) && !seen.has(href)) {
+      seen.add(href);
+      links.push({ label: item.label, href, ...(item.target === '_blank' ? { target: '_blank' as const } : {}) });
+    }
+    visit(item.children);
+  });
+  menus.filter(isUtilityGroup).forEach(group => visit(group.children));
+  return links;
+}
