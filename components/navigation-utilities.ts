@@ -1,5 +1,6 @@
 import { resolveSiteHref } from './site-routes';
-import type { UtilityLink } from './navigation-utilities-types';
+
+export type UtilityLink = { label: string; href: string };
 
 /** Fixed quick links for the right-side utility strip. */
 export const utilityLinks: UtilityLink[] = [
@@ -14,6 +15,5 @@ export const utilityLinks: UtilityLink[] = [
   { label: 'Contact Us', href: resolveSiteHref('https://dgu.ac.in/contacts') },
 ].filter((link): link is UtilityLink => Boolean(link.href));
 
-export type UtilityLink = { label: string; href: string };
 export function isUtilityGroup(): boolean { return false; }
 export function apiUtilityLinks(): UtilityLink[] { return utilityLinks; }
