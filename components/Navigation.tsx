@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import HeaderDropdown from './HeaderDropdown';
 import { resolveSiteHref } from './site-routes';
 import { MENU_IMAGE, APPLY_URL, CONTACT_URL } from './navigation.config';
-import { requestMenus, takeInitialMenuRequest, menuHref, menuMatches, type MenuItem } from './navigation-api';
+import { requestMenus, menuHref, menuMatches, type MenuItem } from './navigation-api';
 import { isUtilityGroup } from './navigation-utilities';
 const MAIN_LOGO = sitePath('/assets/dgu_logo_svg.svg');
 const FOOTER_LOGO = sitePath('/assets/dgu_logo_svg2.svg');
@@ -70,7 +70,7 @@ export default function Navigation({
   }, [menuOpen, onOpenChange]);
   useEffect(() => {
     let unmounted = false;
-    takeInitialMenuRequest()
+    requestMenus()
       .then(next => {
         if (unmounted) return;
         setMenus(next);
