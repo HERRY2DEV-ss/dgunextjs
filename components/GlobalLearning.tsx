@@ -8,6 +8,7 @@ import { resolveSiteHref } from './site-routes';
 import { useEffect, useId, useRef, useState } from 'react';
 import AutoSlider from './AutoSlider';
 import InternationalCountryMap from './InternationalCountryMap';
+import { requestInternationalContent, type InternationalPartner } from './international-page-data';
 
 const styles = {
   section: 'global-learning-section', top: 'global-learning-top', copy: 'global-learning-copy',
@@ -74,6 +75,18 @@ export default function GlobalLearning({
   const [active, setActive] = useState(Math.floor(photos.length / 2));
   const mapRef = useRef<HTMLElement>(null);
   const [sectionVisible, setSectionVisible] = useState(false);
+  const [mapPartners, setMapPartners] = useState<InternationalPartner[]>([]);
+
+  // Use the same country-tagged partner records as Office of International Affairs,
+  // so the shared map's hover popup displays the same logos on the homepage.
+  useEffect(() => {
+    if (suppliedPartners !== undefined || apiOnly) return;
+    const controller = new AbortController();
+    requestInternationalContent(controller.signal)
+      .then(content => setMapPartners(content.partners))
+      .catch(() => { if (!controller.signal.aborted) setMapPartners([]); });
+    return () => controller.abort();
+  }, [suppliedPartners, apiOnly]);
   const count = photos.length;
   const activeIndex = count ? active % count : 0;
   const [paused, setPaused] = useState(false);
@@ -143,7 +156,7 @@ export default function GlobalLearning({
           {contentHtml ? <ExpandableText key={contentHtml} text={apiPlain(academicBody(contentHtml,heading))} html={academicBody(contentHtml,heading)} className={styles.description} previewWords={65} /> : <ExpandableText key={description+expandedDescription} text={[description,expandedDescription].filter(Boolean).join(' ')} className={styles.description} previewWords={65} />}
         </div>
         <div className={styles.map}>
-          <InternationalCountryMap partners={[]} showAllCountries />
+          <InternationalCountryMap partners={mapPartners} showAllCountries />
         </div>
       </div>
 
