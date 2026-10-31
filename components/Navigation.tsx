@@ -192,8 +192,9 @@ export default function Navigation({
         {menuApiStatus === 'ready' && search && !visibleMenus.length && !bottomLinks.length && <p role="status">No matching navigation links.</p>}
         {menuApiStatus === 'ready' && !search && !menus.length && <p role="status">No navigation links are available yet.</p>}
       </nav>
-
-
+      {bottomLinks.length > 0 && <nav className="mega-menu-utility-links" aria-label="Additional university links">
+        {bottomLinks.map(link => <a key={link.label} href={link.href} target={link.target === '_blank' ? '_blank' : undefined} rel={link.target === '_blank' ? 'noopener noreferrer' : undefined} onClick={closeMenu}>{link.label}<span aria-hidden="true">↗</span></a>)}
+      </nav>}
     </div>
     <div className="mega-menu-right">
       <div className="menu-feature-image"><img src={MENU_IMAGE} alt="DBS Global University campus" width="1921" height="901" /></div>
