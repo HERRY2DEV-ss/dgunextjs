@@ -3441,7 +3441,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .menu-api-status.is-error{border-left-color:#ff8b8b;color:#ffd7d7}
 @media(max-width:600px){.mega-navigation .menu-child-label{font-size:14px}.mega-navigation .menu-direct-link{font-size:28px;min-height:62px}}
 @media(prefers-reduced-motion:reduce){.menu-child-panel,.menu-child-toggle span{transition:none}}
-.side-quick-menu{position:fixed;right:3px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.side-quick-menu{position:fixed;right:3px;top:50%;transform:translateY(-50%);z-index:100000;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
 .side-quick-menu[hidden]{display:none}
 .side-quick-menu>a{display:flex;align-items:center;justify-content:flex-end;width:50px;height:50px;overflow:hidden;border-radius:4px;background:#000;color:#fff;text-decoration:none;transition:width .22s ease}
 .side-quick-menu>a:hover,.side-quick-menu>a:focus-visible{width:205px}
