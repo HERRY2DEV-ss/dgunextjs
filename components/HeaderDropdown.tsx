@@ -83,7 +83,8 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
       onClick={() => panels.length ? close() : showRoot(true)}><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></button>}
     {panels.length > 0 && createPortal(<>{panels.map((panel, level) => <div key={`${id}-${level}`}
       ref={element => { panelRefs.current[level] = element; }} id={`${id}-${level}`} className="dgu-header-panel"
-      style={{ left: panel.left, top: panel.top, width: panel.width, maxHeight: `calc(100dvh - ${panel.top + 12}px)` }}
+      style={{ left: panel.left, top: panel.top, width: panel.width, height: Math.min(panel.items.length * 44 + 12, Math.max(120, window.innerHeight - panel.top - 12)), maxHeight: `calc(100dvh - ${panel.top + 12}px)` }}
+      onWheel={event => event.stopPropagation()}
       onMouseEnter={cancelClose} onMouseLeave={leavePanel}
       onKeyDown={event => {
         if (event.key === 'Escape') { event.preventDefault(); close(); toggle.current?.focus(); }
