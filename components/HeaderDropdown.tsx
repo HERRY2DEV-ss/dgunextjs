@@ -18,7 +18,7 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
 
   const cancelClose = () => { if (timer.current) { clearTimeout(timer.current); timer.current = null; } };
   const close = () => { cancelClose(); setPanels([]); };
-  const leave = () => { cancelClose(); timer.current = setTimeout(() => setPanels([]), 180); };
+  const leave = () => { cancelClose(); timer.current = setTimeout(() => setPanels([]), 420); };
   const focusPanel = (level: number) => requestAnimationFrame(() => panelRefs.current[level]?.querySelector<HTMLElement>('a,button')?.focus());
 
   const showRoot = (focus = false) => {
