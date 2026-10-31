@@ -3901,8 +3901,8 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
   .footer-resources-group .footer-resources-two-col { column-gap: 18px; }
 }
 
-/* API utility links sit below the final item in the opened mega menu. */
-.mega-menu-utility-links{display:flex;flex-wrap:wrap;gap:0;margin:22px 0 0;padding:12px 0 0;border-top:1px solid #ffffff35}
+/* API utility links sit directly below the final item in the opened mega menu. */
+.mega-menu-utility-links{display:flex;flex-wrap:wrap;gap:0;margin:16px 0 0;padding:0;border:0}
 .mega-menu-utility-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 12px 8px 0;margin-right:14px;color:#fff;font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
 .mega-menu-utility-links a span{font-size:12px;opacity:.7}
 .mega-menu-utility-links a:hover,.mega-menu-utility-links a:focus-visible{color:#e8d9ea;text-decoration:underline;text-underline-offset:4px}
