@@ -28,6 +28,58 @@ function newsHeroCopy(title: string, subtitle = '') {
   };
 }
 
+function splitLongArticleParagraphs(document: Document) {
+  for (const paragraph of Array.from(document.body.querySelectorAll('p'))) {
+    const text = paragraph.textContent?.replace(/\\s+/g, ' ').trim() || '';
+    if (text.length < 520 || paragraph.querySelector('p, ul, ol, table, figure, img, h2, h3, h4')) continue;
+    const sentences = text.split(/(?<=[.!?])\\s+(?=[“"'(]*[A-Z0-9])/).filter(Boolean);
+    if (sentences.length < 5) continue;
+    const original = paragraph.cloneNode(true) as HTMLElement;
+    const walker = document.createTreeWalker(original, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    let node: Node | null;
+    while ((node = walker.nextNode())) nodes.push(node as Text);
+    const fullText = nodes.map(item => item.textContent || '').join('');
+    const groups: string[] = [];
+    for (let index = 0; index < sentences.length; index += 3) groups.push(sentences.slice(index, index + 3).join(' '));
+    const offsets: Array<{start:number;end:number}> = [];
+    let cursor = 0;
+    for (const group of groups) {
+      const start = fullText.indexOf(group, cursor);
+      if (start < 0) continue;
+      offsets.push({start, end:start + group.length});
+      cursor = start + group.length;
+    }
+    if (offsets.length < 2) continue;
+    const locate = (offset: number, end = false) => {
+      let consumed = 0;
+      for (const item of nodes) {
+        const length = item.textContent?.length || 0;
+        if (offset <= consumed + length && (!end || offset > consumed)) return {node:item, offset:Math.max(0, Math.min(length, offset - consumed))};
+        consumed += length;
+      }
+      const last = nodes[nodes.length - 1];
+      return last ? {node:last, offset:last.textContent?.length || 0} : null;
+    };
+    const fragments = offsets.map(({start,end}) => {
+      const a = locate(start), b = locate(end, true);
+      if (!a || !b) return null;
+      const range = document.createRange();
+      range.setStart(a.node, a.offset);
+      range.setEnd(b.node, b.offset);
+      return range.cloneContents();
+    }).filter((fragment): fragment is DocumentFragment => !!fragment);
+    if (fragments.length < 2) continue;
+    const replacement = fragments.map(fragment => {
+      const next = document.createElement('p');
+      next.className = paragraph.className;
+      next.append(fragment);
+      return next;
+    });
+    paragraph.replaceWith(...replacement);
+  }
+}
+
 function moveArticleImagesToHero(details: string, primary: string, title: string) {
   if (typeof DOMParser === 'undefined') return { details, images: primary ? [{ image: primary, alt: title }] : [] };
   const document = new DOMParser().parseFromString(details, 'text/html');
