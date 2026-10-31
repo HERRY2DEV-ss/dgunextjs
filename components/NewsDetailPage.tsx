@@ -29,9 +29,9 @@ function newsHeroCopy(title: string, subtitle = '') {
 
 function splitLongArticleParagraphs(document: Document) {
   for (const paragraph of Array.from(document.body.querySelectorAll('p'))) {
-    const text = paragraph.textContent?.replace(/\\s+/g, ' ').trim() || '';
+    const text = paragraph.textContent?.replace(/\s+/g, ' ').trim() || '';
     if (text.length < 520 || paragraph.querySelector('p, ul, ol, table, figure, img, h2, h3, h4')) continue;
-    const sentences = text.split(/(?<=[.!?])\\s+(?=[“"'(]*[A-Z0-9])/).filter(Boolean);
+    const sentences = text.split(/(?<=[.!?])\s+(?=[“"'(]*[A-Z0-9])/).filter(Boolean);
     if (sentences.length < 5) continue;
     const original = paragraph.cloneNode(true) as HTMLElement;
     const walker = document.createTreeWalker(original, NodeFilter.SHOW_TEXT);
