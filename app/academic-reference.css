@@ -371,3 +371,50 @@
 body .academic-api-page.program-page .program-hero::after {
   display: block;
 }
+
+
+/* Shared school/program title strip: always sits after the banner, never over it. */
+.academic-reference .school-opening,
+.academic-reference .program-opening {
+  padding: 0;
+  background: #fff;
+}
+.academic-reference .academic-page-title {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 18px 4.2% 30px;
+  background: #f2f4f7;
+  color: #071d42;
+  font-size: clamp(21px, 2vw, 27px) !important;
+  font-weight: 600;
+  line-height: 1.2 !important;
+  text-align: left;
+  text-shadow: none;
+}
+.academic-reference .academic-page-title::after {
+  content: '';
+  position: absolute;
+  left: 4.2%;
+  bottom: 14px;
+  width: 31px;
+  height: 4px;
+  background: #68176b;
+}
+.academic-reference .school-opening-media .media::after,
+.academic-reference .program-hero::after {
+  display: none !important;
+  content: none !important;
+}
+.academic-reference .program-hero-caption,
+.academic-reference .school-opening-media .caption {
+  display: none !important;
+}
+@media (max-width: 700px) {
+  .academic-reference .academic-page-title {
+    padding: 16px 5% 28px;
+    font-size: 21px !important;
+  }
+  .academic-reference .academic-page-title::after { left: 5%; bottom: 12px; }
+}
