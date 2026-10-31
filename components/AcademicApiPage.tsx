@@ -354,17 +354,19 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
       {loading && <div className="academic-api-feedback" role="status">Loading current {kind==='school' ? 'school' : 'programme'} information…</div>}
       {error && <div className={`academic-api-feedback${kind==='school' && catalogue.schools.length ? ' academic-api-feedback--inline' : ''}`} role="alert"><p>Page information is temporarily unavailable.</p><button type="button" className="text-link" onClick={retry}>Try again</button></div>}
       {!info && !loading && kind==='school' && catalogue.schools.length>0 && <>
-        {catalogue.schools[0].title && <section className="school-opening"><h1 className="academic-page-title">{catalogue.schools[0].title}</h1></section>}
+        {catalogue.schools[0].title && <section className="academic-title-strip"><h1 className="academic-page-title">{catalogue.schools[0].title}</h1></section>}
         <ProgramLinks items={catalogue.schools.flatMap(school=>school.programs)} title="OUR PROGRAMS" school />
       </>}
       {info && <>
-        <section className={kind==='school' ? 'school-opening' : 'program-opening'} aria-label={info.name}>
+        <section className={kind==='school' ? 'school-opening' : 'program-opening'} aria-label={`${info.name} banner`}>
           {kind==='school' && media.length>0 && <AnimatedHeroSlider key={`${info.kind}-${info.id}`} className="school-opening-media"
             slides={media} label={`${info.name} banners`} paused={menuOpen} interval={5200} variant="school" aspectRatio={bannerRatio}
             onImageRatio={setBannerRatio} onImageUnavailable={image=>setFailedImages(old=>old.includes(image)?old:[...old,image])} />}
           {kind==='program' && media[0] && <div className="program-hero" style={bannerRatio?{'--academic-banner-ratio':bannerRatio} as CSSProperties:undefined}>
             <AcademicBannerImage {...media[0]} active onRatio={setBannerRatio} onUnavailable={()=>setFailedImages(old=>old.includes(media[0].image)?old:[...old,media[0].image])}/>
           </div>}
+        </section>
+        <section className="academic-title-strip" aria-label={`${info.name} title`}>
           <h1 className="academic-page-title">{info.name}</h1>
         </section>
         <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
