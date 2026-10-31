@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, type SyntheticEvent } from 'react';
 import styles from './HomepageTimedCardsSlider.module.css';
 
-export type HomepageCardSlide = { image: string; alt?: string; caption?: string };
+export type HomepageCardSlide = { image: string; mobile?: string; alt?: string; caption?: string };
 
 export default function HomepageTimedCardsSlider({ slides, label, paused = false, interval = 5200, className = '' }: {
   slides: HomepageCardSlide[];
@@ -49,7 +49,10 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
         className={`${styles.card} ${index === activeIndex ? styles.activeCard : styles.hiddenCard}`}
         aria-hidden={index !== activeIndex}
         >
-        <img className={styles.slideImage} src={slide.image} alt={slide.alt ?? ''} onLoad={event => recordImageRatio(event, slide.image)} onError={() => setFailedImages(current => current.includes(slide.image) ? current : [...current, slide.image])} />
+        <picture className={styles.slidePicture}>
+          {slide.mobile && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
+          <img className={styles.slideImage} src={slide.image} alt={slide.alt ?? ''} onLoad={event => recordImageRatio(event, slide.image)} onError={() => setFailedImages(current => current.includes(slide.image) ? current : [...current, slide.image])} />
+        </picture>
         {index === activeIndex && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
       </div>)}
     </div>
