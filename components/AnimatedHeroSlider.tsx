@@ -43,6 +43,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
   const ratioSource = useRef<string | null>(null);
   const [flight, setFlight] = useState<HeroTransition | null>(null);
   const flightRequest = useRef(0);
+  const mounted = useRef(false);
   const thumbnailPositions = useRef<Map<number, DOMRect> | null>(null);
   const flightImage = useRef<HTMLImageElement | null>(null);
   const available = useMemo(() => slides.filter(slide => slide.image && !failed.includes(slide.image)), [slides, failed]);
@@ -55,6 +56,15 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
   const thumbnailIndices = variant === 'home'
     ? Array.from({ length: Math.min(4, available.length) }, (_, offset) => (index + offset) % available.length)
     : variant === 'school' ? [] : upcoming;
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      flightRequest.current += 1;
+      transitionLock.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -117,7 +127,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
         return { url, image: preload };
       }));
     } catch {
-      if (request !== flightRequest.current) return;
+      if (!mounted.current || request !== flightRequest.current) return;
       if (slide.mobile && decodedSource === slide.mobile) {
         setFailedMobile(old => old.includes(slide.mobile!) ? old : [...old, slide.mobile!]);
         decodedSource = slide.image;
@@ -127,6 +137,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
           await fallback.decode();
           decodedImages = [{ url: decodedSource, image: fallback }];
         } catch {
+          if (!mounted.current || request !== flightRequest.current) return;
           transitionLock.current = false;
           setPreloading(false);
           setFailed(old => old.includes(slide.image) ? old : [...old, slide.image]);
@@ -134,6 +145,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
           return;
         }
       } else {
+        if (!mounted.current || request !== flightRequest.current) return;
         transitionLock.current = false;
         setPreloading(false);
         setFailed(old => old.includes(slide.image) ? old : [...old, slide.image]);
@@ -142,7 +154,7 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
       }
     }
 
-    if (request !== flightRequest.current || !root.current) return;
+    if (!mounted.current || request !== flightRequest.current || !root.current) return;
     const incomingImage = decodedImages.find(decoded => decoded.url === decodedSource)?.image;
     if (variant === 'home' && incomingImage?.naturalWidth && incomingImage.naturalHeight) {
       setHomeImageRatio(`${incomingImage.naturalWidth} / ${incomingImage.naturalHeight}`);
