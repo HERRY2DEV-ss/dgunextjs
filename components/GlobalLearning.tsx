@@ -156,7 +156,7 @@ export default function GlobalLearning({
           {contentHtml ? <ExpandableText key={contentHtml} text={apiPlain(academicBody(contentHtml,heading))} html={academicBody(contentHtml,heading)} className={styles.description} previewWords={65} /> : <ExpandableText key={description+expandedDescription} text={[description,expandedDescription].filter(Boolean).join(' ')} className={styles.description} previewWords={65} />}
         </div>
         <div className={styles.map}>
-          <InternationalCountryMap partners={mapPartners} showAllCountries />
+          <InternationalCountryMap partners={mapPartners} />
         </div>
       </div>
 
