@@ -80,13 +80,19 @@ export default function GlobalLearning({
   // Use the same country-tagged partner records as Office of International Affairs,
   // so the shared map's hover popup displays the same logos on the homepage.
   useEffect(() => {
-    if (suppliedPartners !== undefined || apiOnly) return;
+    // The homepage's gallery partner list is not country-tagged. The map needs
+    // the International page's parsed records (country + exact logo URL), so
+    // fetch that shared source independently even when gallery props are supplied.
     const controller = new AbortController();
     requestInternationalContent(controller.signal)
-      .then(content => setMapPartners(content.partners))
-      .catch(() => { if (!controller.signal.aborted) setMapPartners([]); });
+      .then(content => {
+        if (!controller.signal.aborted) setMapPartners(content.partners);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setMapPartners([]);
+      });
     return () => controller.abort();
-  }, [suppliedPartners, apiOnly]);
+  }, []);
   const count = photos.length;
   const activeIndex = count ? active % count : 0;
   const [paused, setPaused] = useState(false);
