@@ -12,8 +12,8 @@ const positions: Record<string, readonly [number, number]> = {
   Indonesia: [86, 65], Australia: [91, 80],
 };
 
-export default function InternationalCountryMap({ partners }: { partners: InternationalPartner[] }) {
-  const countries = Object.keys(positions).filter(country => partners.some(partner => partner.country === country));
+export default function InternationalCountryMap({ partners, showAllCountries = false }: { partners: InternationalPartner[]; showAllCountries?: boolean }) {
+  const countries = showAllCountries ? Object.keys(positions) : Object.keys(positions).filter(country => partners.some(partner => partner.country === country));
   const [active, setActive] = useState<string | null>(null), [popupStyle, setPopupStyle] = useState<CSSProperties>({});
   const map = useRef<HTMLDivElement>(null), popup = useRef<HTMLElement>(null), closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = useId();
