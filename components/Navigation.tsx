@@ -51,7 +51,7 @@ export default function Navigation({
     const dialog = menuDialog.current;
     setMenuVisible(false);
     setMenuSearchOpen(false); setMenuQuery(''); setExpanded(null); setExpandedChild(null);
-    if (dialog && !dialog.open) dialog.show();
+    if (dialog && !dialog.open) dialog.showModal();
     setMenuOpen(true);
     requestAnimationFrame(() => requestAnimationFrame(() => setMenuVisible(true)));
   };
