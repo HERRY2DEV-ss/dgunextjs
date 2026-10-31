@@ -10,9 +10,10 @@ export function isUtilityGroup(item: MenuItem): boolean {
 export function apiUtilityLinks(menus: MenuItem[]): UtilityLink[] {
   const links: UtilityLink[] = [];
   const seen = new Set<string>();
+  const excludedLabels = new Set(['home', 'startup & entrepreneurial success', 'higher education']);
   const visit = (items: MenuItem[]) => items.forEach(item => {
     const href = menuHref(item);
-    if (!item.children.length && href && !seen.has(href)) {
+    if (!item.children.length && href && !excludedLabels.has(item.label.trim().toLowerCase()) && !seen.has(href)) {
       seen.add(href);
       links.push({ label: item.label, href, ...(item.target === '_blank' ? { target: '_blank' as const } : {}) });
     }
