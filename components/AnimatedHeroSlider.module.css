@@ -264,9 +264,8 @@
 .newsVariant .flightImage { object-fit: cover; object-position: center; }
 
 .schoolVariant .media::after {
-  display: block;
-  inset: 32% 0 0;
-  background: linear-gradient(90deg, rgba(12, 8, 18, .76) 0%, rgba(12, 8, 18, .34) 58%, transparent 100%);
+  display: none;
+  content: none;
 }
 .schoolVariant .caption {
   right: auto;
