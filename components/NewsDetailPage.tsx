@@ -55,52 +55,9 @@ function moveArticleImagesToHero(details: string, primary: string, title: string
   }
   for (const element of Array.from(document.body.querySelectorAll('br + br'))) element.remove();
 
-  // Flatten CMS block markup into one semantic paragraph. The API frequently
-  // wraps each sentence/line in separate p/div/section elements; preserving
-  // those wrappers also preserves their default vertical margins.
-  const paragraph = document.createElement('p');
-  const appendInline = (node: Node, target: Node) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const text = node.textContent || '';
-      if (text.trim()) target.appendChild(document.createTextNode(text.replace(/[\s\u00a0\u200b]+/g, ' ')));
-      return;
-    }
-    if (node.nodeType !== Node.ELEMENT_NODE) return;
-    const element = node as Element;
-    const tag = element.tagName.toLowerCase();
-    if (tag === 'br' || ['p', 'div', 'section', 'article', 'li', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
-      paragraph.appendChild(document.createTextNode(' '));
-    }
-    if (['ul', 'ol'].includes(tag)) {
-      for (const child of Array.from(element.children)) {
-        appendInline(child, target);
-        paragraph.appendChild(document.createTextNode(' '));
-      }
-      return;
-    }
-    // Preserve only inline formatting and links; block wrappers are discarded.
-    if (['strong', 'b', 'em', 'i', 'a', 'span', 'small', 'u', 'sup', 'sub'].includes(tag)) {
-      const inline = document.createElement(tag);
-      if (tag === 'a') {
-        const href = element.getAttribute('href');
-        if (href) inline.setAttribute('href', href);
-      }
-      for (const child of Array.from(element.childNodes)) appendInline(child, inline);
-      if (inline.textContent?.trim()) target.appendChild(inline);
-    } else {
-      for (const child of Array.from(element.childNodes)) appendInline(child, target);
-    }
-    if (tag === 'br' || ['p', 'div', 'section', 'article', 'li', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)) {
-      paragraph.appendChild(document.createTextNode(' '));
-    }
-  };
-  for (const child of Array.from(document.body.childNodes)) appendInline(child, paragraph);
-  paragraph.innerHTML = paragraph.innerHTML
-    .replace(/(?:\s|&nbsp;|&#160;)+/gi, ' ')
-    .replace(/>\\s+</g, '><')
-    .trim();
-  document.body.replaceChildren();
-  if (paragraph.textContent?.trim()) document.body.appendChild(paragraph);
+  // Preserve the CMS block structure. ApiRichText renders paragraphs, headings,
+  // lists, tables and inline emphasis separately; flattening them into one <p>
+  // caused the entire article to appear as a single oversized paragraph.
   return { details: document.body.innerHTML, images };
 }
 
