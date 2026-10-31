@@ -151,6 +151,50 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .news-detail-page .news-article-body .dgu-api-copy p { margin-block:0 12px !important; }
 .news-detail-page .news-article-body .dgu-api-copy p:last-child { margin-bottom:0 !important; }
 
+/* Readable structure for API-fed individual news articles only. */
+.news-detail-page .news-article-body .dgu-api-copy {
+  color: #484448;
+  font-size: 16px;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+}
+.news-detail-page .news-article-body .dgu-api-copy > :is(h2,h3,h4,h5,h6) {
+  color: #68176b;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 30px 0 14px;
+  text-align: left;
+}
+.news-detail-page .news-article-body .dgu-api-copy > h2 { font-size: clamp(23px, 2vw, 30px); }
+.news-detail-page .news-article-body .dgu-api-copy > h3 { font-size: clamp(20px, 1.7vw, 25px); }
+.news-detail-page .news-article-body .dgu-api-copy > :is(h4,h5,h6) { font-size: clamp(17px, 1.4vw, 21px); }
+.news-detail-page .news-article-body .dgu-api-copy > p {
+  margin: 0 0 16px !important;
+  line-height: 1.8;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.news-detail-page .news-article-body .dgu-api-copy > :is(ul,ol) {
+  margin: 12px 0 22px;
+  padding-left: 26px;
+  line-height: 1.75;
+}
+.news-detail-page .news-article-body .dgu-api-copy li { margin: 0 0 9px; padding-left: 3px; }
+.news-detail-page .news-article-body .dgu-api-copy li > p { margin: 0 0 8px !important; }
+.news-detail-page .news-article-body .dgu-api-copy blockquote {
+  margin: 22px 0;
+  padding: 16px 22px;
+  border-left: 3px solid #68176b;
+  background: #f8f3f9;
+}
+.news-detail-page .news-article-body .dgu-api-copy hr { margin: 26px 0; border-color: #e5dce7; }
+.news-detail-page .news-article-body .dgu-api-copy > :first-child { margin-top: 0 !important; }
+.news-detail-page .news-article-body .dgu-api-copy > :last-child { margin-bottom: 0 !important; }
+@media (max-width: 700px) {
+  .news-detail-page .news-article-body .dgu-api-copy { font-size: 15px; line-height: 1.75; }
+  .news-detail-page .news-article-body .dgu-api-copy > p { text-align: left; }
+}
+
 /* Prevent CMS spacer/placeholder nodes from creating a viewport-sized gap after Read More. */
 .news-detail-page .news-article-body .dgu-api-copy [style*="100vh"],
 .news-detail-page .news-article-body .dgu-api-copy [style*="100 vw"] {
