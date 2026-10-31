@@ -205,7 +205,7 @@ body main .internal-stats-grid h2 { font-size:var(--dgu-stat-size)!important; }
 .news-detail-page .news-article-body .dgu-api-copy > :last-child { margin-bottom: 0 !important; }
 @media (max-width: 700px) {
   .news-detail-page .news-article-body .dgu-api-copy { font-size: 15px; line-height: 1.75; }
-  .news-detail-page .news-article-body .dgu-api-copy > p { text-align: left; }
+  .news-detail-page .news-article-body .dgu-api-copy > p { text-align: left; word-spacing: normal; }
 }
 
 /* Prevent CMS spacer/placeholder nodes from creating a viewport-sized gap after Read More. */
