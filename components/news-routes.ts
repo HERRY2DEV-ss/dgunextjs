@@ -1,6 +1,5 @@
 import { SITE_BASE } from './site-routes';
 import { newsDetailHref } from './news-detail-api';
-import { newsRouteSlugs } from './news-route-slugs';
 import { newsSlug } from './news-urls';
 import type { NewsTab } from './news-api';
 
@@ -15,6 +14,7 @@ export function newsListingHref(tab: NewsTab): string {
 export function newsItemHref(value: string, tab: NewsTab): string {
   const slug = newsSlug(value);
   if (!slug) return newsListingHref(tab);
-  if (newsRouteSlugs.includes(slug)) return newsDetailHref(slug);
-  return `${SITE_BASE}/news/?url=${encodeURIComponent(slug)}`;
+  // Every valid API article slug uses the same clean URL, whether it was
+  // present in the build-time static route list or published later.
+  return newsDetailHref(slug);
 }
