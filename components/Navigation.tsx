@@ -7,9 +7,20 @@ import HeaderDropdown from './HeaderDropdown';
 import { resolveSiteHref } from './site-routes';
 import { MENU_IMAGE, APPLY_URL, CONTACT_URL } from './navigation.config';
 import { requestMenus, takeInitialMenuRequest, menuHref, menuMatches, type MenuItem } from './navigation-api';
-import { apiUtilityLinks, isUtilityGroup } from './navigation-utilities';
+import { isUtilityGroup } from './navigation-utilities';
 const MAIN_LOGO = sitePath('/assets/dgu_logo_svg.svg');
 const FOOTER_LOGO = sitePath('/assets/dgu_logo_svg2.svg');
+const QUICK_MENU_LINKS = [
+  { label: 'Alumni', href: 'https://alumni.doonbusinessschool.com/?_gl=1*1ta7p8f*_gcl_au*MTAyNjI5MzQwMC4xNzY0MzkwNTAx' },
+  { label: 'Events', href: 'https://doonbusinessschool.com/news&filter=campus' },
+  { label: 'Virtual Tour', href: 'https://walkinside.s3.ap-south-1.amazonaws.com/dbs/index.html' },
+  { label: 'Video Gallery', href: 'https://doonbusinessschool.com/video-gallery' },
+  { label: 'Merch Shop', href: 'https://dgu.ac.in/collective/dgu-merch.html' },
+  { label: 'Scholarship', href: 'https://doonbusinessschool.com/scholarship' },
+  { label: 'AI Cell', href: 'https://aicelldgu.in/' },
+  { label: 'Career', href: 'https://dgu.ac.in/career-with-us' },
+  { label: 'Contact Us', href: 'https://doonbusinessschool.com/contacts' },
+] as const;
 
 export default function Navigation({
   onOpenChange,
@@ -129,8 +140,8 @@ export default function Navigation({
     [menus, search],
   );
   const bottomLinks = useMemo(
-    () => apiUtilityLinks(menus).filter(link => !search || link.label.toLowerCase().includes(search)),
-    [menus, search],
+    () => QUICK_MENU_LINKS.filter(link => !search || link.label.toLowerCase().includes(search)),
+    [search],
   );
   const menuContent = useMemo(() => <>
     <div className="mega-menu-header">
