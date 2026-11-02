@@ -299,6 +299,22 @@ function TabBody({section,nested,id,hr=false,singleAccordion=false,semesterAccor
   </>;
 }
 
+function ProgramSpecializationTiles({items,title}:{items:SchoolProgram[];title:string}) {
+  if(!items.length)return null;
+  return <section className="program-specializations program-specializations--direct-links" data-content-kind="program-links" aria-label={title || 'Program specializations'}>
+    {title && <h2>{title}</h2>}
+    <div className="program-specialization-grid">
+      {items.map((item,index)=>item.href
+        ? <a className="program-specialization-tile" href={item.href} key={item.id || item.href || `${item.name}-${index}`}>
+            <span>{item.name}</span><span className="program-specialization-tile-arrow" aria-hidden="true">↗</span>
+          </a>
+        : <div className="program-specialization-tile" key={item.id || `${item.name}-${index}`}>
+            <span>{item.name}</span>
+          </div>)}
+    </div>
+  </section>;
+}
+
 function ProgramLinks({items,title,school=false}:{items:SchoolProgram[];title:string;school?:boolean}) {
   if(!items.length)return null;
   const groups=school ? groupSchoolPrograms(items) : Array.from({length:Math.min(3,Math.ceil(items.length/4))},(_,i)=>({title:'',items:items.filter((_,index)=>index%Math.min(3,Math.ceil(items.length/4))===i)}));
@@ -376,7 +392,10 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
   if(block.kind==='programs')return catalogue.loading || catalogue.error
     ? <section className="schools-section school-programs-section"><h2>OUR PROGRAMS</h2>{catalogue.loading ? <p role="status">Loading school programmes…</p> : <div role="status"><p>Programmes are temporarily unavailable.</p><button className="text-link" type="button" onClick={catalogue.retry}>Try again</button></div>}</section>
     : <ProgramLinks items={info.programs.flatMap(s=>s.programs)} title="OUR PROGRAMS" school />;
-  if(block.kind==='specializations' || block.kind==='other-programs')return <><ProgramLinks items={block.kind==='specializations' ? info.relatedPrograms : info.otherPrograms} title={block.title} />{block.sections.map((s,i)=><section className="academic-api-section" key={i}><h2>{s.title}</h2><ApiRichText html={s.html} scrollTables /></section>)}</>;
+  if(block.kind==='specializations' || block.kind==='other-programs')return <>{block.kind==='specializations' && info.slug==='btech'
+    ? <ProgramSpecializationTiles items={info.relatedPrograms} title={block.title} />
+    : <ProgramLinks items={block.kind==='specializations' ? info.relatedPrograms : info.otherPrograms} title={block.title} />}
+    {block.sections.map((s,i)=><section className="academic-api-section" key={i}><h2>{s.title}</h2><ApiRichText html={s.html} scrollTables /></section>)}</>;
   if(block.kind==='news')return <NewsUpdatesSection paused={paused} id={`${id}-news`} />;
   if(block.kind==='faculty')return info.schoolUrl ? <SchoolFaculty key={info.schoolUrl} schoolUrl={info.schoolUrl} schoolName={info.schoolName || info.name} facultyIds={info.facultyIds} members={info.faculty} paused={paused} variant="reference" /> : null;
   if(block.kind==='testimonials')return <AcademicTestimonials items={info.testimonials || []} id={id} paused={paused} />;
