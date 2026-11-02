@@ -16,48 +16,84 @@
 }
 
 
-/* Keep the SOAC option copy compact without changing shared accordion styling. */
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry {
+/* Format the CMS-derived SOAC accordion content as clean, readable copy.
+   The CMS may supply Bootstrap classes and inline styles; its presentation
+   attributes are removed in AcademicApiPage before this content is rendered. */
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel {
   min-width: 0;
-  margin: 0 0 14px;
-  padding: 0 0 12px;
+  background: #fff;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy {
+  min-width: 0;
+  color: #47444a;
+  font-size: clamp(14px, .98vw, 16px) !important;
+  font-weight: 400;
+  line-height: 1.5 !important;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy :is(p, div, span, li, dt, dd, strong, b, em, i) {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy :is(h2, h3, h4, h5, h6) {
+  margin: 0 0 8px !important;
+  color: #46464d;
+  font-size: clamp(15px, 1.05vw, 18px) !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  text-align: left !important;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy p {
+  margin: 0 0 9px !important;
+  text-align: left !important;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy :is(ul, ol) {
+  display: block;
+  margin: 6px 0 12px !important;
+  padding-left: 22px !important;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy li {
+  margin: 0 0 5px !important;
+  padding: 0;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 220px;
+  height: auto;
+  object-fit: contain;
+  margin: 10px 0;
+}
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry {
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 0 0 14px;
   border-bottom: 1px solid #e7e2e8;
   overflow-wrap: anywhere;
 }
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry:last-child {
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: 0;
 }
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry h4 {
-  margin: 0 0 6px;
+.academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry > h4 {
+  margin: 0 0 7px !important;
   color: #46464d;
-  font-size: clamp(14px, 1.05vw, 17px);
-  font-weight: 500;
-  line-height: 1.3;
-}
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry :is(p, li, span) {
-  font-size: clamp(13px, .95vw, 16px) !important;
-  line-height: 1.45 !important;
-  font-weight: 400;
-}
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry p {
-  margin: 0 0 7px;
-  text-align: left;
-}
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry ul,
-[data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry ol {
-  margin: 6px 0;
-  padding-left: 20px;
+  font-size: clamp(15px, 1.05vw, 18px) !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
 }
 @media (max-width: 700px) {
-  [data-api-slug="school-of-technology"][data-academic-kind="school"] .advanced-computing-partners img {
-    width: 100%;
-    max-width: 440px;
-    margin-top: 16px;
+  .academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel {
+    padding: 16px;
   }
-  [data-api-slug="school-of-technology"][data-academic-kind="school"] .academic-program-options-accordion .academic-accordion-panel .advanced-computing-option-entry :is(p, li, span) {
+  .academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy {
     font-size: 14px !important;
-    line-height: 1.45 !important;
+    line-height: 1.5 !important;
+  }
+  .academic-api-page[data-api-slug="school-of-technology"] .academic-program-options-accordion .academic-accordion-panel .dgu-api-copy :is(h2, h3, h4, h5, h6) {
+    font-size: 16px !important;
   }
 }
