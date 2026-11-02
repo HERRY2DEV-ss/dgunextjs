@@ -5,13 +5,13 @@ import '../app/schools/school.css';
 import '../app/programs/program.css';
 import '../app/academic-reference.css';
 import './academic-api.css';
+import './advanced-computing.css';
 import { useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react';
 import Navigation from './Navigation';
 import useAcademicBrand from './useAcademicBrand';
 import SiteFooter from './SiteFooter';
 import SchoolIntroSection from './SchoolIntroSection';
-import AdvancedComputingIntro from './AdvancedComputingIntro';
-import { isAdvancedComputing, advancedComputingContent } from './advanced-computing-layout';
+import { isAdvancedComputing, isAdvancedComputingAcademicPage } from './advanced-computing-layout';
 import QuickContactForm from './QuickContactForm';
 import AcademicContent from './AcademicContent';
 import ApiRichText from './ApiRichText';
@@ -35,7 +35,6 @@ import type { SchoolProgram } from './programs-api';
 import { academicGallery } from './academic-media';
 import useSchoolCatalogue from './useSchoolCatalogue';
 import { academicFeatureAccordionSections, academicFeaturePresentation, academicFeatures } from './academic-features';
-import { isAdvancedComputingAcademicPage } from './advanced-computing-layout';
 import AcademicFeatureDialog from './AcademicFeatureDialog';
 import AcademicFeatureHover from './AcademicFeatureHover';
 import AcademicBannerImage from './AcademicBannerImage';
@@ -343,7 +342,6 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
     }
   },[info]);
   const headerBrand=useAcademicBrand(kind,slug,info);
-  const computingIntro=useMemo(()=>info && isAdvancedComputing(info) ? advancedComputingContent(info) : null,[info]);
   const slides=info?.banners.filter(item=>!failedImages.includes(item.image)) || [];
   const hero=info?.banner || info?.mobileBanner || '';
   const media=slides.length ? slides : hero && !failedImages.includes(hero) ? [{image:hero,mobile:info?.mobileBanner || '',alt:info?.name || '',href:''}] : [];
@@ -369,11 +367,15 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
         <section className="academic-title-strip" aria-label={`${info.name} title`}>
           <h1 className="academic-page-title">{info.name}</h1>
         </section>
-        <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro.intro} highlights={computingIntro.highlights} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
+        <SchoolIntroSection reference contentHtml={info.intro} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
           data={{name:info.name,slug:info.schoolUrl,intro:'',showBusinessAccreditations:headerBrand.logoAlt==='Doon Business School'}}
           form={<><QuickContactForm key={info.id} apiOnly applyUrl={info.registrationLink} courses={kind==='program' ? [info.name] : info.programs.flatMap(s=>s.programs.map(p=>p.name))} selectedCourse={kind==='program' ? info.name : ''} />
             {(info.registrationLink || info.prospectusUrl) && <div className="program-api-actions">{info.registrationLink&&<a href={info.registrationLink}>Apply now</a>}{info.prospectusUrl&&<a href={info.prospectusUrl}>Download prospectus</a>}</div>}
           </>}>
+          {kind==='school' && isAdvancedComputing(info) && <div className="advanced-computing-partners" aria-label="Delivery, technology and certification partners">
+            <img src={sitePath('/assets/academic/advanced-computing-partners.png')} width="573" height="195"
+              alt="Delivery, technology and certification partners: HCLTech, iOS Development Center, SAS, SAP, Alteryx, Microsoft, Google and NVIDIA" />
+          </div>}
           {kind==='program' && info.facts.length>0 && <dl className="dgu-program-facts">{info.facts.map(fact=><div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>}
         </SchoolIntroSection>
         {other.error && <div className="academic-api-feedback academic-api-feedback--inline" role="status"><p>Other specializations are temporarily unavailable.</p><button className="text-link" type="button" onClick={other.retry}>Try again</button></div>}
