@@ -292,8 +292,15 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
   // The B.Tech parent page's CMS currently publishes linked programme choices
   // as accordion records. Reuse their real API hrefs as specialization cards,
   // then remove only those B.Tech CSE accordion records from the lower page.
-  if(kind==='program' && slug==='btech'){
-    const btechChoices=info.accordions.filter(section=>/^b\.?\s*tech\b/i.test(section.title) || /^computer science and engineering\s*\(cse\)/i.test(section.title));
+  if(kind==='program' && slug==='btech' && recordId==='88'){
+    const btechChoiceTitles=new Set([
+      'b.tech cse (lateral entry)',
+      'b.tech cse in ai & ml with',
+      'b.tech cse in quantum computing with minor',
+      'b.tech cse with minor',
+      'b.tech in computer science and engineering (cse)',
+    ]);
+    const btechChoices=info.accordions.filter(section=>btechChoiceTitles.has(section.title.trim().toLowerCase()));
     const extracted=btechChoices.flatMap(section=>{
       const anchors=Array.from(section.html.matchAll(/<a\b[^>]*href\s*=\s*(["'])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi));
       return anchors.flatMap(match=>{
