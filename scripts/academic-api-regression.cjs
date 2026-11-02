@@ -289,6 +289,11 @@ function load(filename, globals = {}) {
   assert.ok(btechRelated.relatedPrograms.every(program=>program.href),'Only actual API-linked B.Tech choices become clickable cards');
   assert.ok(load('components/academic-layout').academicLayout(btechRelated).some(block=>block.kind==='specializations'),
     'B.Tech specialization links render through the existing Program Specialization section');
+  const btechSpecializationPage=academic.parseAcademicInfo({error:'0',data:[{id:102,url:'btech-cse-with-minor',programName:'B.Tech CSE with Minor',introText:'API intro',
+    accordion:[{accordionName:'B.Tech CSE (Lateral Entry)',accordionDetails:'<p><a href="/btech-cse-lateral-entry">B.Tech CSE (Lateral Entry)</a></p>'}]}]},
+    'program','btech-cse-with-minor','102');
+  assert.equal(btechSpecializationPage.accordions.length,1,'The B.Tech parent-page cleanup does not remove accordions from individual specialization pages');
+  assert.equal(btechSpecializationPage.relatedPrograms.length,0,'Individual specialization pages keep their own specialization data unchanged');
   const other=academic.parseAcademicInfo({error:'0',data:[{id:26,programName:'API HR',introText:'API intro',
     programTabs:[{tabName:'Eligibility Criteria',tabDetails:'<p>API eligibility.</p>'},{tabName:'Other Specializations',tabDetails:'<p>API related choices.</p>',programs:[{id:27,programName:'API Finance',url:'mba-finance'}]}],
     otherSpecializations:[{id:26,programName:'Current programme',url:'mba-human-resource'},{id:27,programName:'API Finance',url:'mba-finance'},{id:28,programName:'API IB',url:'mba-international-business'}],
