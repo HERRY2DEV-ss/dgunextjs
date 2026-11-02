@@ -17,7 +17,6 @@ import AcademicContent from './AcademicContent';
 import ApiRichText from './ApiRichText';
 import DifferentiatorSection from './DifferentiatorSection';
 import ProgramCard from './ProgramCard';
-import { resolveSiteHref } from './site-routes';
 import SchoolPlacementsSection from './SchoolPlacementsSection';
 import RecruitersSection from './RecruitersSection';
 import SchoolFaculty from './SchoolFaculty';
@@ -377,19 +376,7 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
   if(block.kind==='programs')return catalogue.loading || catalogue.error
     ? <section className="schools-section school-programs-section"><h2>OUR PROGRAMS</h2>{catalogue.loading ? <p role="status">Loading school programmes…</p> : <div role="status"><p>Programmes are temporarily unavailable.</p><button className="text-link" type="button" onClick={catalogue.retry}>Try again</button></div>}</section>
     : <ProgramLinks items={info.programs.flatMap(s=>s.programs)} title="OUR PROGRAMS" school />;
-  if(block.kind==='specializations' || block.kind==='other-programs')return <>{block.kind==='specializations' && info.slug==='btech'
-    ? <section className="program-specializations" data-content-kind="program-links" aria-label={block.title || 'Program specializations'}>
-        {block.title && <h2>{block.title}</h2>}
-        <section className="program-industry" data-content-kind="accordion" aria-label="B.Tech specializations">
-          <AcademicAccordionGroup id={`${id}-btech-specializations`} items={[{
-            title:'Explore B.Tech Specializations',
-            content:<div className="program-list">{info.relatedPrograms.map((item,index)=><a className="program-item" href={resolveSiteHref(item.href || '',item.name)} key={item.id || item.href || `${item.name}-${index}`}>
-              <span className="program-name"><strong>{item.name}</strong></span><span className="program-arrow" aria-hidden="true">›</span>
-            </a>)}</div>
-          }]} />
-        </section>
-      </section>
-    : <ProgramLinks items={block.kind==='specializations' ? info.relatedPrograms : info.otherPrograms} title={block.title} />}
+  if(block.kind==='specializations' || block.kind==='other-programs')return <><ProgramLinks items={block.kind==='specializations' ? info.relatedPrograms : info.otherPrograms} title={block.title} />
     {block.sections.map((s,i)=><section className="academic-api-section" key={i}><h2>{s.title}</h2><ApiRichText html={s.html} scrollTables /></section>)}</>;
   if(block.kind==='news')return <NewsUpdatesSection paused={paused} id={`${id}-news`} />;
   if(block.kind==='faculty')return info.schoolUrl ? <SchoolFaculty key={info.schoolUrl} schoolUrl={info.schoolUrl} schoolName={info.schoolName || info.name} facultyIds={info.facultyIds} members={info.faculty} paused={paused} variant="reference" /> : null;
