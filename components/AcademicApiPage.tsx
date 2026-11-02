@@ -343,7 +343,7 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
     }
   },[info]);
   const headerBrand=useAcademicBrand(kind,slug,info);
-  const computingIntro=useMemo(()=>info && isAdvancedComputing(info) ? advancedComputingContent(info).intro : null,[info]);
+  const computingIntro=useMemo(()=>info && isAdvancedComputing(info) ? advancedComputingContent(info) : null,[info]);
   const slides=info?.banners.filter(item=>!failedImages.includes(item.image)) || [];
   const hero=info?.banner || info?.mobileBanner || '';
   const media=slides.length ? slides : hero && !failedImages.includes(hero) ? [{image:hero,mobile:info?.mobileBanner || '',alt:info?.name || '',href:''}] : [];
@@ -369,7 +369,7 @@ export default function AcademicApiPage({kind,slug,recordId=''}:{kind:AcademicKi
         <section className="academic-title-strip" aria-label={`${info.name} title`}>
           <h1 className="academic-page-title">{info.name}</h1>
         </section>
-        <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
+        <SchoolIntroSection reference contentHtml={info.intro} introContent={computingIntro !== null ? <AdvancedComputingIntro intro={computingIntro.intro} highlights={computingIntro.highlights} /> : undefined} recognitions={info.recognitions} previewWords={kind==='school' ? 42 : 56} previewHeightOverride={info.slug==='dgu-global-mba' ? {desktop:760,mobile:360} : undefined}
           data={{name:info.name,slug:info.schoolUrl,intro:'',showBusinessAccreditations:headerBrand.logoAlt==='Doon Business School'}}
           form={<><QuickContactForm key={info.id} apiOnly applyUrl={info.registrationLink} courses={kind==='program' ? [info.name] : info.programs.flatMap(s=>s.programs.map(p=>p.name))} selectedCourse={kind==='program' ? info.name : ''} />
             {(info.registrationLink || info.prospectusUrl) && <div className="program-api-actions">{info.registrationLink&&<a href={info.registrationLink}>Apply now</a>}{info.prospectusUrl&&<a href={info.prospectusUrl}>Download prospectus</a>}</div>}
