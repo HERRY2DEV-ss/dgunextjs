@@ -17,7 +17,6 @@ import AcademicContent from './AcademicContent';
 import ApiRichText from './ApiRichText';
 import DifferentiatorSection from './DifferentiatorSection';
 import ProgramCard from './ProgramCard';
-import AcademicAccordionGroup from './AcademicAccordionGroup';
 import { resolveSiteHref } from './site-routes';
 import SchoolPlacementsSection from './SchoolPlacementsSection';
 import RecruitersSection from './RecruitersSection';
