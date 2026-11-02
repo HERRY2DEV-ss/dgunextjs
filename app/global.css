@@ -2349,6 +2349,15 @@ section {
 .menu-accordion{border-bottom:1px solid #ffffff29}
 .mega-navigation .menu-section-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 4px;background:transparent;color:white;text-align:left;font:inherit;border:0;gap:20px}
 .menu-section-toggle>span{font-size:clamp(24px,2.15vw,36px);font-weight:400;letter-spacing:1px!important}.menu-section-toggle>b{font-size:29px;font-weight:300;transition:transform .35s ease}.menu-section-toggle[aria-expanded=true]>b{transform:rotate(90deg)}
+/* Main menu groups are buttons, so give them the same hover/focus feedback as links. */
+.mega-navigation .menu-section-toggle{position:relative;isolation:isolate;cursor:pointer;transition:padding .35s ease,color .25s ease,background-color .35s ease}
+.mega-navigation .menu-section-toggle::before{content:'';position:absolute;inset:0;z-index:-1;width:0;background:#ffffff0e;transition:width .4s ease;pointer-events:none}
+.mega-navigation .menu-section-toggle:hover,.mega-navigation .menu-section-toggle:focus-visible{padding-left:20px;padding-right:20px;color:#fff}
+.mega-navigation .menu-section-toggle:hover::before,.mega-navigation .menu-section-toggle:focus-visible::before{width:100%}
+.mega-navigation .menu-section-toggle:hover>b,.mega-navigation .menu-section-toggle:focus-visible>b{transform:translateX(0) rotate(90deg)}
+.mega-navigation .menu-child-row:hover .menu-child-label,.mega-navigation .menu-child-label:hover,.mega-navigation .menu-child-label:focus-visible{color:#fff;background:#ffffff0d}
+.mega-navigation .menu-child-toggle:hover,.mega-navigation .menu-child-toggle:focus-visible{color:#fff;background:#ffffff18}
+.mega-navigation .menu-child-toggle,.mega-navigation .menu-child-label{cursor:pointer;transition:color .25s ease,background-color .25s ease}
 .menu-submenu{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s cubic-bezier(.22,1,.36,1),opacity .3s ease}
 .menu-submenu.is-open{grid-template-rows:1fr;opacity:1}.menu-submenu>div{overflow:hidden;min-height:0}.menu-submenu ul{list-style:none;margin:0;padding:0 8px 18px 16px;display:grid;grid-template-columns:1fr;gap:4px}
 .mega-navigation .menu-submenu a{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;padding:9px 8px;font-size:15px;line-height:1.4;letter-spacing:1px!important;border:0;color:#eadbea;overflow:visible}
