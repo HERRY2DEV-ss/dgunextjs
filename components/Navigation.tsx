@@ -51,7 +51,7 @@ export default function Navigation({
     const dialog = menuDialog.current;
     setMenuVisible(false);
     setMenuSearchOpen(false); setMenuQuery(''); setExpanded(null); setExpandedChild(null);
-    if (dialog && !dialog.open) dialog.showModal();
+    if (dialog && !dialog.open) dialog.show();
     setMenuOpen(true);
     requestAnimationFrame(() => requestAnimationFrame(() => setMenuVisible(true)));
   };
@@ -158,8 +158,6 @@ export default function Navigation({
             <circle cx="11" cy="11" r="7" /><path d="M20 20L16.2 16.2" />
           </svg>
         </button>
-        <button type="button" className="mega-menu-close" aria-label="Close menu"
-          onClick={closeMenu} autoFocus>MENU <i aria-hidden="true">×</i></button>
       </div>
     </div>
     <div className="mega-menu-left">
@@ -240,7 +238,6 @@ export default function Navigation({
       aria-label="Main navigation menu" onCancel={(event) => { event.preventDefault(); closeMenu(); }}
       onClose={() => { setMenuVisible(false); setMenuOpen(false); }}>
       {menuContent}
-      <button type="button" className="menu-dialog-close" aria-label="Close menu" onClick={closeMenu}>CLOSE <span aria-hidden="true">×</span></button>
       {menuOpen && <nav className="side-quick-menu" aria-label="Quick links">
             <a href={APPLY_URL} aria-label="Apply now"><span>Apply Now</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5H5v15h14v-8M14 4l3-3 4 4-3 3-3 3-8 8-4 1 1-4Z" /></svg></a>
             <a href={CONTACT_URL} aria-label="Contact us"><span>Contact Us</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 6l8 7 8-7" /></svg></a>
