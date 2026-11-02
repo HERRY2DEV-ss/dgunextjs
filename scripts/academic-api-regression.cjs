@@ -274,6 +274,21 @@ function load(filename, globals = {}) {
   assert.ok([...restored.sections,...restored.pathways].some(section=>section.html.includes('API international copy.')));
   assert.equal(restored.schoolUrl,'','No school relationship is fabricated');
   assert.equal(restored.students.length,0,'The new unverified placements list does not bypass the existing filtered feed');
+  const btechRelated=academic.parseAcademicInfo({error:'0',data:[{id:88,url:'btech',programName:'API B.Tech CSE',introText:'API intro',
+    accordion:[
+      {accordionName:'B.Tech CSE (Lateral Entry)',accordionDetails:'<p><a href="/btech-cse-lateral-entry">B.Tech CSE (Lateral Entry)</a></p>'},
+      {accordionName:'B.Tech CSE in AI & ML with',accordionDetails:'<p><a href="/btech-cse-with-spe-in-ai-and-ml-with-minor">B.Tech CSE in AI & ML with Minor</a></p>'},
+      {accordionName:'B.Tech CSE in Quantum Computing with Minor',accordionDetails:'<p><a href="/btech-cse-in-quantum-computing-with-minor">B.Tech CSE in Quantum Computing with Minor</a></p>'},
+      {accordionName:'B.Tech CSE with Minor',accordionDetails:'<p><a href="/btech-cse-with-minor">B.Tech CSE with Minor</a></p>'},
+      {accordionName:'B.Tech in Computer Science and Engineering (CSE)',accordionDetails:'<p><a href="/btech">B.Tech in Computer Science and Engineering (CSE)</a></p>'},
+      {accordionName:'B.Tech in Computer Science and Engineering (CSE)',accordionDetails:'<p><a href="/btech">B.Tech in Computer Science and Engineering (CSE)</a></p>'},
+      {accordionName:'B.Tech in Computer Science and Engineering (CSE)',accordionDetails:'<p><a href="/btech">B.Tech in Computer Science and Engineering (CSE)</a></p>'},
+    ]}]},'program','btech','88');
+  assert.equal(btechRelated.accordions.length,0,'B.Tech CSE linked-program accordion records are removed from the page data');
+  assert.equal(btechRelated.relatedPrograms.length,5,'B.Tech CSE accordion links become deduplicated specialization cards');
+  assert.ok(btechRelated.relatedPrograms.every(program=>program.href),'Only actual API-linked B.Tech choices become clickable cards');
+  assert.ok(load('components/academic-layout').academicLayout(btechRelated).some(block=>block.kind==='specializations'),
+    'B.Tech specialization links render through the existing Program Specialization section');
   const other=academic.parseAcademicInfo({error:'0',data:[{id:26,programName:'API HR',introText:'API intro',
     programTabs:[{tabName:'Eligibility Criteria',tabDetails:'<p>API eligibility.</p>'},{tabName:'Other Specializations',tabDetails:'<p>API related choices.</p>',programs:[{id:27,programName:'API Finance',url:'mba-finance'}]}],
     otherSpecializations:[{id:26,programName:'Current programme',url:'mba-human-resource'},{id:27,programName:'API Finance',url:'mba-finance'},{id:28,programName:'API IB',url:'mba-international-business'}],
