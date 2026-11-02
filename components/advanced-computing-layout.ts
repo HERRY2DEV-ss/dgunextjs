@@ -47,7 +47,7 @@ export function advancedComputingLayout(info: AcademicInfo): AcademicBlock[] {
     used.add(section); return true;
   });
   const copy = advancedComputingContent(info);
-  const highlights = copy.highlights ? [{ title: 'Key Highlights & Experiential Learning', html: copy.highlights }] : [];
+  const highlights = info.kind === 'school' ? [] : copy.highlights ? [{ title: 'Key Highlights & Experiential Learning', html: copy.highlights }] : [];
   const options = take(['options']);
   const difference = take(['difference']).map(section => {
     if (typeof DOMParser === 'undefined') return section;
