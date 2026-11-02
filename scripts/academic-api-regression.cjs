@@ -1,6 +1,12 @@
 // Contract checks only; live PHP availability is checked separately.
 const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm');
 const assert = require('node:assert/strict'), ts = require('typescript');
+const academicPageSource = fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
+const academicApiCss = fs.readFileSync(path.resolve('components/academic-api.css'),'utf8');
+assert.match(academicPageSource,/info\.slug==='btech'[\\s\\S]*?AcademicAccordions/,'B.Tech specializations use the existing bottom accordion component');
+assert.doesNotMatch(academicPageSource,/ProgramSpecializationTiles/,'B.Tech specializations do not introduce a replacement card design');
+assert.doesNotMatch(academicApiCss,/program-specializations--direct-links/,'B.Tech specialization rendering does not add a new visual system');
+
 const { parse: parseTestHtml, HTMLElement: TestHtmlElement } = require('next/dist/compiled/node-html-parser');
 const modules = new Map(), calls = [];
 let failNext = false;
