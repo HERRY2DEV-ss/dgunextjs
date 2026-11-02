@@ -289,6 +289,27 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     return name ? [{id,name,href,level:apiPlain(apiValue(f,'levelName'))}] : [];
   });
   info.relatedPrograms=programLinks(take('relatedPrograms', 'specialization'));
+  // The B.Tech parent page's CMS currently publishes linked programme choices
+  // as accordion records. Reuse their real API hrefs as specialization cards,
+  // then remove only those B.Tech CSE accordion records from the lower page.
+  if(kind==='program' && slug==='btech'){
+    const btechChoices=info.accordions.filter(section=>/^b\\.?\\s*tech\\b/i.test(section.title) || /^computer science and engineering\\s*\\(cse\\)/i.test(section.title));
+    const extracted=btechChoices.flatMap(section=>{
+      const anchors=Array.from(section.html.matchAll(/<a\\b[^>]*href\\s*=\\s*(["'])(.*?)\\1[^>]*>([\\s\\S]*?)<\\/a>/gi));
+      return anchors.flatMap(match=>{
+        const href=apiProgramHref(match[2],undefined,'program');
+        const name=apiPlain(match[3]) || section.title;
+        return href && name ? [{id:href,name,href}] : [];
+      });
+    });
+    const seenSpecializations=new Set<string>();
+    info.relatedPrograms=[...info.relatedPrograms,...extracted].filter(program=>{
+      const key=program.href || program.id || program.name;
+      if(seenSpecializations.has(key))return false;
+      seenSpecializations.add(key);return true;
+    });
+    info.accordions=info.accordions.filter(section=>!btechChoices.includes(section));
+  }
   const otherIds=new Set<string>();
   info.otherPrograms=[...info.otherPrograms,...programLinks(take('otherPrograms','otherSpecialization','otherSpecializations'))].filter(program=>{
     const key=program.id || `${program.name}|${program.href}`;
