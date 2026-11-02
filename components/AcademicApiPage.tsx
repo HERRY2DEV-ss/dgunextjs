@@ -11,7 +11,7 @@ import Navigation from './Navigation';
 import useAcademicBrand from './useAcademicBrand';
 import SiteFooter from './SiteFooter';
 import SchoolIntroSection from './SchoolIntroSection';
-import { isAdvancedComputing, isAdvancedComputingAcademicPage } from './advanced-computing-layout';
+import { isAdvancedComputing, isAdvancedComputingAcademicPage, isBtechProgramPage } from './advanced-computing-layout';
 import QuickContactForm from './QuickContactForm';
 import AcademicContent from './AcademicContent';
 import ApiRichText from './ApiRichText';
@@ -396,9 +396,19 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
     <RecruitersSection paused={paused} items={info.recruiters.length>0 ? info.recruiters : undefined} title="Top Recruiters" />
   </>;
   if(block.kind==='section' && info.slug==='mba-international-business' && academicSectionKey(title)==='core program focus') return <ProgramFocusCards section={block.sections[0]} />;
-  return <>{block.sections.map((section,i)=>(isAcademicFeatureSection(section,info) || info.kind==='program' && academicSectionKey(section.title)==='specification')
-    ? <FeatureSection section={section} id={`${id}-${i}`} info={info} key={i} />
-    : <section className={`academic-api-section${info.kind==='program' && info.slug==='btech' && info.id==='88' && academicSectionKey(section.title)==='industry' ? ' academic-api-btech-collaboration' : ''}`} data-content-kind="section" key={i}><h2>{section.title}</h2><GalleryCopy section={section} paused={paused}/></section>)}</>;
+  return <>{block.sections.map((section,i)=>{
+    if(isAcademicFeatureSection(section,info) || info.kind==='program' && academicSectionKey(section.title)==='specification')
+      return <FeatureSection section={section} id={`${id}-${i}`} info={info} key={i} />;
+    const btechCollaboration=isBtechProgramPage(info) && academicSectionKey(section.title)==='industry';
+    const poweredByHeading=btechCollaboration
+      ? Array.from(section.html.matchAll(/<h([1-6])\b[^>]*>[\s\S]*?<\/h\1>/gi)).find(match=>apiPlain(match[0]).toLowerCase()==='powered by')
+      : undefined;
+    const content=poweredByHeading ? {...section,html:section.html.replace(poweredByHeading[0],'')} : section;
+    const heading=poweredByHeading ? `${section.title} & ${apiPlain(poweredByHeading[0])}` : section.title;
+    return <section className={`academic-api-section${btechCollaboration ? ' academic-api-btech-collaboration' : ''}`} data-content-kind="section" key={i}>
+      <h2>{heading}</h2><GalleryCopy section={content} paused={paused}/>
+    </section>;
+  })}</>;
 }
 
 /** The single DBS/MBA design renderer. API content and guide placement are separate. */

@@ -1,4 +1,4 @@
-import { isAdvancedComputing, isAdvancedComputingAcademicPage, advancedComputingLayout } from './advanced-computing-layout';
+import { isAdvancedComputing, isAdvancedComputingAcademicPage, isBtechProgramPage, advancedComputingLayout } from './advanced-computing-layout';
 import { academicFlow } from './academic-content-flow';
 import { academicSectionKey } from './academic-section-key';
 import type { AcademicInfo, AcademicSection } from './academic-page-api';
@@ -151,10 +151,15 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     const faqs = blocks.findIndex(block => block.kind === 'faqs');
     blocks.splice(faqs < 0 ? blocks.length : faqs, 0, { kind: 'testimonials', title: 'Student Testimonials', sections: [] });
   }
-  if (info.kind === 'program' && info.slug === 'btech' && info.id === '88') {
-    const collaboration = blocks.findIndex(block =>
-      block.sections.some(section => academicSectionKey(section.title) === 'industry'));
-    if (collaboration > 0) blocks.splice(0, 0, ...blocks.splice(collaboration, 1));
+  if (isBtechProgramPage(info)) {
+    const collaborationSections = blocks.flatMap(block =>
+      block.sections.filter(section => academicSectionKey(section.title) === 'industry'));
+    if (collaborationSections.length) {
+      for (const block of blocks) {
+        block.sections = block.sections.filter(section => !collaborationSections.includes(section));
+      }
+      blocks.unshift({ kind: 'section', title: '', sections: collaborationSections });
+    }
   }
   return blocks.filter(block=>block.kind!=='other-programs'&&(!['tabs','accordion','section'].includes(block.kind)||block.sections.length>0));
 }

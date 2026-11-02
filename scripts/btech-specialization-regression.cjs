@@ -74,6 +74,27 @@ for (const program of specializations) {
 assert.deepEqual(Array.from(btech.accordions, section => section.title), ['Unrelated API accordion'],
   'Only the named B.Tech CSE accordions are removed');
 
+for (const program of [
+  { id: 88, url: 'btech', name: 'B.Tech CSE' },
+  { id: 102, url: 'btech-cse-lateral-entry', name: 'B.Tech CSE (Lateral Entry)' },
+  { id: 14, url: 'btech-cse-with-spe-in-ai-and-ml-with-minor', name: 'B.Tech CSE in AI & ML with Minor' },
+  { id: 89, url: 'btech-cse-in-quantum-computing-with-minor', name: 'B.Tech CSE in Quantum Computing with Minor' },
+  { id: 13, url: 'btech-cse-with-minor', name: 'B.Tech CSE with Minor' },
+  { id: 34, url: 'btech-cse-with-spe-in-ai-and-ml-hcl', name: 'B.Tech CSE in AI & ML - HCLTech' },
+  { id: 35, url: 'btech-cse-with-spe-in-cyber-security-hcl', name: 'B.Tech CSE in Cyber Security - HCLTech' },
+  { id: 36, url: 'btech-cse-with-spe-in-data-science-hcl', name: 'B.Tech CSE in Data Science - HCLTech' },
+]) {
+  const info = parseAcademicInfo({ error: '0', data: [{
+    id: program.id, url: program.url, programName: program.name,
+    areaHeading2: 'Industry Collaboration', areaDetails2: '<p>API collaboration stays.</p>',
+  }] }, 'program', program.url, String(program.id));
+  const pageBlocks = academicLayout(info);
+  assert.equal(pageBlocks[0]?.sections[0]?.title, 'Industry Collaboration',
+    `${program.name} collaboration follows the introduction`);
+  assert.equal(pageBlocks.flatMap(block => block.sections).filter(section => section.title === 'Industry Collaboration').length, 1,
+    `${program.name} collaboration remains a single API section`);
+}
+
 const specializationPage = parseAcademicInfo({ error: '0', data: [{
   id: 13, url: 'btech-cse-with-minor', programName: 'B.Tech CSE with Minor',
   accordion: [{ accordionName: 'B.Tech CSE (Lateral Entry)', accordionDetails: '<p>API accordion remains.</p>' }],

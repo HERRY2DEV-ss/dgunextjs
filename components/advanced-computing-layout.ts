@@ -23,6 +23,21 @@ const advancedComputingProgramSlugs = new Set([
   'btech-cse-lateral-entry',
 ]);
 
+const btechProgramSlugs = new Set([
+  'btech',
+  'btech-cse-with-minor',
+  'btech-cse-with-spe-in-ai-and-ml-with-minor',
+  'btech-cse-with-spe-in-ai-and-ml-hcl',
+  'btech-cse-with-spe-in-cyber-security-hcl',
+  'btech-cse-with-spe-in-data-science-hcl',
+  'btech-cse-in-quantum-computing-with-minor',
+  'btech-cse-lateral-entry',
+]);
+
+export function isBtechProgramPage(info: AcademicInfo) {
+  return info.kind === 'program' && btechProgramSlugs.has(info.slug);
+}
+
 export function isAdvancedComputingAcademicPage(info: AcademicInfo) {
   return isAdvancedComputing(info) || info.kind === 'program' &&
     (info.schoolUrl === 'school-of-technology' || advancedComputingProgramSlugs.has(info.slug));
