@@ -157,6 +157,21 @@ function advancedComputingOptionAccordions(source: string): { intro: string; tra
       }
       const copy = document.createElement('div');
       copy.innerHTML = value;
+      // CMS table cells can contain Bootstrap/grid classes and inline typography
+      // that do not belong inside the compact accordion layout. Keep semantic
+      // content and functional links/images, but discard presentation attributes.
+      copy.querySelectorAll('*').forEach(node => {
+        const keep = new Set(
+          node.tagName === 'A'
+            ? ['href', 'title']
+            : node.tagName === 'IMG'
+              ? ['src', 'data-src', 'data-lazy-src', 'alt', 'title']
+              : ['colspan', 'rowspan', 'scope']
+        );
+        Array.from(node.attributes).forEach(attribute => {
+          if (!keep.has(attribute.name.toLowerCase())) node.removeAttribute(attribute.name);
+        });
+      });
       entry.append(copy);
       return entry.outerHTML;
     }).filter(Boolean);
