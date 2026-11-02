@@ -3,9 +3,9 @@ const fs = require('node:fs'), path = require('node:path'), vm = require('node:v
 const assert = require('node:assert/strict'), ts = require('typescript');
 const academicPageSource = fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
 const academicApiCss = fs.readFileSync(path.resolve('components/academic-api.css'),'utf8');
-assert.match(academicPageSource,/info\.slug==='btech'[\s\S]*?AcademicAccordionGroup/,'B.Tech specializations use the existing bottom accordion component');
-assert.doesNotMatch(academicPageSource,/ProgramSpecializationTiles/,'B.Tech specializations do not introduce a replacement card design');
-assert.doesNotMatch(academicApiCss,/program-specializations--direct-links/,'B.Tech specialization rendering does not add a new visual system');
+assert.match(academicPageSource,/ProgramLinks items=\{block\.kind==='specializations' \? info\.relatedPrograms : info\.otherPrograms\}/,'B.Tech API specializations use the existing Program Specialization card design');
+assert.doesNotMatch(academicPageSource,/btech-specializations|Explore B\.Tech Specializations/,'B.Tech specializations are not wrapped in an extra accordion');
+assert.doesNotMatch(academicPageSource,/ProgramSpecializationTiles/,'Programme specializations do not introduce a replacement card design');
 
 const { parse: parseTestHtml, HTMLElement: TestHtmlElement } = require('next/dist/compiled/node-html-parser');
 const modules = new Map(), calls = [];
