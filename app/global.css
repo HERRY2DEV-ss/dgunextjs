@@ -134,6 +134,7 @@ section {
 
 .site-header.menu-is-open {
   background:#3e0840;
+  z-index:100000;
 }
 
 .brand {
