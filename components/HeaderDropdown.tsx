@@ -16,19 +16,24 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [panels, setPanels] = useState<Panel[]>([]);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 
   const cancelClose = () => { if (timer.current) { clearTimeout(timer.current); timer.current = null; } };
-  const close = () => { cancelClose(); setPanels([]); };
+  const close = () => { cancelClose(); setPanels([]); setPortalTarget(null); };
   // Keep the top-level header dropdown on its original short close delay.
-  const leaveRoot = () => { cancelClose(); timer.current = setTimeout(() => setPanels([]), 180); };
+  const leaveRoot = () => { cancelClose(); timer.current = setTimeout(() => { setPanels([]); setPortalTarget(null); }, 180); };
   // Nested panels are portalled with a small visual gap, so give pointer travel
   // between a parent row and its child panel a longer grace period.
-  const leavePanel = () => { cancelClose(); timer.current = setTimeout(() => setPanels([]), 420); };
+  const leavePanel = () => { cancelClose(); timer.current = setTimeout(() => { setPanels([]); setPortalTarget(null); }, 420); };
   const focusPanel = (level: number) => requestAnimationFrame(() => panelRefs.current[level]?.querySelector<HTMLElement>('a,button')?.focus());
 
   const showRoot = (focus = false) => {
     cancelClose();
     if (!group?.children.length || !root.current) return;
+    // Native dialogs render in the browser top layer. Portal quick-menu panels
+    // into the open dialog so they remain visible above the mega-menu surface.
+    const openMenu = document.querySelector<HTMLElement>('.mega-menu-overlay[open]');
+    setPortalTarget(openMenu ?? document.body);
     const rect = root.current.getBoundingClientRect();
     const headerBottom = root.current.closest('.site-header')?.getBoundingClientRect().bottom ?? rect.bottom;
     const width = Math.min(292, window.innerWidth - 24);
@@ -39,6 +44,8 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
   };
   const showBranch = (item: MenuItem, level: number, row: HTMLElement, focus = false) => {
     cancelClose();
+    const openMenu = document.querySelector<HTMLElement>('.mega-menu-overlay[open]');
+    setPortalTarget(openMenu ?? document.body);
     if (!item.children.length) { setPanels(previous => previous.slice(0, level + 1)); return; }
     const rect = row.getBoundingClientRect();
     const panelRect = panelRefs.current[level]?.getBoundingClientRect();
@@ -58,7 +65,7 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
       const target = event.target as Node | null;
       if (target && !root.current?.contains(target) && !panelRefs.current.some(panel => panel?.contains(target))) setPanels([]);
     };
-    const dismiss = () => setPanels([]);
+    const dismiss = () => { setPanels([]); setPortalTarget(null); };
     document.addEventListener('pointerdown', outside);
     document.addEventListener('focusin', outside);
     window.addEventListener('resize', dismiss);
@@ -115,6 +122,6 @@ export default function HeaderDropdown({ title, href, group }: { title: string; 
           </button>}
         </li>;
       })}</ul>
-    </div>)}</>, document.body)}
+    </div>)}</>, portalTarget ?? document.body)}
   </div>;
 }
