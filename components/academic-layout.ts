@@ -151,5 +151,10 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     const faqs = blocks.findIndex(block => block.kind === 'faqs');
     blocks.splice(faqs < 0 ? blocks.length : faqs, 0, { kind: 'testimonials', title: 'Student Testimonials', sections: [] });
   }
+  if (info.kind === 'program' && info.slug === 'btech' && info.id === '88') {
+    const collaboration = blocks.findIndex(block =>
+      block.sections.some(section => academicSectionKey(section.title) === 'industry'));
+    if (collaboration > 0) blocks.splice(0, 0, ...blocks.splice(collaboration, 1));
+  }
   return blocks.filter(block=>block.kind!=='other-programs'&&(!['tabs','accordion','section'].includes(block.kind)||block.sections.length>0));
 }

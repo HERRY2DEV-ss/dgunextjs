@@ -398,7 +398,7 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
   if(block.kind==='section' && info.slug==='mba-international-business' && academicSectionKey(title)==='core program focus') return <ProgramFocusCards section={block.sections[0]} />;
   return <>{block.sections.map((section,i)=>(isAcademicFeatureSection(section,info) || info.kind==='program' && academicSectionKey(section.title)==='specification')
     ? <FeatureSection section={section} id={`${id}-${i}`} info={info} key={i} />
-    : <section className="academic-api-section" data-content-kind="section" key={i}><h2>{section.title}</h2><GalleryCopy section={section} paused={paused}/></section>)}</>;
+    : <section className={`academic-api-section${info.kind==='program' && info.slug==='btech' && info.id==='88' && academicSectionKey(section.title)==='industry' ? ' academic-api-btech-collaboration' : ''}`} data-content-kind="section" key={i}><h2>{section.title}</h2><GalleryCopy section={section} paused={paused}/></section>)}</>;
 }
 
 /** The single DBS/MBA design renderer. API content and guide placement are separate. */

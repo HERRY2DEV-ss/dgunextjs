@@ -121,8 +121,8 @@ async function settle(runtimeInstance) {
   return result;
 }
 
-function cacheKey(slug, id) {
-  return `dgu:academic-info:v1:program:${encodeURIComponent(slug)}:${id || 'none'}`;
+function cacheKey(slug, id, version = 3) {
+  return `dgu:academic-info:v${version}:program:${encodeURIComponent(slug)}:${id || 'none'}`;
 }
 
 (async () => {
@@ -135,6 +135,13 @@ function cacheKey(slug, id) {
   assert.equal(firstApi.readCachedAcademicInfo('program', first.slug, first.recordId).name, 'API programme',
     'A validated successful response is stored for the programme identity');
   const storedValue = storage.get(cacheKey(first.slug, first.recordId));
+  const staleEntry = JSON.parse(storedValue);
+  staleEntry.version = 2;
+  storage.set(cacheKey(first.slug, first.recordId, 2), JSON.stringify(staleEntry));
+  storage.delete(cacheKey(first.slug, first.recordId));
+  assert.equal(firstApi.readCachedAcademicInfo('program', first.slug, first.recordId), null,
+    'Cached programme content from before the specialization-link parsing change is not reused');
+  storage.set(cacheKey(first.slug, first.recordId), storedValue);
 
   const reloaded = runtime({ mode: 'network-error' });
   const restored = await settle(reloaded);

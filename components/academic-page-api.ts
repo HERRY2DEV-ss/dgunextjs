@@ -98,6 +98,21 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     registrationLink: apiMedia(take('registrationLink')), prospectusUrl: apiMedia(take('prospectusURL', 'prospectus')),
     metaTitle: apiPlain(take('meta_title', 'metaTitle')), metaDescription: apiPlain(take('meta_desc', 'metaDescription')),
     metaKeywords: apiPlain(take('meta_keywords', 'metaKeywords')), metaCanonical: apiPlain(take('meta_canonical', 'metaCanonical')) };
+  const btechParent = kind === 'program' && slug === 'btech' && recordId === '88';
+  const btechChoiceTitles = new Set([
+    'b.tech cse (lateral entry)',
+    'b.tech cse in ai & ml with',
+    'b.tech cse in quantum computing with minor',
+    'b.tech cse with minor',
+    'b.tech in computer science and engineering (cse)',
+  ]);
+  const isBtechChoiceTitle = (title: string) => {
+    const normalized = title.trim().toLowerCase();
+    return btechChoiceTitles.has(normalized) ||
+      normalized.startsWith('b.tech cse in ai & ml with') ||
+      normalized.startsWith('b.tech in computer science and engineering (cse)');
+  };
+  const btechTabPrograms: SchoolProgram[] = [];
   if (kind === 'program') info.testimonials = academicTestimonialRecords(take('studentTestimonials', 'testimonials'));
   const readHtml = (value: unknown) => {
     const source = html(value);
@@ -170,10 +185,15 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     const row = apiRecord(item); if (!row) continue; const f = apiFields(row);
     const title = apiPlain(apiValue(f, 'tabName', 'heading', 'title'));
     const other = academicSectionKey(title) === 'other-programs';
+    const btechSpecification = btechParent && academicSectionKey(title) === 'specification';
     const related = apiValue(f, 'tabPrograms', 'programs');
     const links = academicRecords(related, ['programName','name']).flatMap(program => {
       const p = apiRecord(program); if (!p) return []; const pf = apiFields(p);
       const name = apiPlain(apiValue(pf, 'programName', 'name')), href = apiProgramHref(apiValue(pf, 'url','friendly_url'), apiValue(pf, 'id') as string | number | undefined);
+      if (btechSpecification && isBtechChoiceTitle(name)) {
+        if (href) btechTabPrograms.push({ id: apiText(apiValue(pf, 'id')), name, href });
+        return [];
+      }
       if (other && name) info.otherPrograms.push({ id: apiText(apiValue(pf, 'id')), name, href });
       return name ? [`<li>${href ? `<a href="${escapeHtml(href)}">${escapeHtml(name)}</a>` : escapeHtml(name)}</li>`] : [];
     });
@@ -290,17 +310,10 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
   });
   info.relatedPrograms=programLinks(take('relatedPrograms', 'specialization'));
   // The B.Tech parent page's CMS currently publishes linked programme choices
-  // as accordion records. Reuse their real API hrefs as specialization cards,
-  // then remove only those B.Tech CSE accordion records from the lower page.
-  if(kind==='program' && slug==='btech' && recordId==='88'){
-    const btechChoiceTitles=new Set([
-      'b.tech cse (lateral entry)',
-      'b.tech cse in ai & ml with',
-      'b.tech cse in quantum computing with minor',
-      'b.tech cse with minor',
-      'b.tech in computer science and engineering (cse)',
-    ]);
-    const btechChoices=info.accordions.filter(section=>btechChoiceTitles.has(section.title.trim().toLowerCase()));
+  // in both the specialization field and the Program specification tab. Keep
+  // only the existing card set and retain the same API links in either shape.
+  if(btechParent){
+    const btechChoices=info.accordions.filter(section=>isBtechChoiceTitle(section.title));
     const extracted=btechChoices.flatMap(section=>{
       const anchors=Array.from(section.html.matchAll(/<a\b[^>]*href\s*=\s*(["'])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi));
       return anchors.flatMap(match=>{
@@ -310,7 +323,7 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
       });
     });
     const seenSpecializations=new Set<string>();
-    info.relatedPrograms=[...info.relatedPrograms,...extracted].filter(program=>{
+    info.relatedPrograms=[...info.relatedPrograms,...btechTabPrograms,...extracted].filter(program=>{
       const key=program.href || program.id || program.name;
       if(seenSpecializations.has(key))return false;
       seenSpecializations.add(key);return true;
@@ -423,7 +436,7 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
 }
 
 const cached = contentCache<AcademicInfo>();
-const ACADEMIC_CACHE_VERSION = 2;
+const ACADEMIC_CACHE_VERSION = 3;
 
 function academicCacheKey(kind: AcademicKind, slug: string, recordId: string): string {
   return `dgu:academic-info:v${ACADEMIC_CACHE_VERSION}:${kind}:${encodeURIComponent(slug)}:${recordId || 'none'}`;

@@ -10,6 +10,7 @@
     "test:audit": "node scripts/regression.cjs && node scripts/audit-regression.cjs && node scripts/content-api-regression.cjs && node scripts/api-contracts.cjs && node scripts/api-only-render-regression.cjs",
     "test:recovery": "node scripts/api-recovery-regression.cjs",
     "test:academic": "node scripts/academic-api-regression.cjs",
+    "test:btech-specializations": "node scripts/btech-specialization-regression.cjs",
     "test:live-api": "node scripts/verify-dgu-apis.cjs",
     "prebuild": "node scripts/clean-export.cjs",
     "postbuild": "node scripts/finalize-export.cjs",
