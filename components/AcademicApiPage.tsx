@@ -117,6 +117,69 @@ function isAcademicFeatureSection(section: AcademicSection, info: AcademicInfo) 
     isAdvancedComputingAcademicPage(info) && key === 'industry-aligned-curriculum';
 }
 
+function advancedComputingOptionAccordions(source: string): { intro: string; trailing: string; sections: AcademicSection[] } | null {
+  if (typeof DOMParser === 'undefined') return null;
+  const document = new DOMParser().parseFromString(source, 'text/html');
+  const table = document.querySelector('table');
+  if (!table) return null;
+  const headerRow = table.querySelector('thead tr') || Array.from(table.querySelectorAll('tr')).find(row =>
+    Array.from(row.children).some(cell => cell.tagName === 'TH'));
+  if (!headerRow) return null;
+  const headers = Array.from(headerRow.children).filter(cell => /^(TH|TD)$/.test(cell.tagName));
+  if (headers.length !== 4) return null;
+  const rows = Array.from(table.querySelectorAll('tr')).filter(row => row !== headerRow);
+  const dataRows = rows.map(row => Array.from(row.children).filter(cell => /^(TH|TD)$/.test(cell.tagName)))
+    .filter(cells => cells.length >= 4);
+  if (!dataRows.length) return null;
+
+  const extract = (before: boolean) => {
+    const range = document.createRange();
+    range.selectNodeContents(document.body);
+    if (before) range.setEndBefore(table);
+    else range.setStartAfter(table);
+    const holder = document.createElement('div');
+    holder.append(range.cloneContents());
+    return holder.innerHTML;
+  };
+
+  const sections = headers.map((header, column): AcademicSection => {
+    const title = apiPlain(header.textContent);
+    const entries = dataRows.map(cells => {
+      const pathway = apiPlain(cells[0].textContent);
+      const value = cells[column].innerHTML.trim();
+      if (!value) return '';
+      const entry = document.createElement('div');
+      entry.className = 'advanced-computing-option-entry';
+      if (column > 0 && pathway) {
+        const heading = document.createElement('h4');
+        heading.textContent = pathway;
+        entry.append(heading);
+      }
+      const copy = document.createElement('div');
+      copy.innerHTML = value;
+      entry.append(copy);
+      return entry.outerHTML;
+    }).filter(Boolean);
+    return { title, html: entries.join('') };
+  }).filter(section => !!section.title && !!section.html);
+
+  if (sections.length !== 4) return null;
+  return { intro: extract(true), trailing: extract(false), sections };
+}
+
+function AdvancedComputingOptionsContent({ section, id }: { section: AcademicSection; id: string }) {
+  const parsed = useMemo(() => advancedComputingOptionAccordions(section.html), [section.html]);
+  if (!parsed) return <section className="academic-api-section" data-content-kind="options">
+    <h2>{section.title}</h2><ApiRichText html={section.html} scrollTables />
+  </section>;
+  return <section className="academic-api-section academic-program-options-accordion" data-content-kind="options">
+    <h2>{section.title}</h2>
+    {parsed.intro && <ApiRichText html={parsed.intro} scrollTables />}
+    <AcademicAccordions sections={parsed.sections} id={id} />
+    {parsed.trailing && <ApiRichText html={parsed.trailing} scrollTables />}
+  </section>;
+}
+
 function ProgramOptionsCards({ sections }: { sections: AcademicSection[] }) {
   if (!sections.length) return null;
   return <section className="program-options-cards" aria-labelledby="academic-program-options-title">
@@ -267,6 +330,14 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
   if(block.kind==='tracks')return info.tracks.length ? <AcademicContent id={`${id}-tracks`} heading={info.tracksHeading} label={info.tracksHeading} className="program-pathways academic-track-tabs"
     tabs={info.tracks.map((track,i)=>({key:String(i),title:track.title,content:<AcademicAccordions sections={trackAccordions(track.html)} id={`${id}-track-${i}`} />}))}/> : null;
   if(block.kind==='tabs' && block.title==='Program Options' && info.programOptions?.length) return <ProgramOptionsCards sections={block.sections} />;
+  if(block.kind==='tabs' && info.kind==='school' && isAdvancedComputing(info) && block.sections.some(section=>academicSectionKey(section.title)==='options')) {
+    const options=block.sections.filter(section=>academicSectionKey(section.title)==='options');
+    const remaining=block.sections.filter(section=>academicSectionKey(section.title)!=='options');
+    return <>{options.map((section,i)=><AdvancedComputingOptionsContent key={`${id}-options-${i}`} section={section} id={`${id}-options-${i}`} />)}
+      {remaining.length>0 && <AcademicContent id={id} heading={block.title || undefined} label={`${info.name} information`} className="program-pathways" tabsClassName="program-details-tabs"
+        tabs={remaining.map((section,i)=>({key:String(i),title:section.title,content:<TabBody section={section} nested={block.nested} id={`${id}-${i}`} />}))} />}
+    </>;
+  }
   if(block.kind==='tabs')return <AcademicContent id={id} heading={block.title || undefined} label={`${info.name} information`} className="program-pathways" tabsClassName="program-details-tabs"
     tabs={block.sections.map((section,i)=>({key:String(i),title:section.title,content:academicSectionKey(section.title)==='other-programs'
       ? <><ApiRichText html={section.html} scrollTables /><ProgramLinks items={info.otherPrograms} title="" /></>
