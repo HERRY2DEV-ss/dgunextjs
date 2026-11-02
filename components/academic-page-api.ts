@@ -293,9 +293,9 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
   // as accordion records. Reuse their real API hrefs as specialization cards,
   // then remove only those B.Tech CSE accordion records from the lower page.
   if(kind==='program' && slug==='btech'){
-    const btechChoices=info.accordions.filter(section=>/^b\\.?\\s*tech\\b/i.test(section.title) || /^computer science and engineering\\s*\\(cse\\)/i.test(section.title));
+    const btechChoices=info.accordions.filter(section=>/^b\.?\s*tech\b/i.test(section.title) || /^computer science and engineering\s*\(cse\)/i.test(section.title));
     const extracted=btechChoices.flatMap(section=>{
-      const anchors=Array.from(section.html.matchAll(/<a\\b[^>]*href\\s*=\\s*(["'])(.*?)\\1[^>]*>([\\s\\S]*?)<\\/a>/gi));
+      const anchors=Array.from(section.html.matchAll(/<a\b[^>]*href\s*=\s*(["'])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi));
       return anchors.flatMap(match=>{
         const href=apiProgramHref(match[2],undefined,'program');
         const name=apiPlain(match[3]) || section.title;
