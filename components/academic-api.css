@@ -86,9 +86,9 @@
 .academic-accordion-heading>button[aria-expanded=true] .program-industry-arrow { color:#68176b;transform:rotate(90deg); }
 .academic-accordion-grid .academic-accordion-panel { order:calc(var(--accordion-row)*2 + 1);grid-column:1/-1;min-width:0;padding:clamp(18px,2vw,28px) clamp(14px,1.5vw,25px);animation:program-content-reveal .4s cubic-bezier(.22,1,.36,1) both; }
 .academic-accordion-panel[hidden] { display:none; }
-.academic-learning-environment-links a:not(:has(img)) { display:inline-flex;align-items:center;justify-content:center;max-width:100%;margin:8px 8px 8px 0;padding:10px 18px;border:1px solid #68176b;border-radius:6px;background:#68176b;color:#fff;text-align:center;text-decoration:none;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,transform .2s; }
-.academic-learning-environment-links a:not(:has(img)):hover { background:#4f1252;border-color:#4f1252;color:#fff;transform:translateY(-1px); }
-.academic-learning-environment-links a:not(:has(img)):focus-visible { outline:2px solid #68176b;outline-offset:3px; }
+.academic-tab-content[data-tab-kind=laboratories] .academic-learning-environment-links a:not(:has(img)) { display:inline-flex;align-items:center;justify-content:center;max-width:100%;margin:8px 8px 8px 0;padding:10px 18px;border:1px solid #68176b;border-radius:6px;background:#68176b;color:#fff;text-align:center;text-decoration:none;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,transform .2s; }
+.academic-tab-content[data-tab-kind=laboratories] .academic-learning-environment-links a:not(:has(img)):hover { background:#4f1252;border-color:#4f1252;color:#fff;transform:translateY(-1px); }
+.academic-tab-content[data-tab-kind=laboratories] .academic-learning-environment-links a:not(:has(img)):focus-visible { outline:2px solid #68176b;outline-offset:3px; }
 .academic-accordion-panel>.dgu-api-copy>:first-child { margin-top:0; }
 .academic-accordion-profiles { --slider-gap:clamp(12px,1.4vw,24px);margin:26px 0;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:pan-x pan-y; }
 .academic-accordion-profiles::-webkit-scrollbar { display:none; }

@@ -148,6 +148,45 @@ export function academicTabContent(source:string, includeHeadings=false, include
   return {intro:fragment(null,boundaries[0]),sections:boundaries.map((node,index)=>({title:titleOf(node),html:fragment(node,boundaries[index+1]||null)}))};
 }
 
+/** Extract the facilities heading and its following content for an accordion. */
+export function academicLearningEnvironmentSection(source:string): {before:string;section:AcademicSection;after:string}|null {
+  if(typeof DOMParser==='undefined')return null;
+  const doc=new DOMParser().parseFromString(source,'text/html');
+  const headings=Array.from(doc.body.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(node=>
+    apiPlain(node.textContent).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()==='state of the art learning environment'
+  );
+  const heading=headings[0];
+  if(!heading)return null;
+  const allHeadings=Array.from(doc.body.querySelectorAll('h1,h2,h3,h4,h5,h6'));
+  const headingIndex=allHeadings.indexOf(heading),level=Number(heading.tagName.slice(1));
+  const next=allHeadings.find((node,index)=>index>headingIndex&&Number(node.tagName.slice(1))<=level)||null;
+  const fragment=(start:Element|null,end:Element|null)=>{
+    const range=doc.createRange();
+    range.selectNodeContents(doc.body);
+    if(start)range.setStartAfter(start);
+    if(end)range.setEndBefore(end);
+    const content=doc.createElement('div');
+    content.append(range.cloneContents());
+    return content.innerHTML;
+  };
+  let after='';
+  if(next){
+    const range=doc.createRange();
+    range.selectNodeContents(doc.body);
+    range.setStartBefore(next);
+    const content=doc.createElement('div');
+    content.append(range.cloneContents());
+    after=content.innerHTML;
+  }
+  const sectionHtml=fragment(heading,next);
+  if(!apiPlain(sectionHtml)&&!/<(img|table|a)\b/i.test(sectionHtml))return null;
+  return {
+    before:fragment(null,heading),
+    section:{title:apiPlain(heading.textContent),html:sectionHtml},
+    after,
+  };
+}
+
 /** Keep a page-specific multi-heading tab inside one existing accordion item. */
 export function academicSingleAccordionSection(parts:{intro:string;sections:AcademicSection[]}): AcademicSection | null {
   if(!parts.sections.length)return null;
