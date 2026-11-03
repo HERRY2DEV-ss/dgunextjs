@@ -66,6 +66,9 @@ body main .internal-hero .internal-eyebrow { text-align:center; font-size:11px!i
 .internal-accordion-transition>div { min-height:0; min-width:0; overflow:hidden; }
 .internal-accordion[data-open=true]>.internal-accordion-transition { grid-template-rows:1fr; visibility:visible; }
 .internal-accordion-answer { min-width:0; padding:0 0 26px; }
+.internal-accordion--learning-environment .internal-accordion-answer a:not(:has(img)) { display:inline-flex; align-items:center; justify-content:center; max-width:100%; margin:8px 8px 8px 0; padding:10px 18px; border:1px solid #68176b; border-radius:6px; background:#68176b; color:#fff; text-align:center; text-decoration:none; font-weight:600; line-height:1.35; transition:background .2s,border-color .2s,transform .2s; }
+.internal-accordion--learning-environment .internal-accordion-answer a:not(:has(img)):hover { background:#4f1252; border-color:#4f1252; color:#fff; transform:translateY(-1px); }
+.internal-accordion--learning-environment .internal-accordion-answer a:not(:has(img)):focus-visible { outline:2px solid #68176b; outline-offset:3px; }
 .internal-accordion-answer>.internal-copy-block:first-child:has(>.internal-source>:is(h2,h3,h4,h5,h6):only-child) { display:none; }
 .internal-spotlight { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(24px,4vw,58px); align-items:start; }
 .internal-spotlight .internal-media-rail { position:sticky; top:calc(var(--dgu-header-height,96px) + 24px); }

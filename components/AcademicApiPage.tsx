@@ -56,12 +56,18 @@ function GalleryCopy({section,paused}:{section:AcademicSection;paused:boolean}) 
   </>;
 }
 
+function isLearningEnvironmentSection(section:AcademicSection) {
+  return academicSectionKey(section.title)==='state of the art learning environment';
+}
+
 function AcademicAccordions({sections,title='',id,lead=[]}:{sections:AcademicSection[];title?:string;id:string;lead?:AcademicSection[]}) {
   if(!sections.length)return null;
   return <section className="program-industry" data-content-kind="accordion" aria-label={title || 'More information'}>
     {title && <h2>{title}</h2>}
     {lead.map((section,index)=><ApiRichText key={index} html={section.html} scrollTables />)}
-    <AcademicAccordionGroup id={id} items={sections.map(section=>({title:section.title,content:<AcademicAccordionCopy html={section.html} />}))} />
+    <AcademicAccordionGroup id={id} items={sections.map(section=>({title:section.title,content:isLearningEnvironmentSection(section)
+      ? <div className="academic-learning-environment-links"><AcademicAccordionCopy html={section.html} /></div>
+      : <AcademicAccordionCopy html={section.html} />}))} />
   </section>;
 }
 
@@ -353,8 +359,12 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
         tabs={remaining.map((section,i)=>({key:String(i),title:section.title,content:<TabBody section={section} nested={block.nested} id={`${id}-${i}`} />}))} />}
     </>;
   }
-  if(block.kind==='tabs')return <AcademicContent id={id} heading={block.title || undefined} label={`${info.name} information`} className="program-pathways" tabsClassName="program-details-tabs"
-    tabs={block.sections.map((section,i)=>({key:String(i),title:section.title,content:academicSectionKey(section.title)==='other-programs'
+  if(block.kind==='tabs') {
+    const learningEnvironment=block.sections.filter(isLearningEnvironmentSection);
+    const tabSections=block.sections.filter(section=>!isLearningEnvironmentSection(section));
+    return <>
+      {tabSections.length>0&&<AcademicContent id={id} heading={block.title || undefined} label={`${info.name} information`} className="program-pathways" tabsClassName="program-details-tabs"
+        tabs={tabSections.map((section,i)=>({key:String(i),title:section.title,content:academicSectionKey(section.title)==='other-programs'
       ? <><ApiRichText html={section.html} scrollTables /><ProgramLinks items={info.otherPrograms} title="" /></>
       : info.slug==='mba-international-business' && academicSectionKey(section.title)==='careers'
         ? <ApiRichText html={section.html} scrollTables />
@@ -364,7 +374,10 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
         ? <AdvancedComputingCurriculumContent section={section} id={`${id}-${i}-curriculum`} />
       : isAdvancedComputingAcademicPage(info) && isAcademicFeatureSection(section,info) && academicFeaturePresentation(academicFeatures(section.html).points.length,7)==='tab'
         ? <FeatureTabContent section={section} id={`${id}-${i}`} />
-        : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} singleAccordion={info.slug==='mba-agri-business' && academicSectionKey(section.title)==='structure'} semesterAccordion={info.kind==='program' && ['bcom-cpa','bcom-uscpa'].includes(info.slug)} />}))}/>;
+        : <TabBody section={section} nested={block.nested} id={`${id}-${i}`} hr={info.slug==='mba-human-resource'} singleAccordion={info.slug==='mba-agri-business' && academicSectionKey(section.title)==='structure'} semesterAccordion={info.kind==='program' && ['bcom-cpa','bcom-uscpa'].includes(info.slug)} />}))}/>}
+      {learningEnvironment.map((section,i)=><AcademicAccordions key={`${id}-learning-environment-${i}`} sections={[section]} id={`${id}-learning-environment-${i}`} />)}
+    </>;
+  }
   if(block.kind==='accordion')return <AcademicAccordions sections={block.sections} id={id} title={info.slug==='mba' ? 'INDUSTRY COLLABORATION' : ''}/>;
   if(block.kind==='industry')return <AcademicAccordions sections={block.sections} lead={block.lead} id={id} title={block.title} />;
   if(block.kind==='laboratories')return <>{block.sections.map((section,sectionIndex)=>{
@@ -397,6 +410,7 @@ function Block({block,info,paused,index,catalogue}:{block:AcademicBlock;info:Aca
   </>;
   if(block.kind==='section' && info.slug==='mba-international-business' && academicSectionKey(title)==='core program focus') return <ProgramFocusCards section={block.sections[0]} />;
   return <>{block.sections.map((section,i)=>{
+    if(isLearningEnvironmentSection(section))return <AcademicAccordions key={i} sections={[section]} id={`${id}-learning-environment-${i}`} />;
     if(isAcademicFeatureSection(section,info) || info.kind==='program' && academicSectionKey(section.title)==='specification')
       return <FeatureSection section={section} id={`${id}-${i}`} info={info} key={i} />;
     const btechCollaboration=isBtechProgramPage(info) && academicSectionKey(section.title)==='industry';
