@@ -48,7 +48,13 @@ export function parseFooter(payload: unknown): FooterData {
         if (seen.has(id)) continue;
         seen.add(id);
         const raw = text(item.url);
-        links.push({ id, name: text(item.name), href: raw ? resolveSiteHref(raw) : '', target: item.target === '_blank' ? '_blank' : '_self' });
+        const name = text(item.name);
+        const query = raw.split('?', 2)[1]?.split('#', 1)[0] || '';
+        const sustainabilityPath = /^\/sustinability\/?$/i.test(new URLSearchParams(query).get('path') || '');
+        const href = sustainabilityPath || /^the sust(?:ain|in)ability impact ratings$/i.test(name)
+          ? 'https://dgu.ac.in/sustinability.html'
+          : raw ? resolveSiteHref(raw) : '';
+        links.push({ id, name, href, target: item.target === '_blank' ? '_blank' : '_self' });
       }
       groups.push({ id: String(row.id ?? groups.length), name: text(row.name), links });
     }

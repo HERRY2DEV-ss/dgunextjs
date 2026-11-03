@@ -26,6 +26,10 @@ const { parseFooter } = load('components/footer-api.ts');
 const { localPages } = load('components/local-pages.ts');
 const route = slug => `${SITE_BASE}/${slug}/`;
 const leaf = (id, name, url) => ({ id, name, url });
+const sustainabilityFooter = parseFooter({ error: 0, data: [{ name: 'Resources', childMenu: [
+  { id: 1, name: 'The Sustinability Impact Ratings', url: 'https://dgu.ac.in/page-detail/?path=%2Fsustinability&title=sustinability' },
+] }] });
+assert.equal(sustainabilityFooter.groups[0].links[0].href, 'https://dgu.ac.in/sustinability.html');
 const first = leaf(1, 'Scholarships', 'scholarship');
 const second = leaf(2, 'Video Gallery', 'video-gallery');
 const parsed = parseMenus({ error: 0, data: [
