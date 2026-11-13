@@ -130,7 +130,7 @@
   text-transform: uppercase;
 }
 .gnm-career-prospects-center h2 strong { display: block; font-size: 2.5cqw; font-weight: 800; letter-spacing: 0; }
-.gnm-career-prospects-center p { width: 96%; margin: 6% 0 0; color: #5a5560; font-size: .78cqw; line-height: 1.45; }
+.gnm-career-prospects-center p { flex: 0 0 auto; width: 74%; max-width: 74%; margin: 5% auto 0; text-align: center; color: #5a5560; font-size: .78cqw; line-height: 1.45; }
 .gnm-career-employer-groups {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
