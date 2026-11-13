@@ -55,7 +55,7 @@
   height: 100%;
   min-width: 0;
   color: #fff;
-  box-shadow: 0 6px 12px rgba(60, 10, 70, .25);
+  box-shadow: 0 9px 14px rgba(60, 10, 70, .32);
 }
 .gnm-career-role-list--left .gnm-career-role {
   justify-content: flex-end;
@@ -78,7 +78,7 @@
   place-items: center;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+  box-shadow: 0 4px 9px rgba(40, 0, 50, .3);
 }
 .gnm-career-role-list--left .gnm-career-role-icon { left: 4%; }
 .gnm-career-role-list--right .gnm-career-role-icon { right: 4%; }
@@ -94,10 +94,10 @@
   padding: 0 14% 0 0;
   line-height: 1.12;
 }
-.gnm-career-role-list--left .gnm-career-role-copy { padding: 0 4% 0 34%; align-items: flex-end; text-align: right; }
-.gnm-career-role-list--right .gnm-career-role-copy { padding: 0 36% 0 6%; align-items: flex-start; text-align: left; }
+.gnm-career-role-list--left .gnm-career-role-copy { width: 15cqw; margin-left: auto; padding: 0 1.5cqw 0 0; align-items: flex-end; text-align: right; }
+.gnm-career-role-list--right .gnm-career-role-copy { width: 13.5cqw; padding: 0 0 0 1.6cqw; align-items: flex-start; text-align: left; }
 .gnm-career-role-copy strong {
-  font-size: 1.45cqw;
+  font-size: 1.3cqw;
   font-weight: 700;
   letter-spacing: 0;
 }
@@ -107,14 +107,14 @@
   z-index: 3;
   top: 50%;
   left: 50%;
-  width: 24cqw;
-  height: 24cqw;
+  width: 20cqw;
+  height: 20cqw;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10% 12%;
+  padding: 6% 8%;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 8px 22px rgba(60, 20, 70, .18);
@@ -123,14 +123,14 @@
 .gnm-career-prospects-center h2 {
   margin: 0;
   color: #3b3640;
-  font-size: 2.4cqw;
+  font-size: 1.7cqw;
   font-weight: 300;
   letter-spacing: .04em;
   line-height: 1;
   text-transform: uppercase;
 }
-.gnm-career-prospects-center h2 strong { display: block; font-size: 3.1cqw; font-weight: 800; letter-spacing: 0; }
-.gnm-career-prospects-center p { margin: 8% 0 0; color: #5a5560; font-size: 1.05cqw; line-height: 1.35; }
+.gnm-career-prospects-center h2 strong { display: block; font-size: 2.5cqw; font-weight: 800; letter-spacing: 0; }
+.gnm-career-prospects-center p { width: 88%; margin: 6% 0 0; color: #5a5560; font-size: .78cqw; line-height: 1.45; }
 .gnm-career-employer-groups {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
