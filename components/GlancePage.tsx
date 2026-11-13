@@ -9,7 +9,7 @@ import styles from './GlancePage.module.css';
 
 const asset = (name: string) => `${SITE_BASE}/assets/glance-page/${name}`;
 const rankingLogo = (name: string) => `${SITE_BASE}/assets/ranking/${name}`;
-const rankingLogos = Array.from({ length: 36 }, (_, index) => `${index + 1}.webp`);
+const rankingLogos = [...Array.from({ length: 36 }, (_, index) => `${index + 1}.webp`), '37.png'];
 
 function VideoPreview({ video, close }: { video: HostelVideo; close: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);

@@ -24,7 +24,7 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
   const mission = doc.querySelector('.mv-mission'), vision = doc.querySelector('.mv-vision');
   const valueText = plain(doc.querySelector('.mv-footer')).split(/[—–]/).slice(1).join('—');
   const approval = doc.getElementById('approvals-accreditation'), rankings = doc.getElementById('rankings-recognition');
-  const order = ['University Grants Commission', 'Uttarakhand Government', 'Association of Indian Universities', 'Pharmacy Council of India', 'Bar Council of India', 'AACSB Member', 'AMBA', 'Business Graduates Association', 'Institution of Happiness'];
+  const order = ['University Grants Commission', 'Uttarakhand Government', 'Association of Indian Universities', 'Pharmacy Council of India', 'Bar Council of India', 'AACSB Member', 'AMBA', 'Business Graduates Association'];
   // These existing CMS filenames were checked against their actual image content.
   // The CMS alt labels are mismatched. Use the corresponding supplied PDF artwork
   // for the reference presentation, while retaining each actual API source URL.
@@ -51,7 +51,6 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
   }
   // Extra approval logos supplied by the content owner. Artwork lives in public/assets/glance-page.
   const extraApprovals = [
-    { title: 'Institution of Happiness', artwork: 'approval-ioh.png' },
     { title: 'Business Graduates Association', artwork: 'approval-bga.png' },
     { title: 'Uttarakhand Government', artwork: 'approval-uttarakhand-govt.png' },
     { title: 'AMBA', artwork: 'approval-amba.png' },
