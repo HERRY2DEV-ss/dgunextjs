@@ -121,10 +121,6 @@
   text-align: center;
 }
 .gnm-career-prospects-center h2 {
-  position: absolute;
-  top: 27%;
-  left: 50%;
-  transform: translateX(-50%);
   white-space: nowrap;
   margin: 0;
   color: #3b3640;
@@ -136,18 +132,13 @@
 }
 .gnm-career-prospects-center h2 strong { display: block; font-size: 2.5cqw; font-weight: 800; letter-spacing: 0; }
 .gnm-career-prospects-center p {
-  position: absolute;
-  top: 56%;
-  left: 50%;
   width: 15.5cqw;
   max-width: none;
-  margin: 0;
-  transform: translateX(-50%);
+  margin: 2.2cqw auto 0;
   color: #5a5560;
   font-size: .78cqw;
   line-height: 1.45;
   text-align: center;
-  white-space: normal;
 }
 .gnm-career-employer-groups {
   display: grid;
