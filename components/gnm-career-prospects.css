@@ -34,10 +34,10 @@
 .gnm-career-role-list--right .gnm-career-role::after { right: 100%; }
 .gnm-career-role-list--left .gnm-career-role:nth-child(1)::after { width: 7.74cqw; bottom: -18.3%; clip-path: polygon(0 0, 100% 63.6%, 65.5% 100%, 0 84.5%); }
 .gnm-career-role-list--left .gnm-career-role:nth-child(2)::after { width: 5.07cqw; clip-path: polygon(0 0, 100% 9%, 100% 75%, 0 100%); }
-.gnm-career-role-list--left .gnm-career-role:nth-child(3)::after { width: 7.74cqw; top: -24.7%; bottom: -24.7%; clip-path: polygon(0 19.8%, 65.5% 0, 100% 38.8%, 0 100%); }
+.gnm-career-role-list--left .gnm-career-role:nth-child(3)::after { clip-path: polygon(0 16.8%, 66.5% 0, 100% 28.8%, 0 100%); width: 8.74cqw;top: -19.7%;bottom: 0.3%; }
 .gnm-career-role-list--right .gnm-career-role:nth-child(1)::after { width: 7.74cqw; bottom: -18.3%; clip-path: polygon(100% 0, 0 63.6%, 34.5% 100%, 100% 84.5%); }
 .gnm-career-role-list--right .gnm-career-role:nth-child(2)::after { width: 5.07cqw; clip-path: polygon(100% 0, 0 9%, 0 75%, 100% 100%); }
-.gnm-career-role-list--right .gnm-career-role:nth-child(3)::after { width: 7.74cqw; top: -24.7%; bottom: -24.7%; clip-path: polygon(100% 19.8%, 34.5% 0, 0 38.8%, 100% 100%); }
+.gnm-career-role-list--right .gnm-career-role:nth-child(3)::after { clip-path: polygon(100% 16.8%, 26.5% 0, 0 29.8%, 100% 100%); width: 7.74cqw; top: -19.7%;  bottom: 0.3%;}
 .gnm-career-role-list .gnm-career-role:nth-child(1) { --gnm-career-wedge: #c677c9; }
 .gnm-career-role-list .gnm-career-role:nth-child(2) { --gnm-career-wedge: #b059bb; }
 .gnm-career-role-list .gnm-career-role:nth-child(3) { --gnm-career-wedge: #9e2c9f; }
@@ -224,7 +224,7 @@
   .gnm-career-role-copy strong { font-size: 14px; }
   .gnm-career-role-copy small { font-size: 10px; }
   .gnm-career-role-list--left .gnm-career-role-copy,
-  .gnm-career-role-list--right .gnm-career-role-copy { width: auto; flex: 1; margin: 0; padding: 0 16% 0 22%; align-items: center; text-align: center; }
+  .gnm-career-role-list--right .gnm-career-role-copy { width: auto; flex: 1; margin: 0; padding: 0 20% 0 20%; align-items: center; text-align: center; }
   .gnm-career-prospects-copy { gap: 0; }
   .gnm-career-prospects-center h2 { white-space: normal; font-size: 22px; }
   .gnm-career-prospects-center h2 strong { font-size: 30px; }
