@@ -95,7 +95,7 @@ export default function GlancePage() {
         <div className={styles.approvals}>{content.approvals.logos.map((logo, index) => <figure key={`${logo.src}-${index}`} data-glance-reveal data-glance-delay={index * 80}><div><img src={logo.artwork ? asset(logo.artwork) : logo.src} alt={logo.title} loading="lazy" /></div>{logo.caption && <figcaption>{logo.caption}</figcaption>}</figure>)}</div>
       </section>}
       <section className={`${styles.recognition} ${styles.rankings}`} id="rankings-recognition" data-glance-reveal>
-        <p>{content.rankings.caption || 'Achievements & Recognition'}</p>
+        {content.rankings.caption && <p>{content.rankings.caption}</p>}
         <h2>{content.rankings.title || 'Rankings & Recognition'}</h2>
         <div className={styles.rankingsCarousel}>
           <BatchSlider className={styles.rankingsSlider} size={rankingsPerSlide} interval={5500} paused={rankingsPaused}
