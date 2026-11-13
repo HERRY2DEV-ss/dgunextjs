@@ -52,8 +52,8 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
   // Extra approval logos supplied by the content owner. Artwork lives in public/assets/glance-page.
   const extraApprovals = [
     { title: 'Business Graduates Association', artwork: 'approval-bga.png' },
-    { title: 'Uttarakhand Government', artwork: 'approval-uttarakhand-govt.png' },
-    { title: 'AMBA', artwork: 'approval-amba.png' },
+    { title: 'Uttarakhand Government', artwork: 'approval-uttarakhand-govt.webp' },
+    { title: 'AMBA', artwork: 'approval-amba.webp' },
   ];
   if (approval) {
     extraApprovals.forEach(({ title, artwork }) => {
