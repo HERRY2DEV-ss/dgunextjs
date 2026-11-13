@@ -49,6 +49,18 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
       caption: 'Bar Council of India',
     });
   }
+  // Extra approval logos supplied by the content owner. Artwork lives in public/assets/glance-page.
+  const extraApprovals = [
+    { title: 'Institution of Happiness', artwork: 'approval-ioh.png' },
+    { title: 'Business Graduates Association', artwork: 'approval-bga.png' },
+    { title: 'Uttarakhand Government', artwork: 'approval-uttarakhand-govt.png' },
+    { title: 'AMBA', artwork: 'approval-amba.png' },
+  ];
+  if (approval) {
+    extraApprovals.forEach(({ title, artwork }) => {
+      if (!logos.some(logo => logo.title.toLowerCase() === title.toLowerCase())) logos.push({ src: '', title, artwork, caption: title });
+    });
+  }
   // Reference presentation order only. Missing CMS logos are never substituted.
   const rank = (name: string) => { const i = order.indexOf(name); return i < 0 ? order.length : i; };
   logos.sort((a, b) => rank(a.title) - rank(b.title));
