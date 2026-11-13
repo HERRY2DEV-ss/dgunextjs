@@ -1,6 +1,6 @@
 .gnm-career-prospects {
   width: 100%;
-  margin: 28px 0 42px;
+  margin: 28px 0 0;
 }
 .gnm-career-prospects-stage {
   position: relative;
@@ -157,7 +157,7 @@
   text-align: center;
 }
 .gnm-career-employer-groups {
-  margin-top: 36px;
+  margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.9vw;
