@@ -22,17 +22,21 @@
   position: absolute;
   inset: 0;
 }
-.gnm-career-prospects-artwork::before,
-.gnm-career-prospects-artwork::after {
+.gnm-career-role-list--left .gnm-career-role::after,
+.gnm-career-role-list--right .gnm-career-role::after {
   position: absolute;
-  top: 12.2%;
-  bottom: 12.2%;
-  width: 8%;
-  background: linear-gradient(180deg, #c76cc6, #b04cb4);
+  top: 0;
+  bottom: 0;
+  width: 9cqw;
+  z-index: -1;
+  background: var(--gnm-career-wedge);
   content: '';
 }
-.gnm-career-prospects-artwork::before { left: 33.6%; clip-path: polygon(0 0, 100% 22%, 100% 78%, 0 100%); }
-.gnm-career-prospects-artwork::after { right: 33.6%; clip-path: polygon(0 22%, 100% 0, 100% 100%, 0 78%); }
+.gnm-career-role-list--left .gnm-career-role::after { left: 100%; clip-path: polygon(0 0, 100% 24%, 100% 76%, 0 100%); }
+.gnm-career-role-list--right .gnm-career-role::after { right: 100%; clip-path: polygon(100% 0, 0 24%, 0 76%, 100% 100%); }
+.gnm-career-role-list .gnm-career-role:nth-child(1) { --gnm-career-wedge: #c677c9; }
+.gnm-career-role-list .gnm-career-role:nth-child(2) { --gnm-career-wedge: #a94bb5; }
+.gnm-career-role-list .gnm-career-role:nth-child(3) { --gnm-career-wedge: #9c2b9f; }
 .gnm-career-role-list {
   position: absolute;
   z-index: 2;
@@ -131,10 +135,17 @@
   text-transform: uppercase;
 }
 .gnm-career-prospects-center h2 strong { display: block; font-size: 2.5cqw; font-weight: 800; letter-spacing: 0; }
+.gnm-career-prospects-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
 .gnm-career-prospects-center p {
   width: 15.5cqw;
   max-width: none;
-  margin: 2.2cqw auto 0;
+  margin: 2.2cqw 0 0;
   color: #5a5560;
   font-size: .78cqw;
   line-height: 1.45;

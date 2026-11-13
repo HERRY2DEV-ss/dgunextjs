@@ -95,8 +95,10 @@ export default function GnmCareerProspects() {
             ))}
           </ol>
           <div className="gnm-career-prospects-center">
+            <div className="gnm-career-prospects-copy">
             <h2>Career <strong>Prospects</strong></h2>
             <p>A diploma in GNM opens diverse pathways in the rapidly growing global healthcare sector. Our graduates routinely secure roles as:</p>
+            </div>
           </div>
           <ol className="gnm-career-role-list gnm-career-role-list--right">
             {rightRoles.map(role => (
