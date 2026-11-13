@@ -293,7 +293,7 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
 }
 .academic-api-page[data-api-slug="general-nursing-and-midwifery"] .academic-feature-text-content .dgu-api-copy h4 {
   max-width:calc(100 * var(--gnm-card-unit));
-  margin:0 auto calc(10 * var(--gnm-card-unit));
+  margin:0 auto calc(8 * var(--gnm-card-unit));
   color:#383336;
   font-size:calc(8.84 * var(--gnm-card-unit))!important;
   font-weight:600!important;
@@ -306,7 +306,12 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
   max-width:calc(50 * var(--gnm-card-unit));
 }
 .academic-api-page[data-api-slug="general-nursing-and-midwifery"] .academic-feature-text-content .dgu-api-copy h4::after {
-  display:none;
+  display:block;
+  width:calc(49 * var(--gnm-card-unit));
+  height:calc(2 * var(--gnm-card-unit));
+  margin:calc(3 * var(--gnm-card-unit)) auto 0;
+  background:var(--gnm-feature-accent);
+  content:"";
 }
 .academic-api-page[data-api-slug="general-nursing-and-midwifery"] .academic-feature-text-content .dgu-api-copy p {
   max-width:100%;
@@ -314,7 +319,7 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
   color:#383336;
   font-size:calc(8.04 * var(--gnm-card-unit))!important;
   font-weight:400;
-  line-height:calc(9.06 * var(--gnm-card-unit))!important;
+  line-height:calc(8.4 * var(--gnm-card-unit))!important;
   text-align:center;
 }
 @media(min-width:801px) and (max-width:1000px) {
