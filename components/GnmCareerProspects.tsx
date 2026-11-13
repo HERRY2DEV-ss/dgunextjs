@@ -29,12 +29,12 @@ const employerGroups = [
 ] as const;
 
 const roles = [
-  { title: 'Staff Nurse / Nursing Officer', detail: '(Private & Government Hospitals)', icon: 'hospital', side: 'left' },
+  { title: 'Staff Nurse / Nursing Officer', detail: '(Private & Government Hospitals)', icon: 'hospital', img: '/assets/academic/gnm-career/icons/1.webp', side: 'left' },
   { title: 'Home Healthcare Specialist', detail: '', icon: 'home', side: 'right' },
   { title: 'Community Health Nurse', detail: '(CHN)', icon: 'community', side: 'left' },
-  { title: 'Military Nurse / Industrial Nurse', detail: '', icon: 'shield', side: 'right' },
-  { title: 'Critical Care / ICU Nurse', detail: '', icon: 'critical', side: 'left' },
-  { title: 'Nursing Educator', detail: '', icon: 'education', side: 'right' },
+  { title: 'Military Nurse / Industrial Nurse', detail: '', icon: 'shield', img: '/assets/academic/gnm-career/icons/6.webp', side: 'right' },
+  { title: 'Critical Care / ICU Nurse', detail: '', icon: 'critical', img: '/assets/academic/gnm-career/icons/7.webp', side: 'left' },
+  { title: 'Nursing Educator', detail: '', icon: 'education', img: '/assets/academic/gnm-career/icons/8.webp', side: 'right' },
 ] as const;
 
 function RoleIcon({ name }: { name: (typeof roles)[number]['icon'] }) {
@@ -89,7 +89,7 @@ export default function GnmCareerProspects() {
           <ol className="gnm-career-role-list gnm-career-role-list--left">
             {leftRoles.map(role => (
               <li className="gnm-career-role" key={role.title}>
-                <span className="gnm-career-role-icon"><RoleIcon name={role.icon} /></span>
+                <span className="gnm-career-role-icon">{'img' in role ? <img src={role.img} alt="" /> : <RoleIcon name={role.icon} />}</span>
                 <span className="gnm-career-role-copy"><strong>{role.title}</strong>{role.detail && <small>{role.detail}</small>}</span>
               </li>
             ))}
@@ -102,7 +102,7 @@ export default function GnmCareerProspects() {
             {rightRoles.map(role => (
               <li className="gnm-career-role" key={role.title}>
                 <span className="gnm-career-role-copy"><strong>{role.title}</strong></span>
-                <span className="gnm-career-role-icon"><RoleIcon name={role.icon} /></span>
+                <span className="gnm-career-role-icon">{'img' in role ? <img src={role.img} alt="" /> : <RoleIcon name={role.icon} />}</span>
               </li>
             ))}
           </ol>
