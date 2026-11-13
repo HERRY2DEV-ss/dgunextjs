@@ -218,13 +218,20 @@
   .gnm-career-prospects-artwork::before,
   .gnm-career-prospects-artwork::after { display: none; }
   .gnm-career-role::after { display: none; }
-  .gnm-career-prospects-center { position: static; transform: none; width: 100%; aspect-ratio: auto; border-radius: 18px; padding: 16px; }
-  .gnm-career-role-list { position: static; width: 100%; height: auto; display: flex; flex-direction: column; gap: 10px; }
+  .gnm-career-prospects-center { position: static; transform: none; width: 100%; height: auto; aspect-ratio: auto; border-radius: 18px; padding: 24px 16px; }
+  .gnm-career-role-list { position: static; top: auto; left: auto; right: auto; width: 100%; height: auto; display: flex; flex-direction: column; gap: 10px; }
   .gnm-career-role { height: 64px; }
   .gnm-career-role-copy strong { font-size: 14px; }
   .gnm-career-role-copy small { font-size: 10px; }
   .gnm-career-role-list--left .gnm-career-role-copy,
-  .gnm-career-role-list--right .gnm-career-role-copy { padding: 0 16% 0 22%; align-items: center; text-align: center; }
+  .gnm-career-role-list--right .gnm-career-role-copy { width: auto; flex: 1; margin: 0; padding: 0 16% 0 22%; align-items: center; text-align: center; }
+  .gnm-career-prospects-copy { gap: 0; }
+  .gnm-career-prospects-center h2 { white-space: normal; font-size: 22px; }
+  .gnm-career-prospects-center h2 strong { font-size: 30px; }
+  .gnm-career-prospects-center p { width: 100%; margin: 14px 0 0; font-size: 14px; line-height: 1.5; }
+  .gnm-career-employer-groups { grid-template-columns: 1fr; gap: 20px; width: 100%; }
+  .gnm-career-employer-group { padding: 28px 16px; }
+  .gnm-career-employer-group img { width: 86%; height: 76px; padding: 10px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .gnm-career-prospects * { scroll-behavior: auto; }
