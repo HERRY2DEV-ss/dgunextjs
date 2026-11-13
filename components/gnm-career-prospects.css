@@ -7,7 +7,7 @@
   isolation: isolate;
   container-type: inline-size;
   width: 100%;
-  aspect-ratio: 1874 / 730;
+  aspect-ratio: 1874 / 754;
   overflow: hidden;
   background: #f5f4f6 url('/assets/building.webp') center 40% / cover no-repeat;
 }
@@ -45,11 +45,11 @@
 .gnm-career-role-list {
   position: absolute;
   z-index: 2;
-  top: 15.1%;
+  top: 14.6%;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   gap: 2.9%;
-  height: 81.1%;
+  height: 78.5%;
   width: 25.9%;
   margin: 0;
   padding: 0;
@@ -114,7 +114,7 @@
 .gnm-career-prospects-center {
   position: absolute;
   z-index: 3;
-  top: 55.6%;
+  top: 53.8%;
   left: 50%;
   width: 22.5cqw;
   height: 22.5cqw;
@@ -217,6 +217,7 @@
   .gnm-career-prospects-artwork { position: static; display: flex; flex-direction: column; gap: 14px; }
   .gnm-career-prospects-artwork::before,
   .gnm-career-prospects-artwork::after { display: none; }
+  .gnm-career-role::after { display: none; }
   .gnm-career-prospects-center { position: static; transform: none; width: 100%; aspect-ratio: auto; border-radius: 18px; padding: 16px; }
   .gnm-career-role-list { position: static; width: 100%; height: auto; display: flex; flex-direction: column; gap: 10px; }
   .gnm-career-role { height: 64px; }
