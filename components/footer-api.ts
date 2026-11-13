@@ -51,7 +51,7 @@ export function parseFooter(payload: unknown): FooterData {
         const name = text(item.name);
         const query = raw.split('?', 2)[1]?.split('#', 1)[0] || '';
         const sustainabilityPath = /^\/sustinability\/?$/i.test(new URLSearchParams(query).get('path') || '');
-        const href = sustainabilityPath || /^the sust(?:ain|in)ability impact ratings$/i.test(name)
+        const href = sustainabilityPath || /^the sust(?:ain|in)ability impact ratings$/i.test(name) || /^sustainibility initiatives$/i.test(name)
           ? 'https://dgu.ac.in/sustinability.html'
           : raw ? resolveSiteHref(raw) : '';
         links.push({ id, name, href, target: item.target === '_blank' ? '_blank' : '_self' });

@@ -19,7 +19,7 @@ const companyCategories = [data.categories[1], data.categories[2], data.categori
 
 // Retain every original report row without rendering the removed career-path panel.
 export function placementReportTables(source: string) {
-  return (source.match(/<table>[\s\S]*?<\/table>/gi) || []).filter(table => /Company Name/.test(table));
+  return (source.match(/<table\b[^>]*>[\s\S]*?<\/table>/gi) || []).filter(table => /company\s+name/i.test(table));
 }
 
 function PlacementImage({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
@@ -65,7 +65,6 @@ function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
   const [internationalTab, setInternationalTab] = useState(0);
   const [directoryTab, setDirectoryTab] = useState(0);
   const [teamTab, setTeamTab] = useState(0);
-  const [activeReport, setActiveReport] = useState<number | null>(null);
   const [yearIndex, setYearIndex] = useState(0);
   const main = useRef<HTMLElement>(null);
   const stopped = menuOpen;
@@ -123,16 +122,18 @@ function PlacementReportsPageContent({ page, reportHtml, reportStatus }: {
         <h2 id="placement-records">Placement reports</h2>
         {reportStatus === 'loading' ? <p role="status">Loading placement reports…</p>
           : reportStatus === 'error' ? <p role="status">Placement reports are temporarily unavailable.</p>
-          : reports.length ? <>
-            <StepSlider className="placement-report-slider" label="Placement report cards" size={3} mobileSize={1} loop interval={6500} paused={stopped} controls dots mouseDrag>
-              {reports.map((_, index) => <button className={`placement-report-card${activeReport === index ? ' is-active' : ''}`} key={index} type="button" aria-pressed={activeReport === index} onClick={() => setActiveReport(activeReport === index ? null : index)}>
-                <span className="placement-report-card-index">0{index + 1}</span>
-                <strong>{reportLabels[index] || `Placement Data ${index + 1}`}</strong>
-                <span className="placement-report-card-action">{activeReport === index ? 'Close report' : 'View report'} <span aria-hidden="true">↗</span></span>
-              </button>)}
-            </StepSlider>
-            {activeReport !== null && reports[activeReport] && <div className="placement-report-table local-article" tabIndex={0} role="region" aria-label={`${reportLabels[activeReport] || 'Placement report'} table`} dangerouslySetInnerHTML={{ __html: reports[activeReport] }} />}
-          </> : <p role="status">Placement reports are currently unavailable.</p>}
+          : reports.length ? <div className="placement-report-list">
+            {reports.map((report, index) => {
+              const label = reportLabels[index] || `Placement report ${index + 1}`;
+              return <details className="placement-report" key={index}>
+                <summary>
+                  <span>{label}</span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </summary>
+                <div className="placement-report-table local-article" tabIndex={0} role="region" aria-label={`${label} table`} dangerouslySetInnerHTML={{ __html: report }} />
+              </details>;
+            })}
+          </div> : <p role="status">Placement reports are currently unavailable.</p>}
       </section>
 
       <section className="placement-team placement-section" aria-labelledby="placement-team" data-reveal><p className="placement-team-eyebrow">Meet the team</p><h2 id="placement-team">Corporate engagement team</h2><SlidingTabList activeKey={teamTab} className="placement-tabs placement-team-tabs" role="tablist" aria-label="Corporate engagement team city">{regions.map((label, index) => <button key={label} id={`placement-team-tab-${index}`} type="button" role="tab" aria-selected={teamTab === index} aria-controls={`placement-team-panel-${index}`} tabIndex={teamTab === index ? 0 : -1} onClick={() => setTeamTab(index)} onKeyDown={event => tabKeys(event, index, regions.length, setTeamTab)}>{label}</button>)}</SlidingTabList>{regions.map((label, index) => <div className="placement-team-panel" key={label} id={`placement-team-panel-${index}`} role="tabpanel" aria-labelledby={`placement-team-tab-${index}`} hidden={teamTab !== index} tabIndex={0}><StepSlider horizontalOnMobile className="placement-team-slider placement-line-slider" label={`${label} corporate engagement team`} size={2} paused={stopped || teamTab !== index} controls>{data.team.filter(member => member.region === index).map(member => <article className="placement-team-card" key={member.name}><div className="placement-team-copy"><h3>{member.name}</h3><p>{member.role}</p>{member.email ? <a href={`mailto:${member.email}`}>Email: {member.email}</a> : <a href={`${SITE_BASE}/contacts/`}>Contact directory ↗</a>}</div><PlacementImage className="placement-team-photo" src={member.image} alt={member.name} /></article>)}</StepSlider></div>)}</section>

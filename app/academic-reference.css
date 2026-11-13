@@ -96,6 +96,25 @@
 }
 .academic-reference .school-programs-section > h2 { width: 100%; text-align: left !important; }
 .academic-reference .program-specializations > h2 { text-align: center; }
+.academic-reference .academic-btech-accordion {
+  width: var(--academic-width); margin: 0 auto; padding: 0 0 var(--academic-gap);
+}
+.academic-reference .academic-btech-accordion > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 14px 18px; border: 1px solid #dedbe1; border-radius: 8px;
+  background: #fff; color: #37343a; cursor: pointer; list-style: none;
+  font-size: clamp(16px, 1.3vw, 20px); font-weight: 500; line-height: 1.35;
+}
+.academic-reference .academic-btech-accordion > summary::-webkit-details-marker { display: none; }
+.academic-reference .academic-btech-accordion > summary::after {
+  content: '+'; flex: 0 0 auto; color: #68176b; font-size: 22px; line-height: 1;
+}
+.academic-reference .academic-btech-accordion[open] > summary { border-radius: 8px 8px 0 0; }
+.academic-reference .academic-btech-accordion[open] > summary::after { content: '−'; }
+.academic-reference .academic-btech-accordion-content {
+  padding: 16px; border: 1px solid #dedbe1; border-top: 0; border-radius: 0 0 8px 8px;
+}
+.academic-reference .academic-api-btech-collaboration { width: min(var(--academic-width), 920px); }
 .academic-reference .school-programs-grid,
 .academic-reference .program-specialization-grid {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -226,6 +245,46 @@
 .academic-reference .program-industry-grid { gap: 22px 36px; }
 .academic-reference .program-industry-card > summary { min-height: 72px; font-size: clamp(18px, 1.75vw, 28px); font-weight: 400; }
 .academic-reference .program-industry-copy p { font-size: 20px !important; line-height: 1.45 !important; text-align: justify; }
+.academic-reference .academic-legal-experience-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 36px) clamp(28px, 4vw, 60px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.academic-reference .academic-legal-experience-points > li {
+  position: relative;
+  min-width: 0;
+  padding-left: 20px;
+}
+.academic-reference .academic-legal-experience-points > li::before {
+  position: absolute;
+  top: .55em;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #68176b;
+  content: '';
+}
+.academic-reference .academic-legal-experience-points h3 {
+  margin: 0 0 8px;
+  color: #433b46;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.academic-reference .academic-legal-experience-points .dgu-api-copy {
+  color: #55515a;
+  font-size: clamp(14px, 1vw, 17px);
+  line-height: 1.55;
+}
+.academic-reference .academic-legal-experience-points .dgu-api-copy > :first-child { margin-top: 0; }
+.academic-reference .academic-legal-experience-points .dgu-api-copy > :last-child { margin-bottom: 0; }
+@media (max-width: 700px) {
+  .academic-reference .academic-legal-experience-points { grid-template-columns: minmax(0, 1fr); }
+}
 .academic-reference .difference-wave-point h3 { font-size: clamp(14px, 1.1vw, 21px) !important; line-height: 1.1 !important; }
 .academic-reference .difference-wave-point p { font-size: clamp(10px, .9vw, 16px) !important; line-height: 1.25 !important; }
 
@@ -234,6 +293,32 @@
 .academic-reference .school-placements-section .placement-overview { padding: 0; }
 .academic-reference .school-placements-section .outcome-panel-content { align-items: center; gap: clamp(24px, 3vw, 50px); }
 .academic-reference .school-placements-section .placement-copy { min-width: 0; }
+@media (min-width: 701px) {
+  .academic-reference .school-placements-section .placement-copy .placement-stats { gap: clamp(5px, .65vw, 10px); }
+  .academic-reference .school-placements-section .placement-copy .placement-stats .stat {
+    display: grid;
+    grid-template-rows: 1.2em 2.4em;
+    align-content: center;
+    justify-items: center;
+    min-width: 0;
+    min-height: clamp(70px, 7vw, 88px);
+    padding: clamp(7px, .8vw, 12px) 3px;
+    gap: 2px;
+  }
+  .academic-reference .school-placements-section .placement-copy .placement-stats .stat strong {
+    align-self: center;
+    font-size: clamp(14px, 1.55vw, 22px);
+    line-height: 1.2;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .academic-reference .school-placements-section .placement-copy .placement-stats .stat span {
+    align-self: start;
+    font-size: clamp(9px, .78vw, 11px);
+    line-height: 1.2;
+    letter-spacing: 0 !important;
+  }
+}
 .academic-reference .school-placements-section .student-card { border-radius: 0; box-shadow: none; }
 .academic-reference .academic-placement-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 24px 0 0; }
 .academic-reference .academic-placement-stats > div { display: flex; flex-direction: column-reverse; justify-content: center; min-width: 0; min-height: 90px; padding: 12px 4px; border: 1px solid #e4e1e6; text-align: center; }
@@ -263,6 +348,9 @@
   .academic-reference .school-enquiry { max-width: 520px; width: 100%; justify-self: center; }
   .academic-reference .school-programs-grid,
   .academic-reference .program-specialization-grid { grid-template-columns: 1fr; gap: 22px; }
+  .academic-reference .academic-btech-accordion > summary { padding: 12px 14px; font-size: 16px; }
+  .academic-reference .academic-btech-accordion-content { padding: 12px; }
+  .academic-reference .academic-btech-specializations .program-specialization-grid { grid-template-columns: 1fr; gap: 10px; }
   .academic-reference .program-card-inner { min-height: 0; padding: 0; }
   .academic-reference .program-card--specialization .program-card-inner { min-height: 0; }
   .academic-reference .program-pathway-tabs { flex-wrap: nowrap; align-items: stretch; gap: 14px; overflow-x: auto; padding-bottom: 8px; }

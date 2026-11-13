@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './global.css';
 import './page-consistency.css';
 import PageMotion from '../components/PageMotion';
+import ManualScrollInteractions from '../components/ManualScrollInteractions';
 import { SITE_BASE } from '../components/site-base';
 export const metadata: Metadata = {
   title: 'DBS Global University | DGU',
@@ -27,6 +28,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       --dgu-campus-events-image: url("${SITE_BASE}/assets/campus/event-crowd.webp");
       --dgu-campus-dehradun-image: url("${SITE_BASE}/assets/campus/dehradun-bg.webp");
     }`}</style>
-    {children}<PageMotion />
+    {children}<ManualScrollInteractions /><PageMotion />
   </body></html>;
 }

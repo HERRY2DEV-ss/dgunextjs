@@ -13,7 +13,7 @@
 .page button:focus-visible,.page a:focus-visible,.tabPanel:focus-visible{outline:2px solid var(--purple);outline-offset:6px}
 .titleBand{height:clamp(150px,16.4vw,210px);background:var(--purple);text-align:center;padding:clamp(25px,2.5vw,32px) 20px 0}
 .titleBand h1{color:#fefefe;font-weight:600!important;font-size:clamp(27px,3.17vw,41px)!important;line-height:1.15!important}
-.hero{position:relative;width:89.2%;max-width:1142px;margin:clamp(-105px,-8.2vw,-62px) auto 0;aspect-ratio:410/133;overflow:hidden;background:linear-gradient(112deg,#eef0f4 0%,#f2f1e8 70%,#e8e4cd 100%);isolation:isolate}
+.hero{position:relative;width:89.2%;max-width:1142px;margin:0 auto;aspect-ratio:410/133;overflow:hidden;background:linear-gradient(112deg,#eef0f4 0%,#f2f1e8 70%,#e8e4cd 100%);isolation:isolate}
 .heroImage{position:absolute;width:75.5%;height:130.4%;left:-1.5%;top:-22.7%;object-fit:fill;z-index:-2}
 .hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,transparent 56%,rgba(242,241,232,.05) 64%,#f2f1e8 75%,#e8e4cd 100%)}
 .heroCopy{position:absolute;left:73%;right:3%;top:12%}

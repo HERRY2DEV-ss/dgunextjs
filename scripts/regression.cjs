@@ -39,12 +39,12 @@ props={...props,paused:true};render();assert.equal(timers.size,0,'open menu / ex
 props={...props,paused:false};render();advance();
 props={...props,children:['a','b','c','d','e','f'],size:3};render();advance();
 assert.equal(track().props.children[0].props.children.length,3,'updates retain three items per batch');
-tree.props.onMouseEnter();render();assert.equal(timers.size,0,'existing sliders still pause on hover by default');
-tree.props.onMouseLeave();render();assert.equal(timers.size,1);
-props={...props,pauseOnHover:false,mouseDrag:true};render();tree.props.onMouseEnter();render();advance();
+tree.props.onMouseEnter();render();assert.equal(timers.size,1,'hover does not pause autoplay by default');
+advance();
+props={...props,mouseDrag:true};render();
 const beforeDrag=transform();
-tree.props.onPointerDown({pointerType:'mouse',button:0,clientX:220,clientY:100,target:{closest:()=>null}});
+tree.props.onPointerDown({pointerType:'mouse',button:0,clientX:220,clientY:100,target:{closest:()=>null},currentTarget:fakeNode,pointerId:1});
 tree.props.onPointerMove({clientX:120,clientY:102,pointerId:1,currentTarget:fakeNode});render();
-assert.notEqual(transform(),beforeDrag,'campus mouse drag moves exactly one slide');assert.equal(timers.size,1,'campus hover and mouse drag leave autoplay active');
+assert.notEqual(transform(),beforeDrag,'mouse drag moves exactly one slide');assert.equal(timers.size,1,'hover and mouse drag leave autoplay active');
 let suppressed=false;tree.props.onClickCapture({preventDefault(){suppressed=true},stopPropagation(){}});assert(suppressed,'drag cannot also open its photo');
-console.log('PASS: shared autoplay, responsive batches, wraparound, pointer/keyboard controls, default hover pause and campus no-hover-pause/mouse drag.');
+console.log('PASS: shared autoplay, responsive batches, wraparound, pointer/keyboard controls, hover autoplay and mouse drag.');

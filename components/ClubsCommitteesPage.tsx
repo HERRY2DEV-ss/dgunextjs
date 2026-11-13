@@ -4,6 +4,7 @@ import LocalPageShell from './LocalPageShell';
 import ExpandableText from './ExpandableText';
 import LocalGallery from './LocalGallery';
 import AdmissionsVideo from './AdmissionsVideo';
+import PageTitleStrip from './PageTitleStrip';
 import { SITE_BASE } from './site-routes';
 import { fetchClubs, type ClubSummary } from './club-detail-api';
 import './clubs-committees.css';
@@ -48,9 +49,9 @@ export default function ClubsCommitteesPage() {
     <a className="local-skip" href="#clubs-content">Skip to clubs and committees</a>
     <main className="clubs-main" id="clubs-content">
       <header className="clubs-hero" data-navigation-opening>
-        <div className="clubs-title-band"><h1>STUDENTS CLUBS &amp; COMMITTEES</h1></div>
         <div className="clubs-banner-band"><img className="clubs-banner" src={`${assets}/basketball-banner.webp`} alt="Students playing basketball. Teamwork makes dreamwork." width="1643" height="523" fetchPriority="high" /></div>
       </header>
+      <PageTitleStrip title="STUDENTS CLUBS & COMMITTEES" />
 
       <section className="clubs-introduction" aria-label="Student clubs at DBS Global University">
         <ExpandableText text={`${introduction} ${introductionMore}`} previewWords={introduction.split(/\s+/).length} className="clubs-intro-copy" />

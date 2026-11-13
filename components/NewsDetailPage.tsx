@@ -9,6 +9,7 @@ import NavigationNewsList from './NavigationNewsList';
 import type { NewsTab } from './news-api';
 import AnimatedHeroSlider from './AnimatedHeroSlider';
 import type { HeroSlide } from './AnimatedHeroSlider';
+import PageTitleStrip from './PageTitleStrip';
 import ExpandableText from './ExpandableText';
 import { academicImageSource } from './academic-media';
 import '../app/[contentSlug]/local-content.css';
@@ -168,12 +169,14 @@ export default function NewsDetailPage({ defaultSlug = '' }: { defaultSlug?: str
     <main id="news-main" className={`news-detail-main${article?.heroImages.some(image => !failedImages.includes(image.image)) ? ' news-detail-main--hero' : ''}`}>
       {archiveTab ? <><InternalPageHero title="News & updates." eyebrow="The DGU journal"><p className="internal-hero-intro">Ideas, achievements and everyday moments from DBS Global University.</p></InternalPageHero><div className="internal-width"><NavigationNewsList tab={archiveTab} /></div></> : error ? <div className="news-feedback" role="alert"><h1>Article unavailable</h1><p>{error}</p><button type="button" onClick={() => setAttempt(n => n + 1)}>Try again</button><a href={archiveHref}>Back to news</a></div> : !article ? <><h1 className="visually-hidden">University news</h1><p className="news-feedback" role="status">Loading article…</p></> : <article>
         {article.heroImages.some(image => !failedImages.includes(image.image))
-          ? <AnimatedHeroSlider className="news-hero" variant="news" aspectRatio="3.14 / 1"
-              slides={article.heroImages.filter(image => !failedImages.includes(image.image))} label={`${article.title} images`} title={article.heroTitle} titleEmphasis={article.heroTitleEmphasis}
+          ? <><AnimatedHeroSlider className="news-hero" variant="news" aspectRatio="3.14 / 1"
+              slides={article.heroImages.filter(image => !failedImages.includes(image.image))} label={`${article.title} images`}
               date={article.date || undefined} description={article.heroDescription || undefined}
               onHeroButtonRef={node => { opener.current = node; }}
               onActivateHero={slide => { setDialogImage(slide.image); dialog.current?.showModal(); setImageOpen(true); }}
               onImageUnavailable={image => setFailedImages(previous => previous.includes(image) ? previous : [...previous, image])} />
+            <PageTitleStrip title={<><span className="internal-title-lead">{article.heroTitle}</span>{article.heroTitleEmphasis && <><br /><strong className="internal-title-emphasis">{article.heroTitleEmphasis}</strong></>}</>} />
+          </>
           : <InternalPageHero title={article.heroTitle} titleEmphasis={article.heroTitleEmphasis} eyebrow={article.category || 'University news'} parent={{label:'News & Updates',href:archiveHref}}>{article.date && <p className="internal-hero-date">{article.date}</p>}{article.heroDescription && <p className="internal-hero-intro">{article.heroDescription}</p>}</InternalPageHero>}
         <div className="news-reading-layout"><aside className="news-reading-label"><p>The DGU journal</p><h2>Explore updates</h2><nav aria-label="More university news"><a href={newsListingHref("campus")}>Campus &amp; events <span aria-hidden="true">↗</span></a><a href={newsListingHref("placements")}>Placement updates <span aria-hidden="true">↗</span></a><a href={newsListingHref("admissions")}>Admission notices <span aria-hidden="true">↗</span></a></nav></aside><div className="news-article-body">{article.details
           ? <ExpandableText text="" html={article.details} previewHeight={210} trimPreviewToLines className="news-article-expandable" />

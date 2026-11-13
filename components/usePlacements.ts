@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { requestPlacements, type PlacementsData } from './placements-api';
+import { requestPlacements, requestPlacementsWithSchoolFallback, type PlacementsData } from './placements-api';
 
 export type PlacementsState = {
   status: 'idle' | 'loading' | 'success' | 'error';
@@ -7,7 +7,7 @@ export type PlacementsState = {
   error: Error | null;
 };
 
-export default function usePlacements(url: string | null, isProgram: boolean = false): PlacementsState {
+export default function usePlacements(url: string | null, isProgram: boolean = false, fallbackSchoolUrl: string | null = null): PlacementsState {
   const [state, setState] = useState<PlacementsState>({
     status: url !== null ? 'loading' : 'idle',
     data: null,
@@ -23,7 +23,9 @@ export default function usePlacements(url: string | null, isProgram: boolean = f
     let active = true;
     setState({ status: 'loading', data: null, error: null });
 
-    requestPlacements(url, isProgram)
+    (isProgram && fallbackSchoolUrl
+      ? requestPlacementsWithSchoolFallback(url, fallbackSchoolUrl)
+      : requestPlacements(url, isProgram))
       .then(data => {
         if (active) setState({ status: 'success', data, error: null });
       })
@@ -32,7 +34,7 @@ export default function usePlacements(url: string | null, isProgram: boolean = f
       });
 
     return () => { active = false; };
-  }, [url, isProgram]);
+  }, [url, isProgram, fallbackSchoolUrl]);
 
   return state;
 }

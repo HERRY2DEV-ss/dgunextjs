@@ -23,9 +23,8 @@ body .campus-overview main p { font-size:var(--campus-body-size)!important; line
 .campus-overview .campus-hero-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 15%; filter:none; }
 .campus-overview .campus-hero-shade { position:absolute; inset:0; background:linear-gradient(90deg,#0005,transparent 52%),linear-gradient(0deg,#0008,transparent 65%); pointer-events:none; z-index:1; }
 .campus-overview .campus-hero-mark { position:absolute; left:5.5%; top:6%; width:22%; height:auto; object-fit:contain; filter:none; z-index:2; }
-.campus-overview .campus-hero-copy { position:absolute; left:5.5%; bottom:8%; border-left:2px solid #e2263a; padding-left:12px; z-index:2; }
-body .campus-overview .campus-hero-copy h1 { margin:0; font-size:clamp(28px,2.6vw,46px)!important; line-height:1.04!important; font-weight:500!important; }
-body .campus-overview .campus-hero-copy p { font-size:clamp(16px,1.2vw,22px)!important; margin:5px 0 0; }
+.campus-overview .dgu-page-title-strip h1 { width:min(89%,1600px); }
+.campus-overview .dgu-page-title-strip > p { width:min(89%,1600px); padding-bottom:22px; color:#302b30; font-size:clamp(16px,1.2vw,22px); }
 .campus-overview .campus-contact { position:absolute; top:calc(var(--dgu-header-height,96px) + 28px); right:7%; width:clamp(265px,20.5vw,345px); z-index:3; background:#53275f; color:#fff; border-bottom:10px solid #fff; box-shadow:0 8px 25px #0002; }
 .campus-overview .campus-contact .school-contact-form { display:grid; gap:5px; margin:0; padding:12px 14px; background:transparent; border:0; border-radius:0; }
 body .campus-overview .campus-contact h2 { font-size:20px!important; color:#fff; text-align:center; border-bottom:1px solid #ffffff65; padding-bottom:7px; margin:0 0 2px; line-height:1.2!important; font-weight:500!important; }
@@ -195,9 +194,6 @@ body .campus-overview main .campus-tour { padding:clamp(42px,4.5vw,78px) 0 clamp
   .campus-overview .campus-opening { padding:calc(var(--dgu-header-height,82px) + 10px) 0 28px; }
   .campus-overview .campus-hero.program-hero { width:92%; aspect-ratio:1.8 / 1; }
   .campus-overview .campus-hero-mark { left:5%; width:29%; top:8%; }
-  .campus-overview .campus-hero-copy { left:5%; bottom:8%; padding-left:8px; }
-  body .campus-overview .campus-hero-copy h1 { font-size:clamp(18px,4.8vw,29px)!important; }
-  body .campus-overview .campus-hero-copy p { font-size:13px!important; }
   .campus-overview .campus-contact :is(input,select):not([type=checkbox]) { height:40px; font-size:16px; }
   body .campus-overview main .campus-intro { padding-block:38px 44px; }
   .campus-overview .campus-intro-grid { grid-template-columns:32px minmax(0,1fr); gap:20px 12px; }

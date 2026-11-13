@@ -72,8 +72,7 @@ export default function AdmissionsVideo({ paused = false, src = VIDEO_SRC, poste
         loop={!playing}
         controls={playing}
         playsInline
-        autoPlay
-        preload="metadata"
+        preload="none"
         aria-label="DBS Global University campus video"
         onEnded={() => setPlaying(false)}
         onError={() => { setUnavailable(true); setPlaying(false); }}

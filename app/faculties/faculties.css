@@ -1,9 +1,10 @@
-/* Faculty reference: purple title band, word-cloud artwork and two-column leadership cards. */
+/* Faculty page: full-width word-cloud banner, title strip and two-column leadership cards. */
 .faculty-page { background:#fff; color:#484448; min-height:100vh; }
 .faculty-page .faculty-main { width:100%; max-width:none; margin:0; padding:var(--dgu-header-height,96px) 0 70px; }
-.faculty-intro { background:#68176b; color:#fff; padding:clamp(26px,3vw,54px) 5% clamp(115px,12vw,190px); text-align:center; }
-body .faculty-page .faculty-intro h1 { font-size:clamp(30px,3vw,46px)!important; font-weight:500!important; line-height:1.12!important; letter-spacing:0!important; margin:0; color:#fff; }
-.faculty-wordcloud { position:relative; width:min(89%,1510px); margin:clamp(-150px,-9vw,-95px) auto 0; background:#fff; }
+.faculty-intro { position:relative; width:100%; margin:0; padding:22px 6.5% 34px; background:#f2f4f7; color:#071d42; text-align:left; }
+body .faculty-page .faculty-intro h1 { position:relative; margin:0; color:#071d42; font-size:clamp(26px,2.35vw,34px)!important; font-weight:600!important; line-height:1.2!important; letter-spacing:0!important; }
+.faculty-page .faculty-intro h1::after { content:''; position:absolute; left:0; bottom:-16px; width:31px; height:4px; background:#68176b; }
+.faculty-wordcloud { position:relative; width:100%; margin:0; background:#fff; }
 .faculty-wordcloud img { display:block; width:100%; height:auto; }
 .faculty-page .faculty-directory { width:min(89%,1510px); margin:clamp(42px,5.5vw,90px) auto 0; scroll-margin-top:calc(var(--dgu-header-height,96px) + 20px); }
 .faculty-page .faculty-controls { display:grid; grid-template-columns:minmax(240px,1fr) minmax(190px,23.5%); gap:3.5%; padding:0; margin:0; border:0; background:none; }
@@ -60,9 +61,9 @@ body .faculty-page .faculty-empty h2 { font-size:28px!important; font-weight:500
 }
 @media(max-width:700px) {
   .faculty-page .faculty-main { padding-bottom:48px; }
-  .faculty-intro { padding:26px 18px 90px; }
-  body .faculty-page .faculty-intro h1 { font-size:28px!important; }
-  .faculty-wordcloud { width:94%; margin-top:-64px; }
+  .faculty-intro { padding:18px 6% 30px; }
+  body .faculty-page .faculty-intro h1 { font-size:24px!important; }
+  .faculty-page .faculty-intro h1::after { left:0; bottom:-14px; }
   .faculty-page .faculty-directory { width:calc(100% - 36px); margin-top:36px; }
   .faculty-page .faculty-controls { grid-template-columns:1fr; gap:18px; }
   .faculty-page .faculty-grid { grid-template-columns:1fr; gap:68px; }

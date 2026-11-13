@@ -3,6 +3,8 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const cache=new Map();
 function load(name){const file=path.resolve(name.endsWith('.ts')?name:name+'.ts');if(cache.has(file))return cache.get(file);const module={exports:{}};cache.set(file,module.exports);vm.runInNewContext(ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,{module,exports:module.exports,URL,AbortController,Date,setTimeout,clearTimeout,process:{env:{NODE_ENV:'production'}},require:name=>load(path.resolve(path.dirname(file),name))});return module.exports;}
 const {placementStudentMatches:matches}=load('components/academic-placements');
+const {placementSchoolUrl}=load('components/academic-placement-school');
+const {academicLayout}=load('components/academic-layout');
 assert(matches('program','26',null,{placementType:'course',linkID:26}));
 assert(!matches('program','26',null,{placementType:'course',linkID:10}));
 assert(!matches('program','26',null,{placementType:'course',linkID:[26]}));
@@ -22,4 +24,16 @@ const info=api.parseAcademicInfo({error:'0',data:[{id:26,url:'mba-human-resource
 assert.equal(info.students.length,40,'No arbitrary record limit or omission for missing presentation fields');
 assert(!info.students.some(student=>student.name==='Unrelated'));
 assert.equal(info.sections.filter(section=>section.title==='Placements').length,0,'Students never invent a placement description');
-console.log('PASS: exact course/school relations, unrelated/global/inactive/deleted/malformed exclusions, legacy compatibility, all 40 incomplete records retained and no invented placement paragraph.');
+const programInfo=(slug,id='',schoolUrl='')=>({kind:'program',slug,id,schoolUrl});
+assert.equal(placementSchoolUrl(programInfo('any-program','1','business')),'school-of-business','API school relations resolve route aliases');
+assert.equal(placementSchoolUrl(programInfo('mba-human-resource','26')),'school-of-business','Known programme routes use their existing school mapping');
+assert.equal(placementSchoolUrl(programInfo('btech-cse-lateral-entry','102')),'school-of-technology','B.Tech specializations resolve to their parent school');
+assert.equal(placementSchoolUrl(programInfo('mba-business-analytics','23')),'school-of-business','MBA specializations resolve to their parent school');
+assert.equal(placementSchoolUrl(programInfo('integrated-btech-mba','41')),'school-of-technology','Integrated B.Tech + MBA uses its related computing school');
+assert.equal(placementSchoolUrl(programInfo('integrated-btech-mtech','42')),'school-of-technology','Integrated B.Tech + M.Tech uses its related computing school');
+assert.equal(placementSchoolUrl(programInfo('unmapped-program','999')),undefined,'Unknown programmes never receive unrelated school placements');
+assert.equal(placementSchoolUrl({...programInfo('school-of-business','1'),kind:'school'}),undefined,'School pages do not receive a programme fallback');
+const mappedProgramWithoutPlacementGuide=api.parseAcademicInfo({error:'0',data:[{id:33,url:'dgu-global-mba',programName:'Global MBA'}]},'program','dgu-global-mba','33');
+assert.equal(placementSchoolUrl(mappedProgramWithoutPlacementGuide),'school-of-business','A known program route retains its related school');
+assert(academicLayout(mappedProgramWithoutPlacementGuide).some(block=>block.kind==='placements'),'Mapped program routes without a placements guide entry still render the school-fallback placement slot');
+console.log('PASS: exact course/school relations, related-school fallback mapping, unrelated/global/inactive/deleted/malformed exclusions, legacy compatibility, all 40 incomplete records retained and no invented placement paragraph.');

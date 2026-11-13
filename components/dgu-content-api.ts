@@ -42,6 +42,7 @@ export function apiLayoutClasses(value: string): string[] {
     'met-n': 'dgu-api-metric-value', 'met-l': 'dgu-api-metric-label',
     'industry-collab-main': 'dgu-api-logo-groups', 'industry-collab': 'dgu-api-logo-group',
     'industry-collab-img-box-main': 'dgu-api-logo-row', 'industry-collab-img-box': 'dgu-api-logo',
+    'industry-powered-logo-row': 'dgu-api-powered-logo-row',
     row: 'dgu-api-row', 'text-center': 'dgu-api-text-center', 'text-justify': 'dgu-api-text-justify',
   };
   const classes = value.split(/\s+/).flatMap(name => {

@@ -14,6 +14,8 @@ export default function BatchSlider({children, size = 1, interval = 5500, paused
   const [reduced, setReduced] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
   const touchX = useRef<number | null>(null);
+  const pointerStart = useRef<{ id: number; x: number; y: number } | null>(null);
+  const dragged = useRef(false);
   const wheelLock = useRef(0);
   const move = (delta: number) => setPage(value => (value + delta + count) % Math.max(1,count));
   useEffect(() => {
@@ -43,6 +45,28 @@ export default function BatchSlider({children, size = 1, interval = 5500, paused
     onKeyDown={event => { if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {event.preventDefault();move(event.key === 'ArrowRight' ? 1 : -1);} }}
     onTouchStart={event => {touchX.current=event.touches[0].clientX;}}
     onTouchEnd={event => {if (touchX.current!==null) {const delta=touchX.current-event.changedTouches[0].clientX;if(Math.abs(delta)>45)move(delta>0?1:-1);}touchX.current=null;}}
+    onPointerDown={event => {
+      if (event.pointerType!=='mouse' || event.button!==0 || count<2 || (event.target as HTMLElement).closest('.batch-controls,.batch-overlay-controls')) return;
+      pointerStart.current={id:event.pointerId,x:event.clientX,y:event.clientY};
+      dragged.current=false;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    }}
+    onPointerMove={event => {
+      const start=pointerStart.current;
+      if (!start || start.id!==event.pointerId) return;
+      const dx=event.clientX-start.x,dy=event.clientY-start.y;
+      if (Math.abs(dx)>36 && Math.abs(dx)>Math.abs(dy)*1.2) {
+        pointerStart.current=null;
+        dragged.current=true;
+        move(dx<0?1:-1);
+      }
+    }}
+    onPointerUp={event => {if(pointerStart.current?.id===event.pointerId)pointerStart.current=null;}}
+    onPointerCancel={() => {pointerStart.current=null;dragged.current=false;}}
+    onDragStart={event => event.preventDefault()}
+    onClickCapture={event => {
+      if (dragged.current) {event.preventDefault();event.stopPropagation();dragged.current=false;}
+    }}
     onWheel={event => { if(Math.abs(event.deltaX)>Math.abs(event.deltaY) && Math.abs(event.deltaX)>15 && Date.now()-wheelLock.current>700) {wheelLock.current=Date.now();move(event.deltaX>0?1:-1);} }}>
     <div className="batch-window"><div className="batch-track" style={{transform:`translateX(-${page*100}%)`}}>
       {Array.from({length:count},(_,index) => <div className="batch-page" key={index} inert={index!==page} aria-hidden={index!==page}

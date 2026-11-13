@@ -3,6 +3,7 @@
 .internal-width { width:min(86%,1320px); margin-inline:auto; }
 body .local-page.internal-page .local-page-main { width:100%; max-width:none; padding:0 0 clamp(48px,6vw,88px); margin:0; }
 .internal-hero { position:relative; isolation:isolate; margin:0 0 clamp(30px,4vw,62px); }
+.internal-hero--media { margin-bottom:0; }
 .internal-hero-band { position:relative; overflow:hidden; color:#fff; background:#68176b; padding:calc(var(--internal-opening-height,96px) + 30px) 0 clamp(36px,5vw,70px); }
 .internal-hero--media .internal-hero-band { padding-bottom:clamp(110px,13vw,200px); }
 .internal-hero-band>.internal-width { position:relative; }

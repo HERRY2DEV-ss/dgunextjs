@@ -216,6 +216,32 @@ export function academicCareerAccordionSections(source:string): AcademicSection[
   });
 }
 
+/** Split numbered specialization columns into accordion items, keeping surrounding copy in place. */
+export function academicSpecializationAccordionContent(source:string): {intro:string;sections:AcademicSection[]}|null {
+  if(typeof DOMParser==='undefined')return null;
+  const doc=new DOMParser().parseFromString(source,'text/html');
+  for(const row of Array.from(doc.body.querySelectorAll('.row,.dgu-api-row'))){
+    const sections=Array.from(row.children).flatMap(column=>{
+      const content=column.cloneNode(true) as Element;
+      const heading=Array.from(content.querySelectorAll('p')).map(paragraph=>({
+        paragraph,label:paragraph.querySelector('b,strong'),
+      })).find(item=>item.label && /^\s*\d+\.\s*/.test(apiPlain(item.label.textContent)));
+      if(!heading?.label)return [];
+      const title=apiPlain(heading.label.textContent).replace(/^\s*\d+\.\s*/,'').trim();
+      if(!title)return [];
+      const lineBreak=heading.label.nextSibling;
+      heading.label.remove();
+      if(lineBreak?.nodeType===1 && (lineBreak as Element).tagName==='BR')lineBreak.parentNode?.removeChild(lineBreak);
+      if(!apiPlain(heading.paragraph.textContent) && !heading.paragraph.querySelector('img,table,a'))heading.paragraph.remove();
+      return [{title,html:content.innerHTML}];
+    });
+    if(sections.length<2)continue;
+    row.remove();
+    return {intro:doc.body.innerHTML,sections};
+  }
+  return null;
+}
+
 /** Preserve each API column while promoting its first paragraph to a card heading. */
 export function academicColumnSections(source:string): AcademicSection[] {
   if(typeof DOMParser==='undefined')return [];

@@ -7,6 +7,7 @@ import LocalPageShell, { usePageMenuOpen } from './LocalPageShell';
 import QuickContactForm from './QuickContactForm';
 import CampusPhotoCarousel from './CampusPhotoCarousel';
 import StepSlider from './StepSlider';
+import PageTitleStrip from './PageTitleStrip';
 import ExpandableText from './ExpandableText';
 import DehradunReveal from './DehradunReveal';
 import '../app/programs/program.css';
@@ -124,16 +125,16 @@ function CampusOverviewContent() {
     <a className="campus-skip-link" href="#campus-main">Skip to campus life</a>
     <main id="campus-main">
 
-      <section className="campus-opening" aria-labelledby="campus-title">
+      <section className="campus-opening" aria-label="Campus life banner and enquiry form">
       <div id="home" className="campus-hero program-hero">
         <img className="campus-hero-image" src={A + 'hero-stage.webp'}
           alt="Student performing on stage at DBS Global University" width={1266} height={668} fetchPriority="high" />
         <div className="campus-hero-shade" />
         <img className="campus-hero-mark" src={A + 'life-wordmark.webp'} alt="Life at DGU" width={595} height={415} />
-        <div className="campus-hero-copy"><h1 id="campus-title">BEYOND THE<br />CLASSROOM</h1><p>Every Day, a New Story.</p></div>
       </div>
         <div className="campus-contact"><QuickContactForm /></div>
       </section>
+      <PageTitleStrip id="campus-title" title="BEYOND THE CLASSROOM"><p>Every Day, a New Story.</p></PageTitleStrip>
 
       <section className="campus-intro" aria-label="Life at DGU"><div className="campus-inner campus-intro-grid">
         <img className="campus-quote-mark" src={A + 'quote-mark.svg'} alt="" aria-hidden="true" />

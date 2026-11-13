@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { SITE_BASE } from './site-routes';
+import PageTitleStrip from './PageTitleStrip';
 import './internal-pages.css';
 import './internal-pages-responsive.css';
 
@@ -8,12 +9,15 @@ export default function InternalPageHero({ title, titleEmphasis, eyebrow='DBS Gl
   title: string; titleEmphasis?: string; eyebrow?: string; children?: ReactNode;
   parent?: {label:string;href:string}; image?: {src:string;alt:string};
 }) {
-  return <header className={`internal-hero${image?' internal-hero--media':''}`} data-navigation-opening>
-    <div className="internal-hero-band"><div className="internal-width">
-      <nav className="internal-breadcrumb" aria-label="Breadcrumb"><a href={`${SITE_BASE}/`}>Home</a><span aria-hidden="true">/</span>{parent&&<><a href={parent.href}>{parent.label}</a><span aria-hidden="true">/</span></>}<span aria-current="page">{title}</span></nav>
-      <p className="internal-eyebrow">{eyebrow}</p><h1><span className="internal-title-lead">{title}</span>{titleEmphasis && <><br /><strong className="internal-title-emphasis">{titleEmphasis}</strong></>}</h1>{children}
-      <span className="internal-hero-orbit" aria-hidden="true" />
-    </div></div>
-    {image&&<figure className="internal-hero-media"><img src={image.src} alt={image.alt} fetchPriority="high" /></figure>}
-  </header>;
+  return <>
+    <header className={`internal-hero${image?' internal-hero--media':''}`} data-navigation-opening>
+      <div className="internal-hero-band"><div className="internal-width">
+        <nav className="internal-breadcrumb" aria-label="Breadcrumb"><a href={`${SITE_BASE}/`}>Home</a><span aria-hidden="true">/</span>{parent&&<><a href={parent.href}>{parent.label}</a><span aria-hidden="true">/</span></>}<span aria-current="page">{title}</span></nav>
+        <p className="internal-eyebrow">{eyebrow}</p>{!image && <h1><span className="internal-title-lead">{title}</span>{titleEmphasis && <><br /><strong className="internal-title-emphasis">{titleEmphasis}</strong></>}</h1>}{children}
+        <span className="internal-hero-orbit" aria-hidden="true" />
+      </div></div>
+      {image&&<figure className="internal-hero-media"><img src={image.src} alt={image.alt} fetchPriority="high" /></figure>}
+    </header>
+    {image && <PageTitleStrip title={<><span className="internal-title-lead">{title}</span>{titleEmphasis && <><br /><strong className="internal-title-emphasis">{titleEmphasis}</strong></>}</>} />}
+  </>;
 }

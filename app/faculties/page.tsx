@@ -13,10 +13,10 @@ export default function FacultiesPage() {
   return <LocalPageShell className="faculty-page">
     <a className="faculty-skip" href="#faculty-directory">Skip to faculty directory</a>
     <main className="faculty-main">
+      <div className="faculty-wordcloud" data-navigation-opening><img src={sitePath("/assets/faculty/learn-from-best.png")} alt="Learn from the best: expertise, guidance, experience, leadership, knowledge and research" width={1632} height={520} fetchPriority="high" /></div>
       <header className="faculty-intro">
         <h1>LEADERSHIP &amp; FACULTY</h1>
       </header>
-      <div className="faculty-wordcloud" data-navigation-opening><img src={sitePath("/assets/faculty/learn-from-best.png")} alt="Learn from the best: expertise, guidance, experience, leadership, knowledge and research" width={1632} height={520} fetchPriority="high" /></div>
       <FacultyDirectory />
     </main>
   </LocalPageShell>;

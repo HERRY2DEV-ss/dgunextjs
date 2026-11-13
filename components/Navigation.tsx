@@ -8,7 +8,7 @@ import { resolveSiteHref } from './site-routes';
 import { MENU_IMAGE, APPLY_URL, CONTACT_URL } from './navigation.config';
 import { requestMenus, menuHref, menuMatches, type MenuItem } from './navigation-api';
 import { isUtilityGroup } from './navigation-utilities';
-const MAIN_LOGO = sitePath('/assets/dgu_logo_svg.svg');
+const MAIN_LOGO = sitePath('/assets/svg/logo_diwali_rocket_right.gif');
 const FOOTER_LOGO = sitePath('/assets/dgu_logo_svg2.svg');
 const QUICK_MENU_LINKS = [
   { label: 'Alumni', href: 'https://alumni.doonbusinessschool.com/?_gl=1*1ta7p8f*_gcl_au*MTAyNjI5MzQwMC4xNzY0MzkwNTAx' },
@@ -133,7 +133,7 @@ export default function Navigation({
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [menuOpen, closeMenu]);
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
-  const activeLogoSrc = logoSrc === MAIN_LOGO ? FOOTER_LOGO : logoSrc;
+  const menuLogoSrc = logoSrc === MAIN_LOGO ? FOOTER_LOGO : logoSrc;
   const search = menuQuery.trim().toLowerCase();
   const visibleMenus = useMemo(
     () => menus.filter(group => !isUtilityGroup(group) && (!search || menuMatches(group, search))),
@@ -146,7 +146,7 @@ export default function Navigation({
   const menuContent = useMemo(() => <>
     <div className="mega-menu-header">
       <a href={sitePath("/")} className="mega-menu-logo" onClick={closeMenu}>
-        <img src={activeLogoSrc} width="452" height="132" alt={logoAlt} />
+        {menuOpen && <img src={menuLogoSrc} width="452" height="132" alt={logoAlt} decoding="async" />}
       </a>
       <div className="mega-menu-header-right">
         <a href={sitePath("/")} onClick={closeMenu}>OVERVIEW</a>
@@ -206,7 +206,7 @@ export default function Navigation({
       </nav>}
     </div>
     <div className="mega-menu-right">
-      <div className="menu-feature-image"><img src={MENU_IMAGE} alt="DBS Global University campus" width="1921" height="901" /></div>
+      <div className="menu-feature-image">{menuOpen && <img src={MENU_IMAGE} alt="DBS Global University campus" width="1921" height="901" decoding="async" />}</div>
       <div className="menu-feature-content">
         <div className="menu-feature-text">
           <h2>Shape Your<br /><em>Future</em></h2>
@@ -215,7 +215,7 @@ export default function Navigation({
         <a href={sitePath("/#different")} className="menu-feature-button" onClick={closeMenu}><span>EXPLORE DGU</span><strong aria-hidden="true"><svg width="26" height="20" viewBox="0 0 30 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m10 4 8 8-8 8" /></svg></strong></a>
       </div>
     </div>
-  </>, [activeLogoSrc, bottomLinks, closeMenu, expanded, expandedChild, logoAlt, menuApiStatus, menuQuery, menuSearchOpen, menus.length, search, visibleMenus]);
+  </>, [menuLogoSrc, bottomLinks, closeMenu, expanded, expandedChild, logoAlt, menuApiStatus, menuQuery, menuSearchOpen, menuOpen, menus.length, search, visibleMenus]);
   const dropdownGroups = [
     { key: 'ADMISSION', title: 'ADMISSION', href: sitePath('/admissions/') },
     { key: 'PLACEMENTS', title: 'PLACEMENTS', href: sitePath('/placement-reports/') },
@@ -224,7 +224,7 @@ export default function Navigation({
   return <>
     <svg width="0" height="0" aria-hidden="true" style={{position:'absolute'}}><defs><filter id="dgu-logo-cutout" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  2.5 0 0 0 -1.1" /></filter></defs></svg>
       <div ref={headerRef} className={`site-header${pastHero ? ' is-sticky' : ''}${menuVisible ? ' menu-is-open' : ''}`}>
-        <a className="brand" href={sitePath("/")} aria-label={`${logoAlt} home`}><img src={activeLogoSrc} alt={logoAlt} width="452" height="132" /></a>
+        <a className="brand" href={sitePath("/")} aria-label={`${logoAlt} home`}><img src={logoSrc} alt={logoAlt} width="452" height="132" /></a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href={sitePath("/")}>OVERVIEW</a>
           {dropdownGroups.map(({key,title,href}) => {
@@ -244,6 +244,11 @@ export default function Navigation({
             <a href={resolveSiteHref("https://dgu.ac.in/uploads/documents/View-Book-2026.pdf")} target="_blank" rel="noopener noreferrer" aria-label="Download brochure"><span>Download Brochure</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v13m-5-5 5 5 5-5M3 14v7h18v-7" /></svg></a>
           </nav>}
     </dialog>
+    <nav className="side-quick-menu" aria-label="Quick links" hidden={menuOpen}>
+      <a href={APPLY_URL} aria-label="Apply now"><span>Apply Now</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5H5v15h14v-8M14 4l3-3 4 4-3 3-3 3-8 8-4 1 1-4Z" /></svg></a>
+      <a href={CONTACT_URL} aria-label="Contact us"><span>Contact Us</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 6l8 7 8-7" /></svg></a>
+      <a href={resolveSiteHref("https://dgu.ac.in/uploads/documents/View-Book-2026.pdf")} target="_blank" rel="noopener noreferrer" aria-label="Download brochure"><span>Download Brochure</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v13m-5-5 5 5 5-5M3 14v7h18v-7" /></svg></a>
+    </nav>
 
   </>;
 }

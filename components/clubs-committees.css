@@ -13,21 +13,7 @@
   --dgu-title-line: 1.14;
 }
 /* Scope the reference scale around the existing authoritative type rules. */
-.clubs-page .clubs-main :is(.clubs-title-band h1, .clubs-directory h2, .clubs-card-label, .clubs-intro-copy, .clubs-intro-copy p, .clubs-intro-copy button) { letter-spacing: 0 !important; }
-.clubs-title-band {
-  padding: calc(10 * var(--club-unit)) 20px calc(11 * var(--club-unit));
-  background: #68176b;
-  color: #fff;
-  text-align: center;
-}
-.clubs-title-band h1 {
-  margin: 0;
-  font-family: 'Clubs Clash Semibold', 'Clash Grotesk', sans-serif !important;
-  font-size: calc(14.602 * var(--club-unit));
-  font-weight: 600 !important;
-  line-height: 1.14;
-  letter-spacing: 0;
-}
+.clubs-page .clubs-main :is(.clubs-directory h2, .clubs-card-label, .clubs-intro-copy, .clubs-intro-copy p, .clubs-intro-copy button) { letter-spacing: 0 !important; }
 .clubs-banner-band { background: linear-gradient(#68176b 0 28%, #fff 28% 100%); }
 .clubs-banner {
   display: block;
@@ -202,7 +188,6 @@
     --dgu-body-size: max(16px, calc(9 * var(--club-unit)));
     --dgu-body-line: 1.45;
   }
-  .clubs-title-band h1 { font-size: clamp(20px, 3.169vw, 28px); }
   .clubs-intro-copy { font-size: max(16px, calc(9 * var(--club-unit))); line-height: 1.45; }
   .clubs-introduction { width: 76%; padding: 18px 0 24px; }
   .clubs-intro-copy .expandable-toggle { min-height: 32px; padding: 4px 10px; font-size: 12px; margin-top: 12px; }
@@ -218,8 +203,6 @@
 }
 
 @media (max-width: 600px) {
-  .clubs-title-band { padding: 20px 16px 18px; }
-  .clubs-title-band h1 { max-width: 400px; margin: 0 auto; line-height: 1.14; }
   .clubs-banner { width: calc(100% - 32px); }
   .clubs-introduction { width: calc(100% - 56px); }
   .clubs-sports .local-gallery-photo { min-height: 130px; }

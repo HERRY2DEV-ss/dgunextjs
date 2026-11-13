@@ -125,6 +125,7 @@ body main .placement-preparation-grid article:first-of-type p{text-align:right;m
 .placement-report{border:0;margin:0;padding:0}
 .placement-report>summary{display:flex;justify-content:space-between;align-items:center;gap:16px;list-style:none;background:#68176b;color:#fff;border-radius:100px;padding:1.25cqw 3.5cqw;font-size:clamp(16px,1.885cqw,30px);font-weight:500;line-height:1.2;cursor:pointer}
 .placement-report>summary::-webkit-details-marker{display:none}
+.placement-report>summary:focus-visible{outline:3px solid #211d22;outline-offset:3px}
 .placement-report:nth-child(2)>summary{background:#ad29b1}
 .placement-report:nth-child(3)>summary{background:#d04bd2}
 .placement-report>summary svg{width:1.8cqw;height:1.8cqw;min-width:16px;min-height:16px;transition:transform .25s ease}
@@ -199,23 +200,3 @@ body main .placement-preparation-grid article:first-of-type p{text-align:right;m
   .placement-preparation-line { bottom:36px; width:40%; height:2px; }
   .placement-preparation-line::after { width:14px; height:14px; top:-6px; border-width:2px; }
 }
-
-/* Placement report cards carousel */
-.placement-report-slider{width:82%;margin:1.8cqw auto 0}
-.placement-report-slider .batch-page{display:grid;grid-template-columns:repeat(var(--batch-size),minmax(0,1fr));gap:1.25cqw}
-.placement-report-card{position:relative;display:flex;min-height:12.5cqw;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:1.4cqw;padding:1.7cqw 1.8cqw;border:1px solid #e6e2e7;border-radius:clamp(12px,1.1cqw,18px);background:#f7f5f7;color:#211d22;text-align:left;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
-.placement-report-card:hover,.placement-report-card.is-active{background:#68176b;border-color:#68176b;color:#fff;transform:translateY(-3px)}
-.placement-report-card-index{font-size:clamp(12px,1.1cqw,17px);font-weight:500;letter-spacing:.12em;color:#ad29b1}
-.placement-report-card.is-active .placement-report-card-index,.placement-report-card:hover .placement-report-card-index{color:#f0b9f1}
-.placement-report-card>strong{font-size:clamp(17px,1.65cqw,26px);font-weight:500;line-height:1.15;text-transform:uppercase}
-.placement-report-card-action{display:flex;align-items:center;gap:8px;font-size:clamp(12px,1.05cqw,16px);font-weight:500}
-.placement-report-card-action>span{font-size:1.2em}
-.placement-report-slider .batch-controls{justify-content:center;gap:12px;padding-top:1.1cqw}
-.placement-records>.placement-report-table{width:82%;max-height:480px;margin:1.5cqw auto 0;overflow:auto;scrollbar-width:thin}
-.placement-records>.placement-report-table table{width:100%;min-width:800px;table-layout:fixed;border-collapse:collapse;font-size:14px}
-.placement-records>.placement-report-table th{position:sticky;top:0;z-index:1}
-.placement-records>.placement-report-table th:first-child{width:23%}
-.placement-records>.placement-report-table th:nth-child(2){width:22%}
-.placement-records>.placement-report-table th:nth-child(3){width:55%}
-@media(max-width:900px){.placement-report-slider{width:92%}.placement-report-card{min-height:160px;padding:18px}.placement-records>.placement-report-table{width:92%;margin-top:18px}}
-@media(max-width:700px){.placement-report-slider .batch-page{grid-template-columns:minmax(0,1fr)}.placement-report-card{min-height:150px}.placement-report-slider .batch-controls{padding-top:12px}.placement-records>.placement-report-table{width:100%}}

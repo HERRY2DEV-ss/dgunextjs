@@ -36,6 +36,7 @@ export default function SchoolPlacementsSection({
   homepageCopy = false,
   apiSchoolUrl,
   apiProgramUrl,
+  apiFallbackSchoolUrl,
 }: {
   placement?: Omit<SchoolPageData['placement'], 'students'> & { students: PlacementStudent[] };
   paused?: boolean;
@@ -44,6 +45,7 @@ export default function SchoolPlacementsSection({
   homepageCopy?: boolean;
   apiSchoolUrl?: string | null;
   apiProgramUrl?: string | null;
+  apiFallbackSchoolUrl?: string | null;
 }) {
   const shellMenuOpen = usePageMenuOpen();
 
@@ -52,7 +54,7 @@ export default function SchoolPlacementsSection({
   const targetUrl = isProgram ? apiProgramUrl : effectiveSchoolUrl;
   const fromApi = targetUrl !== undefined && targetUrl !== null;
 
-  const feed = usePlacements(fromApi ? targetUrl : null, isProgram);
+  const feed = usePlacements(fromApi ? targetUrl : null, isProgram, isProgram ? apiFallbackSchoolUrl || null : null);
   const section = feed.data?.sections[0];
 
   const rawApiDescription = feed.data?.sections.map(item => item.description).filter(Boolean).join('\n');
@@ -61,10 +63,10 @@ export default function SchoolPlacementsSection({
 
   const placement = fromApi ? {
     title: (section?.title || suppliedPlacement?.title || 'PLACEMENTS').toUpperCase(),
-    tagline: section?.tagline || [],
+    tagline: section?.tagline.length ? section.tagline : suppliedPlacement?.tagline || [],
     description: cleanDescription,
     students: feed.data?.students || [],
-    stats: section?.stats || [],
+    stats: section?.stats.length ? section.stats : suppliedPlacement?.stats || [],
   } : suppliedPlacement || {
     title: 'PLACEMENTS',
     tagline: DEFAULT_STATIC_TAGLINE,

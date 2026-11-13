@@ -2166,6 +2166,7 @@ section {
   overflow: hidden;
   isolation: isolate;
   min-width: 0;
+  touch-action: pan-y;
 }
 .auto-slider-track {
   display: flex;
@@ -2183,10 +2184,10 @@ section {
 .auto-slider-group > * { flex-shrink: 0; }
 @keyframes dguSlideX { to { transform: translate3d(-50%, 0, 0); } }
 @keyframes dguSlideY { to { transform: translate3d(0, -50%, 0); } }
-.auto-slider:hover > .auto-slider-track,
 .auto-slider:focus-within > .auto-slider-track,
 .auto-slider.auto-paused > .auto-slider-track { animation-play-state: paused; }
 .auto-slider.auto-reverse > .auto-slider-track{animation-direction:reverse}
+.auto-vertical { touch-action: pan-x; }
 .auto-vertical > .auto-slider-track { width: 100%; flex-direction: column; animation-name: dguSlideY; }
 .auto-vertical > .auto-slider-track > .auto-slider-group { width: 100%; flex-direction: column; gap: 0; padding: 0; }
 
@@ -2492,6 +2493,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .era-aerial-outer{inset:0;height:100%;transform:none!important;will-change:auto}
 .era-aerial-inner{inset:0;width:100%;height:100%;transform:none!important;will-change:auto}
 .era-aerial-inner>img{object-fit:fill;object-position:center}
+@media(max-width:700px){.era-aerial-inner>img{object-fit:cover;object-position:center}}
 .era-cloud-sky{position:absolute;z-index:4;top:-3vw;left:0;right:0;height:calc(26% + 3vw);overflow:hidden;pointer-events:none;mask-image:linear-gradient(#000 0%,#000 60%,transparent 100%)}
 .era-cloud-sky .era-cloud-bank{top:0;height:100%}
 .era-cloud-sky .era-cloud-gradient{top:0;height:40%;background:linear-gradient(#fff,transparent)}
@@ -3200,8 +3202,8 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
     padding:6px 4.5%;
   }
   .site-header.is-sticky .brand{
-    width:23%;
-    max-width:235px;
+     width:24%;
+     max-width:250px;
     min-width:145px;
   }
   .site-header.is-sticky .desktop-nav{
@@ -3222,7 +3224,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
     padding:5px 5%;
   }
   .site-header.is-sticky .brand{
-    width:145px;
+    width:158px;
     min-width:0;
   }
   .site-header.is-sticky .desktop-nav{padding:4px 5px}
@@ -3398,12 +3400,12 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
  .hero#home>.site-header:not(.is-sticky){grid-row:1;position:relative;inset:auto;height:96px}
  .site-header{height:96px;padding-block:8px}
- .site-header .brand{width:18%;max-width:320px}
+ .site-header .brand{width:439px;max-width:32vw}
  .site-header .desktop-nav{font-size:clamp(12px,calc(1.36vw - 5px),17px)}
  .site-header .menu-toggle{font-size:inherit;padding:6px 12px}
  .site-header~.mega-menu-overlay{top:96px;height:calc(100vh - 96px);height:calc(100dvh - 96px)}
  .site-header.is-sticky{height:76px}
- .site-header.is-sticky .brand{width:15%;max-width:260px}
+ .site-header.is-sticky .brand{width:17%;max-width:285px}
  .site-header.is-sticky .desktop-nav{font-size:clamp(12px,.9vw,15px)}
  .site-header.is-sticky~.mega-menu-overlay{top:76px;height:calc(100vh - 76px);height:calc(100dvh - 76px)}
 }
@@ -3416,6 +3418,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
  .hero#home{display:grid;grid-template-rows:82px auto;padding-top:0;height:auto;min-height:0;aspect-ratio:auto}
  .hero#home>.homepageHeroSlider{grid-row:2;position:relative;inset:auto;display:block;width:100%;height:auto;min-height:0;aspect-ratio:auto;margin:0}
  .hero#home>.site-header:not(.is-sticky){grid-row:1;position:relative;inset:auto;height:82px}
+ .site-header:not(.is-sticky) .brand{width:195px}
 }
 @media(prefers-reduced-motion:reduce){.header-dropdown-list{transition:none}}
 
@@ -3468,7 +3471,7 @@ html.dgu-smooth-scroll{scroll-behavior:auto!important}
 .side-quick-menu-utility a{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;color:#fff;font-size:10px;font-weight:500;letter-spacing:.35px;text-decoration:none;text-transform:uppercase;border-right:1px solid #ffffff35;white-space:nowrap}
 .side-quick-menu-utility a:last-child{border-right:0}
 .side-quick-menu-utility a:hover,.side-quick-menu-utility a:focus-visible{color:#e8d9ea;text-decoration:underline;text-underline-offset:4px}
-@media(max-width:1000px){.side-quick-menu,.desktop-nav .header-dropdown{display:none}}
+@media(max-width:1000px){.desktop-nav .header-dropdown{display:none}}
 
 @media(prefers-reduced-motion:reduce){.header-dropdown-list{transition:none}}
 
@@ -3783,6 +3786,7 @@ body main .difference-wave-section--preview .difference-wave-point p { font-size
 .dgu-sliding-tablist::-webkit-scrollbar { display:none; }
 .dgu-sliding-tablist>[role=tab] { flex-shrink:0; }
 .dgu-sliding-tablist>[role=tab]:focus-visible { outline-offset:-2px; }
+.is-manual-scrolling { cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important; }
 /* Opt-in seamless pairs; all other sliders retain their previous behaviour. */
 .batch-loop.batch-vertical .batch-page { transition:none; }
 .academic-api-page .school-placements-section .placement-media-slider .batch-window { aspect-ratio:710 / 498; }
@@ -3922,4 +3926,3 @@ body main .admissions-level-tabs.dgu-sliding-tablist > button { max-width:260px;
 .mega-menu-utility-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 12px 8px 0;margin-right:14px;color:#fff;font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
 .mega-menu-utility-links a span{font-size:12px;opacity:.7}
 .mega-menu-utility-links a:hover,.mega-menu-utility-links a:focus-visible{color:#e8d9ea;text-decoration:underline;text-underline-offset:4px}
-

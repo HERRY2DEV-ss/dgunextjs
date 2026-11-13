@@ -24,7 +24,7 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
   const mission = doc.querySelector('.mv-mission'), vision = doc.querySelector('.mv-vision');
   const valueText = plain(doc.querySelector('.mv-footer')).split(/[—–]/).slice(1).join('—');
   const approval = doc.getElementById('approvals-accreditation'), rankings = doc.getElementById('rankings-recognition');
-  const order = ['University Grants Commission', 'AACSB Member', 'Association of Indian Universities', 'Pharmacy Council of India'];
+  const order = ['University Grants Commission', 'AACSB Member', 'Association of Indian Universities', 'Pharmacy Council of India', 'Bar Council of India'];
   // These existing CMS filenames were checked against their actual image content.
   // The CMS alt labels are mismatched. Use the corresponding supplied PDF artwork
   // for the reference presentation, while retaining each actual API source URL.
@@ -41,6 +41,14 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
     const title = known?.[0] || image.getAttribute('alt')?.trim() || '';
     return [{ src, title, artwork: known?.[1] || '', caption: known?.[2] || title }];
   });
+  if (approval && !logos.some(logo => /bar council of india/i.test(logo.title))) {
+    logos.push({
+      src: '',
+      title: 'Bar Council of India',
+      artwork: 'Logo_of_Bar_Council_of_India.webp',
+      caption: 'Bar Council of India',
+    });
+  }
   // Reference presentation order only. Missing CMS logos are never substituted.
   const rank = (name: string) => { const i = order.indexOf(name); return i < 0 ? order.length : i; };
   logos.sort((a, b) => rank(a.title) - rank(b.title));

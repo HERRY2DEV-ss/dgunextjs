@@ -78,14 +78,16 @@ export default function ClubDetailPage({ data }: { data: ClubPageData }) {
   const empty = <p className={styles.empty}>Details will be updated soon.</p>;
 
   return <main className={styles.page}>
-    <section className={styles.titleBand} data-navigation-opening={!data.hero || undefined}><h1>{data.name}</h1></section>
-    {data.hero && <section className={`${styles.hero} ${data.hero.fullImage ? styles.fullHero : ''}`} aria-label={`${data.name} banner`} data-navigation-opening>
-      {data.hero.image && <img className={styles.heroImage} src={data.hero.image} alt={data.hero.imageAlt || data.name} fetchPriority="high" decoding="async" />}
-      <div className={styles.heroCopy}>
-        {data.hero.titleLines.length > 0 && <p className={styles.tagline}>{data.hero.titleLines.map((line, index) => <span key={index}>{line}</span>)}</p>}
-        {data.hero.subtitle && <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>}
-      </div>
-    </section>}
+    {data.hero ? <>
+      <section className={`${styles.hero} ${data.hero.fullImage ? styles.fullHero : ''}`} aria-label={`${data.name} banner`} data-navigation-opening>
+        {data.hero.image && <img className={styles.heroImage} src={data.hero.image} alt={data.hero.imageAlt || data.name} fetchPriority="high" decoding="async" />}
+        <div className={styles.heroCopy}>
+          {data.hero.titleLines.length > 0 && <p className={styles.tagline}>{data.hero.titleLines.map((line, index) => <span key={index}>{line}</span>)}</p>}
+          {data.hero.subtitle && <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>}
+        </div>
+      </section>
+      <section className={styles.titleBand}><h1>{data.name}</h1></section>
+    </> : <section className={styles.titleBand} data-navigation-opening><h1>{data.name}</h1></section>}
     {data.description.length > 0 && <section className={styles.introduction} aria-label="About the club">{data.description.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</section>}
     {data.benefits && data.benefits.items.length > 0 && <BenefitDiagram benefits={data.benefits} />}
     {data.video?.poster && <section className={styles.videoSection} aria-label={data.video.title || 'Club video'}>

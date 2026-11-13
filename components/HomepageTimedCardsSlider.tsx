@@ -18,6 +18,7 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
   const [active, setActive] = useState(0);
   const [held, setHeld] = useState(false);
   const activeIndex = safeSlides.length ? active % safeSlides.length : 0;
+  const nextIndex = safeSlides.length ? (activeIndex + 1) % safeSlides.length : 0;
   const activeSlide = safeSlides[activeIndex];
   const aspectRatio = activeSlide ? imageRatios[activeSlide.image] || '1920 / 708' : '1920 / 708';
   const goTo = useCallback((target: number) => {
@@ -41,7 +42,6 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
   if (!safeSlides.length) return null;
 
   return <section className={`${styles.slider} ${className}`} style={{ aspectRatio }} aria-label={label} aria-roledescription="carousel"
-    onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}
     onFocusCapture={() => setHeld(true)}
     onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeld(false); }}>
     <div className={styles.stage}>
@@ -49,10 +49,10 @@ export default function HomepageTimedCardsSlider({ slides, label, paused = false
         className={`${styles.card} ${index === activeIndex ? styles.activeCard : styles.hiddenCard}`}
         aria-hidden={index !== activeIndex}
         >
-        <picture className={styles.slidePicture}>
-          {slide.mobile && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
-          <img className={styles.slideImage} src={slide.image} alt={slide.alt ?? ''} onLoad={event => recordImageRatio(event, slide.image)} onError={() => setFailedImages(current => current.includes(slide.image) ? current : [...current, slide.image])} />
-        </picture>
+        {(index === activeIndex || index === nextIndex) && <picture className={styles.slidePicture}>
+            {slide.mobile && <source media="(max-width: 700px)" srcSet={slide.mobile} />}
+            <img className={styles.slideImage} src={slide.image} alt={slide.alt ?? ''} fetchPriority={index === activeIndex ? 'high' : 'auto'} decoding="async" onLoad={event => recordImageRatio(event, slide.image)} onError={() => setFailedImages(current => current.includes(slide.image) ? current : [...current, slide.image])} />
+          </picture>}
         {index === activeIndex && slide.caption && <p className={styles.caption}>{slide.caption}</p>}
       </div>)}
     </div>

@@ -1,19 +1,15 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import ApiRichText from './ApiRichText';
+import BatchSlider from './BatchSlider';
 import { SITE_BASE } from './site-base';
 import { hostelVideo, type HostelVideo } from './hostel-page-data';
 import { requestGlanceContent, type GlanceContent } from './glance-page-data';
 import styles from './GlancePage.module.css';
 
 const asset = (name: string) => `${SITE_BASE}/assets/glance-page/${name}`;
-// Supplied PDF artwork, not generated claims or CMS placeholder ranking cards.
-const rankingArt = [
-  ['ranking-top15.jpeg', 'Top 15 private business schools in North India — The Week'],
-  ['ranking-top50.jpeg', 'Top 50 institutions in India for use of AI — Careerlink'],
-  ['ranking-top10.jpeg', 'Top 10 business schools of North India — AIMA'],
-  ['ranking-innovation.jpeg', 'Most Innovative Business School of India — Bloomberg UTV'],
-] as const;
+const rankingLogo = (name: string) => `${SITE_BASE}/assets/ranking/${name}`;
+const rankingLogos = Array.from({ length: 36 }, (_, index) => `${index + 1}.webp`);
 
 function VideoPreview({ video, close }: { video: HostelVideo; close: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -35,6 +31,15 @@ export default function GlancePage() {
   const root = useRef<HTMLElement>(null), revealed = useRef(new WeakSet<Element>());
   const [content, setContent] = useState<GlanceContent | null>(null), [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [request, setRequest] = useState(0), [expanded, setExpanded] = useState(false), [playing, setPlaying] = useState(false);
+  const [rankingsPaused, setRankingsPaused] = useState(false);
+  const [rankingsPerSlide, setRankingsPerSlide] = useState(32);
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 600px)');
+    const update = () => setRankingsPerSlide(media.matches ? 6 : 32);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
   useEffect(() => {
     const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 20000); let mounted = true;
     requestGlanceContent(controller.signal).then(value => { if (mounted) { setContent(value); setStatus('ready'); } })
@@ -57,10 +62,12 @@ export default function GlancePage() {
   const poster = <img src={asset('video-poster.jpeg')} width={1279} height={332} alt="The Doon Business School campus entrance" loading="lazy" />;
   return <main ref={root} className={styles.page} id="glance-content" aria-busy={status === 'loading'}>
     <section className={styles.hero} aria-labelledby="glance-title" data-navigation-opening>
-      <h1 id="glance-title">DGU AT A GLANCE</h1>
       <div className={styles.heroImage}><img src={asset('hero.jpeg')} width={1185} height={393} alt="DBS Global University campus with the Himalayan foothills beyond" fetchPriority="high" />
         <div className={styles.heroCopy}><h2>A GLANCE AT<br />DBS GLOBAL UNIVERSITY</h2><p>World-class education, a vibrant campus,<br />and endless opportunities—all in one place.</p></div>
       </div>
+      <header className={styles.titleStrip}>
+        <h1 id="glance-title">DGU AT A GLANCE</h1>
+      </header>
     </section>
     {status !== 'ready' && <div className={styles.status} role={status === 'error' ? 'alert' : 'status'}>
       <p>{status === 'loading' ? 'Loading university information…' : 'University information is temporarily unavailable.'}</p>
@@ -88,8 +95,20 @@ export default function GlancePage() {
         <div className={styles.approvals}>{content.approvals.logos.map((logo, index) => <figure key={`${logo.src}-${index}`} data-glance-reveal data-glance-delay={index * 80}><div><img src={logo.artwork ? asset(logo.artwork) : logo.src} alt={logo.title} loading="lazy" /></div>{logo.caption && <figcaption>{logo.caption}</figcaption>}</figure>)}</div>
       </section>}
       <section className={`${styles.recognition} ${styles.rankings}`} id="rankings-recognition" data-glance-reveal>
-        {content.rankings.caption && <p>{content.rankings.caption}</p>}{content.rankings.title && <h2>{content.rankings.title}</h2>}
-        <div className={styles.rankingsGrid}>{rankingArt.map(([file, alt], index) => <figure key={file} data-glance-reveal data-glance-delay={index * 80}><img src={asset(file)} alt={alt} loading="lazy" /></figure>)}</div>
+        <p>{content.rankings.caption || 'Achievements & Recognition'}</p>
+        <h2>{content.rankings.title || 'Rankings & Recognition'}</h2>
+        <div className={styles.rankingsCarousel}>
+          <BatchSlider className={styles.rankingsSlider} size={rankingsPerSlide} interval={5500} paused={rankingsPaused}
+            label="DBS Global University rankings and recognition" controls>
+            {rankingLogos.map((file, index) => <figure className={styles.rankingLogo} key={file}>
+              <img src={rankingLogo(file)} alt={`Ranking and recognition logo ${index + 1}`} loading="lazy" />
+            </figure>)}
+          </BatchSlider>
+          <button className={styles.rankingsPause} type="button" aria-pressed={rankingsPaused}
+            onClick={() => setRankingsPaused(value => !value)}>
+            {rankingsPaused ? 'Resume logo slider' : 'Pause logo slider'}
+          </button>
+        </div>
       </section>
     </>}
     {playing && video && <VideoPreview video={video} close={() => setPlaying(false)} />}

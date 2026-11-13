@@ -7,17 +7,6 @@
   padding-top: 96px;
 }
 
-.placements-landing-heading {
-  padding: clamp(30px, 4.2vw, 62px) 5%;
-  background: #68176b;
-  color: #fff;
-  text-align: center;
-}
-
-.placements-landing-heading h1 {
-  margin: 0;
-}
-
 .placements-landing-banner {
   display: block;
   width: 100%;

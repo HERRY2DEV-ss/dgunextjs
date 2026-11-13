@@ -317,7 +317,6 @@ export default function AnimatedHeroSlider({ slides, label, title, titleEmphasis
   </picture>;
 
   return <section ref={root} className={`${styles.hero}${variant === 'home' ? ` ${styles.homeVariant}` : ''}${variant === 'school' ? ` ${styles.schoolVariant}` : ''}${variant === 'news' ? ` ${styles.newsVariant}` : ''} ${className}`} style={{ '--hero-aspect': variant === 'home' ? homeImageRatio || aspectRatio || '1920 / 708' : aspectRatio || '1920 / 680' } as CSSProperties} aria-label={label} aria-roledescription={available.length > 1 ? 'carousel' : undefined}
-    onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}
     onFocusCapture={() => setHeld(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeld(false); }}>
     <div className={`${styles.stage}${hasCaption ? ` ${styles.hasCaption}` : ''}${transitioning ? ` ${styles.transitioning}` : ''}`} aria-busy={preloading || transitioning}>
       <div ref={media} className={styles.media}>

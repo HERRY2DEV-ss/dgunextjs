@@ -1,18 +1,36 @@
 'use client';
-import { createElement, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createElement, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 import { apiLayoutClasses, apiPlain } from './dgu-content-api';
 import { resolveSiteHref } from './site-routes';
 import { academicImageSource } from './academic-media';
 
+const subscribeHydration = () => () => {};
+const getHydratedSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 /** Remote formatting is rendered as React nodes with an explicit tag/attribute allowlist. */
 type RichElementRenderer = (element: Element, key: string) => ReactNode | undefined;
 
-export function richTextNodes(source: string, scrollTables = false, renderElement?: RichElementRenderer): ReactNode {
+export function richTextNodes(source: string, scrollTables = false, renderElement?: RichElementRenderer, combinePoweredByLogos = false): ReactNode {
   if (!/<[a-z][\s\S]*>/i.test(source) || typeof DOMParser === 'undefined') {
     const text = typeof DOMParser === 'undefined' ? apiPlain(source) : source;
     return text.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>);
   }
   const document = new DOMParser().parseFromString(source, 'text/html');
+  const poweredByHeading = Array.from(document.body.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+    .some(heading => apiPlain(heading.textContent).toLowerCase() === 'powered by');
+  if (poweredByHeading || combinePoweredByLogos) {
+    const logos = Array.from(document.body.querySelectorAll('.dgu-api-logo,.industry-collab-img-box')).filter(logo => logo.querySelector('img'));
+    if (logos.length > 1) {
+      const row = document.createElement('div');
+      row.className = 'industry-powered-logo-row';
+      logos.forEach(logo => row.append(logo));
+      Array.from(document.body.querySelectorAll('.dgu-api-logo-row,.dgu-api-logo-group,.dgu-api-logo-groups,.industry-collab-img-box-main,.industry-collab,.industry-collab-main')).reverse().forEach(group => {
+        if (!group.querySelector('img') && !apiPlain(group.innerHTML) && !group.querySelector('a,table,video,iframe')) group.remove();
+      });
+      document.body.append(row);
+    }
+  }
   const blocked = new Set(['script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button', 'textarea', 'select', 'svg', 'math', 'link', 'meta', 'template']);
   const allowed = new Set(['p', 'div', 'section', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'strong', 'b', 'em', 'i', 'br', 'hr', 'blockquote', 'figure', 'figcaption', 'dl', 'dt', 'dd', 'table', 'caption', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'colgroup', 'col']);
   const render = (node: Node, key: string): ReactNode => {
@@ -54,9 +72,8 @@ export function richTextNodes(source: string, scrollTables = false, renderElemen
   };
   return Array.from(document.body.childNodes).map((node, index) => render(node, String(index)));
 }
-export default function ApiRichText({ html, className = '', scrollTables = false, renderElement }: { html: string; className?: string; scrollTables?: boolean; renderElement?: RichElementRenderer }) {
-  const [ready, setReady] = useState(false);
-  useEffect(() => { setReady(true); }, []);
-  const content = useMemo(() => richTextNodes(!ready && /<[a-z][\s\S]*>/i.test(html) ? apiPlain(html) : html, scrollTables, renderElement), [html, ready, scrollTables, renderElement]);
+export default function ApiRichText({ html, className = '', scrollTables = false, renderElement, combinePoweredByLogos = false }: { html: string; className?: string; scrollTables?: boolean; renderElement?: RichElementRenderer; combinePoweredByLogos?: boolean }) {
+  const ready = useSyncExternalStore(subscribeHydration, getHydratedSnapshot, getServerSnapshot);
+  const content = useMemo(() => richTextNodes(!ready && /<[a-z][\s\S]*>/i.test(html) ? apiPlain(html) : html, scrollTables, renderElement, combinePoweredByLogos), [html, ready, scrollTables, renderElement, combinePoweredByLogos]);
   return <div className={'dgu-api-copy ' + className}>{content}</div>;
 }

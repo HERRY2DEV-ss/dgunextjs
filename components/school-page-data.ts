@@ -1,9 +1,10 @@
 import { sitePath } from './site-base';
 import type { DifferentiatorPoint } from './DifferentiatorSection';
+import { advancedComputingPartners } from './advanced-computing-partners';
 
 export type SchoolPageData = {
   name: string; slug: string; heroImage: string; heroMobileImage?: string; heroHasEmbeddedTitle?: boolean; heroAlt?: string; heroKicker: string; heroTitle: string;
-  intro: string; introMore?: string; vision?: string; partners?: { name: string; image: string }[]; showBusinessAccreditations?: boolean; programs: { title: string; items: { name: string; note?: string; href: string }[] }[];
+  intro: string; introMore?: string; vision?: string; partners?: ReadonlyArray<{ name: string; image: string }>; showBusinessAccreditations?: boolean; programs: { title: string; items: { name: string; note?: string; href: string }[] }[];
   differentiatorTitle: string; differentiators: DifferentiatorPoint[];
   placement: {
     title: string; tagline: string[]; description: string;
@@ -23,16 +24,7 @@ export const schoolPages: Record<string, SchoolPageData> = {
     heroKicker: 'Build the Future of', heroTitle: 'Advanced Computing',
     intro: 'Within the dynamic Doon School of Advanced Computing, a progressive education that fully embraces the New Education Policy (NEP) is delivered, ensuring that the students are not only participants but leaders in the evolving world of emerging technologies.',
     introMore: 'The B.Tech CSE and BCA programmes combine computing foundations with an industry-immersive approach. Courses developed with HCLTech connect students to AI and machine learning, data science, cyber security and T-skill pathways across robotics, IoT, drone technology, iOS, full stack development and cloud computing. Students gain practical exposure through annual internships, industry projects, hackathons, Apple Labs, drone facilities and other specialist labs. MCA, M.Tech, integrated B.Tech pathways and doctoral research offer further opportunities to deepen technical expertise and pursue innovation.',
-    partners: [
-      { name: 'HCLTech', image: sitePath('/assets/academic/partner-hcl.webp') },
-      { name: 'Apple iOS Development Center', image: sitePath('/assets/academic/partner-apple.webp') },
-      { name: 'SAS', image: sitePath('/assets/academic/partner-sas.webp') },
-      { name: 'SAP', image: sitePath('/assets/academic/partner-sap.webp') },
-      { name: 'Alteryx', image: sitePath('/assets/academic/partner-alteryx.webp') },
-      { name: 'Microsoft', image: sitePath('/assets/academic/partner-microsoft.webp') },
-      { name: 'Google', image: sitePath('/assets/academic/partner-google.webp') },
-      { name: 'NVIDIA', image: sitePath('/assets/academic/partner-nvidia.webp') },
-    ],
+    partners: advancedComputingPartners,
     programs: [
       { title: 'Undergraduate', items: [
         { name: 'B.Tech CSE', href: 'https://dgu.ac.in/btech' },

@@ -25,6 +25,7 @@ function load(filename) {
 const { academicPathIdentity } = load('components/academic-clean-routes');
 const { parseAcademicInfo } = load('components/academic-page-api');
 const { academicLayout } = load('components/academic-layout');
+const { relatedSpecializations, specializationParent, mergeOtherSpecializations } = load('components/academic-specializations');
 const { apiPlain } = load('components/dgu-content-api');
 const identity = academicPathIdentity('program', '/programs/btech/');
 assert.deepEqual(JSON.parse(JSON.stringify(identity)), { slug: 'btech', recordId: '88' });
@@ -42,6 +43,8 @@ const btech = parseAcademicInfo({ error: '0', data: [{
   id: 88, url: 'btech', programName: 'B.Tech CSE', introText: 'API introduction',
   specialization: specializations,
   programTabs: [{
+    tabName: 'Advantage @DGU', tabDetails: '<p>API student features stay.</p>',
+  }, {
     tabName: 'Program specification', tabDetails: '<p>API specification text stays.</p>',
     programs: [...specializations, specializations[4], specializations[5], specializations[6],
       { id: 15, programName: 'Unrelated API programme', url: 'bca-with-specialization' }],
@@ -60,8 +63,11 @@ assert.deepEqual(Array.from(btech.relatedPrograms, program => program.href), spe
 assert.ok(btech.relatedPrograms.every(program => program.href), 'Every specialization card uses its API programme URL');
 const blocks = academicLayout(btech);
 assert.ok(blocks.some(block => block.kind === 'specializations'), 'Cards stay in the existing Program Specialization section');
-assert.equal(blocks[0].sections[0].title, 'Industry Collaboration', 'The B.Tech collaboration block follows the introduction');
-assert.equal(blocks[1].kind, 'specializations', 'Industry Collaboration now precedes Program Specialization');
+const advantageBlock = blocks.find(block => block.kind === 'tabs' && block.sections.some(section => section.title === 'Advantage @DGU'));
+assert.ok(advantageBlock?.featureCollaborations?.some(section => section.title === 'Industry Collaboration'),
+  'B.Tech parent page places industry collaboration inside Advantage @DGU student features');
+assert.equal(blocks.flatMap(block => block.sections).filter(section => section.title === 'Industry Collaboration').length, 0,
+  'B.Tech parent page does not render a duplicate standalone collaboration section');
 
 const specification = btech.tabs.find(section => section.title.trim().toLowerCase() === 'program specification');
 assert.ok(specification, 'The existing Program specification tab remains');
@@ -100,6 +106,110 @@ const specializationPage = parseAcademicInfo({ error: '0', data: [{
   accordion: [{ accordionName: 'B.Tech CSE (Lateral Entry)', accordionDetails: '<p>API accordion remains.</p>' }],
 }] }, 'program', 'btech-cse-with-minor', '13');
 assert.equal(specializationPage.accordions.length, 1, 'Individual B.Tech specialization accordions remain unchanged');
+assert.deepEqual(JSON.parse(JSON.stringify(specializationParent(specializationPage))), { slug: 'btech', id: '88' },
+  'B.Tech specializations resolve to their explicit parent programme');
+assert.equal(academicLayout(specializationPage).find(block => block.kind === 'tabs').sections.at(-1).title, 'Other Specializations',
+  'The tab is present while related parent links are loading');
+const siblingSpecializations = relatedSpecializations(btech.relatedPrograms, specializationPage);
+assert.equal(siblingSpecializations.length, specializations.length - 1, 'A specialization page receives every sibling except itself');
+assert.ok(siblingSpecializations.every(program => program.id !== specializationPage.id), 'The current specialization is excluded');
+const specializationTabs = academicLayout({ ...specializationPage, otherPrograms: siblingSpecializations })
+  .find(block => block.kind === 'tabs');
+assert.equal(specializationTabs.sections.at(-1).title, 'Other Specializations', 'Sibling cards render in the last tab');
+assert.deepEqual(Array.from(mergeOtherSpecializations([...btech.relatedPrograms], siblingSpecializations, specializationPage), program => program.id),
+  Array.from(siblingSpecializations, program => program.id), 'Direct and parent lists deduplicate and exclude the current programme');
+const collaborationPage = parseAcademicInfo({ error: '0', data: [{
+  id: 102, url: 'btech-cse-lateral-entry', programName: 'B.Tech CSE Lateral Entry',
+  areaHeading2: 'Salient Features', areaDetails2: '<ul><li>API feature point</li></ul>',
+  areaHeading3: 'Industry Collaboration', areaDetails3: '<h3>Powered by</h3><p>API partner content</p>',
+}] }, 'program', 'btech-cse-lateral-entry', '102');
+const collaborationBlocks = academicLayout(collaborationPage);
+const featureBlock = collaborationBlocks.find(block => block.sections.some(section => section.title === 'Salient Features'));
+assert.ok(featureBlock?.featureCollaborations?.some(section => section.title === 'Industry Collaboration'),
+  'B.Tech Lateral Entry places industry collaboration inside Salient Features');
+assert.ok(!collaborationBlocks.some(block => block.kind === 'industry' || block.sections.some(section => section.title === 'Industry Collaboration')),
+  'B.Tech Lateral Entry no longer renders a separate industry collaboration accordion');
+for (const [id, slug, parentSlug, parentId] of [
+  ['26', 'mba-human-resource', 'mba', '10'],
+  ['18', 'bba-specialization-digital-marketing', 'bba', '2'],
+  ['8', 'bcom-ukacca', 'bcom', '6'],
+]) {
+  assert.deepEqual(JSON.parse(JSON.stringify(specializationParent({ kind: 'program', id, slug }))), { slug: parentSlug, id: parentId },
+    `${slug} resolves only to its matching parent programme`);
+}
+assert.deepEqual(Array.from(relatedSpecializations([{ id: '14', name: 'Unrelated', href: '/programs/other/' }], specializationPage)), [],
+  'A parent list that does not contain the open page is not treated as its sibling set');
+
+const bcaPage = parseAcademicInfo({ error: '0', data: [{
+  id: 15, url: 'bca-with-specialization', programName: 'BCA with Dual Specialization',
+  introText: 'API programme overview.',
+  programMoreInfoHeading: 'Program Overview', programMoreInfo: '<p>Program overview details.</p>',
+  areaHeading2: 'Why Choose BCA with Dual Specialization?', areaDetails2: '<ul><li>API feature.</li></ul>',
+  areaHeading3: 'Industry Collaboration', areaDetails3: '<p>API industry content.</p>',
+  tabs: [
+    { tabName: 'Advantage @DGU', tabDetails: '<p>API advantage.</p>' },
+    { tabName: 'Fee Structure', tabDetails: '<p>API fees.</p>' },
+    { tabName: 'Career Opportunities', tabDetails: '<p>API career opportunities.</p>' },
+  ],
+}] }, 'program', 'bca-with-specialization', '15');
+assert.match(bcaPage.intro, /<h2>Program Overview<\/h2><p>Program overview details\.<\/p>/,
+  'BCA Program Overview is placed in the intro content');
+assert.equal(bcaPage.sections.some(section => section.title === 'Program Overview'), false,
+  'BCA Program Overview is not also rendered as a separate section');
+const bcaBlocks = academicLayout(bcaPage);
+const bcaIndustryIndex = bcaBlocks.findIndex(block => block.sections.some(section => section.title === 'Industry Collaboration'));
+const bcaTabsIndex = bcaBlocks.findIndex(block => block.kind === 'tabs');
+const bcaPlacementsIndex = bcaBlocks.findIndex(block => block.kind === 'placements');
+const bcaTabs = bcaBlocks.find(block => block.kind === 'tabs');
+assert.ok(bcaTabs?.sections.some(section => section.title === 'Career Opportunities'),
+  'BCA Career Opportunities appears alongside its other programme tabs');
+assert.equal(bcaBlocks.some(block => block.kind === 'section' && block.sections.some(section => section.title === 'Career Opportunities')), false,
+  'BCA Career Opportunities is no longer a separate section');
+assert.ok(bcaIndustryIndex > bcaTabsIndex && bcaIndustryIndex < bcaPlacementsIndex,
+  'BCA Industry Collaboration follows the feature/admission content and appears before Placements');
+assert.deepEqual(JSON.parse(JSON.stringify(bcaBlocks.slice(bcaPlacementsIndex).map(block => block.kind))),
+  ['placements', 'international', 'news', 'faqs'],
+  'BCA Placements and every section after it retain their order');
+assert.equal(bcaBlocks.flatMap(block => block.sections).filter(section => section.title === 'Industry Collaboration').length, 1,
+  'BCA industry content is moved without duplication or loss');
+
+const bcaGroupedBlocks = academicLayout({
+  ...bcaPage,
+  intro: '',
+  sections: [
+    { title: 'Choose Any Two Specializations. Build Future-Ready Technology Careers.', html: '<p>Choose two specialties.</p>' },
+    { title: 'One Degree + Any Two Specializations + Industry Certifications', html: '<p>Degree overview.</p>' },
+    { title: 'A Degree Built for Where the Jobs Are Going', html: '<p>Career-led curriculum.</p>' },
+    { title: 'Example Career Combinations', html: '<p>Career combinations.</p>' },
+    { title: 'Why Choose BCA with Dual Specialization?', html: '<ul><li>Feature.</li></ul>' },
+    { title: 'Program Overview', html: '<p>Program overview.</p>' },
+    { title: 'Choose Any Two Specializations', html: '<p>Specialization choices.</p>' },
+    { title: 'Dual Specialization + Certification Advantage', html: '<p>Certification details.</p>' },
+    { title: 'Learn Through Projects and Internships', html: '<p>Project details.</p>' },
+    { title: 'Industry Collaboration', html: '<p>Industry details.</p>' },
+  ],
+  tabs: [{ title: 'Career Opportunities', html: '<p>Career opportunities.</p>' }],
+  pathways: [],
+  accordions: [],
+});
+const bcaGroupedTitles = bcaGroupedBlocks
+  .filter(block => block.kind !== 'placements')
+  .flatMap(block => block.sections.map(section => section.title));
+assert.deepEqual(
+  JSON.parse(JSON.stringify(bcaGroupedTitles.slice(0, 10))),
+  [
+    'Choose Any Two Specializations. Build Future-Ready Technology Careers.',
+    'One Degree + Any Two Specializations + Industry Certifications',
+    'A Degree Built for Where the Jobs Are Going',
+    'Example Career Combinations',
+    'Why Choose BCA with Dual Specialization?',
+    'Program Overview',
+    'Choose Any Two Specializations',
+    'Dual Specialization + Certification Advantage',
+    'Learn Through Projects and Internships',
+    'Career Opportunities',
+  ],
+  'BCA content follows the reference grouping before its tabs and collaboration section');
 
 for (const program of [
   { id: 92, url: 'bcom', programName: 'B.Com', title: 'B.Com course details' },
@@ -113,4 +223,4 @@ for (const program of [
     `${program.programName} accordions remain unchanged`);
 }
 
-console.log('PASS: B.Tech API links render once in Program Specialization; child and unrelated programme accordions are preserved.');
+console.log('PASS: B.Tech specialization layout and BCA pre-placement content grouping; Placements and later sections stay unchanged.');

@@ -1,21 +1,35 @@
 'use client';
 import { sitePath } from './site-base';
 
-import { useCallback, useEffect, useRef, type CSSProperties, type ImgHTMLAttributes } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ImgHTMLAttributes } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { campusScenes } from './campus-life-data';
 
-function TourImage({fallback, ...props}: ImgHTMLAttributes<HTMLImageElement> & {fallback:string}) {
+function TourImage({fallback, enabled = true, src, ...props}: ImgHTMLAttributes<HTMLImageElement> & {fallback:string; enabled?:boolean}) {
   const image=useRef<HTMLImageElement>(null);
-  const replace=useCallback(()=>{const node=image.current;if(node&&!node.dataset.fallback){node.dataset.fallback='true';node.src=fallback;}},[fallback]);
-  useEffect(()=>{const node=image.current;if(node?.complete&&!node.naturalWidth)replace();},[replace]);
-  return <img {...props} alt={props.alt || 'DBS Global University campus'} ref={image} onError={replace} />;
+  const replace=useCallback(()=>{const node=image.current;if(enabled&&node&&!node.dataset.fallback){node.dataset.fallback='true';node.src=fallback;}},[enabled,fallback]);
+  useEffect(()=>{const node=image.current;if(enabled&&node?.currentSrc&&node.complete&&!node.naturalWidth)replace();},[enabled,replace]);
+  return <img {...props} src={enabled ? src : undefined} alt={props.alt || 'DBS Global University campus'} ref={image} onError={replace} />;
 }
 
 /** Faithful React conversion of the supplied GSAP master timeline. */
 export default function LifeScroll({onImage}: {onImage:(title:string,image:string)=>void}) {
   const root=useRef<HTMLDivElement>(null);
+  const [imagesEnabled,setImagesEnabled]=useState(false);
+  useEffect(()=>{
+    const node=root.current;
+    if(!node)return;
+    if(!('IntersectionObserver' in window)){
+      const frame=requestAnimationFrame(()=>setImagesEnabled(true));
+      return ()=>cancelAnimationFrame(frame);
+    }
+    const observer=new IntersectionObserver(([entry])=>{
+      if(entry.isIntersecting){setImagesEnabled(true);observer.disconnect();}
+    },{rootMargin:'700px 0px'});
+    observer.observe(node);
+    return ()=>observer.disconnect();
+  },[]);
   useEffect(()=>{
     const node=root.current;
     if(!node)return;
@@ -209,21 +223,21 @@ export default function LifeScroll({onImage}: {onImage:(title:string,image:strin
     </div>
     <div className="campus-particles" aria-hidden="true">{Array.from({length:25},(_,i)=><i key={i} style={{left:`${(i*37)%100}%`,animationDuration:`${8+(i*7)%12}s`,animationDelay:`${(i*3)%10}s`,width:`${1+i%3}px`,height:`${1+i%3}px`} as CSSProperties}/>)}</div>
     <section className="campus-hero pin-slide">
-      <TourImage className="campus-hero-bg" src={sitePath("/assets/life-night.webp")} fallback={sitePath("/assets/life-night.webp")} alt="" />
+      <TourImage className="campus-hero-bg" src={sitePath("/assets/life-night.webp")} fallback={sitePath("/assets/life-night.webp")} alt="" loading="lazy" enabled={imagesEnabled} />
       <div className="campus-hero-fog" />
       <h2 className="campus-hero-text"><span className="campus-hero-line1">Campus Life</span><span className="campus-hero-line2">AT DGU</span></h2>
       <div className="campus-hero-sub"><p>A preferred destination for students from 20+ countries and across India.</p></div>
       <div className="campus-scroll-cue"><span>Scroll</span><i /></div>
     </section>
     {campusScenes.map((scene, sceneIndex)=><section className="pin-slide" data-campus-slide={scene.id} key={scene.id}>
-      <TourImage className="tour-bg-img" src={scene.background} fallback={scene.backgroundFallback} alt="" loading="eager" />
+      <TourImage className="tour-bg-img" src={scene.background} fallback={scene.backgroundFallback} alt="" loading="lazy" enabled={imagesEnabled} />
       <div className={`tour-overlay ${scene.theme==='tour-light'?'overlay-dark':'overlay-light'}`} />
       <div className={`tour-content ${scene.theme} ${sceneIndex % 2 === 0 ? 'align-left' : 'align-right'}`}>
         <div className="tour-tag">{scene.tag}</div>
         <h2 className="tour-title">{scene.title.split('\n').map((line,index)=><span className={index === 0 ? 'tour-title-primary' : 'tour-title-secondary'} key={line}>{line}</span>)}</h2>
         <h3 className="tour-sub">{scene.subtitle}</h3>
         <p className="tour-desc">{scene.description}</p>
-        <div className="tour-photos">{scene.photos.map(photo=><button key={photo.src} onClick={event=>onImage(photo.alt,event.currentTarget.querySelector('img')?.getAttribute('src') || photo.src)} aria-label={`Enlarge ${photo.alt}`}><TourImage src={photo.src} fallback={photo.fallback} alt={photo.alt} loading="eager" /></button>)}</div>
+        <div className="tour-photos">{scene.photos.map(photo=><button key={photo.src} onClick={event=>onImage(photo.alt,event.currentTarget.querySelector('img')?.getAttribute('src') || photo.src)} aria-label={`Enlarge ${photo.alt}`}><TourImage src={photo.src} fallback={photo.fallback} alt={photo.alt} loading="lazy" enabled={imagesEnabled} /></button>)}</div>
       </div>
     </section>)}
     </div></section>;

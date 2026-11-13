@@ -161,15 +161,6 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
     else if (!info.intro && section === body.sections[0] && !wanted.has(academicSectionKey(section.title))) info.intro += `<h2>${escapeHtml(section.title)}</h2>${section.html}`;
     else add(section.title, section.html);
   });
-  // BCA's CMS body supplies its introduction under Program Overview. Move that
-  // complete block beside the form when introText is empty; do not copy it twice.
-  if (!hasContent(info.intro)) {
-    const overview = info.sections.find(section => academicSectionKey(section.title) === 'overview');
-    if (overview) {
-      info.intro = `<h2>${escapeHtml(overview.title)}</h2>${overview.html}`;
-      info.sections = info.sections.filter(section => section !== overview);
-    }
-  }
   for (const [heading, content] of publishedBody ? [] : kind === 'program'
     ? [['programMoreInfoHeading', 'programMoreInfo'], ['programOtherInfoHeading', 'programOtherInfo'], ['areaHeading2', 'areaDetails2'], ['areaHeading3', 'areaDetails3']]
     : [['areaHeading2', 'areaDetails2'], ['areaHeading3', 'areaDetails3'], ['moreHeading', 'readmore']]) {
@@ -236,6 +227,19 @@ export function parseAcademicInfo(payload: unknown, kind: AcademicKind, slug: st
       else merged.set(key, { ...section });
     }
     list.splice(0, list.length, ...merged.values());
+  }
+  if (kind === 'program' && slug === 'bca-with-specialization') {
+    const lists = [info.tabs, info.pathways, info.sections, info.accordions];
+    const overviews = lists.flatMap(list => list.filter(section => academicSectionKey(section.title) === 'overview'));
+    for (const list of lists) {
+      list.splice(0, list.length, ...list.filter(section => academicSectionKey(section.title) !== 'overview'));
+    }
+    if (overviews.length) {
+      const overviewContent = overviews
+        .map(section => `<h2>${escapeHtml(section.title)}</h2>${section.html}`)
+        .reduce(mergeAcademicBody, '');
+      info.intro = mergeAcademicBody(info.intro, overviewContent);
+    }
   }
   // B.Com CPA: pull the CPA-specific headings from whichever API bucket
   // the CMS parser assigned, then expose them as a dedicated tab after Scholarship.

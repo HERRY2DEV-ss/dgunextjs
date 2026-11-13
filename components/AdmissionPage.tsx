@@ -12,6 +12,7 @@ import ExpandableText from './ExpandableText';
 import { apiPlain } from './dgu-content-api';
 import { requestAdmissions, type AdmissionData, type AdmissionSchool, type FeeSchool } from './admissions-api';
 import { admissionDetail, admissionDetailHref } from './admissions-routes';
+import PageTitleStrip from './PageTitleStrip';
 
 function AdmissionPageContent() {
   const menuOpen = usePageMenuOpen();
@@ -121,7 +122,7 @@ function AdmissionPageContent() {
         </div> : <>
           <section className={`admissions-opening${data.banner ? '' : ' admissions-opening--no-banner'}`} id="home" aria-labelledby="admissions-title">
             {data.banner && <div className="admissions-banner"><img src={data.banner} width="1105" height="352" alt={data.title} /></div>}
-            <h1 id="admissions-title">{data.title}</h1>
+            {data.banner ? <PageTitleStrip id="admissions-title" title={data.title} /> : <h1 id="admissions-title">{data.title}</h1>}
             {data.intro && <ApiRichText className="admissions-intro admissions-rich-copy" html={data.intro} />}
           </section>
           {(data.processTitle || data.feeTitle || data.resources.length || data.commencement) && <nav className="admissions-section-links" aria-label="Admissions resources">

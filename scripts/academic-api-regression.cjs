@@ -3,6 +3,14 @@ const fs = require('node:fs'), path = require('node:path'), vm = require('node:v
 const assert = require('node:assert/strict'), ts = require('typescript');
 const academicPageSource = fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8');
 const academicApiCss = fs.readFileSync(path.resolve('components/academic-api.css'),'utf8');
+assert.match(academicPageSource,/academicSectionKey\(section\.title\)==='features' && info\.slug!=='bba-mba-integrated'/,
+  'BBA–MBA salient-feature points render in the shared wave instead of the plain-text feature list');
+assert.match(academicApiCss, /\.academic-api-page \.academic-api-gallery \{ display:flex;flex-direction:column;/,
+  'Academic gallery sliders put their controls below the cards on school and programme pages');
+assert.match(academicApiCss, /\.academic-api-page \.academic-api-gallery \.batch-controls \{ order:1;display:flex;[^}]*justify-content:center;/,
+  'Academic gallery arrows are centered below the cards rather than beside or against them');
+assert.match(academicApiCss, /\.academic-api-page \.academic-api-gallery \.batch-page \{ display:flex;gap:20px;/,
+  'Academic gallery cards retain a visible gap');
 assert.match(academicPageSource,/ProgramLinks items=\{block\.kind==='specializations' \? info\.relatedPrograms : info\.otherPrograms\}/,'B.Tech API specializations use the existing Program Specialization card design');
 assert.doesNotMatch(academicPageSource,/btech-specializations|Explore B\.Tech Specializations/,'B.Tech specializations are not wrapped in an extra accordion');
 assert.doesNotMatch(academicPageSource,/ProgramSpecializationTiles/,'Programme specializations do not introduce a replacement card design');
@@ -45,6 +53,54 @@ function load(filename, globals = {}) {
 }
 (async()=>{
   const programs=load('components/programs-api'),academic=load('components/academic-page-api'),features=load('components/academic-features'),tabContent=load('components/academic-tab-content',{DOMParser:TestDOMParser}),seo=load('components/academic-seo-metadata');
+  const gnm=academic.parseAcademicInfo({error:'0',data:[{id:58,url:'general-nursing-and-midwifery',
+    programName:'API General Nursing and Midwifery',introText:'API introduction',videoSrc:'/media/gnm-campus.mp4'}]},
+    'program','general-nursing-and-midwifery','58');
+  assert.equal(gnm.intro,'<p>API introduction</p>','GNM keeps its API-provided introduction unchanged');
+  assert.equal(gnm.video,'https://dgu.ac.in/media/gnm-campus.mp4','GNM keeps its API-provided video URL');
+  assert.equal(load('components/academic-layout').academicLayout(gnm)[0].kind,'video',
+    'GNM places its API-backed video immediately after the introduction');
+  const gnmWithCareerProspects=academic.parseAcademicInfo({error:'0',data:[{id:58,url:'general-nursing-and-midwifery',
+    programName:'API General Nursing and Midwifery',programTabs:[
+      {tabName:'Advantage @DGU',tabDetails:'<p>API advantages.</p>'},
+      {tabName:'Global Career Pathways',tabDetails:'<h4>Holistic Learning</h4><p>API career guidance.</p>'},
+    ]}]},'program','general-nursing-and-midwifery','58');
+  const gnmBlocks=load('components/academic-layout').academicLayout(gnmWithCareerProspects);
+  const gnmTabsIndex=gnmBlocks.findIndex(block=>block.kind==='tabs');
+  const gnmGraphicIndex=gnmBlocks.findIndex(block=>block.kind==='career-prospects');
+  const gnmGlobalCareerTab=gnmBlocks[gnmTabsIndex]?.sections.find(section=>section.title==='Global Career Pathways');
+  assert.ok(gnmTabsIndex>=0&&gnmGraphicIndex>gnmTabsIndex&&gnmGlobalCareerTab,
+    'GNM places API global career pathways in the admission tabs above the career prospects graphic');
+  assert.equal(gnmGlobalCareerTab.html,'<h4>Holistic Learning</h4><p>API career guidance.</p>',
+    'GNM global career pathways content remains the exact API HTML');
+  const gnmWithFutureTab=academic.parseAcademicInfo({error:'0',data:[{id:58,url:'general-nursing-and-midwifery',
+    programName:'API General Nursing and Midwifery',programTabs:[
+      {tabName:'Advantage @DGU',tabDetails:'<p>Updated API advantages.</p>'},
+      {tabName:'Global Career Pathways',tabDetails:'<p>Updated pathway copy.</p>'},
+      {tabName:'Future Academic Tab',tabDetails:'<p>Future tab content.</p>'},
+    ]}]},'program','general-nursing-and-midwifery','58');
+  const gnmFutureTabBlocks=load('components/academic-layout').academicLayout(gnmWithFutureTab);
+  const gnmFutureTabs=gnmFutureTabBlocks.filter(block=>block.kind==='tabs');
+  assert.equal(gnmFutureTabs.length,1,'Future GNM API tabs remain in the existing tab group');
+  assert.equal(gnmFutureTabs[0].sections.find(section=>section.title==='Future Academic Tab')?.html,'<p>Future tab content.</p>',
+    'Future GNM tab labels and copy continue to come from the API');
+  const gnmWithPlacements={...gnmWithCareerProspects,students:[{name:'GNM graduate',company:'API hospital',image:''}],
+    sections:[{title:'Placements',html:'<p>API placement content.</p>'}]};
+  const gnmBlocksWithoutPlacements=load('components/academic-layout').academicLayout(gnmWithPlacements);
+  assert.ok(!gnmBlocksWithoutPlacements.some(block=>block.kind==='placements'
+    || block.sections.some(section=>load('components/academic-section-key').academicSectionKey(section.title)==='placements')),
+    'GNM omits placements content and the recruiter block even when the API supplies it');
+  assert.equal(load('components/academic-section-key').academicSectionKey('Global Career Pathways'),'global-pathway',
+    'GNM global career pathway tabs resolve to their custom API renderer');
+  const gnmGraphicSource=fs.readFileSync(path.resolve('components/GnmCareerProspects.tsx'),'utf8');
+  assert.equal((gnmGraphicSource.match(/side: 'left'/g)||[]).length,3,'The GNM career graphic has three left-side PDF roles');
+  assert.equal((gnmGraphicSource.match(/side: 'right'/g)||[]).length,3,'The GNM career graphic has three right-side PDF roles');
+  const gnmWithoutVideo=academic.parseAcademicInfo({error:'0',data:[{id:58,url:'general-nursing-and-midwifery',
+    programName:'API General Nursing and Midwifery',introText:'API introduction'}]},
+    'program','general-nursing-and-midwifery','58');
+  assert.equal(gnmWithoutVideo.video,'','A missing GNM API video remains missing in the parsed API content');
+  assert.match(fs.readFileSync(path.resolve('components/AcademicApiPage.tsx'),'utf8'),/info\.video \|\| \(gnm \? sitePath\('\/assets\/mba\.mp4'\) : ''\)/,
+    'GNM uses the existing campus video only when the API does not provide one');
   const btechSeo=seo.parseProgrammeSeoMetadata({error:'0',data:[{meta_title:'API B.Tech title',meta_desc:'API B.Tech description',meta_keywords:'B.Tech, engineering',meta_canonical:'btech'}]},'btech');
   assert.deepEqual(JSON.parse(JSON.stringify(btechSeo)),{title:'API B.Tech title',description:'API B.Tech description',keywords:'B.Tech, engineering',canonical:''},
     'Only exact API metadata fields are used; slug-only canonical values do not become fabricated URLs');
@@ -290,10 +346,16 @@ function load(filename, globals = {}) {
   assert.ok(load('components/academic-layout').academicLayout(btechRelated).some(block=>block.kind==='specializations'),
     'B.Tech specialization links render through the existing Program Specialization section');
   const btechSpecializationPage=academic.parseAcademicInfo({error:'0',data:[{id:102,url:'btech-cse-with-minor',programName:'B.Tech CSE with Minor',introText:'API intro',
+    programTabs:[{tabName:'Advantage @ DGU',tabDetails:'<p>API advantages.</p>'},{tabName:'Salient Features',tabDetails:'<p>API features.</p>'}],
+    otherSpecializations:[{id:103,programName:'B.Tech CSE Lateral Entry',url:'btech-cse-lateral-entry'}],
     accordion:[{accordionName:'B.Tech CSE (Lateral Entry)',accordionDetails:'<p><a href="/btech-cse-lateral-entry">B.Tech CSE (Lateral Entry)</a></p>'}]}]},
     'program','btech-cse-with-minor','102');
   assert.equal(btechSpecializationPage.accordions.length,1,'The B.Tech parent-page cleanup does not remove accordions from individual specialization pages');
   assert.equal(btechSpecializationPage.relatedPrograms.length,0,'Individual specialization pages keep their own specialization data unchanged');
+  const btechSpecializationTabs=load('components/academic-layout').academicLayout(btechSpecializationPage)
+    .find(block=>block.kind==='tabs'&&block.sections.some(section=>section.title==='Advantage @ DGU'));
+  assert.equal(btechSpecializationTabs.sections.at(-1).title,'Other Specializations','Every specialization tab row ends with Other Specializations');
+  assert.equal(btechSpecializationTabs.sections.at(-1).html,'','Specialization cards remain API data, not duplicated into tab HTML');
   const other=academic.parseAcademicInfo({error:'0',data:[{id:26,programName:'API HR',introText:'API intro',
     programTabs:[{tabName:'Eligibility Criteria',tabDetails:'<p>API eligibility.</p>'},{tabName:'Other Specializations',tabDetails:'<p>API related choices.</p>',programs:[{id:27,programName:'API Finance',url:'mba-finance'}]}],
     otherSpecializations:[{id:26,programName:'Current programme',url:'mba-human-resource'},{id:27,programName:'API Finance',url:'mba-finance'},{id:28,programName:'API IB',url:'mba-international-business'}],

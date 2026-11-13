@@ -20,9 +20,10 @@
 .page :global(.dgu-api-copy) table { width:100%; border-collapse:collapse; }
 .page :global(.dgu-api-copy) th,.page :global(.dgu-api-copy) td { padding:10px; border:1px solid #e4dce6; }
 .shell { width:min(86%,1644px); margin-inline:auto; }
-.heroBand { padding:calc(var(--dgu-header-height,132px) + 42px) 20px 155px; color:#fff; background:var(--purple); }
-.heroBand h1 { max-width:1000px; margin:0 auto; text-align:center; text-transform:uppercase; }
-.heroWrap { width:min(100%,1800px); margin-top:-118px; position:relative; }
+.heroWrap { width:min(100%,1800px); margin-top:calc(var(--dgu-header-height,96px) + 24px); position:relative; }
+.page :global(.dgu-page-title-strip) { background:#f2f4f7; }
+.page :global(.dgu-page-title-strip h1) { width:min(91%,1710px); margin:0 auto; padding:22px 0 34px; color:#071d42; font-size:clamp(26px,2.35vw,34px)!important; line-height:1.2!important; font-weight:600; text-align:left; }
+.page :global(.dgu-page-title-strip h1)::after { position:absolute; bottom:14px; left:0; width:31px; height:4px; background:#68176b; content:''; }
 .hero { display:block; width:100%; padding:0; border:0; text-align:left; position:relative; overflow:hidden; aspect-ratio:921 / 294; background:#e9e6e2; }
 button.hero { cursor:pointer; }
 .hero>img { width:100%; height:100%; object-fit:cover; }
@@ -195,7 +196,6 @@ button:hover>.play { scale:1.07; }
 @media(min-width:1500px) { .initiativeList,.newsList { max-height:710px; } }
 @media(max-width:1050px) {
   .shell { width:90%; }
-  .heroBand { padding-top:calc(var(--dgu-header-height,100px) + 30px); }
   .opportunityPanel { padding-inline:12px; }
   .opportunityCards>a { gap:16px; padding:16px; }
   .opportunityCards>a img { height:150px; }
@@ -219,8 +219,7 @@ button:hover>.play { scale:1.07; }
 }
 @media(max-width:760px) {
   .page { padding-bottom:45px; }
-  .heroBand { padding-bottom:90px; }
-  .heroWrap { margin-top:-66px; }
+  .heroWrap { margin-top:calc(var(--dgu-header-height,82px) + 24px); }
   .hero { aspect-ratio:2.25; }
   .hero>img { object-position:65% center; }
   .hero>span:not(.play) { max-width:49%; font-size:clamp(18px,3.8vw,29px); bottom:9%; }
@@ -258,9 +257,7 @@ button:hover>.play { scale:1.07; }
 }
 @media(max-width:500px) {
   .shell,.heroWrap { width:90%; }
-  .heroBand { padding:calc(var(--dgu-header-height,90px) + 26px) 16px 76px; }
-  .heroBand h1 { font-size:24px!important; }
-  .heroWrap { margin-top:-56px; }
+  .heroWrap { margin-top:calc(var(--dgu-header-height,90px) + 24px); }
   .hero { aspect-ratio:1.7; }
   .hero>span:not(.play) { max-width:65%; left:5%; font-size:20px; }
   .page { --copy-size:15px; }

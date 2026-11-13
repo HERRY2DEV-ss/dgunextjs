@@ -8,6 +8,7 @@ import StepSlider from './StepSlider';
 import InternationalCountryMap from './InternationalCountryMap';
 import { usePageMenuOpen } from './LocalPageShell';
 import { SITE_BASE } from './site-base';
+import PageTitleStrip from './PageTitleStrip';
 import { resolveSiteHref } from './site-routes';
 import { requestInternationalContent, type InternationalBlock, type InternationalContent, type InternationalPhoto, type InternationalUpdate } from './international-page-data';
 import { hostelVideo, type HostelVideo } from './hostel-page-data';
@@ -161,11 +162,11 @@ export default function InternationalPage() {
   </div>;
 
   return <main ref={root} className={styles.page} id="international-content">
-    <div className={styles.heroBand}><h1>{content?.title || 'Office of International Affairs'}</h1></div>
     <div className={`${styles.shell} ${styles.heroWrap}`} data-navigation-opening>
       {hero ? <button className={styles.hero} type="button" onClick={() => setModal({ kind: 'video', video: { ...hero, title: 'Connecting Continents, Shaping Futures' } })} aria-label="Play Connecting Continents, Shaping Futures"><img src={asset('hero.jpeg')} alt="A globe connecting continents" /><Play /><span>{content?.tagline || 'Connecting Continents, Shaping Futures'}</span></button>
         : <div className={styles.hero}><img src={asset('hero.jpeg')} alt="A globe connecting continents" /><span>{content?.tagline || 'Connecting Continents, Shaping Futures'}</span></div>}
     </div>
+    <PageTitleStrip title={content?.title || 'Office of International Affairs'} />
     {status !== 'ready' && <div className={`${styles.shell} ${styles.status}`} role={status === 'error' ? 'alert' : 'status'}>
       <p>{status === 'loading' ? 'Loading international opportunities…' : 'International information is temporarily unavailable.'}</p>
       {status === 'error' && <button type="button" onClick={() => setRequest(value => value + 1)}>Try again</button>}

@@ -96,7 +96,6 @@ export default function GlobalLearning({
   const count = photos.length;
   const activeIndex = count ? active % count : 0;
   const [paused, setPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const pointerStart = useRef<{ id: number; x: number; y: number } | null>(null);
   const suppressClickUntil = useRef(0);
@@ -116,7 +115,7 @@ export default function GlobalLearning({
   };
 
   useEffect(() => {
-    if (count < 2 || pagePaused || paused || hovered || focused || !sectionVisible) return;
+    if (count < 2 || pagePaused || paused || focused || !sectionVisible) return;
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let timer: ReturnType<typeof setInterval> | undefined;
     const restart = () => {
@@ -133,7 +132,7 @@ export default function GlobalLearning({
       document.removeEventListener('visibilitychange', restart);
       motion.removeEventListener('change', restart);
     };
-  }, [count, pagePaused, paused, hovered, focused, sectionVisible]);
+  }, [count, pagePaused, paused, focused, sectionVisible]);
 
   useEffect(() => {
     const section = mapRef.current;
@@ -167,8 +166,6 @@ export default function GlobalLearning({
       </div>
 
       {count > 0 && <div className={styles.gallery} role="region" aria-roledescription="carousel" aria-label="International learning photo gallery"
-        onPointerEnter={event => { if (event.pointerType === 'mouse') setHovered(true); }}
-        onPointerLeave={event => { if (event.pointerType === 'mouse') setHovered(false); }}
         onPointerDown={event => {
           if (event.button !== 0 || (event.target as HTMLElement).closest(`.${styles.controls}`)) return;
           pointerStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY };

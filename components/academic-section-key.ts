@@ -8,11 +8,13 @@ export function academicSectionKey(value: string): string {
   if (/^news/.test(title)) return 'news';
   if (/^faq|frequently asked/.test(title)) return 'faqs';
   if (/^(?:(?:program|course) )?overview$/.test(title)) return 'overview';
+  if (/^choose any two specializations? build future ready technology careers$/.test(title)) return 'specialization-intro';
+  if (/^choose any two specializations?$/.test(title)) return 'specialization-options';
   if (/^why choose global mba/.test(title)) return 'global-difference';
   if (/^(?:why choose|what makes|what sets|why .*school|research strengths)/.test(title)) return 'difference';
   if (/global learning|study abroad|international section|international opportunities|global immersion|student education immersion/.test(title)) return 'international';
   if (/options at a glance|program comparison|comparison chart/.test(title)) return 'options';
-  if (/global pathway|sap and sas pathway/.test(title)) return /sap and sas/.test(title) ? 'sap-pathway' : 'global-pathway';
+  if (/global (?:career )?pathway|sap and sas pathway/.test(title)) return /sap and sas/.test(title) ? 'sap-pathway' : 'global-pathway';
   if (/learn across borders|hands on international exposure|choice of universities/.test(title)) return 'across-borders';
   if (/fee structure|fees? and charges/.test(title)) return 'fees';
   if (/eligib/.test(title)) return 'eligibility';

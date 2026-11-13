@@ -17,10 +17,10 @@ const accreditations = [
 ];
 
 type IntroData = Pick<SchoolPageData, 'name' | 'slug' | 'intro' | 'introMore' | 'vision' | 'partners' | 'showBusinessAccreditations'>;
-export default function SchoolIntroSection({ data, reference = false, contentHtml, recognitions, recognitionTitle, form, children, previewWords = 72, previewHeightOverride, introContent }: {
+export default function SchoolIntroSection({ data, reference = false, contentHtml, recognitions, recognitionTitle, form, children, previewWords = 72, previewHeightOverride, introContent, introAfter }: {
   data: IntroData; reference?: boolean; contentHtml?: string;
   recognitions?: ReadonlyArray<{ image: string; alt: string }>; recognitionTitle?: string;
-  form?: ReactNode; children?: ReactNode; previewWords?: number; previewHeightOverride?: { desktop: number; mobile: number }; introContent?: ReactNode;
+  form?: ReactNode; children?: ReactNode; previewWords?: number; previewHeightOverride?: { desktop: number; mobile: number }; introContent?: ReactNode; introAfter?: ReactNode;
 }) {
   const enquiry = useRef<HTMLElement>(null), extras = useRef<HTMLDivElement>(null);
   const [previewHeight, setPreviewHeight] = useState(220);
@@ -45,6 +45,7 @@ export default function SchoolIntroSection({ data, reference = false, contentHtm
           <p className="school-intro-description">{data.intro}</p>
           {data.introMore && <ExpandableText text={data.introMore} collapseAll className="school-intro-extra" />}
         </>)}
+        {introAfter}
         <div ref={extras} className="academic-intro-extras">{children}
 
         {data.partners && <div className="school-technology-partners" aria-label="Delivery, technology and certification partners">

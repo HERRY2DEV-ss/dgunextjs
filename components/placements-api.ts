@@ -31,8 +31,14 @@ export const SCHOOL_PLACEMENTS_FILTER_VERIFIED = false;
 
 export function parsePlacements(payload: unknown): PlacementsData {
   const root = apiRecord(payload);
-  if (!root || String(root.error) !== '0' || !Array.isArray(root.data)) {
-    return { sections: [], students: [] };
+  if (!root || String(root.error) !== '0' || !Array.isArray(root.data) ||
+      root.data.some(item => {
+        const record = apiRecord(item);
+        if (!record) return true;
+        const rawPlacements = apiValue(apiFields(record), 'placements', 'placement_list', 'students');
+        return !Array.isArray(rawPlacements) || rawPlacements.some(student => !apiRecord(student));
+      })) {
+    throw new Error('The Placements API returned an invalid response.');
   }
 
   const sections: PlacementSection[] = root.data.flatMap(item => {
@@ -181,4 +187,36 @@ export function requestPlacements(identifier = '', isProgram = false): Promise<P
 
   pending.set(cacheKey, request);
   return request;
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : 'Unknown request error';
+}
+
+export async function requestPlacementsWithSchoolFallback(
+  programSlug: string,
+  schoolSlug: string | null,
+): Promise<PlacementsData> {
+  let programData: PlacementsData;
+  try {
+    programData = await requestPlacements(programSlug, true);
+  } catch (programError) {
+    if (!schoolSlug) throw programError;
+    try {
+      return await requestPlacements(schoolSlug, false);
+    } catch (schoolError) {
+      throw new Error(
+        `Unable to load programme placements (${errorMessage(programError)}) or related school placements (${errorMessage(schoolError)}).`,
+      );
+    }
+  }
+
+  if (programData.students.length > 0 || !schoolSlug) return programData;
+  try {
+    return await requestPlacements(schoolSlug, false);
+  } catch (schoolError) {
+    throw new Error(
+      `No programme placement students were returned, and related school placements could not be loaded: ${errorMessage(schoolError)}`,
+    );
+  }
 }

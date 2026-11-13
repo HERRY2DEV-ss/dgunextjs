@@ -4,22 +4,27 @@ import { academicSectionKey } from './academic-section-key';
 import type { AcademicInfo, AcademicSection } from './academic-page-api';
 import { mergeAcademicBody } from './academic-html';
 import { academicFeaturePointCount, academicFeaturePresentation } from './academic-features';
+import { specializationParent } from './academic-specializations';
+import { placementSchoolUrl } from './academic-placement-school';
 
 export type AcademicBlock = {
-  kind: 'section' | 'tabs' | 'accordion' | 'industry' | 'laboratories' | 'tracks' | 'programs' | 'specializations' | 'other-programs' | 'placements' | 'international' | 'news' | 'faculty' | 'testimonials' | 'faqs' | 'video';
+  kind: 'section' | 'tabs' | 'accordion' | 'industry' | 'laboratories' | 'tracks' | 'programs' | 'specializations' | 'other-programs' | 'placements' | 'international' | 'news' | 'faculty' | 'testimonials' | 'faqs' | 'video' | 'career-prospects';
   title: string; sections: AcademicSection[]; nested?: { parent: string; titles: string[] }[];
   lead?:AcademicSection[];
+  featureCollaborations?: AcademicSection[];
 };
 
 /** Each supplied section is consumed once; unmatched API content remains visible. */
 export function academicLayout(info: AcademicInfo): AcademicBlock[] {
-  if (isAdvancedComputing(info)) return advancedComputingLayout(info);
+  if (isAdvancedComputing(info)) return addOtherSpecializationsTab(advancedComputingLayout(info), info);
   const sections = [...info.pathways, ...info.tabs, ...info.sections, ...info.accordions];
   const used = new Set<AcademicSection>(), blocks: AcademicBlock[] = [];
   const steps = academicFlow(info.slug, info.kind, info.id);
   const take = (title: string) => {
     const key = academicSectionKey(title);
-    const matches = sections.filter(section => !used.has(section) && academicSectionKey(section.title) === key);
+    const matches = info.slug==='general-nursing-and-midwifery' && title==='Career Prospects'
+      ? []
+      : sections.filter(section => !used.has(section) && academicSectionKey(section.title) === key);
     matches.forEach(section => used.add(section));
     // Combine split parts without replacing the original heading or losing tables.
     if (!matches.length) return [];
@@ -37,8 +42,10 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     }
     const title=step.headings[0],key=academicSectionKey(title);
     const selected=take(title);
-    const special: Record<string,AcademicBlock['kind']> = {programs:'programs',specializations:'specializations','other-programs':'other-programs',placements:'placements',international:'international',news:'news',faculty:'faculty',faqs:'faqs',video:'video'};
-    const kind=info.slug==='mba-human-resource' && title==='MBA in Human Resource Tracks' ? 'tracks' : special[key] || 'section';
+    const special: Record<string,AcademicBlock['kind']> = {programs:'programs',specializations:'specializations','other-programs':'other-programs',placements:'placements',international:'international',news:'news',faculty:'faculty',faqs:'faqs',video:'video',...(info.slug==='general-nursing-and-midwifery' ? {'career-prospects':'career-prospects'} : {})};
+    const kind=info.slug==='general-nursing-and-midwifery' && title==='Career Prospects'
+      ? 'career-prospects'
+      : info.slug==='mba-human-resource' && title==='MBA in Human Resource Tracks' ? 'tracks' : special[key] || 'section';
     blocks.push({kind,title,sections:selected});
   }
   // New CMS headings not in the guide are retained before the shared page ending.
@@ -55,6 +62,14 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
   }
   const end=blocks.findIndex(block=>['international','news','faculty','faqs'].includes(block.kind));
   blocks.splice(end<0 ? blocks.length : end,0,...extras);
+  if(info.slug==='general-nursing-and-midwifery'){
+    const tabGroups=blocks.filter(block=>block.kind==='tabs');
+    const primary=tabGroups[0];
+    if(primary)for(const group of tabGroups.slice(1)){
+      primary.sections.push(...group.sections);
+      blocks.splice(blocks.indexOf(group),1);
+    }
+  }
   // Programme specifications use the shared wave before their admission tabs.
   if (info.kind === 'program') for (let index = 0; index < blocks.length; index++) {
     const block = blocks[index];
@@ -97,30 +112,33 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
   }
   // Careers belong with admission/structure tabs on every school and programme.
   const careers:AcademicSection[]=[];
-  for(const block of blocks){block.sections=block.sections.filter(section=>{
-    const key=academicSectionKey(section.title);
-    // Global MBA explicitly places "Where This MBA Can Take You" in its
-    // dedicated accordion group. Do not let the generic career-tab rule
-    // pull that API section out of the page-specific flow.
-    if(key==='global-careers' && info.slug==='dgu-global-mba')return true;
-    if(['careers','global-careers'].includes(key)){careers.push(section);return false;}
-    return true;
-  });}
+  if(info.slug!=='general-nursing-and-midwifery')for(const block of blocks){block.sections=block.sections.filter(section=>{
+      const key=academicSectionKey(section.title);
+      // Global MBA explicitly places "Where This MBA Can Take You" in its
+      // dedicated accordion group. Do not let the generic career-tab rule
+      // pull that API section out of the page-specific flow.
+      if(key==='global-careers' && info.slug==='dgu-global-mba')return true;
+      if(['careers','global-careers'].includes(key)){
+        careers.push(section);return false;
+      }
+      return true;
+    });}
   if(careers.length){
     let group=blocks.find(block=>block.kind==='tabs'&&block.sections.some(s=>['structure','eligibility','fees','scholarship','advantage'].includes(academicSectionKey(s.title)))) || blocks.find(block=>block.kind==='tabs');
     if(!group){group={kind:'tabs',title:'',sections:[]};const ending=blocks.findIndex(b=>['placements','international','news','faculty','faqs'].includes(b.kind));blocks.splice(ending<0?blocks.length:ending,0,group);}
     group.sections.push(...(info.slug==='bcom' ? careers.map(section=>({...section,title:'Outcomes'})) : careers));
   }
-  // Related specialization links use the same admission tab row and the same
-  // three-card presentation as the parent Programme Specialization section.
-  const otherSections:AcademicSection[]=[];
-  for(const block of blocks)block.sections=block.sections.filter(section=>{
-    if(academicSectionKey(section.title)==='other-programs'){otherSections.push(section);return false;}return true;
-  });
-  if(info.otherPrograms.length || otherSections.length){
-    let group=blocks.find(block=>block.kind==='tabs'&&block.sections.some(section=>['structure','eligibility','fees','scholarship','advantage'].includes(academicSectionKey(section.title)))) || blocks.findLast(block=>block.kind==='tabs');
-    if(!group){group={kind:'tabs',title:'',sections:[]};const ending=blocks.findIndex(block=>['placements','international','news','faculty','faqs'].includes(block.kind));blocks.splice(ending<0?blocks.length:ending,0,group);}
-    group.sections.push({title:otherSections[0]?.title || 'Other Specializations',html:otherSections.reduce((copy,section)=>mergeAcademicBody(copy,section.html),'')});
+  if(info.slug==='btech'){
+    const higherEducation:AcademicSection[]=[];
+    for(const block of blocks)block.sections=block.sections.filter(section=>{
+      if(academicSectionKey(section.title)==='higher-education'){higherEducation.push(section);return false;}
+      return true;
+    });
+    if(higherEducation.length){
+      let group=blocks.find(block=>block.kind==='tabs'&&block.sections.some(section=>['advantage','structure','eligibility','fees','scholarship'].includes(academicSectionKey(section.title)))) || blocks.find(block=>block.kind==='tabs');
+      if(!group){group={kind:'tabs',title:'',sections:[]};const ending=blocks.findIndex(block=>['placements','international','news','faculty','faqs'].includes(block.kind));blocks.splice(ending<0?blocks.length:ending,0,group);}
+      group.sections.push(...higherEducation);
+    }
   }
   if(info.programOptions?.length)blocks.unshift({kind:'tabs',title:'Program Options',sections:info.programOptions});
   // Keep the curriculum introduction and its four collaborations together once.
@@ -137,9 +155,10 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     const specializations=blocks.findIndex(block=>block.kind==='specializations');
     blocks.splice(specializations<0 ? 0 : specializations+1,0,{kind:'tracks',title:info.tracksHeading,sections:[]});
   }
-  // Some legacy guides omit the placements heading even though their API has
-  // correctly related students. Render the same shared gallery for those records.
-  if(info.students.length && !blocks.some(block=>block.kind==='placements')) {
+  // Keep a placements slot for related-school fallback even when the guide
+  // omits the heading and this program has no programme-specific students.
+  const hasRelatedSchoolPlacements = info.kind === 'program' && !!placementSchoolUrl(info);
+  if((info.students.length || hasRelatedSchoolPlacements) && !blocks.some(block=>block.kind==='placements')) {
     const ending=blocks.findIndex(block=>['international','news','faculty','faqs'].includes(block.kind));
     blocks.splice(ending<0 ? blocks.length : ending,0,{kind:'placements',title:'Placements',sections:[]});
   }
@@ -151,15 +170,85 @@ export function academicLayout(info: AcademicInfo): AcademicBlock[] {
     const faqs = blocks.findIndex(block => block.kind === 'faqs');
     blocks.splice(faqs < 0 ? blocks.length : faqs, 0, { kind: 'testimonials', title: 'Student Testimonials', sections: [] });
   }
-  if (isBtechProgramPage(info)) {
-    const collaborationSections = blocks.flatMap(block =>
-      block.sections.filter(section => academicSectionKey(section.title) === 'industry'));
-    if (collaborationSections.length) {
-      for (const block of blocks) {
-        block.sections = block.sections.filter(section => !collaborationSections.includes(section));
-      }
-      blocks.unshift({ kind: 'section', title: '', sections: collaborationSections });
+  if(info.slug==='general-nursing-and-midwifery'){
+    for(const block of blocks)block.sections=block.sections.filter(section=>academicSectionKey(section.title)!=='placements');
+  }
+  if (info.kind === 'program' && info.slug === 'bca-with-specialization') {
+    const placementIndex = blocks.findIndex(block => block.kind === 'placements');
+    const industryBlocks = blocks.filter(block =>
+      block.kind !== 'tabs' && block.kind !== 'accordion' &&
+      block.sections.length > 0 &&
+      block.sections.every(section => academicSectionKey(section.title) === 'industry'));
+    if (placementIndex >= 0 && industryBlocks.length) {
+      for (const block of industryBlocks) blocks.splice(blocks.indexOf(block), 1);
+      const nextPlacementIndex = blocks.findIndex(block => block.kind === 'placements');
+      blocks.splice(nextPlacementIndex, 0, ...industryBlocks);
     }
   }
+  if (isBtechProgramPage(info)) {
+    const featureBlock = blocks.find(block => info.slug === 'btech'
+      ? block.kind === 'tabs' && block.sections.some(section => academicSectionKey(section.title) === 'advantage')
+      : block.sections.some(section => academicSectionKey(section.title) === 'features'));
+    if (featureBlock) {
+      const collaborationSections = [...new Map(blocks.flatMap(block => [
+        ...(block.kind === 'industry' ? [...(block.lead || []), ...block.sections] : []),
+        ...block.sections.filter(section => academicSectionKey(section.title) === 'industry'),
+      ]).map(section => [`${academicSectionKey(section.title)}:${section.html}`, section])).values()];
+      if (collaborationSections.length) {
+        for (const block of blocks) {
+          block.sections = block.sections.filter(section => academicSectionKey(section.title) !== 'industry');
+          if (block.kind === 'industry') {
+            block.sections = [];
+            block.lead = [];
+          }
+        }
+        featureBlock.featureCollaborations = [
+          ...(featureBlock.featureCollaborations || []),
+          ...collaborationSections,
+        ];
+      }
+    } else {
+      const collaborationSections = blocks.flatMap(block =>
+        block.sections.filter(section => academicSectionKey(section.title) === 'industry'));
+      if (collaborationSections.length) {
+        for (const block of blocks) {
+          block.sections = block.sections.filter(section => academicSectionKey(section.title) !== 'industry');
+        }
+        blocks.unshift({ kind: 'section', title: '', sections: collaborationSections });
+      }
+    }
+  }
+  const visibleBlocks=blocks.filter(block=>
+    !(info.slug==='general-nursing-and-midwifery' && block.kind==='placements') &&
+    (!['tabs','accordion','section','industry'].includes(block.kind)||block.sections.length>0));
+  return addOtherSpecializationsTab(visibleBlocks,info);
+}
+
+function addOtherSpecializationsTab(blocks:AcademicBlock[],info:AcademicInfo):AcademicBlock[] {
+  if(info.kind!=='program')return blocks;
+  const otherSections:AcademicSection[]=[];
+  for(const block of blocks)block.sections=block.sections.filter(section=>{
+    if(academicSectionKey(section.title)==='other-programs'){otherSections.push(section);return false;}
+    return true;
+  });
+  if(!info.otherPrograms.length&&!otherSections.length&&!specializationParent(info))return blocks;
+  const tabGroups=blocks.filter(block=>block.kind==='tabs');
+  const primary=tabGroups.find(block=>block.sections.some(section=>['advantage','features'].includes(academicSectionKey(section.title))))
+    || tabGroups.find(block=>block.sections.some(section=>['structure','eligibility','fees','scholarship'].includes(academicSectionKey(section.title))))
+    || tabGroups.find(block=>block.title!=='Program Options');
+  if(!primary){
+    const newGroup:AcademicBlock={kind:'tabs',title:'',sections:[]};
+    const ending=blocks.findIndex(block=>['placements','international','news','faculty','faqs'].includes(block.kind));
+    blocks.splice(ending<0?blocks.length:ending,0,newGroup);
+    newGroup.sections.push({
+      title:otherSections[0]?.title || 'Other Specializations',
+      html:otherSections.reduce((copy,section)=>mergeAcademicBody(copy,section.html),''),
+    });
+    return blocks.filter(block=>block.kind!=='other-programs'&&(!['tabs','accordion','section'].includes(block.kind)||block.sections.length>0));
+  }
+  primary.sections.push({
+    title:otherSections[0]?.title || 'Other Specializations',
+    html:otherSections.reduce((copy,section)=>mergeAcademicBody(copy,section.html),''),
+  });
   return blocks.filter(block=>block.kind!=='other-programs'&&(!['tabs','accordion','section'].includes(block.kind)||block.sections.length>0));
 }

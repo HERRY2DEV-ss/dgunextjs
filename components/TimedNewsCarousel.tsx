@@ -48,8 +48,6 @@ export default function TimedNewsCarousel({ items, tab, categoryLabel }: Props) 
       className="timed-news-carousel"
       aria-label={`${categoryLabel} stories`}
       aria-roledescription="carousel"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={event => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false);

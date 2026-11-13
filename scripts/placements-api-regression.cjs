@@ -69,7 +69,37 @@ const response = (value = payload, status = 200) => ({ ok: status < 400, status,
   await assert.rejects(retry.requestPlacements()); assert.equal((await retry.requestPlacements()).students.length, 43); assert.equal(tries, 2);
   const missingKey = client('production', async () => response(), { NEXT_PUBLIC_DGU_MENU_API_KEY: '' });
   await assert.rejects(missingKey.requestPlacements(), /key is not configured/); assert.equal(missingKey.calls.length, 0);
+  const schoolFallback = client('production', async (_url, options) => {
+    const body = JSON.parse(options.body);
+    return body.PROGRAM_URL
+      ? response({ error: '0', data: [{ heading: 'Programme placements', placements: [] }] })
+      : response({ error: '0', data: [{ heading: 'Related school placements', placements: [{ id: 8, name: 'School graduate' }] }] });
+  });
+  const related = await schoolFallback.requestPlacementsWithSchoolFallback('mba-human-resource', 'school-of-business');
+  assert.equal(related.students[0].name, 'School graduate', 'An empty programme feed uses the related school feed');
+  assert.deepEqual(schoolFallback.calls.map(call => JSON.parse(call.body)), [
+    { PROGRAM_URL: 'mba-human-resource' }, { SCHOOL_URL: 'school-of-business' },
+  ]);
+  const programWins = client('production', async (_url, options) => response({
+    error: '0',
+    data: [{ heading: JSON.parse(options.body).PROGRAM_URL ? 'Programme placements' : 'School placements', placements: [{ id: 9, name: 'Programme graduate' }] }],
+  }));
+  const ownProgram = await programWins.requestPlacementsWithSchoolFallback('mba-human-resource', 'school-of-business');
+  assert.equal(ownProgram.students[0].name, 'Programme graduate');
+  assert.equal(programWins.calls.length, 1, 'The school feed is not requested when programme placements exist');
+  const failedProgramFallback = client('production', async (_url, options) => {
+    const body = JSON.parse(options.body);
+    return body.PROGRAM_URL ? response({}, 500) : response({ error: '0', data: [{ placements: [{ id: 10, name: 'School graduate' }] }] });
+  });
+  assert.equal((await failedProgramFallback.requestPlacementsWithSchoolFallback('mba-human-resource', 'school-of-business')).students[0].name, 'School graduate',
+    'The related school feed is tried when the programme request fails');
+  const failedSchoolFallback = client('production', async (_url, options) => {
+    const body = JSON.parse(options.body);
+    return body.PROGRAM_URL ? response({ error: '0', data: [{ placements: [] }] }) : response({}, 500);
+  });
+  await assert.rejects(failedSchoolFallback.requestPlacementsWithSchoolFallback('mba-human-resource', 'school-of-business'), /related school placements could not be loaded/,
+    'A failed school fallback stays an explicit unavailable state');
   const override = client('production', async () => response(), { NEXT_PUBLIC_DGU_PLACEMENTS_API_URL: 'https://dgu.ac.in/api/get-placements.php', NEXT_PUBLIC_DGU_PLACEMENTS_API_KEY: 'placement-key', NEXT_PUBLIC_DGU_API_BASE_URL: 'http://localhost:8080/api' });
   await override.requestPlacements(); assert.equal(override.calls[0].url, 'http://localhost:8080/api/get-placements.php'); assert.equal(override.calls[0].headers.Apikey, 'placement-key');
-  console.log('PASS: placements POST/auth/dev-proxy contracts; both live response shapes; 43 complete/incomplete records in order; safe media; full HTML; empty/malformed/error/retry states; fresh fetching and in-flight deduplication; school-scope guard.');
+  console.log('PASS: placements POST/auth/dev-proxy contracts; related-school fallback; both live response shapes; 43 complete/incomplete records in order; safe media; full HTML; empty/malformed/error/retry states; fresh fetching and in-flight deduplication; school-scope guard.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

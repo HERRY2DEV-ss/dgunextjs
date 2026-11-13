@@ -25,7 +25,8 @@
 }
 
 .school-navigation .brand {
-  width: clamp(190px, 16vw, 285px);
+  width: min(439px, 35vw);
+  max-width: none;
 }
 
 .school-navigation .brand img {
@@ -428,6 +429,7 @@
 
   .school-navigation .brand {
     width: 145px;
+    max-width: none;
   }
 
   .school-opening {
