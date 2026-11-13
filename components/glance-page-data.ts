@@ -57,8 +57,8 @@ export function parseGlanceContent(payload: unknown): GlanceContent {
     mission: { title: plain(mission?.querySelector('h3')), items: Array.from(mission?.querySelectorAll('li') || []).map(item => item.innerHTML) },
     vision: { title: plain(vision?.querySelector('h3')), html: vision?.querySelector('p')?.outerHTML || '' },
     values: valueText.split('·').map(text => text.trim()).filter(Boolean),
-    approvals: { title: plain(approval?.querySelector('h2')), caption: plain(approval?.querySelector('.dgu-sec-label')), logos },
-    rankings: { title: plain(rankings?.querySelector('h2')), caption: plain(rankings?.querySelector('.dgu-sec-label')) },
+    approvals: { title: plain(approval?.querySelector('h2')), caption: '', logos },
+    rankings: { title: 'Achievements & Rankings', caption: plain(rankings?.querySelector('.dgu-sec-label')) },
     video: hostelVideo(typeof data?.videoUrl === 'string' ? data.videoUrl : '', 'DBS Global University'),
   };
 }
