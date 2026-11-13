@@ -220,7 +220,7 @@ body main .academic-interactive-features .difference-wave-point p { -webkit-line
 .academic-api-page .academic-feature-text-content .dgu-api-copy > :last-child { margin-bottom:0; }
 .academic-api-page[data-api-slug="general-nursing-and-midwifery"] .academic-feature-text-content > .dgu-api-copy {
   --gnm-card-k:min(1.45px,.1vw);
-  --gnm-card-width:calc(156 * var(--gnm-card-k));
+  --gnm-card-width:calc(119 * var(--gnm-card-k));
   --gnm-card-unit:calc(var(--gnm-card-width) / 114);
   display:grid;
   grid-template-columns:repeat(3,var(--gnm-card-width));
