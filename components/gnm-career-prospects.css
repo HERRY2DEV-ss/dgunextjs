@@ -71,7 +71,7 @@
 .gnm-career-role-icon {
   position: absolute;
   top: 50%;
-  height: 80%;
+  height: 74%;
   aspect-ratio: 1;
   transform: translateY(-50%);
   display: grid;
@@ -84,6 +84,7 @@
 .gnm-career-role-list--right .gnm-career-role-icon { right: 4%; }
 .gnm-career-role-icon img,
 .gnm-career-role-icon svg { width: 62%; height: 62%; object-fit: contain; }
+.gnm-career-role-icon img { filter: brightness(0) saturate(100%) invert(22%) sepia(64%) saturate(2200%) hue-rotate(273deg) brightness(88%); }
 .gnm-career-role-icon svg { stroke-width: 1.6; color: #a72ea8; }
 .gnm-career-role-copy {
   display: flex;
@@ -93,21 +94,21 @@
   padding: 0 14% 0 0;
   line-height: 1.12;
 }
-.gnm-career-role-list--left .gnm-career-role-copy { padding: 0 22% 0 0; align-items: flex-end; text-align: right; }
-.gnm-career-role-list--right .gnm-career-role-copy { padding: 0 0 0 30%; align-items: flex-start; text-align: left; }
+.gnm-career-role-list--left .gnm-career-role-copy { padding: 0 4% 0 34%; align-items: flex-end; text-align: right; }
+.gnm-career-role-list--right .gnm-career-role-copy { padding: 0 36% 0 6%; align-items: flex-start; text-align: left; }
 .gnm-career-role-copy strong {
-  font-size: 2.05cqw;
+  font-size: 1.45cqw;
   font-weight: 700;
   letter-spacing: 0;
 }
-.gnm-career-role-copy small { margin-top: 2px; font-size: 1.05cqw; font-weight: 500; line-height: 1.1; }
+.gnm-career-role-copy small { margin-top: 2px; font-size: .9cqw; font-weight: 500; line-height: 1.1; }
 .gnm-career-prospects-center {
   position: absolute;
   z-index: 3;
   top: 50%;
   left: 50%;
-  width: 22.4%;
-  aspect-ratio: 1;
+  width: 24cqw;
+  height: 24cqw;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
