@@ -20,7 +20,7 @@ import ProgramCard from './ProgramCard';
 import SchoolPlacementsSection from './SchoolPlacementsSection';
 import RecruitersSection from './RecruitersSection';
 import SchoolFaculty from './SchoolFaculty';
-import GlobalLearning from './GlobalLearning';
+import GlobalLearning, { defaultPhotos, defaultPartners } from './GlobalLearning';
 import NewsUpdatesSection from './NewsUpdatesSection';
 import FaqSection from './FaqSection';
 import AdmissionsVideo from './AdmissionsVideo';
@@ -713,7 +713,7 @@ function Block({block,info,paused,index,catalogue,other}:{block:AcademicBlock;in
   if(block.kind==='international'){
     if(!block.sections.length)return info.slug==='general-nursing-and-midwifery' ? <GlobalLearning paused={paused} /> : null;
     const gallery=academicGallery(block.sections.map(s=>s.html).join(''),true);
-    return <GlobalLearning heading={title} subtitle="" apiOnly contentHtml={gallery.html} photos={gallery.photos} partners={gallery.partners} paused={paused} />;
+    return <GlobalLearning heading={title} subtitle="" apiOnly contentHtml={gallery.html} photos={gallery.photos.length ? gallery.photos : defaultPhotos} partners={gallery.partners.length ? gallery.partners : defaultPartners} paused={paused} />;
   }
   if(block.kind==='placements')return <>
     <SchoolPlacementsSection apiSchoolUrl={info.kind==='school' ? (info.slug==='school-of-law' || info.slug==='school-of-liberal-studies' ? info.slug : info.students.length || info.placementScopeVerified ? undefined : info.schoolUrl || null) : undefined} apiProgramUrl={info.kind==='program' ? info.slug : undefined} apiFallbackSchoolUrl={placementSchoolUrl(info)} homepageCopy={info.kind!=='school' || info.slug==='school-of-law'} paused={paused} contentHtml={block.sections.map(s=>s.html).join('')} detailHref={info.placementHref}

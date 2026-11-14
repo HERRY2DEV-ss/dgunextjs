@@ -43,12 +43,12 @@ export type GlobalLearningProps = {
 // The image folder is at the domain root, outside /.
 const INTERNATIONAL_IMAGE_FOLDER = 'https://dgu.ac.in/images/university-logo/';
 
-const defaultPhotos: GlobalLearningPhoto[] = Array.from({ length: 14 }, (_, index) => ({
+export const defaultPhotos: GlobalLearningPhoto[] = Array.from({ length: 14 }, (_, index) => ({
   src: `${INTERNATIONAL_IMAGE_FOLDER}abroad-pathways${index + 1}.webp`,
   alt: `International learning experience ${index + 1}`,
 }));
 
-const defaultPartners: GlobalLearningPartner[] = Array.from({ length: 40 }, (_, index) => ({
+export const defaultPartners: GlobalLearningPartner[] = Array.from({ length: 40 }, (_, index) => ({
   name: `International partner ${index + 1}`,
   logo: `${INTERNATIONAL_IMAGE_FOLDER}logo${index + 1}.${index === 39 ? 'jpg' : 'webp'}`,
 }));
