@@ -257,3 +257,6 @@ body main .placement-student-slider .batch-page, body main .placement-team-slide
 body main .homepage-placement-copy h2 { font-weight: 700 !important; }
 body main .homepage-placement-copy .placement-tagline { font-weight: 300; }
 body main .homepage-placement-copy .placement-description { font-weight: 400; }
+@media (min-width: 701px) {
+  body main .homepage-placement-copy .placement-tagline { font-size: clamp(24px, 1.98vw, 36px) !important; }
+}
