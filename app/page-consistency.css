@@ -252,3 +252,8 @@ body main .placement-student-slider .batch-page, body main .placement-team-slide
  .dgu-program-facts{gap:14px}
  .dgu-api-copy th,.dgu-api-copy td{padding:10px 12px}
 }
+
+/* Homepage placement block: weights per reference screenshot (colours unchanged). */
+body main .homepage-placement-copy h2 { font-weight: 800 !important; }
+body main .homepage-placement-copy .placement-tagline { font-weight: 300; }
+body main .homepage-placement-copy .placement-description { font-weight: 400; }
