@@ -260,3 +260,6 @@ body main .placement-copy .placement-description { font-weight: 400; }
 @media (min-width: 701px) {
   body main .placement-copy .placement-tagline.placement-tagline { font-size: clamp(24px, 1.98vw, 36px) !important; line-height: 1.08 !important; margin-top: -4px !important; }
 }
+
+/* Placement description on every page: API-driven HTML uses the same body size and weight as the homepage paragraph. */
+body main .placement-copy .placement-description :is(p, li, span) { font-size: var(--dgu-body-size) !important; font-weight: 400 !important; }
