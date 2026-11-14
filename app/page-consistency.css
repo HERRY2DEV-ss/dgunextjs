@@ -168,8 +168,9 @@ body main :is(.program-name small,.text-link,.expandable-toggle,.program-read-mo
 body main :is(.local-article,.news-article-body,.program-pathway-table,.program-fees-table,.admissions-fee-table,.placement-directory-table) :is(th,td) { font-size: var(--dgu-label-size); line-height: 1.5; overflow-wrap: break-word; }
 body main :is(th,td) p { font-size: inherit !important; line-height: inherit !important; }
 body main .placement-directory-panel > h3, body main .placement-chart-heading > h3 { font-size: var(--dgu-page-title-size) !important; }
-body main :is(.placement-metrics strong,.placement-stats .stat strong) { font-size: var(--dgu-stat-size); font-weight: 500; line-height: 1.15; white-space:normal; overflow-wrap:break-word; }
-body main :is(.placement-metrics > div > span,.placement-stats .stat span) { font-size: var(--dgu-label-size); line-height: 1.4; }
+body main :is(.placement-metrics strong,.placement-stats .stat strong) { font-size: var(--dgu-stat-size); font-weight: 700; line-height: 1.15; white-space:normal; overflow-wrap:break-word; }
+body main :is(.placement-metrics > div > span,.placement-stats .stat span) { font-size: var(--dgu-label-size); font-weight: 400; line-height: 1.4; }
+body main .placement-stats .stat span { letter-spacing: normal !important; }
 body main .placement-metrics strong > span { font-size:inherit; line-height:inherit; font-weight:inherit; }
 body main .placement-sector-row { font-family: var(--dgu-font-family); font-size: var(--dgu-label-size); line-height: 1.5; }
 body main .placement-sector-row strong { font-weight: 500; }
